@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>ManipulateDates · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="ManipulateDates · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">ManipulateDates</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="manipulate-dates"></a><a href="#manipulate-dates" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Manipulate Dates</h1>
+<h2><a class="anchor" aria-hidden="true" id="managing-time-in-models"></a><a href="#managing-time-in-models" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Managing Time in Models</h2>
+<p>If some models are based on a abstract time - only the number of cycles is important - others are based on a real time. In order to manage the time, GAMA provides some tools to manage time.</p>
+<p>First, GAMA allows to define the duration of a simulation step. It provides access to different time variables. At last, since GAMA 1.7, it provides a date variable type and some global variables allowing to use a real calendar to manage time.</p>
+<h2><a class="anchor" aria-hidden="true" id="definition-of-the-step-and-use-of-temporal-unity-values"></a><a href="#definition-of-the-step-and-use-of-temporal-unity-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Definition of the step and use of temporal unity values</h2>
+<p>GAMA provides three important <a href="GlobalSpecies#cycle">global variables to manage time</a>:</p>
+<ul>
+<li><code>cycle</code> (int - not modifiable): the current simulation step - this variable is incremented by 1 at each simulation step</li>
+<li><code>step</code> (float - can be modified): the duration of a simulation step (in seconds). By default the duration is one second.</li>
+<li><code>time</code> (float - not modifiable): the current time spent since the beginning of the simulation - this variable is computed at each simulation step by: time = cycle * step.</li>
+</ul>
+<p>The value of the cycle and time variables are shown in the top left (green rectangle) of the simulation interface. Clicking on the green rectangle allows to display either the number cycles or the time variable. Concerning this variable, it is presented following a years - month - days - hours - minutes - seconds format. In this presentation, every months are considered as being composed of 30 days (the different number of days of months are not taken into account).</p>
+<p>Concerning the step facet, the variable can be modified by the modeler. A classic way of doing it consists in reediting the variable in the global section:</p>
+<pre><code class="hljs">global {
+       float step &lt;- 1 #hour;
+}
+</code></pre>
+<p>In this example, each simulation step will represent 1 hour. This time will be taken into account for all actions based on time (e.g. moving actions).</p>
+<p>Note that the value of the step variable should be given in seconds. To facilitate the definition of the step value and of all expressions based on time, GAMA provides <a href="UnitsAndConstants#time-units">different built-in constant variables accessible with the &quot;<code>#</code>&quot; symbol</a>:</p>
+<ul>
+<li><code>#s</code> : second - 1 second</li>
+<li><code>#mn</code> : minute - 60 seconds</li>
+<li><code>#hour</code> : hour - 60 minutes - 3600 seconds</li>
+<li><code>#day</code> : day - 24 hours - 86400 seconds</li>
+<li><code>#month</code> : month - 30 days - 2592000 seconds</li>
+<li><code>#year</code> : year - 12 month - 3.1104E7</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="the-date-variable-type-and-the-use-of-a-real-calendar"></a><a href="#the-date-variable-type-and-the-use-of-a-real-calendar" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The date variable type and the use of a real calendar</h2>
+<p>Since GAMA 1.7, it is possible to use a real calendar to manage the time. For that, the modeler have just to define the starting date of the simulation. This variable is of type date which allow to represent a date and time.
+A date variable has several attributes:</p>
+<ul>
+<li><code>year</code> (int): the year component of the date</li>
+<li><code>month</code> (int): the month component of the date</li>
+<li><code>day</code> (int): the day component of the date</li>
+<li><code>hour</code> (int): the hour component of the date</li>
+<li><code>minute</code> (int): the minute component of the date</li>
+<li><code>second</code> (int): the second component of the date</li>
+<li><code>day_of_week</code> (int): the day of the week</li>
+<li><code>week_of_year</code> (int): the week of the year</li>
+</ul>
+<p>Several ways can be used to define a date. The simplest consists in using a list of int values: [year,month of the year,day of the month, hour of the day, minute of the hour, second of the minute]</p>
+<pre><code class="hljs">date my_date &lt;- date([<span class="hljs-number">2010</span>,<span class="hljs-number">3</span>,<span class="hljs-number">23</span>,<span class="hljs-number">17</span>,<span class="hljs-number">30</span>,<span class="hljs-number">10</span>]); <span class="hljs-comment">// the 23th of March 2010, at 17:30:10</span>
+</code></pre>
+<p>Another way consists in using a string with the good format:</p>
+<pre><code class="hljs">date my_date &lt;- date(<span class="hljs-string">"2010-3-23T17:30:10+07:00"</span>); 
+</code></pre>
+<p>Note that the current date can be access through the #now built-in variable (variable of type date).</p>
+<p>In addition, GAMA provides different useful operators working on dates. For instance, it is possible to compute the duration in seconds between 2 dates using the &quot;<code>-</code>&quot; operator. The result is given in seconds:</p>
+<pre><code class="hljs">float d &lt;- starting_date - my_date;
+</code></pre>
+<p>It is also possible to add or subtract a duration (in seconds) to a date:</p>
+<pre><code class="hljs">write <span class="hljs-string">"my_date + 10: "</span> + (my_date + <span class="hljs-number">10</span>);
+write <span class="hljs-string">"my_date - 10: "</span> + (my_date - <span class="hljs-number">10</span>);
+</code></pre>
+<p>At last, it is possible to add or subtract a duration (in years, months, weeks, days, hours, minutes,  seconds) to a date:</p>
+<pre><code class="hljs">write <span class="hljs-string">"my_date add_years 1: "</span> + (my_date add_years <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date add_months 1: "</span> + (my_date add_months <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date add_weeks 1: "</span> + (my_date add_weeks <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date add_days 1: "</span> + (my_date add_days <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date add_hours 1: "</span> + (my_date add_hours <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date add_minutes 1: "</span> + (my_date add_minutes <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date add_seconds 1: "</span> + (my_date add_seconds <span class="hljs-number">1</span>);
+          
+write <span class="hljs-string">"my_date subtract_years 1: "</span> + (my_date subtract_years <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date subtract_months 1: "</span> + (my_date subtract_months <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date subtract_weeks 1: "</span> + (my_date subtract_weeks <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date subtract_days 1: "</span> + (my_date subtract_days <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date subtract_hours 1: "</span> + (my_date subtract_hours <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date subtract_minutes 1: "</span> + (my_date subtract_minutes <span class="hljs-number">1</span>);
+write <span class="hljs-string">"my_date subtract_seconds 1: "</span> + (my_date subtract_seconds <span class="hljs-number">1</span>);
+</code></pre>
+<p>For the modelers, two global date variable are available:</p>
+<ul>
+<li><code>starting_date</code>: date considered as the beginning of the simulation</li>
+<li><code>current_date</code>: current date of the simulation</li>
+</ul>
+<p>By default, these variables are nil. Defining a value of the starting_date allows to change the normal time management of the simulation by a more realistic one (using calendar):</p>
+<pre><code class="hljs">global {
+     date starting_date &lt;- date([<span class="hljs-number">1979</span>,<span class="hljs-number">12</span>,<span class="hljs-number">17</span>,<span class="hljs-number">19</span>,<span class="hljs-number">45</span>,<span class="hljs-number">10</span>]);
+}
+</code></pre>
+<p>When a variable is set to this variable, the current_date variable is automatically initialized with the same value. However, at each simulation step, the current_date variable is incremented by the step variable. The value of the current_date will replace the value of the time variable in the top left green panel.</p>
+<p>Note that you have to be careful, when a real calendar is used, the built-in constants <code>#month</code> and <code>#year</code> should not be used as there are not consistent with the calendar (where month can be composed of 28, 29, 30 or 31 days).</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Physics Engine Pool · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Physics Engine Pool · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Physics Engine Pool</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="pool-using-physic-engine"></a><a href="#pool-using-physic-engine" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pool using Physic Engine</h1>
+<p><em>Author : Arnaud Grignard</em></p>
+<p>This is a model that shows how the physics engine works using a pool with balls, collided by a white ball. The balls use the skill Physical3D.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model pool3D
+
+global {
+    //Parameters for the environment
+    int width_of_environment &lt;- 200;
+    int height_of_environment &lt;- 300;
+    
+    //Parameters for the balls
+    float speed_of_agents &lt;- 2.0;
+    int size_of_agents &lt;- 10;
+    
+    rgb colorwood &lt;- rgb([178, 112, 62]);
+    
+    //Physical Engine
+    physic_world world2;
+    geometry shape &lt;- rectangle(width_of_environment, height_of_environment);
+    init {
+        
+        //Creation of the white ball
+        create ball {
+            location &lt;- { width_of_environment / 2, 4 * height_of_environment / 5, 5.0 };
+            mass &lt;- 3.0;
+            //a random velocity between 500 and 1000
+            velocity &lt;- [0.0, -float(500 + rnd(500)), 0.0];
+            collisionBound &lt;- ["shape"::"sphere", "radius"::5];
+        }
+
+        int i &lt;- 0;
+        int deltaI &lt;- 0;
+        int initX &lt;- 75;
+        int initY &lt;- int(height_of_environment / 8);
+        
+        //Create the other balls for the pool
+        create ball number: 15 {
+            location &lt;- { initX + (i - deltaI) * 10, initY, 5.0 };
+            heading &lt;- 90;
+            speed &lt;- 0.0;
+            mass &lt;- 3.0;
+            collisionBound &lt;- ["shape"::"sphere", "radius"::5];
+            i &lt;- i + 1;
+            
+            if ((i mod 2) = 0) {
+    
+                color &lt;- #red;
+            } else {
+                color &lt;- #yellow;
+            }
+
+            if (i = 5) {
+                initX &lt;- initX + 5;
+                initY &lt;- initY + 9;
+                deltaI &lt;- 5;
+            }
+
+            if (i = 9) {
+                initX &lt;- initX + 5;
+                initY &lt;- initY + 9;
+                deltaI &lt;- 9;
+            }
+
+            if (i = 12) {
+                initX &lt;- initX + 5;
+                initY &lt;- initY + 9;
+                deltaI &lt;- 12;
+            }
+
+            if (i = 14) {
+                initX &lt;- initX + 5;
+                initY &lt;- initY + 9;
+                deltaI &lt;- 14;
+            }
+
+        }
+
+        create ground {
+            location &lt;- { width_of_environment / 2, height_of_environment / 2, 0 };
+            shape &lt;- rectangle({ width_of_environment - 24, height_of_environment - 24 });
+            collisionBound &lt;- ["shape"::"floor", "x"::width_of_environment / 2 - 12, "y"::height_of_environment / 2 - 12, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        create ground {
+            location &lt;- { width_of_environment / 2, 6, 0 };
+            shape &lt;- rectangle({ width_of_environment - 24, 12 });
+            collisionBound &lt;- ["shape"::"floor", "x"::width_of_environment / 2 - 12, "y"::6, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        create ground {
+            location &lt;- { width_of_environment / 2, height_of_environment - 6, 0 };
+            shape &lt;- rectangle({ width_of_environment - 24, 12 });
+            collisionBound &lt;- ["shape"::"floor", "x"::width_of_environment / 2 - 12, "y"::6, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        create ground {
+            location &lt;- { 6, height_of_environment / 4 + 3, 0 };
+            shape &lt;- rectangle({ 12, height_of_environment / 2 - 18 });
+            collisionBound &lt;- ["shape"::"floor", "x"::6, "y"::height_of_environment / 4 - 9, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        create ground {
+            location &lt;- { 6, 3 * height_of_environment / 4 - 3, 0 };
+            shape &lt;- rectangle({ 12, height_of_environment / 2 - 18 });
+            collisionBound &lt;- ["shape"::"floor", "x"::6, "y"::height_of_environment / 4 - 9, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        create ground {
+            location &lt;- { width_of_environment - 6, height_of_environment / 4 + 3, 0 };
+            shape &lt;- rectangle({ 12, height_of_environment / 2 - 18 });
+            collisionBound &lt;- ["shape"::"floor", "x"::6, "y"::height_of_environment / 4 - 9, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        create ground {
+            location &lt;- { width_of_environment - 6, 3 * height_of_environment / 4 - 3, 0 };
+            shape &lt;- rectangle({ 12, height_of_environment / 2 - 18 });
+            collisionBound &lt;- ["shape"::"floor", "x"::6, "y"::height_of_environment / 4 - 9, "z"::0];
+            mass &lt;- 0.0;
+        }
+
+        //down wall
+        create wall {
+            location &lt;- { width_of_environment / 2, height_of_environment, 0 };
+            shape &lt;- rectangle({ width_of_environment, 2 });
+            collisionBound &lt;- ["shape"::"floor", "x"::width_of_environment / 2, "y"::1, "z"::10];
+            mass &lt;- 0.0;
+            color &lt;- colorwood;
+        }
+        //upper wall
+        create wall {
+            location &lt;- { width_of_environment / 2, 0, 0 };
+            shape &lt;- rectangle({ width_of_environment, 2 });
+            collisionBound &lt;- ["shape"::"floor", "x"::width_of_environment / 2, "y"::1, "z"::10];
+            mass &lt;- 0.0;
+            color &lt;- colorwood;
+        }
+        //left wall
+        create wall {
+            location &lt;- { 0, height_of_environment / 2, 0 };
+            shape &lt;- rectangle({ 2, height_of_environment });
+            collisionBound &lt;- ["shape"::"floor", "x"::1, "y"::height_of_environment / 2, "z"::10];
+            mass &lt;- 0.0;
+            color &lt;- colorwood;
+        }
+        //right wall
+        create wall {
+            location &lt;- { width_of_environment, height_of_environment / 2, 0 };
+            shape &lt;- rectangle({ 2, height_of_environment });
+            collisionBound &lt;- ["shape"::"floor", "x"::1, "y"::height_of_environment / 2, "z"::10];
+            mass &lt;- 0.0;
+            color &lt;- colorwood;
+        }
+        
+        //Create the physic engine with gravity
+        create physic_world {
+            gravity &lt;- true;
+            world2 &lt;- self;
+        }
+
+        //Add the agents inside the registered agents in the physic engine
+        ask world2 {
+            agents &lt;- (ball as list) + (ground as list) + (wall as list);
+        }
+
+    }
+
+    //Reflex to compute the forces at each step
+    reflex computeForces {
+        ask world2 {
+            do compute_forces step: 1;
+        }
+
+    }
+
+}
+
+//Species corresponding to the physics engine, derivated from the built-in species Physical3DWorld
+species physic_world parent: physical_world ;
+
+//Species representing the ground agents used for the computation of the forces, using the skill physical3D
+species ground skills: [physics] {
+    aspect default {
+        draw shape color: rgb([10, 114, 63]) border: rgb([10, 114, 63]);
+    }
+
+}
+
+//Species representing the wall agents of the pool using the skill physical3D
+species wall skills: [physics] {
+    rgb color;
+    aspect default {
+        draw shape color: color depth: 10;
+    }
+
+}
+
+//Species representing the ball agents of the pool using the skill physical3D
+species ball skills: [physics] {
+    rgb color&lt;-#white;
+    int size &lt;- size_of_agents;
+    float speed &lt;- speed_of_agents;
+    int heading &lt;- rnd(359);
+
+    aspect sphere {
+        draw sphere(5) color:color;
+    }
+
+}
+
+experiment pool type: gui {
+    output {
+        display Circle type: opengl tesselation: true background: #white draw_env: false { species ground aspect: default;
+        species wall aspect: default;
+        species ball aspect: sphere;
+        }
+    }
+
+}
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

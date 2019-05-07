@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Urban Growth raster model · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Urban Growth raster model · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Urban Growth raster model</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="cellular-automaton-based-urban-growth"></a><a href="#cellular-automaton-based-urban-growth" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cellular Automaton Based Urban Growth</h1>
+<p><em>Author : Truong Chi Quang, Patrick Taillandier, Benoit Gaudou &amp; Alexis Drogoul</em></p>
+<p>model based on the one proposed by (Raimbault et al., 2014): At each simulation step the nb_plots_to_build empty plots with the highest constructability are built The constructability is computed from 3 criteria: the density of construction in the neighborhood, the distance to a road, the distance to the city center (using the road network).</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model raster3
+
+
+global
+{ 
+    //File for the ascii grid
+    file asc_grid &lt;- grid_file("../includes/cantho_1999_v6.asc");
+    //Shapefile for the road
+    file road_shapefile &lt;- shape_file("../includes/roads15_3.shp");
+    //Shapefile for the city
+    file city_center_shapefile &lt;- shape_file("../includes/city center.shp");
+    //Shape of the environment
+    geometry shape &lt;- envelope(asc_grid);
+    //Graph of the roads
+    graph roads_network;
+    
+    // Dynamic list of the cells to consider at each cycle
+    list&lt;plot&gt; empty_plots &lt;- plot where (each.grid_value = 0.0) update: shuffle(plot where (each.grid_value = 0.0));
+    
+    list&lt;rgb&gt; plot_colors &lt;- [ 
+        #lightgray, //empty
+        #orange, // 1 built
+        #blue // 2 River-lake
+    ];
+    //Radius of density
+    int density_radius &lt;- 4;
+    //Weight of density
+    float weight_density &lt;- 0.05;
+    //Weight of the road distance
+    float weight_road_dist &lt;- 0.5;
+    //Weight of the city center distance
+    float weight_cc_dist &lt;- 0.3;
+    //Number of plot allowing to build a building
+    int nb_plots_to_build &lt;- 195;
+
+    init
+    {
+        //Creation of the roads using the shapefile of the road
+        create roads from: road_shapefile;
+        //Creation of the city center using the city center shapefile
+        create city_center from: city_center_shapefile;
+        //Creation of the graph of the road network
+        roads_network &lt;- as_edge_graph(roads);
+        
+        //Each road has to compute its distance from the city center
+        ask roads {
+            do compute_cc_dist;
+        }
+        //Compute the city distance for each plot
+        ask empty_plots {
+            do compute_distances;
+        }
+        //Normalization of the distance
+        do normalize_distances;
+    }
+    //Action to normalize the distance
+    action normalize_distances {
+        //Maximum distance from the road of all the plots
+        float max_road_dist &lt;- empty_plots max_of each.dist_route;
+        //Maximum distance from the city center for all the plots
+        float max_cc_dist &lt;- empty_plots max_of each.dist_cv;
+        //Normalization of  each empty plot according to the maximal value of each attribute
+        ask empty_plots {
+            dist_cv &lt;- 1 - dist_cv / max_cc_dist;
+            dist_route &lt;- 1 - dist_route / max_road_dist;
+        }
+    }
+    
+    
+    //Reflex representing the global dynamic of the model
+    reflex dynamique_globale when: weight_density != 0 or weight_road_dist != 0 or weight_cc_dist != 0 {
+        //Ask to each empty plot to compute its constructability
+        ask empty_plots {
+            constructability &lt;- compute_constructability();
+        }
+        list&lt;plot&gt; ordered_plots &lt;- empty_plots sort_by (each.constructability);
+        ordered_plots &lt;- nb_plots_to_build last ordered_plots;
+        //Build on each empty plot having the highest constructability
+        ask ordered_plots
+        {
+            do build;
+        }
+    }   
+}
+//Species representing the city center
+species city_center {
+    aspect default {
+        draw circle(300) color: #cyan;
+    }   
+}
+//Species representing the roads
+species roads
+{
+    float dist_cv;
+    //Action to compute the city center distance for the road
+    action compute_cc_dist {
+        using topology(roads_network)
+        {
+            dist_cv &lt;- self distance_to first(city_center);
+        }
+    }
+    aspect default {
+        draw shape color: #black;   
+    }
+}
+//Grid species to represent the different building plots
+grid plot file: asc_grid use_individual_shapes: false use_regular_agents: false neighbors: 4
+{
+    rgb color &lt;- grid_value = -1 ? #white : plot_colors[int(grid_value)];
+    //Distance from the road
+    float dist_route &lt;- 0.0;
+    //Distance from the city center
+    float dist_cv &lt;- 0.0;
+    //Constructability of the plot
+    float constructability;
+    
+    //Action to compute all the distances for the cell
+    action compute_distances
+    {
+        roads route_pp &lt;- roads closest_to self;
+        dist_route &lt;- (self distance_to route_pp) using topology(world);
+        dist_cv &lt;- dist_route + route_pp.dist_cv;
+    }
+    //Action to build on the cell
+    action build
+    {
+        grid_value &lt;- 1.0;
+        color &lt;- plot_colors[1];
+    }
+    //Action to compute the constructability of the plot cell
+    float compute_constructability
+    {
+        //Get all the neighbors plots
+        list&lt;plot&gt; voisins &lt;- (self neighbors_at density_radius);
+        //Compute the density of all the neighbors plots
+        float densite &lt;- (voisins count (each.grid_value = 1.0)) / length(voisins);
+        return (densite * weight_density + dist_route * weight_road_dist + dist_cv * weight_cc_dist) / (weight_density + weight_road_dist + weight_cc_dist);
+    }           
+}
+
+experiment raster type: gui {
+    parameter "Weight of the density criteria" var: weight_density;
+    parameter "Weight of the distance to roads criteria" var: weight_road_dist;
+    parameter "Weight of the distance to city center criteria" var: weight_cc_dist;
+    output {
+        display map type: opengl {
+            grid plot;
+            species roads;
+            species city_center;
+        }
+    }
+}
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

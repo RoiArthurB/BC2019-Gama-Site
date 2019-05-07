@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Flood Simulation Hydrological Model · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Flood Simulation Hydrological Model · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Flood Simulation Hydrological Model</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="hydrological-model"></a><a href="#hydrological-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Hydrological Model</h1>
+<p><em>Author : Patrick Taillandier</em></p>
+<p>A model showing how to represent a flooding system with dykes and buildings. It uses a grid to discretize space, and has a 3D display. The water can flow from one cell to another considering the height of the cells, and the water pressure. It is also possible to delete dyke by clicking on one of them in the display.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model hydro
+
+global {
+   //Shapefile for the river
+   file river_shapefile &lt;- file("../includes/RedRiver.shp");
+   //Shapefile for the dykes
+   file dykes_shapefile &lt;- file("../includes/Dykes.shp");
+   //Shapefile for the buildings
+   file buildings_shapefile &lt;- file("../includes/Building.shp");
+   
+   //Data elevation file
+   file dem_file &lt;- file("../includes/mnt50.asc");  
+   //Diffusion rate
+   float diffusion_rate &lt;- 0.6;
+   //Height of the dykes
+   float dyke_height &lt;- 15.0;
+   //Width of the dyke
+   float dyke_width &lt;- 15.0;
+    
+   //Shape of the environment using the dem file
+   geometry shape &lt;- envelope(dem_file);
+   
+   //List of the drain and river cells
+   list&lt;cell&gt; drain_cells;
+   list&lt;cell&gt; river_cells;
+   
+   
+  
+   float step &lt;- 1°h;
+   
+   init {
+     //Initialization of the cells
+      do init_cells;
+     //Initialization of the water cells
+      do init_water;
+     //Initialization of the river cells
+     river_cells &lt;- cell where (each.is_river);
+     //Initialization of the drain cells
+      drain_cells &lt;- cell where (each.is_drain);
+     //Initialization of the obstacles (buildings and dykes)
+      do init_obstacles;
+      //Set the height of each cell
+      ask cell {
+         obstacle_height &lt;- compute_highest_obstacle();
+         do update_color;
+      }
+   }
+   //Action to initialize the altitude value of the cell according to the dem file
+   action init_cells {
+      ask cell {
+         altitude &lt;- grid_value;
+         neighbor_cells &lt;- (self neighbors_at 1) ;
+      }
+   }
+   //action to initialize the water cells according to the river shape file and the drain
+   action init_water {
+      geometry river &lt;- geometry(river_shapefile);
+      ask cell overlapping river {
+         water_height &lt;- 10.0;
+         is_river &lt;- true;
+         is_drain &lt;- grid_y = matrix(cell).rows - 1;
+      }
+   }
+   //initialization of the obstacles (the buildings and the dykes)
+   action init_obstacles{
+      create buildings from: buildings_shapefile  {
+         do update_cells;
+      }
+      create dyke from: dykes_shapefile;
+      ask dyke {
+          shape &lt;-  shape + dyke_width;
+            do update_cells;
+      }
+   }
+   //Reflex to add water among the water cells
+   reflex adding_input_water {
+      float water_input &lt;- rnd(100)/100;
+      ask river_cells {
+         water_height &lt;- water_height + water_input;
+      }
+   }
+   //Reflex to flow the water according to the altitute and the obstacle
+   reflex flowing {
+      ask cell {already &lt;- false;}
+      ask (cell sort_by ((each.altitude + each.water_height + each.obstacle_height))) {
+         do flow;
+      }
+   }
+   //Reflex to update the color of the cell
+   reflex update_cell_color {
+      ask cell {
+         do update_color;
+      }
+   }
+   //Reflex for the drain cells to drain water
+   reflex draining {
+      ask drain_cells {
+         water_height &lt;- 0.0;
+      }
+   }
+   
+}
+//Species which represent the obstacle
+   species obstacle {
+      //height of the obstacle
+      float height min: 0.0;
+      //Color of the obstacle
+      rgb color;
+      //Pressure of the water
+      float water_pressure update: compute_water_pressure();
+      
+      //List of cells concerned
+      list&lt;cell&gt; cells_concerned ;
+      //List of cells in the neighborhood 
+      list&lt;cell&gt; cells_neighbors;
+      
+      //Action to compute the water pressure
+      float compute_water_pressure {
+        //If the obstacle doesn't have height, then there will be no pressure
+         if (height = 0.0) {
+            return 0.0;
+         } else {
+            //The leve of the water is equals to the maximul level of water in the neighbors cells
+            float water_level &lt;- cells_neighbors max_of (each.water_height);
+            //Return the water pressure as the minimal value between 1 and the water level divided by the height
+            return min([1.0,water_level / height]);
+         } 
+      }
+      
+      //Action to update the cells
+      action update_cells {
+        //All the cells concerned by the obstacle are the ones overlapping the obstacle
+         cells_concerned &lt;- (cell overlapping self);
+            ask cells_concerned {
+            //Add the obstacles to the obstacles of the cell
+            add myself to: obstacles;
+            water_height &lt;- 0.0;
+         }
+         //Cells neighbors are all the neighbors cells of the cells concerned
+         cells_neighbors &lt;- cells_concerned + cells_concerned accumulate (each.neighbor_cells);
+         //The height is now computed
+         do compute_height();
+         if (height &gt; 0.0) {   
+            //We compute the water pressure again
+            water_pressure &lt;- compute_water_pressure();
+         } else {water_pressure &lt;- 0.0;}
+      }
+      action compute_height;
+      aspect geometry {
+         int val &lt;- int( 255 * water_pressure);
+         color &lt;- rgb(val,255-val,0);
+         draw shape color: color depth: height*5 border: color;
+      }
+   }
+   //Species buildings which is derivated from obstacle
+   species buildings parent: obstacle {
+     //The building has a height randomly chosed between 2 and 10
+      float height &lt;- 2.0 + rnd(8);
+   }
+   //Species dyke which is derivated from obstacle
+   species dyke parent: obstacle{
+    
+       int counter_wp &lt;- 0;
+       int breaking_threshold &lt;- 24;
+      
+      //Action to represent the break of the dyke
+       action break{
+         ask cells_concerned {
+            do update_after_destruction(myself);
+         }
+         do die;
+      }
+      //Action to compute the height of the dyke as the dyke_height without the mean height of the cells it overlaps
+      action compute_height
+       {
+           height &lt;- dyke_height - mean(cells_concerned collect (each.altitude));
+      
+      }
+      
+      //Reflex to break the dynamic of the water
+      reflex breaking_dynamic {
+        if (water_pressure = 1.0) {
+            counter_wp &lt;- counter_wp + 1;
+            if (counter_wp &gt; breaking_threshold) {
+                do break;
+            }
+        } else {
+            counter_wp &lt;- 0;
+        }
+      }
+      //user command which allows the possibility to destroy the dyke for the user
+      user_command "Destroy dyke" action: break; 
+   }
+   //Grid cell to discretize space, initialized using the dem file
+   grid cell file: dem_file neighbors: 8 frequency: 0  use_regular_agents: false use_individual_shapes: false use_neighbors_cache: false {
+      //Altitude of the cell
+      float altitude;
+      //Height of the water in the cell
+      float water_height &lt;- 0.0 min: 0.0;
+      //Height of the cell
+      float height;
+      //List of the neighbor cells
+      list&lt;cell&gt; neighbor_cells ;
+      //Boolean to know if it is a drain cell
+      bool is_drain &lt;- false;
+      //Boolean to know if it is a river cell
+      bool is_river &lt;- false;
+      //List of all the obstacles overlapping the cell
+      list&lt;obstacle&gt; obstacles;
+      //Height of the obstacles
+      float obstacle_height &lt;- 0.0;
+      bool already &lt;- false;
+      
+      //Action to compute the highest obstacle among the obstacles
+      float compute_highest_obstacle {
+         if (empty(obstacles))
+         {
+            return 0.0; 
+         } else {
+            return obstacles max_of(each.height);
+         }
+      }
+      //Action to flow the water 
+      action flow {
+        //if the height of the water is higher than 0 then, it can flow among the neighbor cells
+         if (water_height &gt; 0) {
+            //We get all the cells already done
+            list&lt;cell&gt; neighbor_cells_al &lt;- neighbor_cells where (each.already);
+            //If there are cells already done then we continue
+            if (!empty(neighbor_cells_al)) {
+               //We compute the height of the neighbors cells according to their altitude, water_height and obstacle_height
+               ask neighbor_cells_al {height &lt;- altitude + water_height + obstacle_height;}
+               //The height of the cell is equals to its altitude and water height
+               height &lt;-  altitude +  water_height;
+               //The water of the cells will flow to the neighbor cells which have a height less than the height of the actual cell
+               list&lt;cell&gt; flow_cells &lt;- (neighbor_cells_al where (height &gt; each.height)) ;
+               //If there are cells, we compute the water flowing
+               if (!empty(flow_cells)) {
+                  loop flow_cell over: shuffle(flow_cells) sort_by (each.height){
+                     float water_flowing &lt;- max([0.0, min([(height - flow_cell.height), water_height * diffusion_rate])]); 
+                     water_height &lt;- water_height - water_flowing;
+                     flow_cell.water_height &lt;-flow_cell.water_height +  water_flowing;
+                     height &lt;- altitude + water_height;
+                  }   
+               }
+            }
+         }
+         already &lt;- true;
+      }  
+      //Update the color of the cell
+      action update_color { 
+         int val_water &lt;- 0;
+         val_water &lt;- max([0, min([255, int(255 * (1 - (water_height / 12.0)))])]) ;  
+         color &lt;- rgb([val_water, val_water, 255]);
+         grid_value &lt;- water_height + altitude;
+      }
+      //action to compute the destruction of the obstacle
+      action update_after_destruction(obstacle the_obstacle){
+         remove the_obstacle from: obstacles;
+         obstacle_height &lt;- compute_highest_obstacle();
+      }
+       
+   }
+
+
+experiment main_gui type: gui {
+   parameter "Shapefile for the river" var:river_shapefile category:"Water data";
+   parameter "Shapefile for the dykes" var:dykes_shapefile category:"Obstacles";
+   parameter "Shapefile for the buildings" var:buildings_shapefile category:"Obstacles";
+   parameter "Height of the dykes" var:dyke_height category:"Obstacles";
+   parameter "Diffusion rate" var:diffusion_rate category:"Water dynamic";
+   output { 
+      display map type: opengl {
+         grid cell triangulation: true;
+         species buildings aspect: geometry;
+         species dyke aspect: geometry ;
+      }
+      display chart_display refresh: every(24) { 
+         chart "Pressure on Dykes" type: series {
+            data "Mean pressure on dykes " value: mean(dyke collect (each.water_pressure)) style: line color: #magenta ;
+            data "Rate of dykes with max pressure" value: (dyke count (each.water_pressure = 1.0))/ length(dyke) style: line color: #red ;
+            data "Rate of dykes with high pressure" value: (dyke count (each.water_pressure &gt; 0.5))/ length(dyke) style: line color: #orange ;
+            data "Rate of dykes with low pressure" value: (dyke count (each.water_pressure &lt; 0.25))/ length(dyke) style: line color: #green ;
+         }
+      }
+   }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

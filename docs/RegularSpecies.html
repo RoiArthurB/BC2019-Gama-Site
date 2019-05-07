@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>RegularSpecies · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="RegularSpecies · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">RegularSpecies</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="regular-species"></a><a href="#regular-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Regular species</h1>
+<p>Regular species are composed of attributes, actions, reflex, aspect etc... They describes the behavior of our agents. You can instantiate as much as you want agents from a regular species, and you can define as much as you want different regular species. You can see a species as a &quot;class&quot; in OOP.</p>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#built-in-attributes">Built-in Attributes</a></li>
+<li><a href="#built-in-actions">Built-in Actions</a></li>
+<li><a href="#the-init-statement">The init statement</a></li>
+<li><a href="#the-aspect-statement">The aspect statement</a></li>
+<li><a href="#instantiate-an-agent">Instantiate an agent</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="declaration"></a><a href="#declaration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaration</h2>
+<p>The regular species declaration starts with the keyword <code>species</code> followed by the name (or followed by the facet <code>name:</code>) :</p>
+<pre><code class="hljs">species my_specie {
+}
+</code></pre>
+<p>or:</p>
+<pre><code class="hljs">species name:my_specie {
+}
+</code></pre>
+<p>Directly in the &quot;species&quot; scope, you have to declare all your attributes (or &quot;member&quot; in OOP). You declare them exactly the way you declare basic variables. Those attributes are accessible wherever you want inside the species scope.</p>
+<pre><code class="hljs">species my_specie {
+    int variableA;
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="built-in-attributes"></a><a href="#built-in-attributes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Built-in attributes</h2>
+<p>As for the global species, some attributes exist already by default in a regular species. Here is the list of built-in attributes:</p>
+<ul>
+<li><strong>name</strong> (type: string) is used to name your agent. By default, the name is equal to the name of your species + an incremental number. This name is the one visible on the species inspector.</li>
+<li><strong>location</strong> (type: point) is used to control the position of your agent. It refers to the center of the envelop of the shape associated to the agent.</li>
+<li><strong>shape</strong> (type: geometry) is used to describe the geometry of your agent. If you want to use some intersection operator between agents for instance, it is this geometry that is computed (nb : it can be totally different from the aspect you want to display for your agent !). By default, the shape is a point.</li>
+<li><strong>host</strong> (type: agent) is used when your agent is part of another agent. We will see this concept a bit further, in the topic <a href="MultiLevelArchitecture">multi-level architecture</a>.</li>
+</ul>
+<p>All those 4 built-in attributes can be accessed in both reading and writing very easily:</p>
+<pre><code class="hljs">species my_species {
+    init {
+        name &lt;- <span class="hljs-string">"custom_name"</span>;
+        location &lt;- {<span class="hljs-number">0</span>,<span class="hljs-number">1</span>};
+        shape &lt;- rectangle(<span class="hljs-number">5</span>,<span class="hljs-number">1</span>);
+    }
+}
+</code></pre>
+<p>All those built-in attributes are attributes of an agent (an instance of a species). Species has also their own attributes, which can be accessed with the following syntax (read only) :</p>
+<pre><code class="hljs">name_of_your_species.attribute_you_want
+</code></pre>
+<p>Notice that the world agent is also an agent ! It has all the built-in attributes declared above. The world agent is defined inside the <code>global</code> scope. From the <code>global</code> scope then, you can for example access to the center of the envelop of the world shape :</p>
+<pre><code class="hljs">global
+{
+    init {
+        write location; <span class="hljs-comment">// writes {50.0,50.0,0.0}</span>
+    }
+}
+</code></pre>
+<p>Here is the list of those attributes:</p>
+<ul>
+<li><strong>name</strong> (type: string) returns the name of your species</li>
+<li><strong>attributes</strong> (type: list of string) returns the list of the names of the attributes of your species</li>
+<li><strong>population</strong> (type: list) returns the list of agent that belong to it</li>
+<li><strong>subspecies</strong> (type: list of string) returns the list of species that inherit directly from this species (we will talk about the concept of <a href="Inheritance">inheritance</a> later)</li>
+<li><strong>parent</strong> (type: species) returns its parent species if it belongs to the model, or <code>nil</code> otherwise (we will talk about the concept of <a href="Inheritance">inheritance</a> later)</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="built-in-action"></a><a href="#built-in-action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Built-in action</h2>
+<p>Some actions are define by default for a minimal agent. We already saw quickly the action <code>write</code>, used to display a message in the console.
+Another very useful built-in action is the action <code>die</code>, used to destroy an agent.</p>
+<pre><code class="hljs">species my_species{
+    reflex being_killed {
+        <span class="hljs-keyword">do</span> die;
+    }
+}
+</code></pre>
+<p>Here is the list of the other built-in actions which you can find in the documentation: debug, message, tell.</p>
+<h2><a class="anchor" aria-hidden="true" id="the-init-statement"></a><a href="#the-init-statement" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The init statement</h2>
+<p>After declaring all the attributes of your species, you can define an initial state (before launching the simulation). It can be seen as the &quot;constructor of the class&quot; in OOP.</p>
+<pre><code class="hljs">species my_species {
+    int variableA;
+    init {
+        variableA &lt;- <span class="hljs-number">5</span>;
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="the-aspect-statement"></a><a href="#the-aspect-statement" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The aspect statement</h2>
+<p>Inside each species, you can define one or several aspects. This scope allows you to define how you want your species to be represented in the simulation.
+Each aspect has a special name (so that they can be called from the experiment). Once again, you can name your aspect by using the facet <code>name:</code>, or simply by naming it just after the <code>aspect</code> keyword.</p>
+<pre><code class="hljs">species my_species {
+    aspect standard_aspect { <span class="hljs-comment">// or "aspect name:standard_aspect"</span>
+    }
+}
+</code></pre>
+<p>You can then define your aspect by using the statement <code>draw</code>. You can then choose a geometry for your aspect (facet <code>geometry</code>), a color (facet <code>color</code>), an image (facet <code>image</code>), a text (facet <code>text</code>)... We invite you to read the documentation about the draw statement to know more about.</p>
+<pre><code class="hljs">species name:my_species {
+    aspect name:standard_aspect {
+        draw geometry:circle(1) color:#blue;
+    }
+}
+</code></pre>
+<p>In the experiment scope, you have to tell the program to display a particular species with a particular aspect (nb : you can also choose to display your species with several aspect in the same display).</p>
+<pre><code class="hljs">experiment my_experiment type:gui
+{
+    output{
+        display my_display {
+            species my_species aspect:standard_aspect;
+        }
+    }
+}
+</code></pre>
+<p>Now there is only one thing missing to display our agent: we have to instantiate them.</p>
+<h2><a class="anchor" aria-hidden="true" id="instantiate-an-agent"></a><a href="#instantiate-an-agent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Instantiate an agent</h2>
+<p>As already said quickly in the last session, the instantiation of the agents is most often in the init scope of the global species (this is not mandatory of course. You can instantiate your agents from an action / behavior of any specie). Use the statement <code>create</code> to instantiate an agent.
+The facet species is used to specify which species you want to instantiate.
+The facet number is used to tell how many instantiation you want.
+The facet with is used to specify some default values for some attributes of your instance. For example, you can specify the location.</p>
+<pre><code class="hljs">global{
+    init{
+        create species:my_species number:<span class="hljs-number">1</span> <span class="hljs-keyword">with</span>:(location:{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},<span class="hljs-attr">vA</span>:<span class="hljs-number">8</span>);
+    }
+}
+
+
+species name:my_specie {
+    int vA;
+}
+</code></pre>
+<p>Here is an example of model that display an agent with a circle aspect in the center of the environment:</p>
+<pre><code class="hljs">model display_one_agent
+
+global{
+    float worldDimension &lt;- 50#m;
+    geometry shape &lt;- square(worldDimension);
+    init{
+        point center &lt;- {(worldDimension/2),(worldDimension/2)};
+        create species:my_species number:1 with:(location:center);
+    }
+}
+
+species name:my_species {
+    aspect name:standard_aspect {
+        draw geometry:circle(1#m);
+    }
+}
+
+experiment my_experiment type:gui
+{
+    output{
+        display myDisplay {
+            species my_species aspect:standard_aspect;
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

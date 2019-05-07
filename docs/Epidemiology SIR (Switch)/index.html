@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Epidemiology SIR (Switch) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Epidemiology SIR (Switch) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Epidemiology SIR (Switch)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="sir_switch"></a><a href="#sir_switch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SIR_switch</h1>
+<p>_Author : tri and hqnghi _</p>
+<p>A model which show how to implement ODE system, IBM model, and to switch from one to another using a threshold. Another interesting point seen in this model is the the minimization of the execution time by reducing the number of agents to compute infections.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model SIR_switch
+
+global {
+    // Parameters
+    int initial_S &lt;- 495 ; // The number of susceptible
+    int initial_I &lt;- 5   ; // The number of infected
+    int initial_R &lt;- 0   ; // The number of removed 
+
+    float beta &lt;- 0.1   ; // The parameter Beta 
+    float delta &lt;- 0.01 ; // The parameter Delta    
+    
+    int switch_threshold &lt;- 120 ; // threshold for switching models
+    bool local_infection &lt;- true ;
+    int neighbors_range &lt;- 2 ;
+    bool local_random_walk &lt;- true ; 
+    
+    
+    // Global variables
+    int grid_size &lt;- 50;
+geometry shape &lt;- square(grid_size);
+    int number_Hosts &lt;- initial_S + initial_I + initial_R; // Total number of individuals
+    SIR_model current_model; // serves as an interface, it is transparent to user if model is maths or IBM
+
+    float beta_maths;
+    int gridSize &lt;- 1; //size of the grid
+    float neighborhoodSize &lt;- 1.0; // average size of the neighborhood (in number of cells) 
+    float adjust &lt;- 0.721; // to adjust math model to ABM when using random walk
+    bool computeInfectionFromS &lt;- initial_S &lt; initial_I; // if true, use the S list to compute infections. If false, use I list.
+    // the purpose is to minimize the number of evaluation by using the smallest list.
+    
+    init {
+        create new_scheduler;
+        /* determine the size of the neighborhood and the average count of hosts neighbors */
+        gridSize &lt;- length(sir_grid);
+        int nbCells &lt;- 0;
+        
+        loop cell over: sir_grid {
+            nbCells &lt;- nbCells + length(cell.neighbors);
+        }
+
+        neighborhoodSize &lt;- nbCells / gridSize + 1; // +1 to count itself in the neighborhood;
+        beta_maths &lt;- beta * neighborhoodSize * number_Hosts / gridSize * adjust;
+        
+        write 'Switch will happen at population sizes around ' +switch_threshold;
+        write 'Basic Reproduction Number (R0): ' + string(beta / delta) + '\n';
+        
+        //Creation of the switch_model agent that will manage the switch between the mathematical and the individual based models
+        create switch_model {
+            threshold_to_IBM &lt;- switch_threshold;
+            threshold_to_Maths &lt;- switch_threshold;
+        }
+        //Creation of the model according to the one to begin with
+        if (first(switch_model).start_with_IBM) {
+        //      write 'Starting with IBM model';
+            create IBM_model;
+            current_model &lt;- first(IBM_model);
+        } else {
+        //      write 'Starting with Maths model';
+            create Math_model;
+            current_model &lt;- first(Math_model);
+        }
+        //Initialization of the Susceptible, Infected, Resistant and Total Compartiment
+        current_model.S &lt;- float(initial_S);
+        current_model.I &lt;- float(initial_I);
+        current_model.R &lt;- float(initial_R);
+        current_model.N &lt;- number_Hosts;
+        
+        //Ask to the model to initialize itself according to the value initialized
+        ask current_model {
+            do initialize;
+        }
+        
+        //Create the SIR maths with ODE to compare
+        create my_SIR_maths {
+            self.S &lt;- float(myself.initial_S);
+            self.I &lt;- float(myself.initial_I);
+            self.R &lt;- float(myself.initial_R);
+            self.N &lt;- number_Hosts;
+            self.beta1 &lt;- beta * neighborhoodSize * (N / gridSize)* adjust;
+            self.alpha &lt;- delta;
+        }
+
+    }
+
+    reflex infection_computation_method {
+    /* computing infection from S has a complexity of S*ngb, where ngb is the size of the neighborhood.
+     * computing infection from I has a complexity of I*ngb.
+     * this reflex determine which method has the lowest cost.
+     * */
+        computeInfectionFromS &lt;- (Host count (each.is_susceptible)) &lt; (Host count (each.is_infected));
+    }
+
+}
+//Grid which represent the discretized space for the host agents
+    grid sir_grid width: grid_size height: grid_size {
+        rgb color &lt;- #black;
+        list&lt;sir_grid&gt; neighbors &lt;- (self neighbors_at neighbors_range) of_species sir_grid;
+    }
+
+
+//Species which allows the execution of only Host, IBM_model, Math_model and switch_model at each cycle
+species new_scheduler schedules: (Host + IBM_model + Math_model + switch_model) ;
+
+//Species which represent the manager between IBM and Math model
+species switch_model schedules: [] {
+    int threshold_to_IBM &lt;- 45; // threshold under which the model swith to IBM
+    int threshold_to_Maths &lt;- 50; // threshold under which the model swith to Maths model 
+    bool start_with_IBM function: { (initial_S &lt; threshold_to_IBM or initial_I &lt; threshold_to_IBM) };
+
+    //Switch the model used to IBM when the threshold is higher than the population
+    reflex switch_to_IBM when: (current_model.model_type = 'Maths') {
+        if (current_model.S &lt; threshold_to_IBM or current_model.I &lt; threshold_to_IBM) {
+            write 'Switch to IBM model at cycle ' + string(cycle);
+            create IBM_model {
+                self.S &lt;- current_model.S;
+                self.I &lt;- current_model.I;
+                self.R &lt;- current_model.R;
+                self.N &lt;- current_model.N;
+                do initialize;
+            }
+
+            ask current_model {
+                do remove_model;
+            }
+
+            current_model &lt;- first(IBM_model);
+        }
+
+    }
+    //Switch the model used to Maths when the threshold is lower than the population
+    reflex switch_to_Maths when: (current_model.model_type = 'IBM') {
+        if (current_model.S &gt; threshold_to_Maths and current_model.I &gt; threshold_to_Maths) {
+            write 'Switch to Maths model at cycle ' + cycle;
+            create Math_model {
+                self.S &lt;- current_model.S;
+                self.I &lt;- current_model.I;
+                self.R &lt;- current_model.R;
+                self.N &lt;- current_model.N;
+                do initialize;
+            }
+
+            ask current_model {
+                do remove_model;
+            }
+
+            current_model &lt;- first(Math_model);
+        }
+
+    }
+
+}
+//Species which represent the SIR model used by the IBM and the Math models 
+species SIR_model schedules: [] {
+    float S;
+    float I;
+    float R;
+    int N;
+    string model_type &lt;- 'none';
+    
+    action remove_model {
+        do die;
+    }
+
+    action initialize ;
+
+}
+
+//Species IBM Model which represent the Individual based model, derivated from SIR_model
+species IBM_model schedules: [] parent: SIR_model {
+    string model_type &lt;- 'IBM';
+    
+    //Action to initialize the Model with SIR compartiments
+    action initialize {
+        
+        write 'Initializing IBM model with S=' + round(S) + ', I=' + round(I) + ', R=' + round(R) + '\n';
+        //Creation of the host agents
+        create Host number: round(S) {
+            is_susceptible &lt;- true;
+            is_infected &lt;- false;
+            is_immune &lt;- false;
+            color &lt;- #green;
+        }
+
+        create Host number: round(I) {
+            is_susceptible &lt;- false;
+            is_infected &lt;- true;
+            is_immune &lt;- false;
+            color &lt;- #red;
+        }
+
+        create Host number: round(R) {
+            is_susceptible &lt;- false;
+            is_infected &lt;- false;
+            is_immune &lt;- true;
+            color &lt;- #yellow;
+        }
+        do count;
+    }
+
+    reflex count {
+        do count;
+    }
+    //Action to update the different compartiments
+    action count {
+        S &lt;- float(Host count (each.is_susceptible));
+        I &lt;- float(Host count (each.is_infected));
+        R &lt;- float(Host count (each.is_immune));
+    }
+    //Action to remove the model and kill all the agents it contains
+    action remove_model {
+        ask Host {
+            do die;
+        }
+
+        do die;
+    }
+
+}
+
+//Species Math Model which represent the mathematical Ordinary Differential Equations model, derivated from SIR_model
+species Math_model schedules: [] parent: SIR_model {
+    string model_type &lt;- 'Maths';
+    float t;
+    
+    action initialize {
+        write 'Initializing Maths model with S=' + S + ', I=' + I + ', R=' + R + '\n';
+    }
+
+    equation SIR {
+        diff(S, t) = (-beta_maths * S * I / N);
+        diff(I, t) = (beta_maths * S * I / N) - (delta * I);
+        diff(R, t) = (delta * I);
+    }
+
+    reflex solving {solve SIR method: "rk4" step: 0.01 ;}
+}
+//Species host used by the Individual Based Model which move from one cell to another
+species Host schedules: [] skills: [moving] {
+    bool is_susceptible &lt;- true;
+    bool is_infected &lt;- false;
+    bool is_immune &lt;- false;
+    rgb color &lt;- #green;
+    sir_grid myPlace;
+    
+    /* next function computes the number of neighbors of the agent */
+    int ngb_number function: {
+        length(((self) neighbors_at (2)) of_species Host) - 1 // -1 is because the agent counts itself
+    };
+    
+    init {
+        myPlace &lt;- one_of(sir_grid as list);
+        location &lt;- myPlace.location;
+    }
+
+    //Reflex to move the agents among the cells
+    reflex basic_move {
+        if (!local_random_walk) {
+        /* random walk among neighbors */
+            myPlace &lt;- one_of(myPlace.neighbors);
+            location &lt;- myPlace.location;
+        } else {
+        /* move agent to a random place anywhere in the grid */
+            myPlace &lt;- any(sir_grid);
+            location &lt;- myPlace.location;
+        }
+
+    }
+    //Reflex to make the agent infected when the infection is computed from S for a better execution time
+    reflex become_infected when: (is_susceptible and computeInfectionFromS) {
+        if (flip(1 - (1 - beta) ^ (((self) neighbors_at (2)) of_species Host) count (each.is_infected))) {
+            is_susceptible &lt;- false;
+            is_infected &lt;- true;
+            is_immune &lt;- false;
+            color &lt;- #red;
+        }
+
+    }
+    //Reflex to make the agent infect others when the infection is not computed from S for a better execution time
+    reflex infecte_others when: (is_infected and not (computeInfectionFromS)) {
+        loop hst over: ((self) neighbors_at (2)) {
+            if (hst.is_susceptible) {
+                if (flip(beta)) {
+                    hst.is_susceptible &lt;- false;
+                    hst.is_infected &lt;- true;
+                    hst.is_immune &lt;- false;
+                    hst.color &lt;- #red;
+                }
+            }
+        }
+    }
+    //Reflex to make the agent resistant
+    reflex become_immune when: (is_infected and flip(delta)) {
+        is_susceptible &lt;- false;
+        is_infected &lt;- false;
+        is_immune &lt;- true;
+        color &lt;- #yellow;
+    }
+
+    aspect basic {
+        draw circle(1) color: color;
+    }
+
+}
+//Species which represent the SIR mathematical model 
+species my_SIR_maths {
+    float t;
+    float I &lt;- float(iInit);
+    float S &lt;- N - I;
+    float R &lt;- 0.0;
+            
+    float alpha &lt;- 0.01 min: 0.0 max: 1.0;
+    float beta1 &lt;- 0.1 min: 0.0 max: 1000.0;
+    int N &lt;- 500 min: 1 max: 3000;
+    int iInit &lt;- 1;
+
+    equation SIR {
+        diff(S, t) = (-beta1 * S * I / N);
+        diff(I, t) = (beta1 * S * I / N) - (alpha * I);
+        diff(R, t) = (alpha * I);
+    }
+    
+    reflex solving {solve SIR method:"rk4" step:0.01;}
+
+}
+
+
+
+experiment mysimulation type: gui {
+    parameter 'Number of Susceptible' type: int var: initial_S &lt;- 495 category: "Initial population"; 
+    parameter 'Number of Infected'    type: int var: initial_I &lt;- 5   category: "Initial population";
+    parameter 'Number of Removed'     type: int var: initial_R &lt;- 0   category: "Initial population";
+
+    parameter 'Beta (S-&gt;I)'  type: float var: beta &lt;- 1.0   category: "Parameters";
+    parameter 'Delta (I-&gt;R)' type: float var: delta &lt;- 0.01 category: "Parameters"; 
+    
+    parameter 'Is the infection is computed locally?' type: bool var: local_infection &lt;- true category: "Infection";
+    parameter 'Size of the neighbors' type: int var: neighbors_range &lt;- 2 min:1 max: 5 category: "Infection";
+
+    parameter 'Local Random Walk' type: bool var: local_random_walk &lt;- true category: "Agents"; 
+    
+    parameter 'Switch models at' type: int var: switch_threshold &lt;- 120 category: "Model";
+    
+    output {
+        display 'sir display' {
+            grid sir_grid lines: #black;
+            species Host aspect: basic;
+        }
+    
+        display 'Switch model' {
+            chart 'Susceptible' type: series background: #lightgray style: exploded {
+                data 'susceptible' value: current_model.S color: #green;
+                data 'infected' value: current_model.I color: #red;
+                data 'immune' value: current_model.R color: #yellow;
+            }
+
+        }
+
+        display SI_maths  {
+            chart "SI" type: series background: #white {
+                data 'S' value: first((my_SIR_maths)).S color: #green;
+                data 'I' value: first((my_SIR_maths)).I color: #red;
+                data 'R' value: first((my_SIR_maths)).R color: #yellow;
+            }
+
+        }
+
+    }
+
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

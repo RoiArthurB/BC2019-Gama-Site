@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Epidemiology Susceptible Infected (SI) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Epidemiology Susceptible Infected (SI) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Epidemiology Susceptible Infected (SI)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="si-without-ode"></a><a href="#si-without-ode" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SI without ODE</h1>
+<p>_Author : _</p>
+<p>A simple SI model without Ordinary Differential Equations showing agents moving randomly among a grid and becoming infected</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model si
+
+global { 
+    
+    int number_S &lt;- 495;  // The number of susceptible
+    int number_I &lt;- 5 ; // The number of infected
+    float survivalProbability &lt;- 1/(70*365) ; // The survival probability
+    float beta &lt;- 0.05 ;    // The parameter Beta
+    float nu &lt;- 0.001 ; // The parameter Nu
+    int numberHosts &lt;- number_S+number_I; //Total number of hosts
+    bool local_infection &lt;- true ; //Infection spread locally or not
+    int neighbors_size &lt;- 2 ; //Size of the neighborhood
+    geometry shape &lt;- square(50);
+    init { 
+        //Creation of all the susceptible hosts
+        create Host number: number_S {
+            is_susceptible &lt;- true;
+            is_infected &lt;-  false;
+            is_immune &lt;-  false; 
+            color &lt;-  #green;
+        }
+        //Creation of all the infected hosts
+        create Host number: number_I {
+            is_susceptible &lt;-  false; 
+            is_infected &lt;-  true;
+            is_immune &lt;-  false; 
+            color &lt;-  #red;  
+       }
+   }
+   //Reflex to update the number of infected hosts
+   reflex compute_nb_infected {
+        number_I &lt;- Host count (each.is_infected);
+   }  
+}
+
+//Grid to discretize space
+grid si_grid width: 50 height: 50 use_individual_shapes: false use_regular_agents: false frequency: 0{
+    rgb color &lt;- #black;
+    list&lt;si_grid&gt; neighbors &lt;- (self neighbors_at neighbors_size) ;       
+}
+//Species host which represent the possible hosts of a disease
+species Host  {
+    //Booleans to represent the state of the agent
+    bool is_susceptible &lt;- true;
+    bool is_infected &lt;- false;
+    bool is_immune &lt;- false;
+    rgb color &lt;- #green;
+    int sic_count &lt;- 0;
+    si_grid myPlace;
+    
+    //The agent is placed randomly among the grid
+    init {
+        myPlace &lt;- one_of (si_grid as list);
+        location &lt;- myPlace.location;
+    }        
+    //Reflex to move the agents in its neighborhood
+    reflex basic_move {
+        myPlace &lt;- one_of (myPlace.neighbors) ;
+        location &lt;- myPlace.location;
+    }
+    //Reflex to infect the agent if it is susceptible and according to the other infected agents
+    reflex become_infected when: is_susceptible {
+        float rate &lt;- 0.0;
+        if(local_infection) {
+            int nb_hosts &lt;- 0;
+            int nb_hosts_infected &lt;- 0;
+            loop hst over: ((myPlace.neighbors + myPlace) accumulate (Host overlapping each)) {
+                nb_hosts &lt;- nb_hosts + 1;
+                if (hst.is_infected) {
+                    nb_hosts_infected &lt;- nb_hosts_infected + 1;
+                }
+            }
+            rate &lt;- nb_hosts_infected / nb_hosts;
+        } else {
+            rate &lt;- number_I / numberHosts;
+        }
+        if (flip(beta * rate)) {
+            is_susceptible &lt;-  false;
+            is_infected &lt;-  true;
+            is_immune &lt;-  false;
+            color &lt;-  #red;    
+        }
+    }
+    //Reflex to kill the agent according to the death rate
+    reflex shallDie when: flip(nu) {
+        create species(self) {
+            myPlace &lt;- myself.myPlace ;
+            location &lt;- myself.location ; 
+        }
+        do die;
+    }
+            
+    aspect basic {
+        draw circle(1) color: color; 
+    }
+}
+
+
+experiment Simulation type: gui { 
+    parameter "Number of Susceptible" var: number_S ;// The number of susceptible
+    parameter "Number of Infected" var: number_I ;  // The number of infected
+    parameter "Survival Probability" var: survivalProbability ; // The survival probability
+    parameter "Beta (S-&gt;I)" var:beta;   // The parameter Beta
+    parameter "Mortality" var:nu ;  // The parameter Nu
+    parameter "Is the infection is computed locally?" var:local_infection ;
+    parameter "Size of the neighbors" var:neighbors_size ;
+    
+    output { 
+        display si_display {
+            grid si_grid lines: #black;
+            species Host aspect: basic;
+        }
+            
+        display chart refresh: every(10) {
+            chart "Susceptible" type: series background: #lightgray style: exploded {
+                data "susceptible" value: Host count (each.is_susceptible) color: #green;
+                data "infected" value: Host count (each.is_infected) color: #red;
+            }
+        }
+            
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

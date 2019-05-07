@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Spatial Operators Spatial Operators (Examples) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Spatial Operators Spatial Operators (Examples) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Spatial Operators Spatial Operators (Examples)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="spatial-operators"></a><a href="#spatial-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Spatial Operators</h1>
+<p><em>Author : Patrick Taillandier</em></p>
+<p>A model which shows how to use spatial operators like rotated_by, scaled_by and convex_hull</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model example_spatial_operators
+
+global {
+    <span class="hljs-comment">// Parameters for the shapefiles</span>
+    file shape_file_name_init  &lt;- file(<span class="hljs-string">'../gis/init.shp'</span>) ;
+    file shape_file_name_background  &lt;- file(<span class="hljs-string">'../gis/background.shp'</span>);
+    
+    <span class="hljs-comment">//Parameters for the agents     </span>
+    float dying_size min: <span class="hljs-number">100.0</span>  &lt;<span class="hljs-number">-10000.0</span> ; 
+    float crossover_size min: <span class="hljs-number">100.0</span>  &lt;- <span class="hljs-number">1000.0</span>;
+    float minimum_size min: <span class="hljs-number">100.0</span> &lt;- <span class="hljs-number">500.0</span>; 
+    int time_wthout_co min: <span class="hljs-number">1</span> &lt;- <span class="hljs-number">7</span>;
+    float speed min: <span class="hljs-number">1.0</span>  &lt;- <span class="hljs-number">10.0</span>; 
+    float crossover_rate min: <span class="hljs-number">0.1</span>  &lt;- <span class="hljs-number">0.95</span>; 
+    float scaling_factor min: <span class="hljs-number">1.001</span> &lt;- <span class="hljs-number">1.05</span>;
+    float angle_rotation_max min: <span class="hljs-number">0.0</span> &lt;- <span class="hljs-number">45.0</span>;
+    int nb_partners_max min: <span class="hljs-number">1</span>  &lt;- <span class="hljs-number">1</span>;
+    int max_side_size min: <span class="hljs-number">1</span> &lt;- <span class="hljs-number">5</span>;  
+    int background_size_side min: <span class="hljs-number">20</span> max: <span class="hljs-number">100</span> &lt;- <span class="hljs-number">80</span> ;
+    
+    <span class="hljs-comment">// Environment</span>
+    geometry shape &lt;- envelope(shape_file_name_background);
+    
+
+    reflex stop when: empty ( object ) {
+        <span class="hljs-keyword">do</span> halt;
+    } 
+
+}
+
+species object topology: topology(shape_file_name_init) {
+    rgb color &lt;- rgb ( [ rnd ( <span class="hljs-number">255</span> ) , rnd ( <span class="hljs-number">255</span> ) , rnd ( <span class="hljs-number">255</span> ) ]);
+    point location_new_Ag &lt;- nil;
+    rgb color_new_Ag &lt;- nil;
+    int nb_last_rep &lt;- <span class="hljs-number">0</span>;
+        
+    <span class="hljs-comment">//Reflex making the shape of the agent growing and rotate it randomly</span>
+    reflex evolve {
+        nb_last_rep &lt;- nb_last_rep + <span class="hljs-number">1</span>;
+        shape &lt;- shape scaled_by scaling_factor;
+        shape &lt;- shape rotated_by ((rnd ( <span class="hljs-number">100</span> * angle_rotation_max))/ <span class="hljs-number">100.0</span>);       
+    }
+    
+    <span class="hljs-comment">//Make the agent move, kill it if is area is greater than the dying size or intersecting contours of the world</span>
+    reflex move {
+        location &lt;- location + { speed * ( <span class="hljs-number">1</span> - rnd ( <span class="hljs-number">2</span> ) ) , speed * ( <span class="hljs-number">1</span> - rnd ( <span class="hljs-number">2</span> ) ) };
+        <span class="hljs-keyword">if</span> ( (shape.area &gt; dying_size) or (shape intersects world.shape.contour)) {
+            <span class="hljs-keyword">do</span> die; 
+        }
+            
+    }
+    
+    
+    <span class="hljs-comment">//Reflex to change the shape of the agent intersects an other agent and create a convex hull of the shape of the new agent resulting in the intersection of the shapes of the agent and an other one</span>
+    reflex crossover when: ( shape.area &gt; crossover_size ) and ( nb_last_rep &gt; time_wthout_co ) { 
+        int nb_partners  &lt;- <span class="hljs-number">0</span>;
+        list&lt;object&gt; list_people &lt;- shuffle ( object );
+        loop p over: list_people {
+            <span class="hljs-keyword">if</span> ( p != self ) and ( nb_partners &lt;= nb_partners_max ) and (rnd ( <span class="hljs-number">100</span> ) &lt; ( crossover_rate * <span class="hljs-number">100</span> ) ) and ( (p.shape).area &gt; crossover_size ) and ( p . nb_last_rep &gt; time_wthout_co ) and (shape intersects p.shape) {
+                nb_partners &lt;- nb_partners + <span class="hljs-number">1</span>;
+                geometry new_ag &lt;- (shape inter p.shape);
+                <span class="hljs-keyword">if</span> ( new_ag != nil ) and ( new_ag.area &gt; minimum_size ) {
+                    nb_last_rep &lt;- <span class="hljs-number">0</span>;
+                    ask p {
+                        nb_last_rep &lt;- <span class="hljs-number">0</span>;
+                    }
+                    create object  {
+                        color &lt;- (myself.color + p.color) / <span class="hljs-number">2</span>;
+                        shape &lt;-  convex_hull(new_ag);
+                    }
+                }
+            }
+        }   
+    }
+    
+    aspect geometry {
+        draw shape color: color;
+    }
+}
+
+
+
+experiment example_spatial_operators type: gui {
+    parameter <span class="hljs-string">'Path of shapefile to load for the initial agent:'</span> <span class="hljs-keyword">var</span>: shape_file_name_init  category: <span class="hljs-string">'GIS specific'</span> ;
+    parameter <span class="hljs-string">'Path of shapefile to load for the background:'</span> <span class="hljs-keyword">var</span>: shape_file_name_background category: <span class="hljs-string">'GIS specific'</span>;
+    parameter <span class="hljs-string">'Size (area) from which an agent dies:'</span> <span class="hljs-keyword">var</span>: dying_size min: <span class="hljs-number">100.0</span>  category: <span class="hljs-string">'Population'</span>; 
+    parameter <span class="hljs-string">'Min size (area) for crossover:'</span> <span class="hljs-keyword">var</span>:crossover_size category: <span class="hljs-string">'Population'</span>;
+    parameter <span class="hljs-string">'Minimum size (area) of a agent produced by a crossover:'</span> <span class="hljs-keyword">var</span>:minimum_size category: <span class="hljs-string">'Population'</span>;
+    parameter <span class="hljs-string">'Number of steps without crossing-over for an agent:'</span> <span class="hljs-keyword">var</span>:time_wthout_co category: <span class="hljs-string">'Population'</span>;
+    parameter <span class="hljs-string">'Agent deplacement speed:'</span> <span class="hljs-keyword">var</span>:speed category: <span class="hljs-string">'Population'</span> ; 
+    parameter <span class="hljs-string">'Rate of crossover'</span> <span class="hljs-keyword">var</span>:crossover_rate category: <span class="hljs-string">'Population'</span>; 
+    parameter <span class="hljs-string">'Scaling factor for agent geometry (at each step):'</span> <span class="hljs-keyword">var</span>:scaling_factor category: <span class="hljs-string">'Population'</span>;
+    parameter <span class="hljs-string">'Max rotation angle for agent geometry (at each step):'</span> <span class="hljs-keyword">var</span>:angle_rotation_max category:<span class="hljs-string">'Population'</span>;
+    parameter <span class="hljs-string">'Max number of possible partners for crossing-overs (per step)'</span> <span class="hljs-keyword">var</span>:nb_partners_max category: <span class="hljs-string">'Population'</span> ;
+    parameter <span class="hljs-string">'Size max of the initiale side of an agent:'</span> <span class="hljs-keyword">var</span>:max_side_size category: <span class="hljs-string">'Population'</span>; 
+    parameter <span class="hljs-string">'Size background side:'</span> <span class="hljs-keyword">var</span>: background_size_side category: <span class="hljs-string">'Population'</span> ;
+
+    output {
+        display space_display {
+            graphics <span class="hljs-string">"background"</span> {
+                draw world.shape color: rgb ([ <span class="hljs-number">255</span> , <span class="hljs-number">240</span> , <span class="hljs-number">240</span> ]);
+            }
+            species object aspect: geometry;
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

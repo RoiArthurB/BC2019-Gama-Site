@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>DefiningDisplaysGeneralities · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="DefiningDisplaysGeneralities · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">DefiningDisplaysGeneralities</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="defining-displays-generalities"></a><a href="#defining-displays-generalities" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining displays (Generalities)</h1>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#displays-and-layers">Displays and layers</a></li>
+<li><a href="#organize-your-layers">Organize your layers</a></li>
+<li><a href="#example-of-layers">Example of layers</a>
+<ul>
+<li><a href="#agents-layer">agents layer</a></li>
+<li><a href="#species-layer">species layer</a></li>
+<li><a href="#image-layer">image layer</a></li>
+<li><a href="#text-layer">text layer</a></li>
+<li><a href="#graphics-layer">graphics layer</a></li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="displays-and-layers"></a><a href="#displays-and-layers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Displays and layers</h2>
+<p>A display is the graphical output of your simulation. You can define several displays related with what you want to represent from your model execution. To define a display, use the keyword <code>display</code> inside the <code>output</code> scope, and specify a name (<code>name</code> facet).</p>
+<pre><code class="hljs">experiment my_experiment type: gui {
+    output {
+        display <span class="hljs-string">"display1"</span> {
+        }
+        display name:<span class="hljs-string">"display2"</span> {
+        }
+    }
+}
+</code></pre>
+<p>Other facets are available when defining your display:</p>
+<ul>
+<li>Use <code>background</code> to define a color for your background</li>
+</ul>
+<pre><code class="hljs">display "my_display" background:#red
+</code></pre>
+<ul>
+<li>Use <code>refresh</code> if you want to refresh the display when a condition is true (to refresh your display every number of steps, use the operator <code>every</code>)</li>
+</ul>
+<pre><code class="hljs">display <span class="hljs-string">"my_display"</span> refresh:every(<span class="hljs-number">10</span>)
+</code></pre>
+<p>You can choose between two types of displays, by using the facet type:</p>
+<ul>
+<li>java2D displays will be used when you want to have 2D visualization. It is used for example when you manipulate charts. This is the default value for the facet type.</li>
+<li>opengl displays allows you to have 3D visualization.</li>
+</ul>
+<p>You can save the display on the disk, as a png file, in the folder name_of_model/models/snapshots, by using the facet <code>autosave</code>. This facet takes one a boolean as argument (to allow or not to save each frame) or a point (to define the size of your image). By default, the resolution of the output image is 500x500px (note that when no unit is provided, the unit is <code>#px</code> (pixel) ).</p>
+<pre><code class="hljs">display my_display autosave:<span class="hljs-literal">true</span> type:java2D {}
+</code></pre>
+<p>is equivalent to :</p>
+<pre><code class="hljs">display my_display autosave:{<span class="hljs-number">500</span>,<span class="hljs-number">500</span>} type:java2D {}
+</code></pre>
+<p>Each display can be decomposed in one or several layers. Here is a screenshot (from the Toy Model Ant) to better understand those different notions we are about to tackle in this session.</p>
+<p><img src="resources/images/definingGUIExperiment/difference_layer_display.png" alt="images/difference_layer_display.png"></p>
+<h2><a class="anchor" aria-hidden="true" id="organize-your-layers"></a><a href="#organize-your-layers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Organize your layers</h2>
+<p>In one 2D display, you will have several types of layers, giving what you want to display in your model. You have a large number of layers available. You already know some of them, such as <code>species</code>, <code>agents</code>, <code>grid</code>, but other specific layers such as <code>image</code> (to display image) and <code>graphics</code> (to freely draw shapes/geometries/texts without having to define a species) are also available</p>
+<p>Each layer will be displayed in the same order as you declare them. The last declared layer will be above the others.</p>
+<p>Thus, the following code:</p>
+<pre><code class="hljs">experiment expe type:gui {
+    output {
+        display my_display {
+            graphics "layer1" {
+                draw square(20) at:{10,10} color:#gold;
+            }
+            graphics "layer2" {
+                draw square(20) at:{15,15} color:#darkorange;
+            }
+            graphics "layer3" {
+                draw square(20) at:{20,20} color:#cornflowerblue;
+            }
+        }
+    }
+}
+</code></pre>
+<p>Will have this output:</p>
+<p><img src="resources/images/definingGUIExperiment/layers_order.png" alt="images/layers_order.png"></p>
+<p>Most of the layers have the <code>transparency</code> facet in order to see the layers which are under.</p>
+<pre><code class="hljs">experiment expe type:gui {
+    output {
+        display my_display {
+            graphics "layer1" {
+                draw square(20) at:{10,10} color:#darkorange;
+            }
+            graphics "layer2" transparency:0.5 {
+                draw square(20) at:{15,15} color:#cornflowerblue;
+            }
+        }
+    }
+}
+</code></pre>
+<p><img src="resources/images/definingGUIExperiment/layers_transparency.png" alt="images/layers_transparency.png"></p>
+<p>To specify a position and a size for your layer, you can use the <code>position</code> and the <code>size</code> facets.
+The <code>position</code> facet is used with a point type, between {0,0} and {1,1}, which corresponds to the position of the upper left corner of your layer in percentage. Then, if you choose the point {0.5,0.5}, the upper left corner of your layer will be in the center of your display. By default, this value is {0,0}.
+The <code>size</code> facet is used with a point type, between {0,0} and {1,1} also. It corresponds to the size occupied by the layer in percentage. By default, this value is {1,1}.</p>
+<pre><code class="hljs">experiment expe type:gui {
+    output {
+        display my_display {
+            graphics "layer1" position:{0,0} size:{0.5,0.8} {
+                draw shape color:#darkorange;
+            }
+            graphics "layer2" position:{0.3,0.1} size:{0.6,0.2} {
+                draw shape color:#cornflowerblue;
+            }
+            graphics "layer3" position:{0.4,0.2} size:{0.3,0.8} {
+                draw shape color:#gold;
+            }
+        }
+    }
+}
+</code></pre>
+<p><img src="resources/images/definingGUIExperiment/layers_size_position.png" alt="images/layers_size_position.png"></p>
+<p>NB : <code>displays</code> can have background, while <code>graphics</code> can't. If you want to put a background for your <code>graphics</code>, a solution can be to draw the <code>shape</code> of the world (which is, by default, a square 100m*100m).</p>
+<p>A lot of other facets are available for the different layers. Please read the documentation of <a href="Statements#graphics"><code>graphics</code></a> for more information.</p>
+<h2><a class="anchor" aria-hidden="true" id="example-of-layers"></a><a href="#example-of-layers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example of layers</h2>
+<h3><a class="anchor" aria-hidden="true" id="agents-layer"></a><a href="#agents-layer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>agents layer</h3>
+<p><code>agents</code> allows the modeler to display only the agents that fulfill a given condition.</p>
+<p>Please read the documentation about <a href="Statements#agents"><code>agents</code> statement</a> if you are interested.</p>
+<h3><a class="anchor" aria-hidden="true" id="species-layer"></a><a href="#species-layer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>species layer</h3>
+<p><code>species</code> allows modeler to display all the agent of a given species in the current display. In particular, modeler can choose the aspect used to display them.</p>
+<p>Please read the documentation about <a href="Statements#species"><code>species</code> statement</a> if you are interested.</p>
+<h3><a class="anchor" aria-hidden="true" id="image-layer"></a><a href="#image-layer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>image layer</h3>
+<p><code>image</code> allows modeler to display an image (e.g. as background of a simulation).</p>
+<p>Please read the documentation about <a href="Statements#image"><code>image</code> statement</a> if you are interested.</p>
+<h3><a class="anchor" aria-hidden="true" id="graphics-layer"></a><a href="#graphics-layer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>graphics layer</h3>
+<p><code>graphics</code> allows the modeler to freely draw shapes/geometries/texts without having to define a species.</p>
+<p>Please read the documentation about <a href="Statements#graphics"><code>graphics</code> statement</a> if you are interested.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

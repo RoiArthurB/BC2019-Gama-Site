@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>ManipulateOSMDatas · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="ManipulateOSMDatas · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">ManipulateOSMDatas</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="manipulate-osm-datas"></a><a href="#manipulate-osm-datas" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Manipulate OSM Datas</h1>
+<p>This section will be presented as a quick tutorial, showing how to proceed to manipulate OSM (Open street map) datas, and load them into GAMA. We will use the software <a href="http://www.qgis.org/en/site/">QGIS</a> to change the attributes of the OSM file.</p>
+<p>From the website <a href="https://www.openstreetmap.org/">openstreetmap.org</a>, we will chose a place (in this example, we will take a neighborhood in New York City). Directly from the website, you can export the chosen area in the osm format.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_1.png" alt="images/manipulate_OSM_file_1.png"></p>
+<p>We have now to manipulate the attributes for the exported osm file.
+Several software are possible to use, but we will focus on <a href="http://www.qgis.org/en/site/">QGIS</a>, which is totally free and provides a lot of possibilities in term of manipulation of data.</p>
+<p>Once you have installed correctly QGIS, launch QGIS Desktop, and start to import the topology from the osm file.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_2.png" alt="images/manipulate_OSM_file_2.png"></p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_3.png" alt="images/manipulate_OSM_file_3.png"></p>
+<p>A message indicates that the import was successful. An output file .osm.db is created. You have now to export the topology to SpatiaLite.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_4.png" alt="images/manipulate_OSM_file_4.png"></p>
+<p>Specify the path for your DataBase file, then choose the export type (in your case, we will choose the type &quot;Polygons (closed ways)&quot;), choose an output layer name. If you want to use the open street maps attributes values, click on &quot;Load from DB&quot;, and select the attributes you want to keep. Click OK then.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_5.png" alt="images/manipulate_OSM_file_5.png"></p>
+<p>A message indicates that the export was successful, and you have now a new layer created.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_6.png" alt="images/manipulate_OSM_file_6.png"></p>
+<p>We will now manipulate the attributes of your datafile. Right click on the layer, and select &quot;Open Attribute Table&quot;.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_7.png" alt="images/manipulate_OSM_file_7.png"></p>
+<p>The table of attribute appears. Select the little pencil on the top-left corner of the window to modify the table.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_8.png" alt="images/manipulate_OSM_file_8.png"></p>
+<p>We will add an attribute manually. Click on the button &quot;new column&quot;, choose a name and a type (we will choose the type &quot;text&quot;).</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_9.png" alt="images/manipulate_OSM_file_9.png"></p>
+<p>A new column appears at the end of the table. Let's fill some values (for instance blue / red). Once you finishes, click on the &quot;save edit&quot; button.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_10.png" alt="images/manipulate_OSM_file_10.png"></p>
+<p>Our file is now ready to be exported. Right click on the layer, and click on &quot;Save As&quot;.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_11.png" alt="images/manipulate_OSM_file_11.png"></p>
+<p>Choose &quot;shapefile&quot; as format, choose a save path and click ok.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_12.png" alt="images/manipulate_OSM_file_12.png"></p>
+<p>Copy passed all the .shp created in the include folder of your GAMA project. You are now ready to write the model.</p>
+<pre><code class="hljs">model HowToUseOpenStreetMap
+
+global {
+    // Global variables related to the Management units 
+    file shapeFile &lt;- file('../includes/new_york.shp'); 
+    
+    //definition of the environment size from the shapefile. 
+    //Note that is possible to define it from several files by using: geometry shape &lt;- envelope(envelope(file1) + envelope(file2) + ...);
+    geometry shape &lt;- envelope(shapeFile);
+    
+    init {
+        //Creation of elementOfNewYork agents from the shapefile (and reading some of the shapefile attributes)
+        create elementOfNewYork from: shapeFile 
+            with: [elementId::int(read('id')), elementHeight::int(read('height')), elementColor::string(read('attrForGama'))] ;
+    }
+}
+    
+species elementOfNewYork{
+    int elementId;
+    int elementHeight;
+    string elementColor;
+    
+    aspect basic{
+        draw shape color: (elementColor = "blue") ? #blue : ( (elementColor = "red") ? #red : #yellow ) depth: elementHeight;
+    }
+}   
+
+experiment main type: gui {     
+    output {
+        display HowToUseOpenStreetMap type:opengl {
+            species elementOfNewYork aspect: basic; 
+        }
+    }
+}
+</code></pre>
+<p>Here is the result, with a special colorization of the different elements regarding to the value of the attribute &quot;attrForGama&quot;, and an elevation regarding to the value of the attribute &quot;height&quot;.</p>
+<p><img src="resources/images/recipes/manipulate_OSM_file_13.png" alt="images/manipulate_OSM_file_13.png"></p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

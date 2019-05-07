@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Driving Skill Road Traffic simple (City) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Driving Skill Road Traffic simple (City) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Driving Skill Road Traffic simple (City)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="simple-road-network"></a><a href="#simple-road-network" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Simple Road Network</h1>
+<p><em>Author : Patrick Taillandier</em></p>
+<p>Model using shapefiles to create buildings and a road graph, with people going from their living place to their work place depending on the hour. The traffic jam is also taken into account to slow the people agents when they are too much on the same road. The experiment shows a display of the city, with people agents, buildings and roads, a display of the traffic jam occuring on the roads, and a chart display showing two charts : one for the traffic jam coefficients, and an other for the objectives of the people agents.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">  
+model RoadTrafficCity
+ 
+   
+global {   
+    
+    //Shapefiles for the buildings, the roads and the bounds of the environment
+    file shape_file_roads parameter: "Shapefile for the roads:" category: "GIS" &lt;- file("../includes/ManhattanRoads.shp") ;
+    file shape_file_bounds parameter: "Shapefile for the bounds:" category: "GIS" &lt;- file("../includes/ManhattanBounds.shp") ;
+    file shape_file_buildings parameter: "Shapefile for the buildings:" category: "GIS" &lt;- file("../includes/ManhattanBuildings.shp") ;
+    geometry shape &lt;- envelope(shape_file_bounds);
+    
+    //Stock the number of times agents reached their goal (their house or work place)
+    int nbGoalsAchived &lt;- 0;
+    
+    //represent the day time for the agent to inform them to go work or home
+    int day_time update: cycle mod 144 ;
+    
+    //Variables to manage the minimal and maximal time to start working
+    int min_work_start &lt;- 36;
+    int max_work_start &lt;- 60;
+    
+    //Number of people created
+    int nb_people &lt;- 500;
+    
+    //Variables to manage the minimal and maximal time to go home
+    int min_work_end &lt;- 84; 
+    int max_work_end &lt;- 132; 
+    
+    //Manage the speed allowed in the model for the people agents
+    float min_speed &lt;- 50.0;
+    float max_speed &lt;- 100.0; 
+    
+    //Graph of the road network
+    graph the_graph;
+    
+     
+    init {  
+        
+        //creation of the agents of road and building species using the shapefile and linking the 
+        create road from: shape_file_roads with:[nbLanes::int(read("lanes"))];
+        create building from: shape_file_buildings;
+        
+        //Increase the shape of roads according to the number of lanes it has
+        ask road as list {
+            visu_geom &lt;- shape + (2 * nbLanes); 
+        }
+        //Initliazation of the graph with the road species
+        the_graph &lt;-  (as_edge_graph(road));
+        
+        //Initialization of nb_people agents of people species
+        // and definition of their living and working places
+        create people number: nb_people { 
+            living_space &lt;- 3.0;
+            tolerance &lt;- 0.1;
+            lanes_attribute &lt;- "nbLanes";
+            obstacle_species &lt;- [species(self)]; 
+            speed &lt;- min_speed + rnd (max_speed - min_speed) ;
+            start_work &lt;- min_work_start + rnd (max_work_start - min_work_start) ;
+            end_work &lt;- min_work_end + rnd (max_work_end - min_work_end) ;
+            living_place &lt;- one_of(building) ;
+            working_place &lt;- one_of(building) ;
+            location &lt;- living_place.location; 
+        }   
+    }
+    
+    //Update of the graph every 10 Cycles to take into account the traffic jam of the road in the weights of the graph
+    reflex update_graph when:every(10){
+        map&lt;road,float&gt; weights_map &lt;- road as_map (each:: (each.shape.perimeter * each.coeff_traffic));
+        the_graph &lt;- the_graph with_weights weights_map;
+    }
+    
+} 
+    
+species road  { 
+    int nbLanes;
+    int indexDirection; 
+    bool blocked &lt;- false;
+    rgb color &lt;- #black;
+    float coeff_traffic &lt;- 1.0 update: 1 + (float(length(people at_distance 1.0)) / shape.perimeter * 200 / nbLanes);
+    geometry visu_geom;
+    
+    aspect base { 
+        draw shape color: #black ;
+    } 
+    
+    
+    //Command that the user can execute to remove or add a road 
+    user_command "Remove a road" action: remove;
+    user_command "Add a road" action: add;
+         
+    action remove {
+        blocked &lt;- true;
+        the_graph &lt;-  (as_edge_graph(road where (!each.blocked))) ;
+        map&lt;road,float&gt; weights_map &lt;- road as_map (each:: each.coeff_traffic);
+        the_graph &lt;- the_graph  with_weights weights_map;
+        color &lt;- #magenta;
+    }
+        
+    action add {
+        blocked &lt;- false;
+        the_graph &lt;-  (as_edge_graph(road where (!each.blocked)));
+        map&lt;road,float&gt; weights_map &lt;- road as_map (each:: each.coeff_traffic);
+        the_graph &lt;- the_graph  with_weights weights_map;
+        color &lt;- #black;
+    }
+        
+    aspect road_width {  
+        draw visu_geom color: color ;
+    }
+    
+    aspect traffic_jam {  
+        if (coeff_traffic &gt; 0.025) {
+            draw shape + (coeff_traffic / 4.0) color: #red ;
+        }
+    }       
+}
+    
+species building  { 
+    rgb color &lt;- #gray;
+    aspect base { 
+        draw shape color: color ;
+    }
+}
+    
+species people skills: [driving]{ 
+    float speed; 
+    rgb color &lt;- rgb([rnd(255),rnd(255),rnd(255)]) ;
+    point targetBis &lt;- nil ; 
+    point previousLoc &lt;- nil;
+    bool normalMove &lt;- true;
+    float evadeDist &lt;- 500.0;
+    building living_place &lt;- nil ;
+    building working_place &lt;- nil ;
+    int start_work ;
+    int end_work  ;
+    string objective ; 
+    point the_target &lt;- nil ;
+        
+    //Reflex to make the agent move while it had a target and normalMove equals true
+    reflex move when: the_target != nil and normalMove{
+        previousLoc &lt;- copy(location);
+        do goto_driving target: the_target on: the_graph speed: speed ; 
+        switch location { 
+            match the_target {
+                the_target &lt;- nil;
+                nbGoalsAchived &lt;- nbGoalsAchived +1;
+            }
+            match previousLoc {
+                targetBis &lt;- last((one_of(road where (each distance_to self &lt; evadeDist)).shape).points);
+                normalMove &lt;- false;
+            }
+        }
+    }
+        
+    //Reflex to make the agent move when it is not normal moving 
+    reflex EvadeMove when: !(normalMove){
+        previousLoc &lt;- copy(location);
+        do goto_driving target: targetBis on: the_graph speed: speed ; 
+        switch location { 
+            match targetBis {
+                normalMove &lt;- true;
+            }
+            match previousLoc {
+                targetBis &lt;- last((one_of(road where (each distance_to self &lt; evadeDist)).shape).points);
+            }
+        }
+    }
+    
+    //Reflex to make the agent go to its working place when it's time to go work
+    reflex time_to_work when: day_time = start_work {
+        objective &lt;- "working" ;
+        the_target &lt;- any_location_in (working_place);
+    }
+    
+    //Reflex to make the agent go to its living place when it's time to go home
+    reflex time_to_go_home when: day_time = end_work {
+        objective &lt;- "go home" ;
+        the_target &lt;- any_location_in (living_place); 
+    }  
+    
+    aspect base {
+        draw circle(20) color: color;
+    }
+}
+
+experiment traffic type: gui {
+    parameter "Shapefile for the buildings:" var: shape_file_buildings category: "GIS" ;
+    parameter "Shapefile for the roads:" var: shape_file_roads category: "GIS" ;
+    parameter "Shapefile for the bounds:" var: shape_file_bounds category: "GIS" ;
+    parameter "Number of people agents" var: nb_people category: "People" ;
+    parameter "Earliest hour to start work" var: min_work_start category: "People" ;
+    parameter "Latest hour to start work" var: max_work_start category: "People" ;
+    parameter "Earliest hour to end work" var: min_work_end category: "People" ;
+    parameter "Latest hour to end work" var: max_work_end category: "People" ;
+    parameter "minimal speed" var: min_speed category: "People" ;
+    parameter "maximal speed" var: max_speed category: "People" ;
+    
+    output {
+        display city_display {
+            species road aspect: road_width ;
+            species building aspect: base;
+            species people aspect: base;
+        }
+        display traffic_jam_display {
+            species road aspect: base ;
+            species road aspect: traffic_jam ;
+        }
+        display chart_display refresh: every(10) {
+            chart "Traffic jam" type: series size: {0.9, 0.4} position: {0.05, 0.05} {
+                data "Mean road traffic coefficient" value: mean (road collect each.coeff_traffic) style: line color: #green ;
+                data "Max road traffic coefficient" value: road max_of (each.coeff_traffic) style: line color: #red ;
+            }
+            chart "People Objectif" type: pie style: exploded size: {0.9, 0.4} position: {0.05, 0.55} {
+                data "Working" value: length ((people as list) where (each.objective="working")) color: #green ;
+                data "Staying home" value: length ((people as list) where (each.objective="go home")) color: #blue ;
+            }
+        }
+        monitor "Number of goals achieved" value: nbGoalsAchived ;
+    }
+}
+
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

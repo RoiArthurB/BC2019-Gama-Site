@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>InteractionBetweenAgents · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="InteractionBetweenAgents · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">InteractionBetweenAgents</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="interaction-between-agents"></a><a href="#interaction-between-agents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Interaction between agents</h1>
+<p>In this part, we will learn how interaction between agents works. We will also present you a bunch of operators useful for your modelling.</p>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#the-ask-statement">The ask statement</a></li>
+<li><a href="#pseudo-variables">Pseudo variables</a></li>
+<li><a href="#some-useful-interaction-operators">Some useful interaction operators</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="the-ask-statement"></a><a href="#the-ask-statement" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The ask statement</h2>
+<p>The <code>ask</code> statement can be used in any reflex or action scope. It is used to specify the interaction between the instances of your species and the other agents. You only have to specify the species of the agents you want to interact with. Here are the different ways of calling the ask statement:</p>
+<ul>
+<li>If you want to interact with one particular agent (for example, defined as an attribute of your species):</li>
+</ul>
+<pre><code class="hljs">species my_species {
+    agent target;
+    reflex update {
+        ask target {
+            <span class="hljs-comment">// statements</span>
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>If you want to interact with a group of agents:</li>
+</ul>
+<pre><code class="hljs">species my_species {
+    list&lt;agent&gt; targets;
+    reflex update {
+        ask targets {
+            <span class="hljs-comment">// statements</span>
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>If you want to interact with agents, as if they were instance of a certain species (can raise an error if it's not the case!):</li>
+</ul>
+<pre><code class="hljs">species my_species {
+    list&lt;agent&gt; targets;
+    reflex update {
+        ask targets <span class="hljs-keyword">as</span>:my_species {
+            <span class="hljs-comment">// statements</span>
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>If you want to interact with all the agent of a species:</li>
+</ul>
+<pre><code class="hljs">species my_species {
+    list&lt;agent&gt; targets;
+    reflex update {
+        ask other_species {
+            <span class="hljs-comment">// statements</span>
+        }
+    }
+}
+
+species other_species {
+}
+</code></pre>
+<p>Note that you can use the attribute <em>population</em> of <code>species</code> if you find it more explicit:</p>
+<pre><code class="hljs">ask other_species.population
+</code></pre>
+<ul>
+<li>If you want to interact with all the agent of a particular species from a list of agents (for example, using the global variable &quot;agents&quot;):</li>
+</ul>
+<pre><code class="hljs">species my_specie {
+    reflex update {
+        ask species of_species my_specie {
+            <span class="hljs-comment">// statements</span>
+        }
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="pseudo-variables"></a><a href="#pseudo-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pseudo variables</h2>
+<p>Once you are in the ask scope, you can use some pseudo variables to refer to the receiver agent (the one specify just after the ask statement) or the transmitter agent (the agent which is asking).
+We use the pseudo variable <code>self</code> to refer to the receiver agent, and the pseudo variable <code>myself</code> to refer to the transmitter agent. The pseudo variable <code>self</code> can be omitted when calling actions or attributes.</p>
+<pre><code class="hljs">species speciesA {
+    init {
+        name &lt;- <span class="hljs-string">"speciesA"</span>;
+    }
+    reflex update {
+        ask speciesB {
+write name; <span class="hljs-comment">// output : "speciesB"          </span>
+write self.name; <span class="hljs-comment">// output : "speciesB"</span>
+            write myself.name; <span class="hljs-comment">// output : "speciesA"</span>
+        }
+    }
+}
+
+species speciesB {
+    init {
+        name &lt;- <span class="hljs-string">"speciesB"</span>;
+    }
+}
+</code></pre>
+<p>Now, if we introduce a third species, we can write an <code>ask</code> statement inside another.</p>
+<pre><code class="hljs">species speciesA {
+    init {
+        name &lt;- <span class="hljs-string">"speciesA"</span>;
+    }
+    reflex update {
+        ask speciesB {
+            write self.name; <span class="hljs-comment">// output : "speciesB"</span>
+            write myself.name; <span class="hljs-comment">// output : "speciesA"</span>
+            ask speciesC {
+                write self.name; <span class="hljs-comment">// output : "speciesC"</span>
+                write myself.name; <span class="hljs-comment">// output : "speciesB"</span>
+            }
+        }
+    }
+}
+
+species speciesB {
+    init {
+        name &lt;- <span class="hljs-string">"speciesB"</span>;
+    }
+}
+
+species speciesC {
+    init {
+        name &lt;- <span class="hljs-string">"speciesC"</span>;
+    }
+}
+</code></pre>
+<p>Nb: try to avoid multiple imbrications of ask statements. Most of the time, there is another way to do the same thing.</p>
+<h2><a class="anchor" aria-hidden="true" id="some-useful-interaction-operators"></a><a href="#some-useful-interaction-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Some useful interaction operators</h2>
+<p>The operator <code>at_distance</code> can be used to know the list of agents that are in a certain distance from another agent.</p>
+<pre><code class="hljs">species my_species {
+    reflex update {
+        list&lt;agent&gt; neighbors &lt;- agents at_distance(<span class="hljs-number">5</span>);
+        <span class="hljs-comment">// neighbors contains the list of all the agents located at a distance &lt;= 5 from the caller agent.</span>
+    }
+}
+</code></pre>
+<p>The operator <code>closest_to</code> returns the closest agent of a position among a container.</p>
+<pre><code class="hljs">species my_species {
+    reflex update {
+        agent agentA &lt;- agents closest_to(self);
+        <span class="hljs-comment">// agentA contains the closest agent from the caller agent.</span>
+        agent agentB &lt;- other_specie closest_to({<span class="hljs-number">2</span>,<span class="hljs-number">3</span>});
+        <span class="hljs-comment">// agentB contains the closest instance of other_specie from the location {2,3}.</span>
+    }
+}
+
+species other_specie {
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
+<p>To practice those notions, here is a short basic example. Let's build a model with a fix number of agents with a circle shape. They can move randomly on the environment, and when they are close enough from another agent, a line is displayed between them. This line is destroyed when the distance between the two agents is too important.
+Hint: use the operator <code>polyline</code> to construct a line. List the points between angle brackets <code>[]</code>.</p>
+<p><img src="resources/images/manipulateBasicSpecies/connect_the_neighbors.png" alt="images/connect_the_neighbors.png"></p>
+<p>Here is one example of implementation:</p>
+<pre><code class="hljs">model connect_the_neighbors
+
+global{
+    float speed &lt;- 0.2;
+    float distance_to_intercept &lt;- 10.0;
+    int number_of_circle &lt;- 100;
+    init {
+        create my_species number:number_of_circle;
+    }
+}
+
+species my_species {
+    reflex move {
+        location &lt;- {location.x+rnd(-speed,speed),location.y+rnd(-speed,speed)};
+    }
+    aspect default {
+        draw circle(1);
+        ask my_species at_distance(distance_to_intercept) {
+            draw polyline([self.location,myself.location]) color:#black;
+        }
+    }
+}
+
+experiment my_experiment type:gui
+{
+    output{
+        display myDisplay {
+            species my_species aspect:default;
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

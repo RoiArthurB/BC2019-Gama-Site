@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>GraphSpecies · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="GraphSpecies · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">GraphSpecies</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="graph-species"></a><a href="#graph-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Graph Species</h1>
+<p>Using a graph species enables to easily show interaction between agents of a same species. This kind of species is particularly useful when trying to show the interaction (especially the non-spatial one) that exist between agents.</p>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#declaration">Declaration</a>
+<ul>
+<li><a href="#declare-a-graph-with-handmade-agents">Declare a graph with handmade agents</a></li>
+<li><a href="#declare-a-graph-by-using-an-geometry-file">Declare a graph by using an geometry file</a></li>
+<li><a href="#declare-a-graph-with-nodes-and-edges">Declare a graph with nodes and edges</a></li>
+</ul></li>
+<li><a href="#useful-operators-with-graph">Useful operators with graph</a>
+<ul>
+<li><a href="#knowing-the-degree-of-a-node">Knowing the degree of a node</a></li>
+<li><a href="#get-the-neighbors-of-a-node">Get the neighbors of a node</a></li>
+<li><a href="#compute-the-shortest-path">Compute the shortest path</a></li>
+<li><a href="#control-the-weight-in-graph">Control the weight in graph</a></li>
+</ul></li>
+<li><a href="#example">Example</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="declaration"></a><a href="#declaration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaration</h2>
+<h3><a class="anchor" aria-hidden="true" id="declare-a-graph-with-handmade-agents"></a><a href="#declare-a-graph-with-handmade-agents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare a graph with handmade agents</h3>
+<p>To instantiate this <code>graph</code> species, several steps must be followed. First the graph species must inherit from the abstract species <code>graph_node</code>, then the method <code>related_to</code> must be redefined and finally an auxiliary species that inherits from <code>base_edge</code> used to represent the edges of the generated graph must be declared.
+A graph node is an abstract species that must redefine one method called <code>related_to</code>.</p>
+<pre><code class="hljs">species graph_agent parent: graph_node edge_species: edge_agent{
+  bool related_to(graph_agent other){
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}
+
+species edge_agent parent: base_edge {
+}
+</code></pre>
+<p>The method <code>related_to</code> returns a boolean, and take the agents from the current species in argument. If the method returns true, the two agents (the current instance and the one as argument) will be linked.</p>
+<pre><code class="hljs">global{
+    int number_of_agents &lt;- 5;
+    init {
+        create graph_agent number:number_of_agents;
+    }
+}
+
+species graph_agent parent: graph_node edge_species: edge_agent{
+  bool related_to(graph_agent other){
+    return true;
+  }
+  aspect base {
+    draw circle(1) color:#green;
+  }
+}
+
+species edge_agent parent: base_edge {
+    aspect base {
+    draw shape color:#blue;
+  }
+}
+
+experiment MyExperiment type: gui {
+    output {
+        display MyDisplay type: java2D {
+            species graph_agent aspect:base;
+            species edge_agent aspect:base;
+        }
+    }
+}
+</code></pre>
+<p><img src="resources/images/definingAdvancedSpecies/graph_related_to.png" alt="graph_related_to.png"></p>
+<p>You can for example link 2 agents when they are closer than a certain distance.
+Beware: The topology used in graph species is the graph topology, and not the continuous topology. You can force the use of the continuous topology with the action <code>using</code> as follow:</p>
+<pre><code class="hljs">bool related_to(graph_agent other){
+    using topology:topology(world) {
+        <span class="hljs-keyword">return</span> (self.location distance_to other.location &lt; <span class="hljs-number">20</span>);
+    }
+}
+</code></pre>
+<p><img src="resources/images/definingAdvancedSpecies/graph_related_to2.png" alt="graph_related_to2.png"></p>
+<p>The abstract mother species &quot;graph_node&quot; has an attribute &quot;my_graph&quot;, with the type &quot;graph&quot;. The graph type represent a graph composed of vertices linked with edges. This type has built-in attributes such as <code>edges</code> (the list of all the edges agents), or <code>vertices</code> (the list of all the vertices agents).</p>
+<h3><a class="anchor" aria-hidden="true" id="declare-a-graph-by-using-an-geometry-file"></a><a href="#declare-a-graph-by-using-an-geometry-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare a graph by using an geometry file</h3>
+<p>In most cases, you will have to construct a graph from an existing file (example: a &quot;shp&quot; file). In that case, you will have to first instantiate a species from the shape file (with the <code>create</code> statement, using the facet <code>from</code>). When, you will have to extract a graph from the agent, using the operator <code>as_edge_graph</code>.</p>
+<pre><code class="hljs">model load_shape_file 
+ 
+global {
+    file roads_shapefile &lt;- file("../includes/road.shp");
+    geometry shape &lt;- envelope(roads_shapefile);
+    graph road_network;
+
+    init {
+        create road from: roads_shapefile;
+        road_network &lt;- as_edge_graph(road);
+    }
+}
+
+species road {
+    aspect geom {
+        draw shape color: #black;
+    }
+}
+
+experiment main_experiment type:gui{
+    output {
+        display map {
+            species road aspect:geom;       
+        }
+    }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="declare-a-graph-with-nodes-and-edges"></a><a href="#declare-a-graph-with-nodes-and-edges" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare a graph with nodes and edges</h3>
+<p>Another way to create a graph is building it manually nodes by nodes, and then edges by edges, without using agent structures. Use the <code>add_node</code> operator and the <code>add_edge</code> operator to do so. Here is an example of how to do:</p>
+<pre><code class="hljs">add point(<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>) to:nodes;
+add point(<span class="hljs-number">90.0</span>,<span class="hljs-number">90.0</span>) to:nodes;
+add point(<span class="hljs-number">20.0</span>,<span class="hljs-number">20.0</span>) to:nodes;
+add point(<span class="hljs-number">40.0</span>,<span class="hljs-number">50.0</span>) to:nodes;
+add point(<span class="hljs-number">100.0</span>,<span class="hljs-number">0.0</span>) to:nodes;
+
+loop nod over:nodes {
+    my_graph &lt;- my_graph add_node(nod);
+}
+        
+my_graph &lt;- my_graph add_edge (nodes at <span class="hljs-number">0</span>::nodes at <span class="hljs-number">2</span>);
+my_graph &lt;- my_graph add_edge (nodes at <span class="hljs-number">2</span>::nodes at <span class="hljs-number">3</span>);
+my_graph &lt;- my_graph add_edge (nodes at <span class="hljs-number">3</span>::nodes at <span class="hljs-number">1</span>);
+my_graph &lt;- my_graph add_edge (nodes at <span class="hljs-number">0</span>::nodes at <span class="hljs-number">4</span>);
+my_graph &lt;- my_graph add_edge (nodes at <span class="hljs-number">4</span>::nodes at <span class="hljs-number">1</span>);
+</code></pre>
+<p>Using this solution, my_graph can have two types: it can be an a-spatial graph, or a spatial graph. The spatial graph will have a proper geometry, with segments that follow the position of your graph (you can access to the segments by using the built-in &quot;segments&quot;). The a-spatial graph will not have any shape.</p>
+<pre><code class="hljs">global
+{
+    graph my_spatial_graph&lt;-spatial_graph([]);
+    graph my_aspatial_graph&lt;-graph([]);
+    
+    init {
+        point node1 &lt;- {<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>};
+        point node2 &lt;- {<span class="hljs-number">10.0</span>,<span class="hljs-number">10.0</span>};
+        my_spatial_graph &lt;- my_spatial_graph add_node(node1);
+        my_spatial_graph &lt;- my_spatial_graph add_node(node2);
+        my_spatial_graph &lt;- my_spatial_graph add_edge(node1::node2);
+        write my_spatial_graph.edges;
+        <span class="hljs-comment">// the output is [polyline ([{0.0,0.0,0.0},{10.0,10.0,0.0}])]</span>
+        my_aspatial_graph &lt;- my_aspatial_graph add_node(node1);
+        my_aspatial_graph &lt;- my_aspatial_graph add_node(node2);
+        my_aspatial_graph &lt;- my_aspatial_graph add_edge(node1::node2);
+        write my_aspatial_graph.edges;
+        <span class="hljs-comment">// the output is [{0.0,0.0,0.0}::{10.0,10.0,0.0}]</span>
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="useful-operators-with-graph"></a><a href="#useful-operators-with-graph" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Useful operators with graph</h2>
+<h3><a class="anchor" aria-hidden="true" id="knowing-the-degree-of-a-node"></a><a href="#knowing-the-degree-of-a-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Knowing the degree of a node</h3>
+<p>The operator <code>degree_of</code> returns the number of edge attached to a node. To use it, you have to specify a graph (on the left side of the operator), and a node (on the right side of the operator).</p>
+<p>The following code (to put inside the node species) displays the number of edges attached to each node:</p>
+<pre><code class="hljs">aspect base
+{
+    draw text:string(my_graph degree_of node(5)) color:# black;
+    status &lt;- 0;
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="get-the-neighbors-of-a-node"></a><a href="#get-the-neighbors-of-a-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get the neighbors of a node</h3>
+<p>To get the list of neighbors of a node, you should use the neighbors_of operator. On the left side of the operator, specify the graph you are using, and on the right side, specify the node. The operator returns the list of nodes located at a distance inferior or equal to 1, considering the graph topology.</p>
+<pre><code class="hljs">species graph_agent parent: graph_node edge_species: edge_agent
+{
+  list&lt;graph_agent&gt; list_neighbors &lt;- list&lt;graph_agent&gt;(my_graph neighbors_of (self));
+}
+</code></pre>
+<p>Here is an example of model using those two previous concepts (a random node is chosen each step, displayed in red, and his neighbors are displayed in yellow):</p>
+<p><img src="resources/images/definingAdvancedSpecies/graph_model.png" alt="graph_model.png"></p>
+<pre><code class="hljs">model graph_model
+
+global
+{
+    int number_of_agents &lt;- 50;
+    init
+    {
+        create graph_agent number: number_of_agents;
+    }
+    
+    reflex update {
+        ask graph_agent(one_of(graph_agent)) {
+            status &lt;- 2;
+            do update_neighbors;
+        }
+    }
+}
+
+species graph_agent parent: graph_node edge_species: edge_agent
+{
+    int status &lt;- 0;
+    list&lt;int&gt; list_connected_index;
+    
+    init {
+        int i&lt;-0;
+        loop g over:graph_agent {
+            if (flip(0.1)) {
+                add i to:list_connected_index;
+            }
+            i &lt;- i+1;
+        }
+    }
+    
+    bool related_to(graph_agent other){
+        if (list_connected_index contains (graph_agent index_of other)) {
+            return true;
+        }
+        return false;
+    }
+    
+    action update_neighbors {
+
+        list&lt;graph_agent&gt; list_neighbors &lt;- list&lt;graph_agent&gt;(my_graph neighbors_of (self));
+
+        loop neighb over:list_neighbors {
+            neighb.status &lt;- 1;
+        }
+    }
+
+    aspect base
+    {
+        if (status = 0) {
+            draw circle(2) color: # green;
+        }
+        else if (status = 1) {
+            draw circle(2) color: # yellow;
+        }
+        else if (status = 2) {
+            draw circle(2) color: # red;
+        }
+        draw text:string(my_graph degree_of self) color:# black size:4 at:point(self.location.x-1,self.location.y-2);
+        status &lt;- 0;
+    }
+}
+
+species edge_agent parent: base_edge
+{
+    aspect base
+    {
+        draw shape color: # blue;
+    }
+}
+
+experiment MyExperiment type: gui
+{
+    output
+    {
+        display MyDisplay type: java2D
+        {
+            species graph_agent aspect: base;
+            species edge_agent aspect: base;
+        }
+    }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="compute-the-shortest-path"></a><a href="#compute-the-shortest-path" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compute the shortest path</h3>
+<p>To compute the shortest path to go from a point to another, pick a source and a destination among the vertices you have for your graph. Store those values as point type.</p>
+<pre><code class="hljs">point source;
+point destination;
+source &lt;- point(one_of(my_graph.vertices));
+destination &lt;- point(one_of(my_graph.vertices));
+</code></pre>
+<p>Then, you can use the operator <code>path_between</code> to return the shortest path. To use this action, you have to give the graph, then the source point, and the destination point. This action returns a path type.</p>
+<pre><code class="hljs">path shortest_path;
+shortest_path &lt;- path_between (my_graph, source,destination);
+</code></pre>
+<p>Another operator exists, <code>paths_between</code>, that returns a list of shortest paths between two points. Please read the documentation to learn more about this operator.</p>
+<p>Here is an example of code that show the shortest path between two points of a graph:</p>
+<p><img src="resources/images/definingAdvancedSpecies/shortest_path.png" alt="shortest_path.png"></p>
+<pre><code class="hljs">model graph_model
+
+global
+{
+    int number_of_agents &lt;- 50;
+    point source;
+    point target;
+    graph my_graph;
+    path shortest_path;
+        
+    init
+    {
+        create graph_agent number: number_of_agents;
+    }
+    
+    reflex pick_two_points {
+        if (my_graph=nil) {
+            ask graph_agent {
+                myself.my_graph &lt;- self.my_graph;
+                break;
+            }
+        }
+        shortest_path &lt;- nil;
+        loop while:shortest_path=nil {
+            source &lt;- point(one_of(my_graph.vertices));
+            target &lt;- point(one_of(my_graph.vertices));
+            if (source != target) {
+                shortest_path &lt;- path_between (my_graph, source,target);
+            }
+        }
+    }
+}
+
+species graph_agent parent: graph_node edge_species: edge_agent
+{
+    list&lt;int&gt; list_connected_index;
+    
+    init {
+        int i&lt;-0;
+        loop g over:graph_agent {
+            if (flip(0.1)) {
+                add i to:list_connected_index;
+            }
+            i &lt;- i+1;
+        }
+    }
+    
+    bool related_to(graph_agent other) {
+        using topology:topology(world) {
+            return (self.location distance_to other.location &lt; 20);
+        }
+    }
+
+    aspect base {
+        draw circle(2) color: # green;
+    }
+}
+
+species edge_agent parent: base_edge
+{
+    aspect base {
+        draw shape color: # blue;
+    }
+}
+
+experiment MyExperiment type: gui {
+    output {
+        display MyDisplay type: java2D {
+            species graph_agent aspect: base;
+            species edge_agent aspect: base;
+            graphics "shortest path" {
+                if (shortest_path != nil) {
+                    draw circle(3) at: source color: #yellow;
+                    draw circle(3) at: target color: #cyan;
+                    draw (shortest_path.shape+1) color: #magenta;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="control-the-weight-in-graph"></a><a href="#control-the-weight-in-graph" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Control the weight in graph</h3>
+<p>You can add a map of weight for the edges that compose the graph. Use the operator <code>with_weights</code> to put weights in your graph. The graph has to be on the left side of the operator, and the map has to be on the right side. In the map, you have to put edges as key, and the weight for that edge as value. One common use is to put the distance as weight:</p>
+<pre><code class="hljs">my_graph &lt;- my_graph with_weights (my_graph.edges as_map (each::geometry(each).perimeter));
+</code></pre>
+<p>The calculation of shortest path can change according to the weight you choose for your edges. For example, here is the result of the calculation of the shortest path when all the edges have 1 as weight value (it is the default graph topology), and when the edges have their length as weight.</p>
+<p><img src="resources/images/definingAdvancedSpecies/path_weight.png" alt="path_weight.png"></p>
+<p>Here is an example of implementation:</p>
+<pre><code class="hljs">model shortest_path_with_weight
+
+global
+{
+    graph my_graph&lt;-spatial_graph([]);
+    path shortest_path;
+    list&lt;point&gt; nodes;
+        
+    init
+    {
+        add point(10.0,10.0) to:nodes;
+        add point(90.0,90.0) to:nodes;
+        add point(40.0,20.0) to:nodes;
+        add point(80.0,50.0) to:nodes;
+        add point(90.0,20.0) to:nodes;
+
+        loop nod over:nodes {
+            my_graph &lt;- my_graph add_node(nod);
+        }
+        
+        my_graph &lt;- my_graph add_edge (nodes at 0::nodes at 2);
+        my_graph &lt;- my_graph add_edge (nodes at 2::nodes at 3);
+        my_graph &lt;- my_graph add_edge (nodes at 3::nodes at 1);
+        my_graph &lt;- my_graph add_edge (nodes at 0::nodes at 4);
+        my_graph &lt;- my_graph add_edge (nodes at 4::nodes at 1);
+        
+        // comment/decomment the following line to see the difference.
+        my_graph &lt;- my_graph with_weights (my_graph.edges as_map (each::geometry(each).perimeter));
+        
+        shortest_path &lt;- path_between(my_graph,nodes at 0, nodes at 1);
+    }
+}
+
+experiment MyExperiment type: gui {
+    output {
+        display MyDisplay type: java2D {
+            graphics "shortest path" {
+                if (shortest_path != nil) {
+                    draw circle(3) at: point(shortest_path.source) color: #yellow;
+                    draw circle(3) at: point(shortest_path.target) color: #cyan;
+                    draw (shortest_path.shape+1) color: #magenta;
+                }
+                loop edges over: my_graph.edges {
+                    draw edges color: #black;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

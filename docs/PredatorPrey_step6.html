@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>PredatorPrey_step6 · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;6-breeding&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#6-breeding&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;6. Breeding&lt;/h1&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="PredatorPrey_step6 · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;6-breeding&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#6-breeding&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;6. Breeding&lt;/h1&gt;
+"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">PredatorPrey_step6</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="6-breeding"></a><a href="#6-breeding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>6. Breeding</h1>
+<p>So far we created agents only during the initialisation of the simulation. In this sixth step we Illustrate how to create new agents during a simulation of a dynamic species.</p>
+<h2><a class="anchor" aria-hidden="true" id="formulation"></a><a href="#formulation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formulation</h2>
+<ul>
+<li>Adding of a reproduce action of the prey and predator agents:
+<ul>
+<li>When a agent has energy enough, it has a certain probability to have a certain number of offspring</li>
+<li>The energy of the offspring is equal to the parent energy divided by the number of offspring</li>
+<li>The parent get the same energy as its offspring</li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
+<h3><a class="anchor" aria-hidden="true" id="parameters"></a><a href="#parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>parameters</h3>
+<p>We add six new parameters related to breeding:</p>
+<ul>
+<li>The reproduction probability for prey agents</li>
+<li>The max number of offspring for prey agents</li>
+<li>The minimum energy to reproduce for prey agents</li>
+<li>The reproduction probability for predator agents</li>
+<li>The max number of offspring for predator agents</li>
+<li>The minimum energy to reproduce for predator agents</li>
+</ul>
+<p>We define six new global variables in the global section:</p>
+<pre><code class="hljs">global {
+   ...
+   float prey_proba_reproduce &lt;- <span class="hljs-number">0.01</span>;
+   int prey_nb_max_offsprings &lt;- <span class="hljs-number">5</span>; 
+   float prey_energy_reproduce &lt;- <span class="hljs-number">0.5</span>; 
+   float predator_proba_reproduce &lt;- <span class="hljs-number">0.01</span>;
+   int predator_nb_max_offsprings &lt;- <span class="hljs-number">3</span>;
+   float predator_energy_reproduce &lt;- <span class="hljs-number">0.5</span>;
+}
+</code></pre>
+<p>We define then the six corresponding parameters in the experiment:</p>
+<pre><code class="hljs">   parameter <span class="hljs-string">"Prey probability reproduce: "</span> <span class="hljs-keyword">var</span>: prey_proba_reproduce category: <span class="hljs-string">"Prey"</span> ;
+   parameter <span class="hljs-string">"Prey nb max offsprings: "</span> <span class="hljs-keyword">var</span>: prey_nb_max_offsprings category: <span class="hljs-string">"Prey"</span> ;
+   parameter <span class="hljs-string">"Prey energy reproduce: "</span> <span class="hljs-keyword">var</span>: prey_energy_reproduce category: <span class="hljs-string">"Prey"</span> ;
+   parameter <span class="hljs-string">"Predator probability reproduce: "</span> <span class="hljs-keyword">var</span>: predator_proba_reproduce category: <span class="hljs-string">"Predator"</span> ;
+   parameter <span class="hljs-string">"Predator nb max offsprings: "</span> <span class="hljs-keyword">var</span>: predator_nb_max_offsprings category: <span class="hljs-string">"Predator"</span> ;
+   parameter <span class="hljs-string">"Predator energy reproduce: "</span> <span class="hljs-keyword">var</span>: predator_energy_reproduce category: <span class="hljs-string">"Predator"</span> ;
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="parent-species"></a><a href="#parent-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>parent species</h3>
+<p>We add three new variables for the <strong>generic_species</strong>:</p>
+<ul>
+<li>proba_reproduce</li>
+<li>nb_max_offsprings</li>
+<li>energy_reproduce</li>
+</ul>
+<p>We add as well a new reflex called <strong>reproduce</strong>:</p>
+<ul>
+<li>this reflex is activated only when:
+<ul>
+<li>the energy of the agent is greater or equals to energy_reproduce</li>
+<li>AND according to the probability proba_reproduce: for this second condition, we use the <strong>flip(proba)</strong> operator that returns <em>true</em> according to the probability proba (<em>false</em> otherwise).</li>
+</ul></li>
+</ul>
+<ul>
+<li><p>this reflex creates <strong>nb_offsprings</strong> (random number between 1 and nb_max_offsprings) new agent of species the species of the agent using the create statement: we use a species casting operator on the current agent.</p>
+<ul>
+<li>the created agents are initialized as follows:
+<ul>
+<li>myCell: myCell of the agent creating the agents</li>
+<li>location: location of myCell</li>
+<li>energy: energy of the agent creating the agents (use of keyword <strong><a href="PseudoVariables#myself">myself</a></strong>) divided by the number of offsprings.</li>
+</ul></li>
+</ul></li>
+<li><p>after the agent creation, the reflex updates the energy value of the current agent with the value: energy / nb_offsprings</p></li>
+</ul>
+<pre><code class="hljs">   species generic_species {
+      ...
+      float proba_reproduce ;
+      int nb_max_offsprings;
+      float energy_reproduce;
+      ... 
+      reflex reproduce when: (energy &gt;= energy_reproduce) and (flip(proba_reproduce)) {
+         int nb_offsprings &lt;- <span class="hljs-number">1</span> + rnd(nb_max_offsprings <span class="hljs-number">-1</span>);
+         create species(self) number: nb_offsprings {
+            myCell &lt;- myself.myCell ;
+            location &lt;- myCell.location ;
+            energy &lt;- myself.energy / nb_offsprings ;
+         }
+         energy &lt;- energy / nb_offsprings ;
+      }
+   }
+</code></pre>
+<p>Note that two keywords can be used to make explicit references to some agents :</p>
+<ul>
+<li>The agent that is currently executing the statements inside the block (for example a newly created agent): <strong>self</strong></li>
+<li>The agent that is executing the statement that contains this block (for instance, the agent that has called the create statement): <strong>myself</strong></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="prey-species"></a><a href="#prey-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>prey species</h3>
+<p>We specialize the <strong>prey</strong> species from the <strong>generic_species</strong> species:</p>
+<ul>
+<li>definition of the initial value of the agent variables</li>
+</ul>
+<pre><code class="hljs">   species prey parent: generic_species {
+      ...
+      float proba_reproduce &lt;- prey_proba_reproduce ;
+      int nb_max_offsprings &lt;- prey_nb_max_offsprings ;
+      float energy_reproduce &lt;- prey_energy_reproduce ;
+      ...
+   }
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="predator-species"></a><a href="#predator-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>predator species</h3>
+<p>As done for the <strong>prey</strong> species, we specialize the <strong>predator</strong> species from the <strong>generic_species</strong> species:</p>
+<ul>
+<li>definition of the initial value of the agent variables</li>
+</ul>
+<pre><code class="hljs">   species predator parent: generic_species {
+      ...
+      float proba_reproduce &lt;- predator_proba_reproduce ;
+      int nb_max_offsprings &lt;- predator_nb_max_offsprings ;
+      float energy_reproduce &lt;- predator_energy_reproduce ;
+      ...
+   }
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
+<pre><code class="hljs">model prey_predator
+
+global {
+    int nb_preys_init &lt;- 200;
+    int nb_predators_init &lt;- 20;
+    float prey_max_energy &lt;- 1.0;
+    float prey_max_transfert &lt;- 0.1 ;
+    float prey_energy_consum &lt;- 0.05;
+    float predator_max_energy &lt;- 1.0;
+    float predator_energy_transfert &lt;- 0.5;
+    float predator_energy_consum &lt;- 0.02;
+    float prey_proba_reproduce &lt;- 0.01;
+    int prey_nb_max_offsprings &lt;- 5; 
+    float prey_energy_reproduce &lt;- 0.5; 
+    float predator_proba_reproduce &lt;- 0.01;
+    int predator_nb_max_offsprings &lt;- 3;
+    float predator_energy_reproduce &lt;- 0.5;
+    
+    int nb_preys -&gt; {length (prey)};
+    int nb_predators -&gt; {length (predator)};
+    
+    init {
+        create prey number: nb_preys_init ; 
+        create predator number: nb_predators_init ;
+    }
+}
+
+species generic_species {
+    float size &lt;- 1.0;
+    rgb color  ;
+    float max_energy;
+    float max_transfert;
+    float energy_consum;
+    float proba_reproduce ;
+    int nb_max_offsprings;
+    float energy_reproduce;
+    vegetation_cell myCell &lt;- one_of (vegetation_cell) ;
+    float energy &lt;- (rnd(1000) / 1000) * max_energy  update: energy - energy_consum max: max_energy ;
+    
+    init {
+        location &lt;- myCell.location;
+    }
+        
+    reflex basic_move {
+        myCell &lt;- one_of (myCell.neighbors) ;
+        location &lt;- myCell.location ;
+    }
+        
+    reflex die when: energy &lt;= 0 {
+        do die ;
+    }
+    
+    reflex reproduce when: (energy &gt;= energy_reproduce) and (flip(proba_reproduce)) {
+        int nb_offsprings &lt;- 1 + rnd(nb_max_offsprings -1);
+        create species(self) number: nb_offsprings {
+            myCell &lt;- myself.myCell ;
+            location &lt;- myCell.location ;
+            energy &lt;- myself.energy / nb_offsprings ;
+        }
+        energy &lt;- energy / nb_offsprings ;
+    }
+    
+    aspect base {
+        draw circle(size) color: color ;
+    }
+}
+
+species prey parent: generic_species {
+    rgb color &lt;- #blue;
+    float max_energy &lt;- prey_max_energy ;
+    float max_transfert &lt;- prey_max_transfert ;
+    float energy_consum &lt;- prey_energy_consum ;
+    float proba_reproduce &lt;- prey_proba_reproduce ;
+    int nb_max_offsprings &lt;- prey_nb_max_offsprings ;
+    float energy_reproduce &lt;- prey_energy_reproduce ;
+        
+    reflex eat when: myCell.food &gt; 0 {
+        float energy_transfert &lt;- min([max_transfert, myCell.food]) ;
+        myCell.food &lt;- myCell.food - energy_transfert ;
+        energy &lt;- energy + energy_transfert ;
+    }
+}
+    
+species predator parent: generic_species {
+    rgb color &lt;- #red ;
+    float max_energy &lt;- predator_max_energy ;
+    float energy_transfert &lt;- predator_energy_transfert ;
+    float energy_consum &lt;- predator_energy_consum ;
+    list&lt;prey&gt; reachable_preys update: prey inside (myCell);
+    float proba_reproduce &lt;- predator_proba_reproduce ;
+    int nb_max_offsprings &lt;- predator_nb_max_offsprings ;
+    float energy_reproduce &lt;- predator_energy_reproduce ;
+        
+    reflex eat when: ! empty(reachable_preys) {
+        ask one_of (reachable_preys) {
+            do die ;
+        }
+        energy &lt;- energy + energy_transfert ;
+    }
+}
+    
+grid vegetation_cell width: 50 height: 50 neighbors: 4 {
+    float maxFood &lt;- 1.0 ;
+    float foodProd &lt;- (rnd(1000) / 1000) * 0.01 ;
+    float food &lt;- (rnd(1000) / 1000) max: maxFood update: food + foodProd ;
+    rgb color &lt;- rgb(int(255 * (1 - food)), 255, int(255 * (1 - food))) update: rgb(int(255 * (1 - food)), 255, int(255 *(1 - food)));
+    list&lt;vegetation_cell&gt; neighbors  &lt;- (self neighbors_at 2); 
+}
+
+experiment prey_predator type: gui {
+    parameter "Initial number of preys: " var: nb_preys_init  min: 0 max: 1000 category: "Prey" ;
+    parameter "Prey max energy: " var: prey_max_energy category: "Prey" ;
+    parameter "Prey max transfert: " var: prey_max_transfert  category: "Prey" ;
+    parameter "Prey energy consumption: " var: prey_energy_consum  category: "Prey" ;
+    parameter "Initial number of predators: " var: nb_predators_init  min: 0 max: 200 category: "Predator" ;
+    parameter "Predator max energy: " var: predator_max_energy category: "Predator" ;
+    parameter "Predator energy transfert: " var: predator_energy_transfert  category: "Predator" ;
+    parameter "Predator energy consumption: " var: predator_energy_consum  category: "Predator" ;
+    parameter 'Prey probability reproduce: ' var: prey_proba_reproduce category: 'Prey' ;
+    parameter 'Prey nb max offsprings: ' var: prey_nb_max_offsprings category: 'Prey' ;
+    parameter 'Prey energy reproduce: ' var: prey_energy_reproduce category: 'Prey' ;
+    parameter 'Predator probability reproduce: ' var: predator_proba_reproduce category: 'Predator' ;
+    parameter 'Predator nb max offsprings: ' var: predator_nb_max_offsprings category: 'Predator' ;
+    parameter 'Predator energy reproduce: ' var: predator_energy_reproduce category: 'Predator' ;
+    
+    output {
+        display main_display {
+            grid vegetation_cell lines: #black ;
+            species prey aspect: base ;
+            species predator aspect: base ;
+        }
+        monitor "Number of preys" value: nb_preys;
+        monitor "Number of predators" value: nb_predators;
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

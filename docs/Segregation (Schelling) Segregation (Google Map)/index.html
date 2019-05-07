@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Segregation (Schelling) Segregation (Google Map) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Segregation (Schelling) Segregation (Google Map) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Segregation (Schelling) Segregation (Google Map)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="segregationgooglemap"></a><a href="#segregationgooglemap" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>segregationGoogleMap</h1>
+<p>_Author : _</p>
+<p>A model showing the segregation of the people just by putting a similarity wanted parameter using agents to represent the individuals and a grid to discretize space. Use the colors of the image to know if it is a possible space or not</p>
+<p>Imported model :</p>
+<pre><code class="hljs">model segregation_base
+
+global {
+    <span class="hljs-comment">//Different colors for the group</span>
+    rgb color_1 &lt;- rgb (<span class="hljs-string">"yellow"</span>) parameter: <span class="hljs-string">"Color of group 1:"</span> category: <span class="hljs-string">"User interface"</span>;
+    rgb color_2 &lt;- rgb (<span class="hljs-string">"red"</span>) parameter: <span class="hljs-string">"Color of group 2:"</span> category: <span class="hljs-string">"User interface"</span>;
+    rgb color_3 &lt;- rgb (<span class="hljs-string">"blue"</span>) parameter: <span class="hljs-string">"Color of group 3:"</span> category: <span class="hljs-string">"User interface"</span>;
+    rgb color_4 &lt;- rgb (<span class="hljs-string">"orange"</span>) parameter: <span class="hljs-string">"Color of group 4:"</span> category: <span class="hljs-string">"User interface"</span>;
+    rgb color_5 &lt;- rgb (<span class="hljs-string">"green"</span>) parameter: <span class="hljs-string">"Color of group 5:"</span> category: <span class="hljs-string">"User interface"</span>;
+    rgb color_6 &lt;- rgb (<span class="hljs-string">"pink"</span>) parameter: <span class="hljs-string">"Color of group 6:"</span> category: <span class="hljs-string">"User interface"</span>;   
+    rgb color_7 &lt;- rgb (<span class="hljs-string">"magenta"</span>) parameter: <span class="hljs-string">"Color of group 7:"</span> category: <span class="hljs-string">"User interface"</span>;
+    rgb color_8 &lt;- rgb (<span class="hljs-string">"cyan"</span>) parameter: <span class="hljs-string">"Color of group 8:"</span> category: <span class="hljs-string">"User interface"</span>;
+    list colors &lt;- [color_1, color_2, color_3, color_4, color_5, color_6, color_7, color_8] <span class="hljs-keyword">of</span>: rgb;
+
+    
+    <span class="hljs-comment">//Number of groups</span>
+    int number_of_groups &lt;- <span class="hljs-number">2</span> max: <span class="hljs-number">8</span> parameter: <span class="hljs-string">"Number of groups:"</span> category: <span class="hljs-string">"Population"</span>;
+    <span class="hljs-comment">//Density of the people</span>
+    float density_of_people &lt;- <span class="hljs-number">0.7</span> parameter: <span class="hljs-string">"Density of people:"</span> category: <span class="hljs-string">"Population"</span> min: <span class="hljs-number">0.01</span> max: <span class="hljs-number">0.99</span>;
+    <span class="hljs-comment">//Percentage of similar wanted for segregation</span>
+    float percent_similar_wanted &lt;- <span class="hljs-number">0.5</span> min: float (<span class="hljs-number">0</span>) max: float (<span class="hljs-number">1</span>) parameter: <span class="hljs-string">"Desired percentage of similarity:"</span> category: <span class="hljs-string">"Population"</span>;
+    <span class="hljs-comment">//Dimension of the grid</span>
+    int dimensions &lt;- <span class="hljs-number">40</span> max: <span class="hljs-number">400</span> min: <span class="hljs-number">10</span> parameter: <span class="hljs-string">"Width and height of the environment:"</span> category: <span class="hljs-string">"Environment"</span>;
+    <span class="hljs-comment">//Neighbors distance for the perception of the agents</span>
+    int neighbors_distance &lt;- <span class="hljs-number">2</span> max: <span class="hljs-number">10</span> min: <span class="hljs-number">1</span> parameter: <span class="hljs-string">"Distance of perception:"</span> category: <span class="hljs-string">"Population"</span>;
+    <span class="hljs-comment">//Number of people agents</span>
+    int number_of_people &lt;- <span class="hljs-number">0</span>;
+    <span class="hljs-comment">//Number of happy people</span>
+    int sum_happy_people &lt;- <span class="hljs-number">0</span> update: all_people count (each.is_happy);
+    <span class="hljs-comment">//Number of similar neighbors</span>
+    int sum_similar_neighbors &lt;- <span class="hljs-number">0</span> update: sum (all_people collect each.similar_nearby);
+    <span class="hljs-comment">//Number of neighbors</span>
+    int sum_total_neighbors &lt;- <span class="hljs-number">1</span> update: sum (all_people collect each.total_nearby) min: <span class="hljs-number">1</span>;
+    <span class="hljs-comment">//List of all the places</span>
+    list&lt;agent&gt; all_places;
+    <span class="hljs-comment">//List of all the people</span>
+    list&lt;base&gt; all_people;  
+    
+    <span class="hljs-comment">//Action to write the description of the model in the console</span>
+    action description {
+        write
+        <span class="hljs-string">"\\n\\u25B6 Description. \\n\\u25B6 Thomas Schelling model of residential segregation is a classic study of the effects of local decisions on global dynamics. Agents with mild preferences for same-type neighbors, but without preferences for segregated neighborhoods, can wind up producing complete segregation.\\n\\u25B6 In this model, agents populate a grid with a given *density*. They are in two different states : happy when the percentage of same-color neighbors is above their *desired percentage of similarity*; unhappy otherwise. In the latter case, they change their location randomly until they find a neighborhood that fits their desire. \\n\\u25B6 In addition to the previous parameter, one can adjust the *distance of perception* (i.e.  the distance at which they consider other agents as neighbors) of the agents to see how it affects the global process. "</span>;
+    }
+    <span class="hljs-comment">//Initialization of the model</span>
+    init {
+        <span class="hljs-comment">//Write the description of the model </span>
+        <span class="hljs-keyword">do</span> description;
+        <span class="hljs-comment">//Initialization of the places</span>
+        <span class="hljs-keyword">do</span> initialize_places;
+        <span class="hljs-comment">//Computation of the number of people according to the density of people</span>
+        number_of_people &lt;- int( length (all_places) * density_of_people);
+        <span class="hljs-comment">//Initialization of the people</span>
+        <span class="hljs-keyword">do</span> initialize_people;
+    }
+    <span class="hljs-comment">//Action to initialize places defined in the subclasses</span>
+    action initialize_places virtual: <span class="hljs-literal">true</span>;
+    <span class="hljs-comment">//Action to initialize people in the subclasses</span>
+    action initialize_people virtual: <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-comment">//Species base representing the people agents</span>
+species base {
+    rgb color;
+    <span class="hljs-comment">//List of all the neighbors agents</span>
+    list&lt;base&gt; my_neighbors;
+    <span class="hljs-comment">//computation of the similar neighbors</span>
+    int similar_nearby -&gt; {
+        (my_neighbors count (each.color = color))
+    };
+    <span class="hljs-comment">//Computation of the total neighbors nearby</span>
+    int total_nearby -&gt; {
+        length (my_neighbors)
+    };
+    <span class="hljs-comment">//Boolean to know if the agent is happy or not</span>
+    bool is_happy -&gt; {similar_nearby &gt;= (percent_similar_wanted * total_nearby )} ;
+}
+
+</code></pre>
+<p>Code of the model :</p>
+<pre><code class="hljs">model segregation
+
+//Import the model Common Schelling Segregation
+import "../include/Common Schelling Segregation.gaml"    
+
+global {
+    //List of all the free places
+    list&lt;space&gt; free_places ; 
+    //List of all the places
+    list&lt;space&gt; all_places;
+    //Shape of the environment
+    geometry shape &lt;- square(dimensions);
+    //Percentage of similarity wanted by an agent
+    float percent_similar_wanted &lt;- 0.6;
+    //Distance of perception of the neighbors
+    int neighbors_distance &lt;- 4; 
+    //Number of groups of people
+    int number_of_groups &lt;- 3;
+    list google_buildings  &lt;- [rgb("#EBE6DC"), rgb("#D1D0CD"), rgb("#F2EFE9"), rgb("#EEEBE1"), rgb("#F9EFE8")] ;
+    //List of all the available places
+    list&lt;space&gt; available_places ;
+    //Image file to load
+    file bitmap_file_name &lt;- file&lt;unknown, int&gt;("../images/hanoi.png") parameter: "Name of image file to load:" category: "Environment" ;
+    matrix&lt;int&gt; map_colors;
+ 
+    //Action to initialize the people agents
+    action initialize_people {
+        create people number: number_of_people ;  
+        all_people &lt;- people as list ;  
+    }
+    //Action to initialize the places using the color in the image
+    action initialize_places { 
+        map_colors &lt;- (bitmap_file_name) as_matrix {dimensions,dimensions} ;
+        ask space as list {
+            color &lt;- rgb(map_colors at {grid_x,grid_y}) ;
+        }
+        all_places &lt;- shuffle (space where (each.color in google_buildings)) ;
+        free_places &lt;- copy(all_places);
+    }  
+}
+//Grid to discretize the space
+grid space width: dimensions height: dimensions neighbors: 8 use_individual_shapes: false use_regular_agents: false frequency: 0 ; 
+ 
+//Species people representing the people agent
+species people parent: base  {
+    rgb color &lt;- colors at (rnd (number_of_groups - 1));
+    //List of all the neighbors
+    list&lt;people&gt; my_neighbors -&gt; {(self neighbors_at neighbors_distance) of_species people};
+    
+    //Launched at the initialization of the agent
+    init {
+        //Set the place of the agent as one of the free place
+        location &lt;- (one_of(free_places)).location; 
+        remove location as space from: free_places;
+    } 
+    //Reflex to migrate the agent when it's not happy
+    reflex migrate when: !is_happy { 
+        add location as space to: free_places;
+        location &lt;- any(free_places).location;
+        remove location as space from: free_places;
+    }
+    aspect geom {
+        draw square(1) color: color  ;
+    }
+    aspect default {
+        draw  square(2) color: #black ;
+    }
+}
+
+
+experiment schelling type: gui {    
+    output {
+        display Segregation {
+            image "bg" file: bitmap_file_name.path ;
+            species people transparency: 0.5 aspect: geom;
+        }   
+        display Charts {
+            chart "Proportion of happiness" type: pie background: #lightgray style: exploded position: { 0, 0 } size: { 1.0, 0.5 } {
+                data "Unhappy" value: number_of_people - sum_happy_people color: #green;
+                data "Happy" value: sum_happy_people color: #yellow;
+            }
+
+            chart "Global happiness and similarity" type: series background: #lightgray axes: #white position: { 0, 0.5 } size: { 1.0, 0.5 } x_range: 20 y_range: 20 {
+                data "happy" color: °blue value: (sum_happy_people / number_of_people) * 100 style: spline fill: false;
+                data "similarity" color: °red value: (sum_similar_neighbors / sum_total_neighbors) * 100 style: line fill: true ;
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

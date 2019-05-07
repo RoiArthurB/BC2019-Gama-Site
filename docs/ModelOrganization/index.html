@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>ModelOrganization · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="ModelOrganization · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">ModelOrganization</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="organization-of-a-model"></a><a href="#organization-of-a-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Organization of a model</h1>
+<p>As already extensively detailed in the <a href="Introduction">introduction page</a>, defining a model in GAML amounts to defining a <em>model species</em>, which later allows to instantiate a <em>model agent</em> (aka a <em>simulation</em>), which may or may not contain micro-species, and which can be flanked by <em>experiment plans</em> in order to be simulated.</p>
+<p>This conceptual structure is respected in the definition of model files, which follows a similar pattern:</p>
+<ol>
+<li>Definition of the <em>global species</em>, preceded by a <em>header</em>, in order to represent the <em>model species</em></li>
+<li>Definition of the different micro-species (either nested inside the <em>global species</em> or at the same level)</li>
+<li>Definition of the different <em>experiment plans</em> that target this model</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="table-of-contents"></a><a href="#table-of-contents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Table of contents</h2>
+<ul>
+<li><a href="#model-header-model-species">Model Header (model species)</a></li>
+<li><a href="#species-declarations">Species declarations</a></li>
+<li><a href="#experiment-declarations">Experiment declarations</a></li>
+<li><a href="#basic-skeleton-of_a_model">Basic skeleton of a model</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="model-header-_model-species_"></a><a href="#model-header-_model-species_" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Header (<em>model species</em>)</h2>
+<p>The header of a model file begins with the declaration of the name of the model. Contrarily to other statements, this declaration <strong>does not</strong> end with a semi-colon.</p>
+<pre><code class="hljs">model name_of_the_model
+</code></pre>
+<p>The name of the model is not necessarily the same as the name of the file. It must conform to the general rule for naming species, i.e. be a valid identifier (beginning with a letter, containing only letters, digits and dashes). This name will be used for building the name of the model species, from which <em>simulations</em> will be instantiated. For instance, the following declaration:</p>
+<pre><code class="hljs">model dummy
+</code></pre>
+<p>will internally create a species called <code>dummy_model</code>, child of the abstract species <code>model</code>, from which simulations (called <code>dummy_model0</code>, <code>dummy_model1</code>, etc.) will be instantiated.</p>
+<p>This declaration is followed by optional import statements that indicate which other models this model is importing. Import statements <strong>do not</strong> end with a semi-colon.</p>
+<p>Importing a model can take two forms. The first one, called <em>inheritance import</em>, is declared as follows:</p>
+<pre><code class="hljs"><span class="hljs-keyword">import</span> <span class="hljs-string">"relative_path_to_a_model_file"</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">"relative_path_to_another_model_file"</span>
+</code></pre>
+<p>The second one, called <em>usage import</em>, is declared as follows:</p>
+<pre><code class="hljs"><span class="hljs-keyword">import</span> <span class="hljs-string">"relative_path_to_a_model_file"</span> <span class="hljs-keyword">as</span> model_identifier
+</code></pre>
+<p>When importing models using the first form, all the declarations of the model(s) imported will be merged with those of the current model (in the order with which the import statements are declared, i.e. the latest definitions of global attributes or behaviors superseding the previous ones).
+The second form is reserved for using models as <em>micro-models</em> of the current model. This possibility is still experimental in the current version of GAMA.</p>
+<p>The last part of the <em>header</em> is the definition of the <a href="GlobalSpecies"><code>global</code> species</a>, which is the actual definition of the <em>model species</em> itself.</p>
+<pre><code class="hljs">global {
+    <span class="hljs-comment">// Definition of [global attributes](GlobalSpecies#declaration), [actions and behaviors](DefiningActionsAndBehaviors)</span>
+}
+</code></pre>
+<p>Note that neither the imports nor the definition of <code>global</code> are mandatory. Only the <code>model</code> statement is.</p>
+<h2><a class="anchor" aria-hidden="true" id="species-declarations"></a><a href="#species-declarations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Species declarations</h2>
+<p>The header is followed by the declaration of the different species of agents that populate the model.</p>
+<p>The <a href="GlobalSpecies">special species <code>global</code></a> is the world species. You will declare here all the global attributes/actions/behaviors. The global species does not have name, and is unique in your model.</p>
+<pre><code class="hljs">global {
+    <span class="hljs-comment">// definition of global attributes, actions, behaviors</span>
+}
+</code></pre>
+<p><a href="RegularSpecies">Regular species</a> can be declared with the keyword <code>species</code>. You can declare several regular species, and they all have to be named.</p>
+<pre><code class="hljs">species nameOfSpecies {
+    <span class="hljs-comment">// definition of your [species attributes](RegularSpecies#declaration), [actions and behaviors](DefiningActionsAndBehaviors)</span>
+}
+</code></pre>
+<p>Note that the possibility to define the species <em>after</em> the <code>global</code> definition is actually a convenience: these species are micro-species of the model species and, hence, could be perfectly defined as nested species of <code>global</code>. For instance:</p>
+<pre><code class="hljs">global {
+    <span class="hljs-comment">// definition of global attributes, actions, behaviors</span>
+}
+
+species A {...}
+
+species B {...}
+</code></pre>
+<p>is completely equivalent to:</p>
+<pre><code class="hljs">global {
+    <span class="hljs-comment">// definition of [global attributes](GlobalSpecies#declaration), actions, behaviors</span>
+
+    species A {...}
+
+    species B {...}
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="experiment-declarations"></a><a href="#experiment-declarations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Experiment declarations</h2>
+<p>Experiments are usually declared at the end of the file. They start with the keyword <code>experiment</code>. They contains the <a href="DefiningParameters">simulation parameters</a>, and the definition of the output (such as <a href="DefiningDisplaysGeneralities">displays</a>, <a href="DefiningMonitorsAndInspectors">monitors or inspectors</a>). You can declare as much experiments as you want.</p>
+<pre><code class="hljs">experiment first_experiment {
+    <span class="hljs-comment">// definition of parameters (intputs)</span>
+
+    <span class="hljs-comment">// definition of output</span>
+    output {...}
+}
+
+experiment second_experiment {
+    <span class="hljs-comment">// definition of parameters (inputs)</span>
+
+    <span class="hljs-comment">// definition of output</span>
+}
+</code></pre>
+<p>Note that you have two types of experiments:
+A <a href="DefiningGUIExperiment">GUI experiment</a> allows to display a graphical interface with input parameters and outputs. It is declared with the following structure :</p>
+<pre><code class="hljs">experiment gui_experiment type:gui {
+    [...]
+}
+</code></pre>
+<p>A <a href="BatchExperiments">Batch experiment</a> allows to execute numerous successive simulation runs (often used for model exploration). It is declared with the following structure :</p>
+<pre><code class="hljs">experiment batch_experiment type:batch {
+    [...]
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="basic-skeleton-of-a-model"></a><a href="#basic-skeleton-of-a-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Basic skeleton of a model</h2>
+<p>Here is the basic skeleton of a model :</p>
+<pre><code class="hljs">model name_of_the_model
+
+global {
+    <span class="hljs-comment">// definition of [global attributes](GlobalSpecies#declaration), actions, behaviours</span>
+}
+
+species my_specie {
+    <span class="hljs-comment">// definition of attributes, actions, behaviours</span>
+}
+
+experiment my_experiment <span class="hljs-comment">/* + specify the type : "type:gui" or "type:batch" */</span>
+{
+    <span class="hljs-comment">// here the definition of your experiment, with...</span>
+    <span class="hljs-comment">// ... your inputs</span>
+    output {
+        <span class="hljs-comment">// ... and your outputs</span>
+    }
+}
+</code></pre>
+<p>Don't forget this structure ! This will be the basis for all the models you will create from now.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
