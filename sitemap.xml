@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url> <loc>https://roiarthurb.github.io/Gama-Site/hello-world</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/en/hello-world" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/help</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/en/help" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/index</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/en/index" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/users</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/en/users" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/blog/2017/10/24/new-version-1.0.0</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/blog/2017/09/26/adding-rss</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/blog/2017/09/25/testing-rss</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/blog/2017/04/10/blog-post-two</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/blog/2016/03/11/blog-post</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/docs/doc1</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/docs/doc1" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/docs/doc2</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/docs/doc2" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/docs/doc3</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/docs/doc3" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/docs/doc4</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/docs/doc4" /> </url>
-<url> <loc>https://roiarthurb.github.io/Gama-Site/docs/doc5</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/Gama-Site/docs/doc5" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/hello-world</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/en/hello-world" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/help</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/en/help" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/index</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/en/index" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/users</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/en/users" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/blog/2017/10/24/new-version-1.0.0</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/blog/2017/09/26/adding-rss</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/blog/2017/09/25/testing-rss</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/blog/2017/04/10/blog-post-two</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/blog/2016/03/11/blog-post</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc1</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc1" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc2</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc2" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc3</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc3" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc4</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc4" /> </url>
+<url> <loc>https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc5</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://roiarthurb.github.io/BC2019-Gama-Site/docs/doc5" /> </url>
 </urlset>
