@@ -48,9 +48,9 @@ const siteConfig = {
 //  users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
-  favicon: 'img/favicon.ico',
+  headerIcon: 'resources/images/general/GamaPlatform.png',
+  footerIcon: 'resources/images/general/GamaPlatform.png',
+  favicon: 'resources/images/general/GamaPlatform.png',
 
   /* Colors for website */
   colors: {
