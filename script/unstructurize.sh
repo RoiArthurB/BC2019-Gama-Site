@@ -28,7 +28,7 @@ if [ -d ./website/static/resources ];then
 	rm -fr ./website/static/resources
 fi
 
-mv {gama.wiki,website/static}/resources
+mv ./gama.wiki/resources ./website/static/
 
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
