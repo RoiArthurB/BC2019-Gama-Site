@@ -1,8 +1,3 @@
----
-id=GoldMiner_step3
-title=3. Social relation
----
-
 # 3. Social relation
 This third step consists in adding social relation between agents and the possibility to share information about the known gold mines.
 
