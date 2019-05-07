@@ -7,17 +7,18 @@ branches:
     - master
 cache:
   yarn: true
-script:
+before_script:
+#  Setup
   - git config --global user.name "${GH_NAME}"
   - git config --global user.email "${GH_EMAIL}"
   - echo "machine github.com login ${GH_NAME} password ${GH_TOKEN}" > ~/.netrc
 #  Get new wiki
   - rm -fr docs
-  - git clone https://github.com/gama-platform/gama.wiki.git docs
-#  - sh script/autoHeader.sh
-#  Move static elements in right position
-  - rm -fr website/static/resources
-  - mv {docs,website/static}/resources 
+  - git clone https://github.com/gama-platform/gama.wiki.git
+#  Reorganise folders to be more Docusaurus-friendly
+  - sh ./script/unstructurize.sh
+  #- sh script/autoHeader.sh
+script:
 #  Compile website
   - cd website && yarn install && GIT_USER="${GH_NAME}" yarn run publish-gh-pages
 
