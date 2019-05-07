@@ -1,5 +1,8 @@
 {
-  "docs": {
+  "gama": {
+	"Home": ["Home"]
+  },
+  "test": {
     "Docusaurus": [
 	"doc1",
 	"doc4"
