@@ -1,0 +1,405 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>This is Doc 4 · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="This is Doc 4 · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/Gama-Site/css/main.css"/><script src="/Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/Gama-Site/"><img class="logo" src="/Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/Gama-Site/docs/doc1" target="_self">Docs</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/Gama-Site/docs/doc4" target="_self">API</a></li><li class=""><a href="/Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Docusaurus</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Docusaurus</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Gama-Site/docs/doc1">Example Page</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/Gama-Site/docs/doc4">This is Doc 4</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">First Category</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Gama-Site/docs/doc2">document number 2</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Second Category</h3><ul class=""><li class="navListItem"><a class="navItem" href="/Gama-Site/docs/doc3">This is document number 3</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">This is Doc 4</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="run-several-simulations"></a><a href="#run-several-simulations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run Several Simulations</h1>
+<p>To explore a model, the easiest and the most intuitive way to proceed is running several simulations with several parameter value, and see the differences from the output. GAMA provides you the possibility to launch several simulations from the GUI.</p>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#create-a-simulation">Create a simulation</a></li>
+<li><a href="#manipulate-simulations">Manipulate simulations</a></li>
+<li><a href="#random-seed">Random seed</a>
+<ul>
+<li><a href="#defining-the-seed-from-the-model">Defining the seed from the model</a></li>
+<li><a href="#defining-the-seed-from-the-experiment">Defining the seed from the experiment</a></li>
+<li><a href="#run-several-simulations-with-the-same-random-numbers">Run several simulations with the same random numbers</a></li>
+<li><a href="#change-the-rng">Change the RNG</a></li>
+</ul></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="create-a-simulation"></a><a href="#create-a-simulation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create a simulation</h2>
+<p>Let's remind you that in GAMA, everything is an <strong>agent</strong>. We already saw that the <strong>&quot;world&quot; agent</strong> is the <strong>agent of the model</strong>. The model is thus a <strong>species</strong>, called modelName_model :</p>
+<pre><code class="hljs"><span class="hljs-keyword">model</span> toto <span class="hljs-comment">// &lt;- the name of the species is "toto_model"</span>
+</code></pre>
+<p>New highlight of the day : an <strong>Experiment</strong> is also an agent ! It's a special agent which will instantiate automatically an agent from the model species. You can then perfectly create agents (<em>model</em> agents) from your experiment, using the statement <code>create</code> :</p>
+<pre><code class="hljs">model multi_simulations // the <span class="hljs-string">"world"</span> is an<span class="hljs-built_in"> instance </span>of the <span class="hljs-string">"multi_simulations_model"</span>
+
+global {
+}
+
+experiment my_experiment type:gui  {
+    init {
+        create multi_simulations_model;
+    }
+}
+</code></pre>
+<p>This sort model will instantiate 2 simulations (two instance of the model) : one is created automatically by the experiment, and the second one is explicitly created through the statement <code>create</code>.</p>
+<p>To simplify the syntax, you can use the built-in attribute <code>simulation</code> of your <strong>experiment</strong>. When you have a model called &quot;multi_simulations&quot;, the two following lines are strictly equal :</p>
+<pre><code class="hljs"><span class="hljs-keyword">create</span> multi_simulations_model;
+<span class="hljs-keyword">create</span> simulation;
+</code></pre>
+<p>As it was the case for creating regular species, you can specify the parameters of your agent during the creation through the facet <code>with:</code> :</p>
+<pre><code class="hljs"><span class="hljs-attribute">model</span> multi_simulations
+
+global {
+    <span class="hljs-attribute">rgb</span> bgd_color;
+}
+
+<span class="hljs-attribute">experiment</span> my_experiment type:gui  {
+    <span class="hljs-attribute">parameter</span> name:<span class="hljs-string">"background color:"</span> var:bgd_color init:<span class="hljs-comment">#blue;</span>
+    init {
+        <span class="hljs-attribute">create</span> simulation with:[bgd_color::<span class="hljs-comment">#red];</span>
+    }
+    output {
+        <span class="hljs-attribute">display</span> <span class="hljs-string">"my_display"</span> background:bgd_color{}
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="manipulate-simulations"></a><a href="#manipulate-simulations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Manipulate simulations</h2>
+<p>When you think the simulations as agents, it gives you a lot of new possibilities. You can for example create a reflex from your experiment, asking to create simulations <strong>during the experiment execution</strong> !</p>
+<p>The following short model for example will create a new simulation at each 10 cycles :</p>
+<pre><code class="hljs">model multi_simulations
+
+<span class="hljs-keyword">global</span> {
+    init {
+        <span class="hljs-keyword">write</span> "new simulation created ! Its name is "+<span class="hljs-type">name</span>;
+    }
+}
+
+experiment my_experiment <span class="hljs-keyword">type</span>:gui  {
+    init {
+    }
+    reflex <span class="hljs-keyword">when</span>:(mod(<span class="hljs-keyword">cycle</span>,<span class="hljs-number">10</span>)=<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">cycle</span>!=<span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">create</span> simulation;
+    }
+    output {
+    }
+}
+</code></pre>
+<p>You may ask, what is the purpose of such a thing ? Well, with such a short model, it is not very interesting, for sure. But you can imagine running a simulation, and if the simulation reaches a certain state, it can be closed, and another simulation can be run instead with different parameters (a simulation can be closed by doing a &quot;do die&quot; on itself). You can also imagine to run two simulations, and to communicate from one to an other through the experiment, as it is shown in this easy model, where agents can move from one simulation to another :</p>
+<p><img src="resources/images/exploringModel/change_world.png" alt="resources/images/exploringModel/change_world.png"></p>
+<pre><code class="hljs">model smallWorld
+
+<span class="hljs-keyword">global</span> {
+    <span class="hljs-type">int</span> grid_size &lt;- <span class="hljs-number">10</span>;
+    <span class="hljs-type">bool</span> modelleft &lt;- <span class="hljs-keyword">true</span>;
+    <span class="hljs-type">int</span> id&lt;- <span class="hljs-number">0</span>;
+    <span class="hljs-type">int</span> nb_agents &lt;- <span class="hljs-number">50</span>;
+    
+    init {
+        <span class="hljs-keyword">create</span> people number: nb_agents {
+            my_cell &lt;- one_of(cell);
+            <span class="hljs-keyword">location</span> &lt;- my_cell.<span class="hljs-keyword">location</span>;
+        }
+        <span class="hljs-keyword">if</span> (modelleft) {
+            ask cell <span class="hljs-keyword">where</span> (<span class="hljs-keyword">each</span>.grid_x = (grid_size - <span class="hljs-number">1</span>))  {
+                color &lt;- #red;  
+            }
+        } <span class="hljs-keyword">else</span> {
+            ask cell <span class="hljs-keyword">where</span> (<span class="hljs-keyword">each</span>.grid_x = <span class="hljs-number">0</span>)  {
+                color &lt;- #red;  
+            }
+        }
+    }
+    
+    action changeWorld(rgb color, <span class="hljs-type">point</span> loc) {
+        <span class="hljs-keyword">create</span> people <span class="hljs-keyword">with</span>:[color::color, <span class="hljs-keyword">location</span>::loc] {
+            my_cell &lt;- cell(<span class="hljs-keyword">location</span>);
+        }
+    }
+}
+
+species people {
+    rgb color &lt;- rnd_color(<span class="hljs-number">255</span>);
+    cell my_cell;
+
+    reflex <span class="hljs-keyword">move</span> {
+        <span class="hljs-keyword">if</span> (modelleft <span class="hljs-keyword">and</span> my_cell.color = #red) {
+            ask smallWorld_model[<span class="hljs-number">1</span>] {
+                <span class="hljs-keyword">do</span> changeWorld(myself.color, {<span class="hljs-number">100</span> - myself.<span class="hljs-keyword">location</span>.x,myself.<span class="hljs-keyword">location</span>.y});
+            }
+            <span class="hljs-keyword">do</span> die;
+        } <span class="hljs-keyword">else</span> {
+            list&lt;cell&gt; free_cells &lt;- list&lt;cell&gt; (my_cell.neighbors) <span class="hljs-keyword">where</span> empty(people inside <span class="hljs-keyword">each</span>);
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> empty(free_cells) {
+                my_cell &lt;- one_of(free_cells);
+                <span class="hljs-keyword">location</span> &lt;- my_cell.<span class="hljs-keyword">location</span>;
+            }
+        }
+        
+    } 
+    aspect <span class="hljs-keyword">default</span> {
+        draw circle(<span class="hljs-number">50</span>/grid_size) color: color;
+    }   
+}
+
+grid cell width: grid_size height: grid_size;
+
+experiment fromWorldToWorld <span class="hljs-keyword">type</span>: gui {
+    init {
+         <span class="hljs-keyword">create</span> simulation <span class="hljs-keyword">with</span>:[grid_size::<span class="hljs-number">20</span>, modelleft::<span class="hljs-keyword">false</span>, id::<span class="hljs-number">1</span>, nb_agents::<span class="hljs-number">0</span>];
+    }
+    
+    output {
+        display map {
+            grid cell lines: #black;
+            species people;
+        }
+    }
+}
+</code></pre>
+<p>Here is an other example of application of application, available in the model library. Here we run 4 times the Ant Foraging model, with different parameters.</p>
+<p><img src="resources/images/exploringModel/multi_foraging.jpg" alt="resources/images/exploringModel/multi_foraging.jpg"></p>
+<h2><a class="anchor" aria-hidden="true" id="random-seed"></a><a href="#random-seed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Random seed</h2>
+<h3><a class="anchor" aria-hidden="true" id="defining-the-seed-from-the-model"></a><a href="#defining-the-seed-from-the-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining the seed from the model</h3>
+<p>If you run several simulations, you may want to use the same seed for each one of those simulations (to compare the influence of a certain parameter, in exactly the same conditions).</p>
+<p>Let's remind you that <code>seed</code> is a built-in attribute of the model. You than just need to specify the value of your seed during the creation of the simulation if you want to fix the seed :</p>
+<pre><code class="hljs"><span class="hljs-keyword">create</span> simulation <span class="hljs-keyword">with</span>:[<span class="hljs-keyword">seed</span>::<span class="hljs-number">10.0</span>];
+</code></pre>
+<p>You can also specify the seed if you are inside the <code>init</code> scope of your <code>global</code> agent.</p>
+<pre><code class="hljs"><span class="hljs-class">global </span>{
+    <span class="hljs-class">init </span>{
+        seed<span class="hljs-params">&lt;<span class="hljs-number">-10.0</span>;
+    }
+}
+</span></code></pre>
+<p>Notice that if you affect the value of your seed built-in directly in the global scope, the affectation of the parameters (for instance specified with the facet <code>with</code> of the statement <code>create</code>), and the &quot;init&quot; will be done after  will be done at the end.</p>
+<h3><a class="anchor" aria-hidden="true" id="defining-the-seed-from-the-experiment"></a><a href="#defining-the-seed-from-the-experiment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining the seed from the experiment</h3>
+<p>The experiment agent also have a built-in attribute <code>seed</code>. The value of this seed is defined in your <a href="Preferences#simulation">simulation preferences</a>. The first simulation created is created <strong>with the seed value of the experiment</strong>.</p>
+<p>The following sequence diagram can explain you better how the affectation of the seed attribute works :</p>
+<p><img src="resources/images/exploringModel/sequence_diagram_seed_affectation.png" alt="resources/images/exploringModel/sequence_diagram_seed_affectation.png"></p>
+<p>The affectation of an attribute is always done in this order :
+(1) the attribute is affected with a specific value in the species scope. If no attribute value is specified, the value is a default value.
+(2) if a value is specified for this attribute in the <code>create</code> statement, then the attribute value is affected again.
+(3) the attribute value can be changed again in the <code>init</code> scope.</p>
+<h3><a class="anchor" aria-hidden="true" id="run-several-simulations-with-the-same-random-numbers"></a><a href="#run-several-simulations-with-the-same-random-numbers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run several simulations with the same random numbers</h3>
+<p>The following code shows how to run several simulations with a specific seed, determined from the experiment agent :</p>
+<pre><code class="hljs"><span class="hljs-attr">model</span> <span class="hljs-string">multi_simulations</span>
+
+<span class="hljs-attr">global</span> <span class="hljs-string">{</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">my_species;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">my_species skills:[moving] {</span>
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">update {</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">wander;</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">circle(2) color:#green;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">my_experiment type:gui  {</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">seedValue &lt;- 10.0;</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">seed &lt;- seedValue; // force the value of the seed.</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-meta">//</span> <span class="hljs-string">create a second simulation with the same seed as the main simulation</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">simulation with:[seed::seedValue];</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">output</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">display</span> <span class="hljs-string">my_display {</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">my_species aspect:base;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p>When you run this simulation, their execution is exactly similar.</p>
+<p><img src="resources/images/exploringModel/same_simulation_one_agent.png" alt="resources/images/exploringModel/same_simulation_one_agent.png"></p>
+<p>Let's try now to add a new species in this model, and to add a parameter to the simulation for the number of agents created for this species.</p>
+<pre><code class="hljs"><span class="hljs-attr">model</span> <span class="hljs-string">multi_simulations</span>
+
+<span class="hljs-attr">global</span> <span class="hljs-string">{</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">number_of_speciesB &lt;- 1;</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">my_speciesA;</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">my_speciesB number:number_of_speciesB;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">my_speciesA skills:[moving] {</span>
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">update {</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">wander;</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">circle(2) color:#green;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">my_speciesB skills:[moving] {</span>
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">update {</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">wander;</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">circle(2) color:#red;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">my_experiment type:gui  {</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">seedValue &lt;- 10.0;</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">seed &lt;- seedValue; // force the value of the seed.</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">simulation with:[seed::seedValue,number_of_speciesB::2];</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">output</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">display</span> <span class="hljs-string">my_display {</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">my_speciesA aspect:base;</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">my_speciesB aspect:base;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p>Then you run the experiment, you may find something strange...</p>
+<p><img src="resources/images/exploringModel/same_simulation_2_species.png" alt="resources/images/exploringModel/same_simulation_2_species.png"></p>
+<p>Even if the first step seems ok (the greed agent and one of the two red agent is initialized with the same location), the simulation differs completly. You should have expected to have the same behavior for the greed agent in both of the simulation, but it is not the case. The explaination of this behavior is that a random number generator has generated more random numbers in the second simulation than in the first one.</p>
+<p>If you don't understand, here is a short example that may help you to understand better :</p>
+<pre><code class="hljs">model multi_simulations
+
+<span class="hljs-keyword">global</span> {
+    <span class="hljs-type">int</span> iteration_number &lt;- <span class="hljs-number">1</span>;
+    reflex <span class="hljs-keyword">update</span> {
+        <span class="hljs-type">float</span> <span class="hljs-keyword">value</span>;
+        <span class="hljs-keyword">loop</span> times:iteration_number {
+            <span class="hljs-keyword">value</span>&lt;-rnd(<span class="hljs-number">10.0</span>);
+            <span class="hljs-keyword">write</span> <span class="hljs-keyword">value</span>;
+        }
+        <span class="hljs-keyword">write</span> "cycle "+<span class="hljs-keyword">cycle</span>+" in experiment "+<span class="hljs-type">name</span>+" : "+<span class="hljs-keyword">value</span>;
+    }
+}
+
+experiment my_experiment <span class="hljs-keyword">type</span>:gui  {
+    <span class="hljs-type">float</span> seedValue &lt;- <span class="hljs-number">10.0</span>;
+    <span class="hljs-type">float</span> seed &lt;- seedValue; // force the <span class="hljs-keyword">value</span> <span class="hljs-keyword">of</span> the seed.
+    init {
+        <span class="hljs-keyword">create</span> simulation <span class="hljs-keyword">with</span>:[seed::seedValue,iteration_number::<span class="hljs-number">2</span>];
+    }
+    output {
+    }
+}
+</code></pre>
+<p>The output will be something like that :</p>
+<pre><code class="hljs"><span class="hljs-number">7.67003069780383</span>
+cycle <span class="hljs-number">0</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">7.67003069780383</span>
+<span class="hljs-number">7.67003069780383</span>
+<span class="hljs-number">0.22889843360303863</span>
+cycle <span class="hljs-number">0</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">0.22889843360303863</span>
+<span class="hljs-number">0.22889843360303863</span>
+cycle <span class="hljs-number">1</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">0.22889843360303863</span>
+<span class="hljs-number">4.5220913306263855</span>
+<span class="hljs-number">0.8363180333035425</span>
+cycle <span class="hljs-number">1</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">0.8363180333035425</span>
+<span class="hljs-number">4.5220913306263855</span>
+cycle <span class="hljs-number">2</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">4.5220913306263855</span>
+<span class="hljs-number">5.460148568140819</span>
+<span class="hljs-number">4.158355846617511</span>
+cycle <span class="hljs-number">2</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">4.158355846617511</span>
+<span class="hljs-number">0.8363180333035425</span>
+cycle <span class="hljs-number">3</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">0.8363180333035425</span>
+<span class="hljs-number">1.886091659169562</span>
+<span class="hljs-number">4.371253083874633</span>
+cycle <span class="hljs-number">3</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">4.371253083874633</span>
+</code></pre>
+<p>Which means :</p>
+<table>
+<thead>
+<tr><th style="text-align:left"><strong>Cycle</strong></th><th style="text-align:left"><strong>Value generated in simulation 0</strong></th><th style="text-align:left"><strong>Value generated in simulation 1</strong></th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:left"><strong>1</strong></td><td style="text-align:left">7.67003069780383</td><td style="text-align:left">7.67003069780383</td></tr>
+<tr><td style="text-align:left"></td><td style="text-align:left"></td><td style="text-align:left">0.22889843360303863</td></tr>
+<tr><td style="text-align:left"><strong>2</strong></td><td style="text-align:left">0.22889843360303863</td><td style="text-align:left">4.5220913306263855</td></tr>
+<tr><td style="text-align:left"></td><td style="text-align:left"></td><td style="text-align:left">0.8363180333035425</td></tr>
+<tr><td style="text-align:left"><strong>3</strong></td><td style="text-align:left">4.5220913306263855</td><td style="text-align:left">5.460148568140819</td></tr>
+<tr><td style="text-align:left"></td><td style="text-align:left"></td><td style="text-align:left">4.158355846617511</td></tr>
+</tbody>
+</table>
+<p>When writing your models, you have to be aware of this behavior. Remember that each simulation has it's own random number generator.</p>
+<h3><a class="anchor" aria-hidden="true" id="change-the-rng"></a><a href="#change-the-rng" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Change the RNG</h3>
+<p>The RNG (random number generator) can also be changed : <code>rng</code> is a string built-in attribute of the experiment (and also of the model). You can choose among the following rng :</p>
+<ul>
+<li>mersenne (by default)</li>
+<li>cellular</li>
+<li>java</li>
+</ul>
+<p>The following model shows how to run 4 simulations with the same seed but with some different RNG :</p>
+<pre><code class="hljs"><span class="hljs-attr">model</span> <span class="hljs-string">multi_simulations</span>
+
+<span class="hljs-attr">global</span> <span class="hljs-string">{</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">my_species number:50;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">my_species skills:[moving] {</span>
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">update {</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">wander;</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">square(2) color:#blue;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">my_experiment type:gui  {</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">seed &lt;- 10.0;</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">simulation with:[rng::"cellular",seed::10.0];</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">simulation with:[rng::"java",seed::10.0];</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">output</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">display</span> <span class="hljs-string">my_display {</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">my_species aspect:base;</span>
+            <span class="hljs-attr">graphics</span> <span class="hljs-string">"my_graphic" {</span>
+                <span class="hljs-attr">draw</span> <span class="hljs-string">rectangle(35,10) at:{0,0} color:#lightgrey;</span>
+                <span class="hljs-attr">draw</span> <span class="hljs-string">rng at:{3,3} font:font("Helvetica", 20 , #plain) color:#black;</span>
+            <span class="hljs-attr">}</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/Gama-Site/docs/doc1"><span class="arrow-prev">← </span><span>Example Page</span></a><a class="docs-next button" href="/Gama-Site/docs/doc2"><span>document number 2</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#index">Index</a></li><li><a href="#create-a-simulation">Create a simulation</a></li><li><a href="#manipulate-simulations">Manipulate simulations</a></li><li><a href="#random-seed">Random seed</a><ul class="toc-headings"><li><a href="#defining-the-seed-from-the-model">Defining the seed from the model</a></li><li><a href="#defining-the-seed-from-the-experiment">Defining the seed from the experiment</a></li><li><a href="#run-several-simulations-with-the-same-random-numbers">Run several simulations with the same random numbers</a></li><li><a href="#change-the-rng">Change the RNG</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/Gama-Site/" class="nav-home"><img src="/Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 Your Name or Your Company Name</section></footer></div></body></html>
