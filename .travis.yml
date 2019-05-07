@@ -17,7 +17,6 @@ before_script:
 #  Reorganise folders to be more Docusaurus-friendly
   - sh ./script/unstructurize.sh
   #- sh script/autoHeader.sh
-  - find ./gama.wiki -type f -iname "*.md" -print0 | xargs -0 mv -t ./docs
 script:
 #  Compile website
   - cd website && yarn install && GIT_USER="${GH_NAME}" yarn run publish-gh-pages

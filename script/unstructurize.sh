@@ -33,3 +33,4 @@ mv ./gama.wiki/resources ./website/static/
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
 # https://superuser.com/questions/658075/how-do-i-move-files-out-of-nested-subdirectories-into-another-folder-in-ubuntu
+find gama.wiki/ -type f -iname "*.md" -exec mv --backup=numbered -t docs {} +
