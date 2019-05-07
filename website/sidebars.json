@@ -1,16 +1,5 @@
 {
   "gama": {
 	"Home": ["Home"]
-  },
-  "test": {
-    "Docusaurus": [
-	"doc1",
-	"doc4"
-    ],
-    "First Category": ["doc2"],
-    "Second Category": ["doc3"]
-  },
-  "docs-other": {
-    "First Category": ["doc5"]
   }
 }
