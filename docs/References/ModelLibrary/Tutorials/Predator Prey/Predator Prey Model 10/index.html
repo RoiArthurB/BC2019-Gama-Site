@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Tutorials/Predator Prey/Predator Prey Model 10 · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Tutorials/Predator Prey/Predator Prey Model 10 · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Tutorials/Predator Prey/Predator Prey Model 10</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="definition-of-charts"></a><a href="#definition-of-charts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Definition of charts</h1>
+<p>10th part of the tutorial: Predator Prey</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model prey_predator
+
+<span class="hljs-keyword">global</span> {
+    <span class="hljs-type">int</span> nb_preys_init &lt;- <span class="hljs-number">200</span>;
+    <span class="hljs-type">int</span> nb_predators_init &lt;- <span class="hljs-number">20</span>;
+    <span class="hljs-type">float</span> prey_max_energy &lt;- <span class="hljs-number">1.0</span>;
+    <span class="hljs-type">float</span> prey_max_transfert &lt;- <span class="hljs-number">0.1</span> ;
+    <span class="hljs-type">float</span> prey_energy_consum &lt;- <span class="hljs-number">0.05</span>;
+    <span class="hljs-type">float</span> predator_max_energy &lt;- <span class="hljs-number">1.0</span>;
+    <span class="hljs-type">float</span> predator_energy_transfert &lt;- <span class="hljs-number">0.5</span>;
+    <span class="hljs-type">float</span> predator_energy_consum &lt;- <span class="hljs-number">0.02</span>;
+    <span class="hljs-type">float</span> prey_proba_reproduce &lt;- <span class="hljs-number">0.01</span>;
+    <span class="hljs-type">int</span> prey_nb_max_offsprings &lt;- <span class="hljs-number">5</span>; 
+    <span class="hljs-type">float</span> prey_energy_reproduce &lt;- <span class="hljs-number">0.5</span>; 
+    <span class="hljs-type">float</span> predator_proba_reproduce &lt;- <span class="hljs-number">0.01</span>;
+    <span class="hljs-type">int</span> predator_nb_max_offsprings &lt;- <span class="hljs-number">3</span>;
+    <span class="hljs-type">float</span> predator_energy_reproduce &lt;- <span class="hljs-number">0.5</span>;
+    
+    <span class="hljs-type">int</span> nb_preys -&gt; {length (prey)};
+    <span class="hljs-type">int</span> nb_predators -&gt; {length (predator)};
+    
+    init {
+        <span class="hljs-keyword">create</span> prey number: nb_preys_init ; 
+        <span class="hljs-keyword">create</span> predator number: nb_predators_init ;
+    }
+    
+    reflex stop_simulation <span class="hljs-keyword">when</span>: (nb_preys = <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (nb_predators = <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">do</span> halt ;
+    } 
+}
+
+species generic_species {
+    <span class="hljs-type">float</span> size &lt;- <span class="hljs-number">1.0</span>;
+    rgb color  ;
+    <span class="hljs-type">float</span> max_energy;
+    <span class="hljs-type">float</span> max_transfert;
+    <span class="hljs-type">float</span> energy_consum;
+    <span class="hljs-type">float</span> proba_reproduce ;
+    <span class="hljs-type">float</span> nb_max_offsprings;
+    <span class="hljs-type">float</span> energy_reproduce;
+    image_file my_icon;
+    vegetation_cell myCell &lt;- one_of (vegetation_cell) ;
+    <span class="hljs-type">float</span> energy &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) * max_energy  <span class="hljs-keyword">update</span>: energy - energy_consum max: max_energy ;
+    
+    init {
+        <span class="hljs-keyword">location</span> &lt;- myCell.<span class="hljs-keyword">location</span>;
+    } 
+        
+    reflex basic_move {
+            myCell &lt;- choose_cell();
+            <span class="hljs-keyword">location</span> &lt;- myCell.<span class="hljs-keyword">location</span>; 
+    } 
+    
+    vegetation_cell choose_cell {
+        <span class="hljs-keyword">return</span> nil;
+    }
+        
+    reflex die <span class="hljs-keyword">when</span>: energy &lt;= <span class="hljs-number">0</span> {
+        <span class="hljs-keyword">do</span> die ;
+    }
+    
+    reflex reproduce <span class="hljs-keyword">when</span>: (energy &gt;= energy_reproduce) <span class="hljs-keyword">and</span> (flip(proba_reproduce)) {
+            <span class="hljs-type">int</span> nb_offsprings &lt;- <span class="hljs-type">int</span>(<span class="hljs-number">1</span> + rnd(nb_max_offsprings <span class="hljs-number">-1</span>));
+            <span class="hljs-keyword">create</span> species(self) number: nb_offsprings {
+                myCell &lt;- myself.myCell ;
+                <span class="hljs-keyword">location</span> &lt;- myCell.<span class="hljs-keyword">location</span> ;
+                energy &lt;- myself.energy / nb_offsprings ;
+            }
+            energy &lt;- energy / nb_offsprings ;
+        }
+    
+    aspect base {
+        draw circle(size) color: color ;
+    }
+    aspect icon {
+        draw my_icon size: <span class="hljs-number">2</span> * size ;
+    }
+    aspect <span class="hljs-keyword">info</span> {
+        draw square(size) color: color ;
+        draw string(energy with_precision <span class="hljs-number">2</span>) size: <span class="hljs-number">3</span> color: #black ;
+    }
+}
+
+species prey parent: generic_species {
+    rgb color &lt;- #blue;
+    <span class="hljs-type">float</span> max_energy &lt;- prey_max_energy ;
+    <span class="hljs-type">float</span> max_transfert &lt;- prey_max_transfert ;
+    <span class="hljs-type">float</span> energy_consum &lt;- prey_energy_consum ;
+    <span class="hljs-type">float</span> proba_reproduce &lt;- prey_proba_reproduce ;
+    <span class="hljs-type">int</span> nb_max_offsprings &lt;- prey_nb_max_offsprings ;
+    <span class="hljs-type">float</span> energy_reproduce &lt;- prey_energy_reproduce ;
+    file my_icon &lt;- file("../includes/data/sheep.png") ;
+        
+    reflex eat <span class="hljs-keyword">when</span>: myCell.food &gt; <span class="hljs-number">0</span> {
+        <span class="hljs-type">float</span> energy_transfert &lt;- min([max_transfert, myCell.food]) ;
+        myCell.food &lt;- myCell.food - energy_transfert ;
+        energy &lt;- energy + energy_transfert ;
+    }
+    
+    vegetation_cell choose_cell {
+        <span class="hljs-keyword">return</span> (myCell.neighbors) with_max_of (<span class="hljs-keyword">each</span>.food);
+    }
+}
+    
+species predator parent: generic_species {
+    rgb color &lt;- #red ;
+    <span class="hljs-type">float</span> max_energy &lt;- predator_max_energy ;
+    <span class="hljs-type">float</span> energy_transfert &lt;- predator_energy_transfert ;
+    <span class="hljs-type">float</span> energy_consum &lt;- predator_energy_consum ;
+    list&lt;prey&gt; reachable_preys <span class="hljs-keyword">update</span>: prey inside (myCell);
+    <span class="hljs-type">float</span> proba_reproduce &lt;- predator_proba_reproduce ;
+    <span class="hljs-type">int</span> nb_max_offsprings &lt;- predator_nb_max_offsprings ;
+    <span class="hljs-type">float</span> energy_reproduce &lt;- predator_energy_reproduce ;
+    file my_icon &lt;- file("../includes/data/wolf.png") ;
+    
+    reflex eat <span class="hljs-keyword">when</span>: ! empty(reachable_preys) {
+        ask one_of (reachable_preys) {
+            <span class="hljs-keyword">do</span> die ;
+        }
+        energy &lt;- energy + energy_transfert ;
+    }
+    
+    vegetation_cell choose_cell {
+        vegetation_cell myCell_tmp &lt;- shuffle(myCell.neighbors) first_with (!(empty (prey inside (<span class="hljs-keyword">each</span>))));
+        <span class="hljs-keyword">if</span> myCell_tmp != nil {
+            <span class="hljs-keyword">return</span> myCell_tmp;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> one_of (myCell.neighbors);
+        } 
+    }
+}
+    
+grid vegetation_cell width: <span class="hljs-number">50</span> height: <span class="hljs-number">50</span> neighbors: <span class="hljs-number">4</span> {
+    <span class="hljs-type">float</span> maxFood &lt;- <span class="hljs-number">1.0</span> ;
+    <span class="hljs-type">float</span> foodProd &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) * <span class="hljs-number">0.01</span> ;
+    <span class="hljs-type">float</span> food &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) max: maxFood <span class="hljs-keyword">update</span>: food + foodProd ;
+    rgb color &lt;- rgb(<span class="hljs-type">int</span>(<span class="hljs-number">255</span> * (<span class="hljs-number">1</span> - food)), <span class="hljs-number">255</span>, <span class="hljs-type">int</span>(<span class="hljs-number">255</span> * (<span class="hljs-number">1</span> - food))) <span class="hljs-keyword">update</span>: rgb(<span class="hljs-type">int</span>(<span class="hljs-number">255</span> * (<span class="hljs-number">1</span> - food)), <span class="hljs-number">255</span>, <span class="hljs-type">int</span>(<span class="hljs-number">255</span> *(<span class="hljs-number">1</span> - food))) ;
+    list&lt;vegetation_cell&gt; neighbors  &lt;- (self neighbors_at <span class="hljs-number">2</span>); 
+}
+
+experiment prey_predator <span class="hljs-keyword">type</span>: gui {
+    parameter "Initial number of preys: " var: nb_preys_init  min: <span class="hljs-number">0</span> max: <span class="hljs-number">1000</span> category: "Prey" ;
+    parameter "Prey max energy: " var: prey_max_energy category: "Prey" ;
+    parameter "Prey max transfert: " var: prey_max_transfert  category: "Prey" ;
+    parameter "Prey energy consumption: " var: prey_energy_consum  category: "Prey" ;
+    parameter "Initial number of predators: " var: nb_predators_init  min: <span class="hljs-number">0</span> max: <span class="hljs-number">200</span> category: "Predator" ;
+    parameter "Predator max energy: " var: predator_max_energy category: "Predator" ;
+    parameter "Predator energy transfert: " var: predator_energy_transfert  category: "Predator" ;
+    parameter "Predator energy consumption: " var: predator_energy_consum  category: "Predator" ;
+    parameter <span class="hljs-string">'Prey probability reproduce: '</span> var: prey_proba_reproduce category: <span class="hljs-string">'Prey'</span> ;
+    parameter <span class="hljs-string">'Prey nb max offsprings: '</span> var: prey_nb_max_offsprings category: <span class="hljs-string">'Prey'</span> ;
+    parameter <span class="hljs-string">'Prey energy reproduce: '</span> var: prey_energy_reproduce category: <span class="hljs-string">'Prey'</span> ;
+    parameter <span class="hljs-string">'Predator probability reproduce: '</span> var: predator_proba_reproduce category: <span class="hljs-string">'Predator'</span> ;
+    parameter <span class="hljs-string">'Predator nb max offsprings: '</span> var: predator_nb_max_offsprings category: <span class="hljs-string">'Predator'</span> ;
+    parameter <span class="hljs-string">'Predator energy reproduce: '</span> var: predator_energy_reproduce category: <span class="hljs-string">'Predator'</span> ;
+    
+    output {
+        display main_display {
+            grid vegetation_cell lines: #black ;
+            species prey aspect: icon ;
+            species predator aspect: icon ;
+        }
+        display info_display {
+            grid vegetation_cell lines: #black ;
+            species prey aspect: <span class="hljs-keyword">info</span> ;
+            species predator aspect: <span class="hljs-keyword">info</span> ;
+        }
+        display Population_information <span class="hljs-keyword">refresh</span>: every(<span class="hljs-number">5</span>) {
+            chart "Species evolution" <span class="hljs-keyword">type</span>: series size: {<span class="hljs-number">1</span>,<span class="hljs-number">0.5</span>} position: {<span class="hljs-number">0</span>, <span class="hljs-number">0</span>} {
+                data "number_of_preys" <span class="hljs-keyword">value</span>: nb_preys color: #blue ;
+                data "number_of_predator" <span class="hljs-keyword">value</span>: nb_predators color: #red ;
+            }
+            chart "Prey Energy Distribution" <span class="hljs-keyword">type</span>: histogram background: #lightgray size: {<span class="hljs-number">0.5</span>,<span class="hljs-number">0.5</span>} position: {<span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>} {
+                data "]0;0.25]" <span class="hljs-keyword">value</span>: prey count (<span class="hljs-keyword">each</span>.energy &lt;= <span class="hljs-number">0.25</span>) color:#blue;
+                data "]0.25;0.5]" <span class="hljs-keyword">value</span>: prey count ((<span class="hljs-keyword">each</span>.energy &gt; <span class="hljs-number">0.25</span>) <span class="hljs-keyword">and</span> (<span class="hljs-keyword">each</span>.energy &lt;= <span class="hljs-number">0.5</span>)) color:#blue;
+                data "]0.5;0.75]" <span class="hljs-keyword">value</span>: prey count ((<span class="hljs-keyword">each</span>.energy &gt; <span class="hljs-number">0.5</span>) <span class="hljs-keyword">and</span> (<span class="hljs-keyword">each</span>.energy &lt;= <span class="hljs-number">0.75</span>)) color:#blue;
+                data "]0.75;1]" <span class="hljs-keyword">value</span>: prey count (<span class="hljs-keyword">each</span>.energy &gt; <span class="hljs-number">0.75</span>) color:#blue;
+            }
+            chart "Predator Energy Distribution" <span class="hljs-keyword">type</span>: histogram background: #lightgray size: {<span class="hljs-number">0.5</span>,<span class="hljs-number">0.5</span>} position: {<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>} {
+                data "]0;0.25]" <span class="hljs-keyword">value</span>: predator count (<span class="hljs-keyword">each</span>.energy &lt;= <span class="hljs-number">0.25</span>) color: #red ;
+                data "]0.25;0.5]" <span class="hljs-keyword">value</span>: predator count ((<span class="hljs-keyword">each</span>.energy &gt; <span class="hljs-number">0.25</span>) <span class="hljs-keyword">and</span> (<span class="hljs-keyword">each</span>.energy &lt;= <span class="hljs-number">0.5</span>)) color: #red ;
+                data "]0.5;0.75]" <span class="hljs-keyword">value</span>: predator count ((<span class="hljs-keyword">each</span>.energy &gt; <span class="hljs-number">0.5</span>) <span class="hljs-keyword">and</span> (<span class="hljs-keyword">each</span>.energy &lt;= <span class="hljs-number">0.75</span>)) color: #red ;
+                data "]0.75;1]" <span class="hljs-keyword">value</span>: predator count (<span class="hljs-keyword">each</span>.energy &gt; <span class="hljs-number">0.75</span>) color: #red;
+            }
+        }
+        monitor "Number of preys" <span class="hljs-keyword">value</span>: nb_preys;
+        monitor "Number of predators" <span class="hljs-keyword">value</span>: nb_predators;
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

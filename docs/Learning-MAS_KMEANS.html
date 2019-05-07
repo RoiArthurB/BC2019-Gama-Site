@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Learning-MAS_KMEANS · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Learning-MAS_KMEANS · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Learning-MAS_KMEANS</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="agent-based-clustering"></a><a href="#agent-based-clustering" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Agent Based Clustering</h1>
+<p><em>Author : Jean-Daniel Zucker with Patrick Taillandier's and Arnaud Grignard's Help</em></p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model MASKMEANS
+
+
+global
+{
+// the number of classes to create (kmeans)
+// It corresponds to the centroids
+    int k &lt;- <span class="hljs-number">4</span>;
+    // the number of <span class="hljs-built_in">points</span>
+    int N &lt;- <span class="hljs-number">100</span>;
+    //number of <span class="hljs-built_in">dimensions</span>
+    int <span class="hljs-built_in">dimensions</span>;
+    init
+    {
+    //create datapoints agents
+        create datapoints number: N
+        {
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">dimensions</span> = <span class="hljs-number">3</span>)
+            {
+                location &lt;- { rnd(<span class="hljs-number">100</span>), rnd(<span class="hljs-number">100</span>), rnd(<span class="hljs-number">100</span>) };
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">dimensions</span> = <span class="hljs-number">2</span>)
+            {
+                location &lt;- { rnd(<span class="hljs-number">100</span>), rnd(<span class="hljs-number">100</span>) };
+            }
+
+        }
+
+        //create centroid agents
+        create centroids number: k
+        {
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">dimensions</span> = <span class="hljs-number">3</span>)
+            {
+                location &lt;- { rnd(<span class="hljs-number">100</span>), rnd(<span class="hljs-number">100</span>), rnd(<span class="hljs-number">100</span>) };
+            }
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">dimensions</span> = <span class="hljs-number">2</span>)
+            {
+                location &lt;- { rnd(<span class="hljs-number">100</span>), rnd(<span class="hljs-number">100</span>) };
+            }
+
+        }
+
+        //give a <span class="hljs-built_in">random</span> <span class="hljs-built_in">color</span> to each centroid (i.e. to each datapoints agents of the group)
+        loop c over: centroids
+        {
+            rgb <span class="hljs-built_in">col</span> &lt;- rnd_color(<span class="hljs-number">255</span>);
+            ask c
+            {
+                color_kmeans &lt;- <span class="hljs-built_in">col</span>;
+            }
+
+        }
+
+    }
+
+    reflex assign_points_to_centroid when: <span class="hljs-built_in">even</span>(cycle)
+    {
+    // The <span class="hljs-string">"assignment"</span> <span class="hljs-keyword">step</span> <span class="hljs-built_in">is</span> also referred to as expectation <span class="hljs-keyword">step</span>,
+        ask centroids
+        {
+            mypoints &lt;- list&lt;datapoints&gt; ([]);
+        }
+
+        loop pt over: datapoints
+        {
+            ask pt
+            {
+                mycenter &lt;- (centroids) closest_to self;
+                color_kmeans &lt;- mycenter.color_kmeans;
+                add self to: mycenter.mypoints;
+            }
+
+        }
+
+    }
+
+    reflex update_centroids when: <span class="hljs-keyword">not</span> <span class="hljs-built_in">even</span>(cycle)
+    {
+    // the <span class="hljs-string">"update step"</span> as maximization <span class="hljs-keyword">step</span>,
+    // making this algorithm a variant of the generalized expectation-maximization algorithm.
+
+    //We give a <span class="hljs-built_in">random</span> <span class="hljs-built_in">color</span> to each group (i.e. to each datapoints agents of the group)
+        loop <span class="hljs-built_in">center</span> over: centroids
+        {
+        //old code... <span class="hljs-built_in">center</span>.location &lt;- geometry(<span class="hljs-built_in">center</span>.mypoints).location;
+            <span class="hljs-built_in">center</span>.location &lt;- <span class="hljs-built_in">mean</span>(<span class="hljs-built_in">center</span>.mypoints collect each.location);
+        }
+
+    }
+
+}
+
+species datapoints
+{
+    rgb color_kmeans &lt;- # grey;
+    centroids mycenter;
+    aspect kmeans_aspect2D
+    {
+        <span class="hljs-built_in">draw</span> circle(<span class="hljs-number">2</span>) <span class="hljs-built_in">color</span>: color_kmeans;
+    }
+
+    aspect kmeans_aspect3D
+    {
+        <span class="hljs-built_in">draw</span> <span class="hljs-built_in">sphere</span>(<span class="hljs-number">2</span>) <span class="hljs-built_in">color</span>: color_kmeans;
+    }
+
+}
+
+species centroids
+{
+    rgb color_kmeans &lt;- # grey;
+    list&lt;datapoints&gt; mypoints;
+    aspect kmeans_aspect2D
+    {
+        <span class="hljs-built_in">draw</span> cross(<span class="hljs-number">3</span>, <span class="hljs-number">0.5</span>) <span class="hljs-built_in">color</span>: color_kmeans <span class="hljs-built_in">border</span>: # black;
+        loop pt over: mypoints
+        {
+            <span class="hljs-built_in">draw</span> line([location, pt]) + <span class="hljs-number">0.1</span> <span class="hljs-built_in">color</span>: color_kmeans;
+        }
+    }
+
+    aspect kmeans_aspect3D
+    {
+        <span class="hljs-built_in">draw</span> <span class="hljs-built_in">cube</span>(<span class="hljs-number">5</span>) <span class="hljs-built_in">color</span>: color_kmeans <span class="hljs-built_in">border</span>: # black;
+        loop pt over: mypoints
+        {
+            <span class="hljs-built_in">draw</span> line([location, pt], <span class="hljs-number">0.2</span>) <span class="hljs-built_in">color</span>: color_kmeans;
+        }
+    }
+
+}
+
+experiment clustering2D type: gui
+{
+    parameter <span class="hljs-string">"Number of clusters to split the data into"</span> <span class="hljs-built_in">var</span>: k category: <span class="hljs-string">"KMEANS"</span>;
+    parameter <span class="hljs-string">"Number of points to be clustered"</span> <span class="hljs-built_in">var</span>: N init: <span class="hljs-number">100</span>;
+    parameter <span class="hljs-string">"Number of dimensions"</span> <span class="hljs-built_in">var</span>: <span class="hljs-built_in">dimensions</span> init: <span class="hljs-number">2</span> <span class="hljs-built_in">min</span>: <span class="hljs-number">2</span> <span class="hljs-built_in">max</span>: <span class="hljs-number">2</span>;
+    <span class="hljs-built_in">font</span> regular &lt;- <span class="hljs-built_in">font</span>(<span class="hljs-string">"Helvetica"</span>, <span class="hljs-number">14</span>, # bold);
+        
+    point target &lt;- { <span class="hljs-number">20</span>, <span class="hljs-number">95</span> };
+    output
+    {
+        <span class="hljs-built_in">display</span> map_kmeans
+        {
+            species datapoints aspect: kmeans_aspect2D;
+            species centroids aspect: kmeans_aspect2D;
+            graphics <span class="hljs-string">"Full target"</span>
+            {
+                <span class="hljs-built_in">draw</span> <span class="hljs-built_in">rectangle</span>(<span class="hljs-number">100</span>, <span class="hljs-number">4</span>) <span class="hljs-built_in">color</span>: # yellow <span class="hljs-built_in">at</span>: target + { <span class="hljs-number">30</span>, <span class="hljs-number">0</span> };
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> <span class="hljs-built_in">even</span>(cycle))
+                {
+                // the <span class="hljs-string">"update step"</span> as maximization <span class="hljs-keyword">step</span>, (a <span class="hljs-built_in">mean</span> <span class="hljs-built_in">is</span> done to recenter)
+                    <span class="hljs-built_in">draw</span> <span class="hljs-string">"Next step is maximisation step the centroid will move to the means of its points"</span> <span class="hljs-built_in">at</span>: target + { <span class="hljs-number">0</span>, <span class="hljs-number">0</span> } <span class="hljs-built_in">font</span>: regular <span class="hljs-built_in">color</span>: # red;
+                } <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-built_in">draw</span> <span class="hljs-string">"Next step is estimation Step (each point is assigned the color of his nearest centroid"</span> <span class="hljs-built_in">at</span>: target + { <span class="hljs-number">0</span>, <span class="hljs-number">0</span> } <span class="hljs-built_in">font</span>: regular <span class="hljs-built_in">color</span>: # green;
+                }
+
+            }
+
+        }
+
+    }
+}
+
+experiment clustering3D type: gui
+{
+    parameter <span class="hljs-string">"Number of clusters to split the data into"</span> <span class="hljs-built_in">var</span>: k category: <span class="hljs-string">"KMEANS"</span>;
+    parameter <span class="hljs-string">"Number of points to be clustered"</span> <span class="hljs-built_in">var</span>: N init: <span class="hljs-number">100</span>;
+    <span class="hljs-built_in">font</span> regular &lt;- <span class="hljs-built_in">font</span>(<span class="hljs-string">"Helvetica"</span>, <span class="hljs-number">14</span>, # bold);
+    point target &lt;- { <span class="hljs-number">20</span>, <span class="hljs-number">95</span> };
+    parameter <span class="hljs-string">"Number of dimensions"</span> <span class="hljs-built_in">var</span>: <span class="hljs-built_in">dimensions</span> init: <span class="hljs-number">3</span> <span class="hljs-built_in">min</span>: <span class="hljs-number">3</span> <span class="hljs-built_in">max</span>: <span class="hljs-number">3</span>;
+    action _init_ {
+        create MASKMEANS_model with: [<span class="hljs-built_in">dimensions</span>::<span class="hljs-number">3</span>];
+    }
+    output
+    {
+        <span class="hljs-built_in">display</span> map_kmeans type: opengl
+        {
+            species datapoints aspect: kmeans_aspect3D;
+            species centroids aspect: kmeans_aspect3D;
+        }
+
+    }
+
+}
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

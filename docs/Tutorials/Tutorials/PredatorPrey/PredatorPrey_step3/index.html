@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Tutorials/Tutorials/PredatorPrey/PredatorPrey_step3 · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;3-prey-agent-behavior&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#3-prey-agent-behavior&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. Prey Agent Behavior&lt;/h1&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Tutorials/Tutorials/PredatorPrey/PredatorPrey_step3 · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;3-prey-agent-behavior&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#3-prey-agent-behavior&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. Prey Agent Behavior&lt;/h1&gt;
+"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Tutorials/Tutorials/PredatorPrey/PredatorPrey_step3</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="3-prey-agent-behavior"></a><a href="#3-prey-agent-behavior" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. Prey Agent Behavior</h1>
+<p>This third step Illustrates how to define the behaviors of prey agents and the concept of spatial topology.</p>
+<h2><a class="anchor" aria-hidden="true" id="formulation"></a><a href="#formulation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formulation</h2>
+<ul>
+<li>Random movement of the prey agents to a distance of 2 cells (Von Neumann neighborhood)</li>
+<li>At each step, the prey agents loss energy</li>
+<li>At each step, the prey agents eat food if there is food on the cell on which they are localized (with a max of max_transfer) and gain energy</li>
+<li>If a prey agent has no more energy, it dies</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
+<h3><a class="anchor" aria-hidden="true" id="parameters"></a><a href="#parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>parameters</h3>
+<p>To define a behavior for the prey agents we add them three new parameters:</p>
+<ul>
+<li>The max energy of the prey agents</li>
+<li>The maximum energy that can a prey agent consume from vegetation per tick</li>
+<li>The energy used by a prey agent at each time step</li>
+</ul>
+<p>As we consider these parameters to be global to all prey, we define them in the  global section as follows:</p>
+<pre><code class="hljs">   <span class="hljs-built_in">float</span> prey_max_energy &lt;- <span class="hljs-number">1.0</span>;
+   <span class="hljs-built_in">float</span> prey_max_transfer &lt;- <span class="hljs-number">0.1</span>;
+   <span class="hljs-built_in">float</span> prey_energy_consum &lt;- <span class="hljs-number">0.05</span>;
+   
+</code></pre>
+<p>Yet we may allow the user to change it from an experiment to another through the user interface. To do so we add the following definition of parameters within the experiment section :</p>
+<pre><code class="hljs">   <span class="hljs-keyword">parameter</span> <span class="hljs-string">"Prey max energy: "</span> var: prey_max_energy <span class="hljs-comment">category:</span> <span class="hljs-comment">"Prey"</span> ;
+   <span class="hljs-keyword">parameter</span> <span class="hljs-string">"Prey max transfer: "</span> var: prey_max_transfer  <span class="hljs-comment">category:</span> <span class="hljs-comment">"Prey"</span> ;
+   <span class="hljs-keyword">parameter</span> <span class="hljs-string">"Prey energy consumption: "</span> var: prey_energy_consum  <span class="hljs-comment">category:</span> <span class="hljs-comment">"Prey"</span> ;
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="vegetation-_cell-grid"></a><a href="#vegetation-_cell-grid" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>vegetation_cell grid</h3>
+<p>We add a new variable for the vegetation_cell grid called <strong>neighbors</strong>, that contains for each vegetation cell the list of the neighbor vegetation cells (distance of 2 - Von Neumann neighborhood). We will use these neighbors list for the movement of the prey.</p>
+<pre><code class="hljs">  <span class="hljs-built_in">grid</span> vegetation_cell <span class="hljs-built_in">width</span>: <span class="hljs-number">50</span> <span class="hljs-built_in">height</span>: <span class="hljs-number">50</span> <span class="hljs-built_in">neighbors</span>: <span class="hljs-number">4</span> {
+      ...
+      list&lt;vegetation_cell&gt; <span class="hljs-built_in">neighbors</span> &lt;- self neighbors_at <span class="hljs-number">2</span>;
+   }
+</code></pre>
+<p>Note that the result of the operator <strong>neighbors_at dist</strong> depends on the type of topology of the agent applying this operator:</p>
+<ul>
+<li>For a grid topology (grid species), the operator returns the neighbor cells (with a Von Neumann or Moore neighborhood).</li>
+<li>For a continuous topology, the operator returns the list of agents of which the shape is located at a distance equals or inferior <em>dist</em> meters to the agent shape.</li>
+</ul>
+<p>Also note the use of the <a href="PseudoVariables#self">self</a> pseudo variable which is a reference to the agent currently executing the statement</p>
+<h2><a class="anchor" aria-hidden="true" id="prey-agents"></a><a href="#prey-agents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Prey agents</h2>
+<p>We copy the values of the three global parameters into the prey species in order for it to be available for each agent and possibly modified locally.</p>
+<pre><code class="hljs"><span class="hljs-attr">species</span> <span class="hljs-string">prey {</span>
+   <span class="hljs-attr">...</span>
+   <span class="hljs-attr">float</span> <span class="hljs-string">max_energy &lt;- prey_max_energy ;</span>
+   <span class="hljs-attr">float</span> <span class="hljs-string">max_transfer &lt;- prey_max_transfer ;</span>
+   <span class="hljs-attr">float</span> <span class="hljs-string">energy_consum &lt;- prey_energy_consum ;</span>
+   <span class="hljs-attr">...</span>
+<span class="hljs-meta">}</span>       <span class="hljs-string"></span>
+</code></pre>
+<p>The energy used by each prey at each timestep is randomly computed initially (within ]0;max_energy]).</p>
+<pre><code class="hljs">species prey {
+   ...
+   <span class="hljs-built_in">float</span> energy &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) * max_energy  update: energy - energy_consum max: max_energy ;
+   ...
+}    
+</code></pre>
+<p>In order to define the movement behaviour of a prey we will add a <strong>reflex</strong>. A reflex is a block of statements (that can be defined in global or any species) that will be automatically executed at each simulation step if its condition is true, it is defined as follows:</p>
+<pre><code class="hljs">   reflex reflex_name <span class="hljs-keyword">when</span>: condition <span class="hljs-meta">{...}</span>
+</code></pre>
+<p>The <strong>when</strong> facet is optional: when it is omitted, the reflex is activated at each time step. Note that if several reflexes are defined for a species, the reflexes will be activated following their definition order.</p>
+<p>We define a first reflex called <strong>basic_move</strong> that allows the prey agents to choose (randomly) a new vegetation_cell in the neighborhood of my_cell and to move to this cell.</p>
+<pre><code class="hljs"><span class="hljs-attr">species</span> <span class="hljs-string">prey {</span>
+   <span class="hljs-attr">...</span>
+   <span class="hljs-attr">reflex</span> <span class="hljs-string">basic_move { </span>
+       <span class="hljs-attr">myCell</span> <span class="hljs-string">&lt;- one_of (myCell.neighbors) ;</span>
+       <span class="hljs-attr">location</span> <span class="hljs-string">&lt;- myCell.location ;</span>
+   <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p>We define a second reflex called <strong>eat</strong> that will only be activated when there is food in my_cell and that will allows the prey agents to eat food and gain energy. In order to store the energy gain by the eating (that is equals to the minimum between the <strong>max_transfer</strong> value and the quantity of food available in <strong>myCell</strong>), we define a local variable called <strong>energy_transfer</strong>.  A local variable is a variable that will only exist within this block: once it has been executed, the variable is forgotten. To define it, we have to use the following statement:</p>
+<pre><code class="hljs">var_type var_name &lt;- value<span class="hljs-comment">; </span>
+</code></pre>
+<p>Thus, the reflex <strong>eat</strong> is defined by:</p>
+<pre><code class="hljs"><span class="hljs-attr">species</span> <span class="hljs-string">prey {</span>
+   <span class="hljs-attr">...</span>
+   <span class="hljs-attr">reflex</span> <span class="hljs-string">eat when: myCell.food &gt; 0 { </span>
+      <span class="hljs-attr">float</span> <span class="hljs-string">energy_transfer &lt;- min([max_transfer, myCell.food]) ;</span>
+      <span class="hljs-meta">myCell.food</span> <span class="hljs-string">&lt;- myCell.food - energy_transfer ;</span>
+      <span class="hljs-attr">energy</span> <span class="hljs-string">&lt;- energy + energy_transfer ;</span>
+   <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p>We define a third reflex for the prey agent: when the agent has no more energy, it dies (application of the built-in <strong>die</strong> action):</p>
+<pre><code class="hljs">species prey {
+   ...
+   reflex <span class="hljs-keyword">die</span> <span class="hljs-keyword">when</span>: energy &lt;= <span class="hljs-number">0</span> {
+      <span class="hljs-keyword">do</span> <span class="hljs-keyword">die</span> ;
+   }
+}
+</code></pre>
+<p>Note that an action is a capability available to the agents of a species (what they can do). It is a block of statements that can be used and reused whenever needed. Some actions, called primitives, are directly coded in Java: for instance, the <strong>die</strong> action defined for all the agents.</p>
+<ul>
+<li>An action can accept arguments. For instance, write takes an argument called message.</li>
+<li>An action can return a result.</li>
+</ul>
+<p>There are two ways to call an action: using a statement or as part of an expression</p>
+<ul>
+<li>for actions that do not return a result:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-symbol">do</span> action_name arg1: <span class="hljs-built_in">v1</span> arg2: <span class="hljs-built_in">v2</span><span class="hljs-comment">;</span>
+</code></pre>
+<ul>
+<li>for actions that return a result:</li>
+</ul>
+<pre><code class="hljs">my_var &lt;- self action_name (<span class="hljs-name">arg1</span><span class="hljs-symbol">:v1</span>, arg2<span class="hljs-symbol">:v2</span>)<span class="hljs-comment">;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
+<pre><code class="hljs">model prey_predator
+
+global {
+    <span class="hljs-built_in">int</span> nb_preys_init &lt;- <span class="hljs-number">200</span>;
+    <span class="hljs-built_in">float</span> prey_max_energy &lt;- <span class="hljs-number">1.0</span>;
+    <span class="hljs-built_in">float</span> prey_max_transfer &lt;- <span class="hljs-number">0.1</span>;
+    <span class="hljs-built_in">float</span> prey_energy_consum &lt;- <span class="hljs-number">0.05</span>;
+    
+    init {
+        create prey number: nb_preys_init ;
+    }
+}
+
+species prey {
+    <span class="hljs-built_in">float</span> size &lt;- <span class="hljs-number">1.0</span> ;
+    rgb color &lt;- #blue;
+    <span class="hljs-built_in">float</span> max_energy &lt;- prey_max_energy ;
+    <span class="hljs-built_in">float</span> max_transfer &lt;- prey_max_transfer ;
+    <span class="hljs-built_in">float</span> energy_consum &lt;- prey_energy_consum ;
+        
+    vegetation_cell myCell &lt;- one_of (vegetation_cell) ; 
+    <span class="hljs-built_in">float</span> energy &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) * max_energy  update: energy - energy_consum max: max_energy ;
+        
+    init { 
+        location &lt;- myCell.location;
+    }
+        
+    <span class="hljs-built_in">ref</span>lex basic_move { 
+        myCell &lt;- one_of (myCell.neighbors) ;
+        location &lt;- myCell.location ;
+    }
+    <span class="hljs-built_in">ref</span>lex eat when: myCell.food &gt; <span class="hljs-number">0</span> { 
+        <span class="hljs-built_in">float</span> energy_transfer &lt;- min([max_transfer, myCell.food]) ;
+        myCell.food &lt;- myCell.food - energy_transfer ;
+        energy &lt;- energy + energy_transfer ;
+    }
+    <span class="hljs-built_in">ref</span>lex die when: energy &lt;= <span class="hljs-number">0</span> {
+        <span class="hljs-keyword">do</span> die ;
+    }
+
+    aspect base {
+        draw circle(size) color: color ;
+    }
+}
+
+grid vegetation_cell width: <span class="hljs-number">50</span> height: <span class="hljs-number">50</span> neighbors: <span class="hljs-number">4</span> {
+    <span class="hljs-built_in">float</span> maxFood &lt;- <span class="hljs-number">1.0</span> ;
+    <span class="hljs-built_in">float</span> foodProd &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) * <span class="hljs-number">0.01</span> ;
+    <span class="hljs-built_in">float</span> food &lt;- (rnd(<span class="hljs-number">1000</span>) / <span class="hljs-number">1000</span>) max: maxFood update: food + foodProd ;
+    rgb color &lt;- rgb(<span class="hljs-built_in">int</span>(<span class="hljs-number">255</span> * (<span class="hljs-number">1</span> - food)), <span class="hljs-number">255</span>, <span class="hljs-built_in">int</span>(<span class="hljs-number">255</span> * (<span class="hljs-number">1</span> - food))) update: rgb(<span class="hljs-built_in">int</span>(<span class="hljs-number">255</span> * (<span class="hljs-number">1</span> - food)), <span class="hljs-number">255</span>, <span class="hljs-built_in">int</span>(<span class="hljs-number">255</span> *(<span class="hljs-number">1</span> - food))) ;
+    list&lt;vegetation_cell&gt; neighbors  &lt;- (self neighbors_at <span class="hljs-number">2</span>);
+}
+
+experiment prey_predator type: gui {
+    parameter <span class="hljs-string">"Initial number of preys: "</span> var: nb_preys_init min: <span class="hljs-number">1</span> max: <span class="hljs-number">1000</span> category: <span class="hljs-string">"Prey"</span> ;
+    parameter <span class="hljs-string">"Prey max energy: "</span> var: prey_max_energy category: <span class="hljs-string">"Prey"</span> ;
+    parameter <span class="hljs-string">"Prey max transfer: "</span> var: prey_max_transfer  category: <span class="hljs-string">"Prey"</span> ;
+    parameter <span class="hljs-string">"Prey energy consumption: "</span> var: prey_energy_consum  category: <span class="hljs-string">"Prey"</span> ;
+    output {
+        display main_display {
+            grid vegetation_cell lines: #black ;
+            species prey aspect: base ;
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#formulation">Formulation</a></li><li><a href="#model-definition">Model Definition</a><ul class="toc-headings"><li><a href="#parameters">parameters</a></li><li><a href="#vegetation-_cell-grid">vegetation_cell grid</a></li></ul></li><li><a href="#prey-agents">Prey agents</a></li><li><a href="#complete-model">Complete Model</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

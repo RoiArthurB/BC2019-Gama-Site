@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Tutorials/LearnGAMLStepByStep/DefiningAdvancedSpecies/GraphSpecies · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Tutorials/LearnGAMLStepByStep/DefiningAdvancedSpecies/GraphSpecies · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Tutorials/LearnGAMLStepByStep/DefiningAdvancedSpecies/GraphSpecies</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="graph-species"></a><a href="#graph-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Graph Species</h1>
+<p>Using a graph species enables to easily show interaction between agents of a same species. This kind of species is particularly useful when trying to show the interaction (especially the non-spatial one) that exist between agents.</p>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#declaration">Declaration</a>
+<ul>
+<li><a href="#declare-a-graph-with-handmade-agents">Declare a graph with handmade agents</a></li>
+<li><a href="#declare-a-graph-by-using-an-geometry-file">Declare a graph by using an geometry file</a></li>
+<li><a href="#declare-a-graph-with-nodes-and-edges">Declare a graph with nodes and edges</a></li>
+</ul></li>
+<li><a href="#useful-operators-with-graph">Useful operators with graph</a>
+<ul>
+<li><a href="#knowing-the-degree-of-a-node">Knowing the degree of a node</a></li>
+<li><a href="#get-the-neighbors-of-a-node">Get the neighbors of a node</a></li>
+<li><a href="#compute-the-shortest-path">Compute the shortest path</a></li>
+<li><a href="#control-the-weight-in-graph">Control the weight in graph</a></li>
+</ul></li>
+<li><a href="#example">Example</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="declaration"></a><a href="#declaration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaration</h2>
+<h3><a class="anchor" aria-hidden="true" id="declare-a-graph-with-handmade-agents"></a><a href="#declare-a-graph-with-handmade-agents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare a graph with handmade agents</h3>
+<p>To instantiate this <code>graph</code> species, several steps must be followed. First the graph species must inherit from the abstract species <code>graph_node</code>, then the method <code>related_to</code> must be redefined and finally an auxiliary species that inherits from <code>base_edge</code> used to represent the edges of the generated graph must be declared.
+A graph node is an abstract species that must redefine one method called <code>related_to</code>.</p>
+<pre><code class="hljs">species graph_agent <span class="hljs-string">parent:</span> graph_node <span class="hljs-string">edge_species:</span> edge_agent{
+  bool related_to(graph_agent other){
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}
+
+species edge_agent <span class="hljs-string">parent:</span> base_edge {
+}
+</code></pre>
+<p>The method <code>related_to</code> returns a boolean, and take the agents from the current species in argument. If the method returns true, the two agents (the current instance and the one as argument) will be linked.</p>
+<pre><code class="hljs"><span class="hljs-attr">global{</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">number_of_agents &lt;- 5;</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">graph_agent number:number_of_agents;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">graph_agent parent: graph_node edge_species: edge_agent{</span>
+  <span class="hljs-attr">bool</span> <span class="hljs-string">related_to(graph_agent other){</span>
+    <span class="hljs-attr">return</span> <span class="hljs-string">true;</span>
+  <span class="hljs-attr">}</span>
+  <span class="hljs-attr">aspect</span> <span class="hljs-string">base {</span>
+    <span class="hljs-attr">draw</span> <span class="hljs-string">circle(1) color:#green;</span>
+  <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">edge_agent parent: base_edge {</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base {</span>
+    <span class="hljs-attr">draw</span> <span class="hljs-string">shape color:#blue;</span>
+  <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">MyExperiment type: gui {</span>
+    <span class="hljs-attr">output</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">display</span> <span class="hljs-string">MyDisplay type: java2D {</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">graph_agent aspect:base;</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">edge_agent aspect:base;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p><img src="resources/images/definingAdvancedSpecies/graph_related_to.png" alt="graph_related_to.png"></p>
+<p>You can for example link 2 agents when they are closer than a certain distance.
+Beware: The topology used in graph species is the graph topology, and not the continuous topology. You can force the use of the continuous topology with the action <code>using</code> as follow:</p>
+<pre><code class="hljs">bool related_to(graph_agent other){
+    using topology:topology(world) {
+        return (self.<span class="hljs-keyword">location</span> <span class="hljs-title">distance_to</span> other.<span class="hljs-keyword">location</span> <span class="hljs-title">&lt; 20</span>);
+    }
+}
+</code></pre>
+<p><img src="resources/images/definingAdvancedSpecies/graph_related_to2.png" alt="graph_related_to2.png"></p>
+<p>The abstract mother species &quot;graph_node&quot; has an attribute &quot;my_graph&quot;, with the type &quot;graph&quot;. The graph type represent a graph composed of vertices linked with edges. This type has built-in attributes such as <code>edges</code> (the list of all the edges agents), or <code>vertices</code> (the list of all the vertices agents).</p>
+<h3><a class="anchor" aria-hidden="true" id="declare-a-graph-by-using-an-geometry-file"></a><a href="#declare-a-graph-by-using-an-geometry-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare a graph by using an geometry file</h3>
+<p>In most cases, you will have to construct a graph from an existing file (example: a &quot;shp&quot; file). In that case, you will have to first instantiate a species from the shape file (with the <code>create</code> statement, using the facet <code>from</code>). When, you will have to extract a graph from the agent, using the operator <code>as_edge_graph</code>.</p>
+<pre><code class="hljs"><span class="hljs-attribute">model</span> load_shape_file 
+ 
+global {
+    <span class="hljs-attribute">file</span> roads_shapefile &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-attribute">geometry</span> shape &lt;- envelope(roads_shapefile);
+    <span class="hljs-attribute">graph</span> road_network;
+
+    <span class="hljs-section">init</span> {
+        <span class="hljs-attribute">create</span> road from: roads_shapefile;
+        <span class="hljs-attribute">road_network</span> &lt;- as_edge_graph(road);
+    }
+}
+
+<span class="hljs-attribute">species</span> road {
+    <span class="hljs-attribute">aspect</span> geom {
+        <span class="hljs-attribute">draw</span> shape color: <span class="hljs-comment">#black;</span>
+    }
+}
+
+experiment main_experiment type:gui{
+    <span class="hljs-section">output</span> {
+        <span class="hljs-attribute">display</span> map {
+            <span class="hljs-attribute">species</span> road aspect:geom;       
+        }
+    }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="declare-a-graph-with-nodes-and-edges"></a><a href="#declare-a-graph-with-nodes-and-edges" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare a graph with nodes and edges</h3>
+<p>Another way to create a graph is building it manually nodes by nodes, and then edges by edges, without using agent structures. Use the <code>add_node</code> operator and the <code>add_edge</code> operator to do so. Here is an example of how to do:</p>
+<pre><code class="hljs"><span class="hljs-keyword">add </span>point(<span class="hljs-number">0</span>.<span class="hljs-number">0</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>) to:nodes<span class="hljs-comment">;</span>
+<span class="hljs-keyword">add </span>point(<span class="hljs-number">90</span>.<span class="hljs-number">0</span>,<span class="hljs-number">90</span>.<span class="hljs-number">0</span>) to:nodes<span class="hljs-comment">;</span>
+<span class="hljs-keyword">add </span>point(<span class="hljs-number">20</span>.<span class="hljs-number">0</span>,<span class="hljs-number">20</span>.<span class="hljs-number">0</span>) to:nodes<span class="hljs-comment">;</span>
+<span class="hljs-keyword">add </span>point(<span class="hljs-number">40</span>.<span class="hljs-number">0</span>,<span class="hljs-number">50</span>.<span class="hljs-number">0</span>) to:nodes<span class="hljs-comment">;</span>
+<span class="hljs-keyword">add </span>point(<span class="hljs-number">100</span>.<span class="hljs-number">0</span>,<span class="hljs-number">0</span>.<span class="hljs-number">0</span>) to:nodes<span class="hljs-comment">;</span>
+
+loop nod over:nodes {
+    my_graph &lt;- my_graph <span class="hljs-keyword">add_node(nod);
+</span>}
+        
+my_graph &lt;- my_graph <span class="hljs-keyword">add_edge </span>(nodes <span class="hljs-built_in">at</span> <span class="hljs-number">0</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">2</span>)<span class="hljs-comment">;</span>
+my_graph &lt;- my_graph <span class="hljs-keyword">add_edge </span>(nodes <span class="hljs-built_in">at</span> <span class="hljs-number">2</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">3</span>)<span class="hljs-comment">;</span>
+my_graph &lt;- my_graph <span class="hljs-keyword">add_edge </span>(nodes <span class="hljs-built_in">at</span> <span class="hljs-number">3</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">1</span>)<span class="hljs-comment">;</span>
+my_graph &lt;- my_graph <span class="hljs-keyword">add_edge </span>(nodes <span class="hljs-built_in">at</span> <span class="hljs-number">0</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">4</span>)<span class="hljs-comment">;</span>
+my_graph &lt;- my_graph <span class="hljs-keyword">add_edge </span>(nodes <span class="hljs-built_in">at</span> <span class="hljs-number">4</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">1</span>)<span class="hljs-comment">;</span>
+</code></pre>
+<p>Using this solution, my_graph can have two types: it can be an a-spatial graph, or a spatial graph. The spatial graph will have a proper geometry, with segments that follow the position of your graph (you can access to the segments by using the built-in &quot;segments&quot;). The a-spatial graph will not have any shape.</p>
+<pre><code class="hljs">global
+{
+    graph my_spatial_graph&lt;-spatial<span class="hljs-constructor">_graph([])</span>;
+    graph my_aspatial_graph&lt;-graph(<span class="hljs-literal">[]</span>);
+    
+    init {
+        point node1 &lt;- {<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>};
+        point node2 &lt;- {<span class="hljs-number">10.0</span>,<span class="hljs-number">10.0</span>};
+        my_spatial_graph &lt;- my_spatial_graph add<span class="hljs-constructor">_node(<span class="hljs-params">node1</span>)</span>;
+        my_spatial_graph &lt;- my_spatial_graph add<span class="hljs-constructor">_node(<span class="hljs-params">node2</span>)</span>;
+        my_spatial_graph &lt;- my_spatial_graph add<span class="hljs-constructor">_edge(<span class="hljs-params">node1</span>::<span class="hljs-params">node2</span>)</span>;
+        write my_spatial_graph.edges;
+        <span class="hljs-comment">// the output is [polyline ([{0.0,0.0,0.0},{10.0,10.0,0.0}])]</span>
+        my_aspatial_graph &lt;- my_aspatial_graph add<span class="hljs-constructor">_node(<span class="hljs-params">node1</span>)</span>;
+        my_aspatial_graph &lt;- my_aspatial_graph add<span class="hljs-constructor">_node(<span class="hljs-params">node2</span>)</span>;
+        my_aspatial_graph &lt;- my_aspatial_graph add<span class="hljs-constructor">_edge(<span class="hljs-params">node1</span>::<span class="hljs-params">node2</span>)</span>;
+        write my_aspatial_graph.edges;
+        <span class="hljs-comment">// the output is [{0.0,0.0,0.0}::{10.0,10.0,0.0}]</span>
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="useful-operators-with-graph"></a><a href="#useful-operators-with-graph" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Useful operators with graph</h2>
+<h3><a class="anchor" aria-hidden="true" id="knowing-the-degree-of-a-node"></a><a href="#knowing-the-degree-of-a-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Knowing the degree of a node</h3>
+<p>The operator <code>degree_of</code> returns the number of edge attached to a node. To use it, you have to specify a graph (on the left side of the operator), and a node (on the right side of the operator).</p>
+<p>The following code (to put inside the node species) displays the number of edges attached to each node:</p>
+<pre><code class="hljs">aspect base
+{
+    draw text:<span class="hljs-keyword">string</span>(my_graph degree_of <span class="hljs-keyword">node</span><span class="hljs-title">(5</span>)) color:<span class="hljs-comment"># black;</span>
+    status <span class="hljs-tag">&lt;- 0;
+}
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="get-the-neighbors-of-a-node"></a><a href="#get-the-neighbors-of-a-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get the neighbors of a node</h3>
+<p>To get the list of neighbors of a node, you should use the neighbors_of operator. On the left side of the operator, specify the graph you are using, and on the right side, specify the node. The operator returns the list of nodes located at a distance inferior or equal to 1, considering the graph topology.</p>
+<pre><code class="hljs">species graph_agent parent: graph_node edge_species: edge_agent
+{
+  <span class="hljs-built_in">list</span>&lt;graph_agent&gt; list_neighbors &lt;- <span class="hljs-built_in">list</span>&lt;graph_agent&gt;(my_graph neighbors_of (self));
+}
+</code></pre>
+<p>Here is an example of model using those two previous concepts (a random node is chosen each step, displayed in red, and his neighbors are displayed in yellow):</p>
+<p><img src="resources/images/definingAdvancedSpecies/graph_model.png" alt="graph_model.png"></p>
+<pre><code class="hljs"><span class="hljs-attr">model</span> <span class="hljs-string">graph_model</span>
+
+<span class="hljs-attr">global</span>
+<span class="hljs-attr">{</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">number_of_agents &lt;- 50;</span>
+    <span class="hljs-attr">init</span>
+    <span class="hljs-attr">{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">graph_agent number: number_of_agents;</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">update {</span>
+        <span class="hljs-attr">ask</span> <span class="hljs-string">graph_agent(one_of(graph_agent)) {</span>
+            <span class="hljs-attr">status</span> <span class="hljs-string">&lt;- 2;</span>
+            <span class="hljs-attr">do</span> <span class="hljs-string">update_neighbors;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">graph_agent parent: graph_node edge_species: edge_agent</span>
+<span class="hljs-attr">{</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">status &lt;- 0;</span>
+    <span class="hljs-meta">list&lt;int&gt;</span> <span class="hljs-string">list_connected_index;</span>
+    
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">int</span> <span class="hljs-string">i&lt;-0;</span>
+        <span class="hljs-attr">loop</span> <span class="hljs-string">g over:graph_agent {</span>
+            <span class="hljs-attr">if</span> <span class="hljs-string">(flip(0.1)) {</span>
+                <span class="hljs-attr">add</span> <span class="hljs-string">i to:list_connected_index;</span>
+            <span class="hljs-attr">}</span>
+            <span class="hljs-attr">i</span> <span class="hljs-string">&lt;- i+1;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">bool</span> <span class="hljs-string">related_to(graph_agent other){</span>
+        <span class="hljs-attr">if</span> <span class="hljs-string">(list_connected_index contains (graph_agent index_of other)) {</span>
+            <span class="hljs-attr">return</span> <span class="hljs-string">true;</span>
+        <span class="hljs-attr">}</span>
+        <span class="hljs-attr">return</span> <span class="hljs-string">false;</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">action</span> <span class="hljs-string">update_neighbors {</span>
+
+        <span class="hljs-meta">list&lt;graph_agent&gt;</span> <span class="hljs-string">list_neighbors &lt;- list&lt;graph_agent&gt;(my_graph neighbors_of (self));</span>
+
+        <span class="hljs-attr">loop</span> <span class="hljs-string">neighb over:list_neighbors {</span>
+            <span class="hljs-meta">neighb.status</span> <span class="hljs-string">&lt;- 1;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base</span>
+    <span class="hljs-attr">{</span>
+        <span class="hljs-attr">if</span> <span class="hljs-string">(status = 0) {</span>
+            <span class="hljs-attr">draw</span> <span class="hljs-string">circle(2) color: # green;</span>
+        <span class="hljs-attr">}</span>
+        <span class="hljs-attr">else</span> <span class="hljs-string">if (status = 1) {</span>
+            <span class="hljs-attr">draw</span> <span class="hljs-string">circle(2) color: # yellow;</span>
+        <span class="hljs-attr">}</span>
+        <span class="hljs-attr">else</span> <span class="hljs-string">if (status = 2) {</span>
+            <span class="hljs-attr">draw</span> <span class="hljs-string">circle(2) color: # red;</span>
+        <span class="hljs-attr">}</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">text:string(my_graph degree_of self) color:# black size:4 at:point(self.location.x-1,self.location.y-2);</span>
+        <span class="hljs-attr">status</span> <span class="hljs-string">&lt;- 0;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">edge_agent parent: base_edge</span>
+<span class="hljs-attr">{</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">base</span>
+    <span class="hljs-attr">{</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">shape color: # blue;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">MyExperiment type: gui</span>
+<span class="hljs-attr">{</span>
+    <span class="hljs-attr">output</span>
+    <span class="hljs-attr">{</span>
+        <span class="hljs-attr">display</span> <span class="hljs-string">MyDisplay type: java2D</span>
+        <span class="hljs-attr">{</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">graph_agent aspect: base;</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">edge_agent aspect: base;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="compute-the-shortest-path"></a><a href="#compute-the-shortest-path" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compute the shortest path</h3>
+<p>To compute the shortest path to go from a point to another, pick a source and a destination among the vertices you have for your graph. Store those values as point type.</p>
+<pre><code class="hljs">point source<span class="hljs-comment">;</span>
+point destination<span class="hljs-comment">;</span>
+source &lt;- point(<span class="hljs-name">one_of</span>(<span class="hljs-name">my_graph</span>.vertices))<span class="hljs-comment">;</span>
+destination &lt;- point(<span class="hljs-name">one_of</span>(<span class="hljs-name">my_graph</span>.vertices))<span class="hljs-comment">;</span>
+</code></pre>
+<p>Then, you can use the operator <code>path_between</code> to return the shortest path. To use this action, you have to give the graph, then the source point, and the destination point. This action returns a path type.</p>
+<pre><code class="hljs">path <span class="hljs-keyword">shortest_path;
+</span><span class="hljs-keyword">shortest_path </span>&lt;- path_between (my_graph, source,destination)<span class="hljs-comment">;</span>
+</code></pre>
+<p>Another operator exists, <code>paths_between</code>, that returns a list of shortest paths between two points. Please read the documentation to learn more about this operator.</p>
+<p>Here is an example of code that show the shortest path between two points of a graph:</p>
+<p><img src="resources/images/definingAdvancedSpecies/shortest_path.png" alt="shortest_path.png"></p>
+<pre><code class="hljs">model graph_model
+
+global
+{
+    int number_of_agents &lt;- <span class="hljs-number">50</span><span class="hljs-comment">;</span>
+    point source<span class="hljs-comment">;</span>
+    point target<span class="hljs-comment">;</span>
+    graph my_graph<span class="hljs-comment">;</span>
+    path <span class="hljs-keyword">shortest_path;
+</span>        
+    init
+    {
+        create graph_agent number: number_of_agents<span class="hljs-comment">;</span>
+    }
+    
+    reflex pick_two_points {
+        if (my_graph=nil) {
+            ask graph_agent {
+                myself.my_graph &lt;- self.my_graph<span class="hljs-comment">;</span>
+                <span class="hljs-keyword">break;
+</span>            }
+        }
+        <span class="hljs-keyword">shortest_path </span>&lt;- nil<span class="hljs-comment">;</span>
+        loop while:<span class="hljs-keyword">shortest_path=nil </span>{
+            source &lt;- point(one_of(my_graph.vertices))<span class="hljs-comment">;</span>
+            target &lt;- point(one_of(my_graph.vertices))<span class="hljs-comment">;</span>
+            if (source != target) {
+                <span class="hljs-keyword">shortest_path </span>&lt;- path_between (my_graph, source,target)<span class="hljs-comment">;</span>
+            }
+        }
+    }
+}
+
+species graph_agent parent: graph_node edge_species: edge_agent
+{
+    list&lt;int&gt; list_connected_index<span class="hljs-comment">;</span>
+    
+    init {
+        int i&lt;-<span class="hljs-number">0</span><span class="hljs-comment">;</span>
+        loop g over:graph_agent {
+            if (flip(<span class="hljs-number">0</span>.<span class="hljs-number">1</span>)) {
+                <span class="hljs-keyword">add </span>i to:list_connected_index<span class="hljs-comment">;</span>
+            }
+            i &lt;- i+<span class="hljs-number">1</span><span class="hljs-comment">;</span>
+        }
+    }
+    
+    <span class="hljs-keyword">bool </span>related_to(graph_agent other) {
+        using topology:topology(world) {
+            return (self.location <span class="hljs-keyword">distance_to </span>other.location &lt; <span class="hljs-number">20</span>)<span class="hljs-comment">;</span>
+        }
+    }
+
+    aspect <span class="hljs-keyword">base </span>{
+        draw circle(<span class="hljs-number">2</span>) color: <span class="hljs-comment"># green;</span>
+    }
+}
+
+species edge_agent parent: <span class="hljs-keyword">base_edge
+</span>{
+    aspect <span class="hljs-keyword">base </span>{
+        draw <span class="hljs-keyword">shape </span>color: <span class="hljs-comment"># blue;</span>
+    }
+}
+
+experiment MyExperiment type: gui {
+    output {
+        <span class="hljs-keyword">display </span>MyDisplay type: <span class="hljs-keyword">java2D </span>{
+            species graph_agent aspect: <span class="hljs-keyword">base;
+</span>            species edge_agent aspect: <span class="hljs-keyword">base;
+</span>            graphics <span class="hljs-string">"shortest path"</span> {
+                if (<span class="hljs-keyword">shortest_path </span>!= nil) {
+                    draw circle(<span class="hljs-number">3</span>) <span class="hljs-built_in">at</span>: source color: <span class="hljs-comment">#yellow;</span>
+                    draw circle(<span class="hljs-number">3</span>) <span class="hljs-built_in">at</span>: target color: <span class="hljs-comment">#cyan;</span>
+                    draw (<span class="hljs-keyword">shortest_path.shape+1) </span>color: <span class="hljs-comment">#magenta;</span>
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="control-the-weight-in-graph"></a><a href="#control-the-weight-in-graph" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Control the weight in graph</h3>
+<p>You can add a map of weight for the edges that compose the graph. Use the operator <code>with_weights</code> to put weights in your graph. The graph has to be on the left side of the operator, and the map has to be on the right side. In the map, you have to put edges as key, and the weight for that edge as value. One common use is to put the distance as weight:</p>
+<pre><code class="hljs">my_graph &lt;- my_graph with_weights (<span class="hljs-name">my_graph</span>.edges as_map (<span class="hljs-name">each</span>:<span class="hljs-symbol">:geometry</span>(<span class="hljs-name">each</span>).perimeter))<span class="hljs-comment">;</span>
+</code></pre>
+<p>The calculation of shortest path can change according to the weight you choose for your edges. For example, here is the result of the calculation of the shortest path when all the edges have 1 as weight value (it is the default graph topology), and when the edges have their length as weight.</p>
+<p><img src="resources/images/definingAdvancedSpecies/path_weight.png" alt="path_weight.png"></p>
+<p>Here is an example of implementation:</p>
+<pre><code class="hljs">model shortest_path_with_weight
+
+global
+{
+    graph my_graph&lt;-spatial_graph([]);
+    path <span class="hljs-built_in">shortest_path</span>;
+    list&lt;point&gt; nodes;
+        
+    init
+    {
+        add point(<span class="hljs-number">10.0</span>,<span class="hljs-number">10.0</span>) to:nodes;
+        add point(<span class="hljs-number">90.0</span>,<span class="hljs-number">90.0</span>) to:nodes;
+        add point(<span class="hljs-number">40.0</span>,<span class="hljs-number">20.0</span>) to:nodes;
+        add point(<span class="hljs-number">80.0</span>,<span class="hljs-number">50.0</span>) to:nodes;
+        add point(<span class="hljs-number">90.0</span>,<span class="hljs-number">20.0</span>) to:nodes;
+
+        loop nod over:nodes {
+            my_graph &lt;- my_graph add_node(nod);
+        }
+        
+        my_graph &lt;- my_graph <span class="hljs-built_in">add_edge</span> (nodes <span class="hljs-built_in">at</span> <span class="hljs-number">0</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">2</span>);
+        my_graph &lt;- my_graph <span class="hljs-built_in">add_edge</span> (nodes <span class="hljs-built_in">at</span> <span class="hljs-number">2</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">3</span>);
+        my_graph &lt;- my_graph <span class="hljs-built_in">add_edge</span> (nodes <span class="hljs-built_in">at</span> <span class="hljs-number">3</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">1</span>);
+        my_graph &lt;- my_graph <span class="hljs-built_in">add_edge</span> (nodes <span class="hljs-built_in">at</span> <span class="hljs-number">0</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">4</span>);
+        my_graph &lt;- my_graph <span class="hljs-built_in">add_edge</span> (nodes <span class="hljs-built_in">at</span> <span class="hljs-number">4</span>::nodes <span class="hljs-built_in">at</span> <span class="hljs-number">1</span>);
+        
+        // comment/decomment the following line to see the difference.
+        my_graph &lt;- my_graph with_weights (my_graph.<span class="hljs-built_in">edges</span> as_map (each::geometry(each).perimeter));
+        
+        <span class="hljs-built_in">shortest_path</span> &lt;- path_between(my_graph,nodes <span class="hljs-built_in">at</span> <span class="hljs-number">0</span>, nodes <span class="hljs-built_in">at</span> <span class="hljs-number">1</span>);
+    }
+}
+
+experiment MyExperiment type: gui {
+    output {
+        <span class="hljs-built_in">display</span> MyDisplay type: java2D {
+            graphics <span class="hljs-string">"shortest path"</span> {
+                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">shortest_path</span> != nil) {
+                    <span class="hljs-built_in">draw</span> circle(<span class="hljs-number">3</span>) <span class="hljs-built_in">at</span>: point(<span class="hljs-built_in">shortest_path</span>.source) <span class="hljs-built_in">color</span>: #yellow;
+                    <span class="hljs-built_in">draw</span> circle(<span class="hljs-number">3</span>) <span class="hljs-built_in">at</span>: point(<span class="hljs-built_in">shortest_path</span>.target) <span class="hljs-built_in">color</span>: #cyan;
+                    <span class="hljs-built_in">draw</span> (<span class="hljs-built_in">shortest_path</span>.shape+<span class="hljs-number">1</span>) <span class="hljs-built_in">color</span>: #magenta;
+                }
+                loop <span class="hljs-built_in">edges</span> over: my_graph.<span class="hljs-built_in">edges</span> {
+                    <span class="hljs-built_in">draw</span> <span class="hljs-built_in">edges</span> <span class="hljs-built_in">color</span>: #black;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#index">Index</a></li><li><a href="#declaration">Declaration</a><ul class="toc-headings"><li><a href="#declare-a-graph-with-handmade-agents">Declare a graph with handmade agents</a></li><li><a href="#declare-a-graph-by-using-an-geometry-file">Declare a graph by using an geometry file</a></li><li><a href="#declare-a-graph-with-nodes-and-edges">Declare a graph with nodes and edges</a></li></ul></li><li><a href="#useful-operators-with-graph">Useful operators with graph</a><ul class="toc-headings"><li><a href="#knowing-the-degree-of-a-node">Knowing the degree of a node</a></li><li><a href="#get-the-neighbors-of-a-node">Get the neighbors of a node</a></li><li><a href="#compute-the-shortest-path">Compute the shortest path</a></li><li><a href="#control-the-weight-in-graph">Control the weight in graph</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

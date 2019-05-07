@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Features/Driving Skill/Driving Skill Road Traffic simple (City) · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Features/Driving Skill/Driving Skill Road Traffic simple (City) · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Features/Driving Skill/Driving Skill Road Traffic simple (City)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="simple-road-network"></a><a href="#simple-road-network" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Simple Road Network</h1>
+<p><em>Author : Patrick Taillandier</em></p>
+<p>Model using shapefiles to create buildings and a road graph, with people going from their living place to their work place depending on the hour. The traffic jam is also taken into account to slow the people agents when they are too much on the same road. The experiment shows a display of the city, with people agents, buildings and roads, a display of the traffic jam occuring on the roads, and a chart display showing two charts : one for the traffic jam coefficients, and an other for the objectives of the people agents.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">  
+model RoadTrafficCity
+ 
+   
+<span class="hljs-keyword">global</span> {   
+    
+    //Shapefiles <span class="hljs-keyword">for</span> the buildings, the roads <span class="hljs-keyword">and</span> the bounds <span class="hljs-keyword">of</span> the environment
+    file shape_file_roads parameter: "Shapefile for the roads:" category: "GIS" &lt;- file("../includes/ManhattanRoads.shp") ;
+    file shape_file_bounds parameter: "Shapefile for the bounds:" category: "GIS" &lt;- file("../includes/ManhattanBounds.shp") ;
+    file shape_file_buildings parameter: "Shapefile for the buildings:" category: "GIS" &lt;- file("../includes/ManhattanBuildings.shp") ;
+    geometry shape &lt;- envelope(shape_file_bounds);
+    
+    //Stock the number <span class="hljs-keyword">of</span> times agents reached their goal (their house <span class="hljs-keyword">or</span> <span class="hljs-keyword">work</span> place)
+    <span class="hljs-type">int</span> nbGoalsAchived &lt;- <span class="hljs-number">0</span>;
+    
+    //represent the day <span class="hljs-type">time</span> <span class="hljs-keyword">for</span> the agent <span class="hljs-keyword">to</span> inform them <span class="hljs-keyword">to</span> go <span class="hljs-keyword">work</span> <span class="hljs-keyword">or</span> home
+    <span class="hljs-type">int</span> day_time <span class="hljs-keyword">update</span>: <span class="hljs-keyword">cycle</span> mod <span class="hljs-number">144</span> ;
+    
+    //Variables <span class="hljs-keyword">to</span> manage the minimal <span class="hljs-keyword">and</span> maximal <span class="hljs-type">time</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">start</span> working
+    <span class="hljs-type">int</span> min_work_start &lt;- <span class="hljs-number">36</span>;
+    <span class="hljs-type">int</span> max_work_start &lt;- <span class="hljs-number">60</span>;
+    
+    //Number <span class="hljs-keyword">of</span> people created
+    <span class="hljs-type">int</span> nb_people &lt;- <span class="hljs-number">500</span>;
+    
+    //Variables <span class="hljs-keyword">to</span> manage the minimal <span class="hljs-keyword">and</span> maximal <span class="hljs-type">time</span> <span class="hljs-keyword">to</span> go home
+    <span class="hljs-type">int</span> min_work_end &lt;- <span class="hljs-number">84</span>; 
+    <span class="hljs-type">int</span> max_work_end &lt;- <span class="hljs-number">132</span>; 
+    
+    //Manage the speed allowed <span class="hljs-keyword">in</span> the model <span class="hljs-keyword">for</span> the people agents
+    <span class="hljs-type">float</span> min_speed &lt;- <span class="hljs-number">50.0</span>;
+    <span class="hljs-type">float</span> max_speed &lt;- <span class="hljs-number">100.0</span>; 
+    
+    //Graph <span class="hljs-keyword">of</span> the road network
+    graph the_graph;
+    
+     
+    init {  
+        
+        //creation <span class="hljs-keyword">of</span> the agents <span class="hljs-keyword">of</span> road <span class="hljs-keyword">and</span> building species <span class="hljs-keyword">using</span> the shapefile <span class="hljs-keyword">and</span> linking the 
+        <span class="hljs-keyword">create</span> road <span class="hljs-keyword">from</span>: shape_file_roads <span class="hljs-keyword">with</span>:[nbLanes::<span class="hljs-type">int</span>(<span class="hljs-keyword">read</span>("lanes"))];
+        <span class="hljs-keyword">create</span> building <span class="hljs-keyword">from</span>: shape_file_buildings;
+        
+        //Increase the shape <span class="hljs-keyword">of</span> roads according <span class="hljs-keyword">to</span> the number <span class="hljs-keyword">of</span> lanes it has
+        ask road <span class="hljs-keyword">as</span> list {
+            visu_geom &lt;- shape + (<span class="hljs-number">2</span> * nbLanes); 
+        }
+        //Initliazation <span class="hljs-keyword">of</span> the graph <span class="hljs-keyword">with</span> the road species
+        the_graph &lt;-  (as_edge_graph(road));
+        
+        //Initialization <span class="hljs-keyword">of</span> nb_people agents <span class="hljs-keyword">of</span> people species
+        // <span class="hljs-keyword">and</span> definition <span class="hljs-keyword">of</span> their living <span class="hljs-keyword">and</span> working places
+        <span class="hljs-keyword">create</span> people number: nb_people { 
+            living_space &lt;- <span class="hljs-number">3.0</span>;
+            tolerance &lt;- <span class="hljs-number">0.1</span>;
+            lanes_attribute &lt;- "nbLanes";
+            obstacle_species &lt;- [species(self)]; 
+            speed &lt;- min_speed + rnd (max_speed - min_speed) ;
+            start_work &lt;- min_work_start + rnd (max_work_start - min_work_start) ;
+            end_work &lt;- min_work_end + rnd (max_work_end - min_work_end) ;
+            living_place &lt;- one_of(building) ;
+            working_place &lt;- one_of(building) ;
+            <span class="hljs-keyword">location</span> &lt;- living_place.<span class="hljs-keyword">location</span>; 
+        }   
+    }
+    
+    //<span class="hljs-keyword">Update</span> <span class="hljs-keyword">of</span> the graph every <span class="hljs-number">10</span> Cycles <span class="hljs-keyword">to</span> take <span class="hljs-keyword">into</span> account the traffic jam <span class="hljs-keyword">of</span> the road <span class="hljs-keyword">in</span> the weights <span class="hljs-keyword">of</span> the graph
+    reflex update_graph <span class="hljs-keyword">when</span>:every(<span class="hljs-number">10</span>){
+        map&lt;road,<span class="hljs-type">float</span>&gt; weights_map &lt;- road as_map (<span class="hljs-keyword">each</span>:: (<span class="hljs-keyword">each</span>.shape.perimeter * <span class="hljs-keyword">each</span>.coeff_traffic));
+        the_graph &lt;- the_graph with_weights weights_map;
+    }
+    
+} 
+    
+species road  { 
+    <span class="hljs-type">int</span> nbLanes;
+    <span class="hljs-type">int</span> indexDirection; 
+    <span class="hljs-type">bool</span> blocked &lt;- <span class="hljs-keyword">false</span>;
+    rgb color &lt;- #black;
+    <span class="hljs-type">float</span> coeff_traffic &lt;- <span class="hljs-number">1.0</span> <span class="hljs-keyword">update</span>: <span class="hljs-number">1</span> + (<span class="hljs-type">float</span>(length(people at_distance <span class="hljs-number">1.0</span>)) / shape.perimeter * <span class="hljs-number">200</span> / nbLanes);
+    geometry visu_geom;
+    
+    aspect base { 
+        draw shape color: #black ;
+    } 
+    
+    
+    //Command that the <span class="hljs-keyword">user</span> can <span class="hljs-keyword">execute</span> <span class="hljs-keyword">to</span> remove <span class="hljs-keyword">or</span> <span class="hljs-keyword">add</span> a road 
+    user_command "Remove a road" action: remove;
+    user_command "Add a road" action: <span class="hljs-keyword">add</span>;
+         
+    action remove {
+        blocked &lt;- <span class="hljs-keyword">true</span>;
+        the_graph &lt;-  (as_edge_graph(road <span class="hljs-keyword">where</span> (!<span class="hljs-keyword">each</span>.blocked))) ;
+        map&lt;road,<span class="hljs-type">float</span>&gt; weights_map &lt;- road as_map (<span class="hljs-keyword">each</span>:: <span class="hljs-keyword">each</span>.coeff_traffic);
+        the_graph &lt;- the_graph  with_weights weights_map;
+        color &lt;- #magenta;
+    }
+        
+    action <span class="hljs-keyword">add</span> {
+        blocked &lt;- <span class="hljs-keyword">false</span>;
+        the_graph &lt;-  (as_edge_graph(road <span class="hljs-keyword">where</span> (!<span class="hljs-keyword">each</span>.blocked)));
+        map&lt;road,<span class="hljs-type">float</span>&gt; weights_map &lt;- road as_map (<span class="hljs-keyword">each</span>:: <span class="hljs-keyword">each</span>.coeff_traffic);
+        the_graph &lt;- the_graph  with_weights weights_map;
+        color &lt;- #black;
+    }
+        
+    aspect road_width {  
+        draw visu_geom color: color ;
+    }
+    
+    aspect traffic_jam {  
+        <span class="hljs-keyword">if</span> (coeff_traffic &gt; <span class="hljs-number">0.025</span>) {
+            draw shape + (coeff_traffic / <span class="hljs-number">4.0</span>) color: #red ;
+        }
+    }       
+}
+    
+species building  { 
+    rgb color &lt;- #gray;
+    aspect base { 
+        draw shape color: color ;
+    }
+}
+    
+species people skills: [driving]{ 
+    <span class="hljs-type">float</span> speed; 
+    rgb color &lt;- rgb([rnd(<span class="hljs-number">255</span>),rnd(<span class="hljs-number">255</span>),rnd(<span class="hljs-number">255</span>)]) ;
+    <span class="hljs-type">point</span> targetBis &lt;- nil ; 
+    <span class="hljs-type">point</span> previousLoc &lt;- nil;
+    <span class="hljs-type">bool</span> normalMove &lt;- <span class="hljs-keyword">true</span>;
+    <span class="hljs-type">float</span> evadeDist &lt;- <span class="hljs-number">500.0</span>;
+    building living_place &lt;- nil ;
+    building working_place &lt;- nil ;
+    <span class="hljs-type">int</span> start_work ;
+    <span class="hljs-type">int</span> end_work  ;
+    string objective ; 
+    <span class="hljs-type">point</span> the_target &lt;- nil ;
+        
+    //Reflex <span class="hljs-keyword">to</span> make the agent <span class="hljs-keyword">move</span> <span class="hljs-keyword">while</span> it had a target <span class="hljs-keyword">and</span> normalMove equals <span class="hljs-keyword">true</span>
+    reflex <span class="hljs-keyword">move</span> <span class="hljs-keyword">when</span>: the_target != nil <span class="hljs-keyword">and</span> normalMove{
+        previousLoc &lt;- <span class="hljs-keyword">copy</span>(<span class="hljs-keyword">location</span>);
+        <span class="hljs-keyword">do</span> goto_driving target: the_target <span class="hljs-keyword">on</span>: the_graph speed: speed ; 
+        switch <span class="hljs-keyword">location</span> { 
+            match the_target {
+                the_target &lt;- nil;
+                nbGoalsAchived &lt;- nbGoalsAchived +<span class="hljs-number">1</span>;
+            }
+            match previousLoc {
+                targetBis &lt;- last((one_of(road <span class="hljs-keyword">where</span> (<span class="hljs-keyword">each</span> distance_to self &lt; evadeDist)).shape).points);
+                normalMove &lt;- <span class="hljs-keyword">false</span>;
+            }
+        }
+    }
+        
+    //Reflex <span class="hljs-keyword">to</span> make the agent <span class="hljs-keyword">move</span> <span class="hljs-keyword">when</span> it <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> normal moving 
+    reflex EvadeMove <span class="hljs-keyword">when</span>: !(normalMove){
+        previousLoc &lt;- <span class="hljs-keyword">copy</span>(<span class="hljs-keyword">location</span>);
+        <span class="hljs-keyword">do</span> goto_driving target: targetBis <span class="hljs-keyword">on</span>: the_graph speed: speed ; 
+        switch <span class="hljs-keyword">location</span> { 
+            match targetBis {
+                normalMove &lt;- <span class="hljs-keyword">true</span>;
+            }
+            match previousLoc {
+                targetBis &lt;- last((one_of(road <span class="hljs-keyword">where</span> (<span class="hljs-keyword">each</span> distance_to self &lt; evadeDist)).shape).points);
+            }
+        }
+    }
+    
+    //Reflex <span class="hljs-keyword">to</span> make the agent go <span class="hljs-keyword">to</span> its working place <span class="hljs-keyword">when</span> it<span class="hljs-string">'s time to go work
+    reflex time_to_work when: day_time = start_work {
+        objective &lt;- "working" ;
+        the_target &lt;- any_location_in (working_place);
+    }
+    
+    //Reflex to make the agent go to its living place when it'</span>s <span class="hljs-type">time</span> <span class="hljs-keyword">to</span> go home
+    reflex time_to_go_home <span class="hljs-keyword">when</span>: day_time = end_work {
+        objective &lt;- "go home" ;
+        the_target &lt;- any_location_in (living_place); 
+    }  
+    
+    aspect base {
+        draw circle(<span class="hljs-number">20</span>) color: color;
+    }
+}
+
+experiment traffic <span class="hljs-keyword">type</span>: gui {
+    parameter "Shapefile for the buildings:" var: shape_file_buildings category: "GIS" ;
+    parameter "Shapefile for the roads:" var: shape_file_roads category: "GIS" ;
+    parameter "Shapefile for the bounds:" var: shape_file_bounds category: "GIS" ;
+    parameter "Number of people agents" var: nb_people category: "People" ;
+    parameter "Earliest hour to start work" var: min_work_start category: "People" ;
+    parameter "Latest hour to start work" var: max_work_start category: "People" ;
+    parameter "Earliest hour to end work" var: min_work_end category: "People" ;
+    parameter "Latest hour to end work" var: max_work_end category: "People" ;
+    parameter "minimal speed" var: min_speed category: "People" ;
+    parameter "maximal speed" var: max_speed category: "People" ;
+    
+    output {
+        display city_display {
+            species road aspect: road_width ;
+            species building aspect: base;
+            species people aspect: base;
+        }
+        display traffic_jam_display {
+            species road aspect: base ;
+            species road aspect: traffic_jam ;
+        }
+        display chart_display <span class="hljs-keyword">refresh</span>: every(<span class="hljs-number">10</span>) {
+            chart "Traffic jam" <span class="hljs-keyword">type</span>: series size: {<span class="hljs-number">0.9</span>, <span class="hljs-number">0.4</span>} position: {<span class="hljs-number">0.05</span>, <span class="hljs-number">0.05</span>} {
+                data "Mean road traffic coefficient" <span class="hljs-keyword">value</span>: mean (road collect <span class="hljs-keyword">each</span>.coeff_traffic) style: <span class="hljs-type">line</span> color: #green ;
+                data "Max road traffic coefficient" <span class="hljs-keyword">value</span>: road max_of (<span class="hljs-keyword">each</span>.coeff_traffic) style: <span class="hljs-type">line</span> color: #red ;
+            }
+            chart "People Objectif" <span class="hljs-keyword">type</span>: pie style: exploded size: {<span class="hljs-number">0.9</span>, <span class="hljs-number">0.4</span>} position: {<span class="hljs-number">0.05</span>, <span class="hljs-number">0.55</span>} {
+                data "Working" <span class="hljs-keyword">value</span>: length ((people <span class="hljs-keyword">as</span> list) <span class="hljs-keyword">where</span> (<span class="hljs-keyword">each</span>.objective="working")) color: #green ;
+                data "Staying home" <span class="hljs-keyword">value</span>: length ((people <span class="hljs-keyword">as</span> list) <span class="hljs-keyword">where</span> (<span class="hljs-keyword">each</span>.objective="go home")) color: #blue ;
+            }
+        }
+        monitor "Number of goals achieved" <span class="hljs-keyword">value</span>: nbGoalsAchived ;
+    }
+}
+
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Toy Models/Boids/Boids Boids 3D Analysis · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Toy Models/Boids/Boids Boids 3D Analysis · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Toy Models/Boids/Boids Boids 3D Analysis</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="boids-3d-analysis"></a><a href="#boids-3d-analysis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Boids 3D Analysis</h1>
+<p>_Author : _</p>
+<p>This model shows the movement of boids following a goal, and creating without their own volonty, a flock . Four experiments are proposed : start is the 3D display of the boids like a real world, trajectory_analysis like the name means is about the analysis of the trajectory of the boids, Space Time Cube adds two display to see the movement of the boids using the time as the z-axis, and the last one represents the differents camera available in GAMA.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model boids 
+
+global <span class="hljs-string">torus:</span> torus_environment{ 
+    <span class="hljs-comment">//Number of boids to represent</span>
+    <span class="hljs-keyword">int</span> number_of_agents <span class="hljs-string">parameter:</span> <span class="hljs-string">'Number of agents'</span> &lt;- <span class="hljs-number">10</span> <span class="hljs-string">min:</span> <span class="hljs-number">1</span> <span class="hljs-string">max:</span> <span class="hljs-number">1000000</span>;
+    <span class="hljs-comment">//Number of obstacles to represent</span>
+    <span class="hljs-keyword">int</span> number_of_obstacles <span class="hljs-string">parameter:</span> <span class="hljs-string">'Number of obstacles'</span> &lt;- <span class="hljs-number">4</span> <span class="hljs-string">min:</span> <span class="hljs-number">0</span>;
+    <span class="hljs-comment">//Size of the boids</span>
+    <span class="hljs-keyword">int</span> boids_size <span class="hljs-string">parameter:</span> <span class="hljs-string">'Boids size'</span> &lt;- <span class="hljs-number">20</span> <span class="hljs-string">min:</span> <span class="hljs-number">1</span>;
+    <span class="hljs-comment">//Maximal speed allowed for the boids</span>
+    <span class="hljs-keyword">float</span> maximal_speed <span class="hljs-string">parameter:</span> <span class="hljs-string">'Maximal speed'</span> &lt;- <span class="hljs-number">15.0</span> <span class="hljs-string">min:</span> <span class="hljs-number">0.1</span> <span class="hljs-string">max:</span> <span class="hljs-number">15.0</span>;
+    <span class="hljs-comment">//Speed radius</span>
+    <span class="hljs-keyword">float</span>  radius_speed <span class="hljs-string">parameter:</span> <span class="hljs-string">'radius speed'</span> &lt;- <span class="hljs-number">0.5</span> <span class="hljs-string">min:</span> <span class="hljs-number">0.1</span>;
+    <span class="hljs-comment">//Cohesion factor of the boid group  in the range of a boid agent</span>
+    <span class="hljs-keyword">int</span> cohesion_factor <span class="hljs-string">parameter:</span> <span class="hljs-string">'Cohesion Factor'</span> &lt;- <span class="hljs-number">200</span>;
+    <span class="hljs-comment">//Alignment factor used for the boid group in the range of a boid agent</span>
+    <span class="hljs-keyword">int</span> alignment_factor <span class="hljs-string">parameter:</span> <span class="hljs-string">'Alignment Factor'</span> &lt;- <span class="hljs-number">100</span>; 
+    <span class="hljs-comment">//Minimal distance to move</span>
+    <span class="hljs-keyword">float</span> minimal_distance <span class="hljs-string">parameter:</span> <span class="hljs-string">'Minimal Distance'</span> &lt;- <span class="hljs-number">10.0</span>; 
+    <span class="hljs-comment">//Maximal turn done by the boids</span>
+    <span class="hljs-keyword">int</span> maximal_turn <span class="hljs-string">parameter:</span> <span class="hljs-string">'Maximal Turn'</span> &lt;- <span class="hljs-number">90</span> <span class="hljs-string">min:</span> <span class="hljs-number">0</span> <span class="hljs-string">max:</span> <span class="hljs-number">359</span>; 
+    
+    <span class="hljs-comment">//Parameters of the environment and the simulations</span>
+    <span class="hljs-keyword">int</span> width_and_height_of_environment <span class="hljs-string">parameter:</span> <span class="hljs-string">'Width/Height of the Environment'</span> &lt;- <span class="hljs-number">800</span>;  
+    bool torus_environment <span class="hljs-string">parameter:</span> <span class="hljs-string">'Toroidal Environment ?'</span> &lt;- <span class="hljs-literal">false</span>; 
+    bool apply_cohesion &lt;- <span class="hljs-literal">true</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Apply Cohesion ?'</span>;
+    bool apply_alignment &lt;- <span class="hljs-literal">true</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Apply Alignment ?'</span>;   
+    bool apply_separation &lt;- <span class="hljs-literal">true</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Apply Separation ?'</span>;   
+    bool apply_goal &lt;- <span class="hljs-literal">true</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Follow Goal ?'</span>; 
+    bool apply_avoid &lt;- <span class="hljs-literal">true</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Apply Avoidance ?'</span>;   
+    bool apply_wind &lt;- <span class="hljs-literal">true</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Apply Wind ?'</span>;     
+    bool moving_obstacles &lt;- <span class="hljs-literal">false</span> <span class="hljs-string">parameter:</span> <span class="hljs-string">'Moving Obstacles ?'</span>;    
+    <span class="hljs-keyword">int</span> bounds &lt;- <span class="hljs-keyword">int</span>(width_and_height_of_environment / <span class="hljs-number">20</span>); 
+    <span class="hljs-comment">//Wind vector </span>
+    point wind_vector &lt;- {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>} <span class="hljs-string">parameter:</span> <span class="hljs-string">'Direction of the wind'</span>;  
+    <span class="hljs-keyword">int</span> goal_duration &lt;- <span class="hljs-number">30</span> <span class="hljs-string">update:</span> (goal_duration - <span class="hljs-number">1</span>); 
+    <span class="hljs-comment">//Goal location</span>
+    point goal &lt;- {rnd (width_and_height_of_environment - <span class="hljs-number">2</span>) + <span class="hljs-number">1</span>, rnd (width_and_height_of_environment <span class="hljs-number">-2</span>) + <span class="hljs-number">1</span> }; 
+    list images <span class="hljs-string">of:</span> image_file &lt;- [file(<span class="hljs-string">'../images/bird1.png'</span>),file(<span class="hljs-string">'../images/bird2.png'</span>),file(<span class="hljs-string">'../images/bird3.png'</span>)]; 
+    string file_path_to_ocean &lt;- <span class="hljs-string">'../images/ocean.jpg'</span>;
+    <span class="hljs-keyword">int</span> xmin &lt;- bounds;    
+    <span class="hljs-keyword">int</span> ymin &lt;- bounds;  
+    <span class="hljs-keyword">int</span> xmax &lt;- (width_and_height_of_environment - bounds);    
+    <span class="hljs-keyword">int</span> ymax &lt;- (width_and_height_of_environment - bounds);   
+    geometry shape &lt;- square(width_and_height_of_environment);
+
+
+    <span class="hljs-comment">// flock's parameter </span>
+    <span class="hljs-keyword">float</span> two_boids_distance <span class="hljs-string">const:</span> <span class="hljs-literal">true</span> <span class="hljs-string">init:</span> <span class="hljs-number">30.0</span>;  
+    <span class="hljs-keyword">int</span> merging_distance <span class="hljs-string">const:</span> <span class="hljs-literal">true</span> <span class="hljs-string">init:</span> <span class="hljs-number">30</span>;
+    bool create_flock  <span class="hljs-string">init:</span> <span class="hljs-literal">false</span>;  
+    
+    init {
+        <span class="hljs-comment">//Create the boids and place them randomlly</span>
+        create boids <span class="hljs-string">number:</span> number_of_agents { 
+            location &lt;- {rnd (width_and_height_of_environment - <span class="hljs-number">2</span>) + <span class="hljs-number">1</span>, rnd (width_and_height_of_environment <span class="hljs-number">-2</span>) + <span class="hljs-number">1</span> };
+        } 
+         
+         <span class="hljs-comment">//Create an obstacle and place it randomly</span>
+        create obstacle <span class="hljs-string">number:</span> number_of_obstacles {
+            location &lt;- {rnd (width_and_height_of_environment - <span class="hljs-number">2</span>) + <span class="hljs-number">1</span>, rnd (width_and_height_of_environment <span class="hljs-number">-2</span>) + <span class="hljs-number">1</span> }; 
+        }
+        <span class="hljs-comment">//Create a goal and place it at the goal location</span>
+        create  boids_goal <span class="hljs-string">number:</span> <span class="hljs-number">1</span> {
+            location &lt;- goal;
+        }
+        
+        create aggregatedboids;
+    }
+    
+    <span class="hljs-comment">//Reflex to create flock of boids considering the neighbors of each boids </span>
+     reflex create_flocks {
+        <span class="hljs-keyword">if</span> create_flock {
+            <span class="hljs-comment">//Create a map using a boid agent as a key and the list of all its neighbors as the value for the key</span>
+            map&lt;boids, list&lt;boids&gt;&gt; potentialBoidsNeighborsMap;
+            
+            <span class="hljs-comment">//Search all the boids within the two boids distance from a boid agent and put them in the map</span>
+            loop one_boids <span class="hljs-string">over:</span> boids {
+                list&lt;boids&gt; free_neighbors &lt;- boids overlapping (one_boids.shape + (two_boids_distance));
+                remove one_boids <span class="hljs-string">from:</span> free_neighbors;  
+
+                <span class="hljs-keyword">if</span> !(empty (free_neighbors)) {
+                    add (<span class="hljs-string">one_boids:</span>:free_neighbors) <span class="hljs-string">to:</span> potentialBoidsNeighborsMap;
+                } 
+            }
+            
+            <span class="hljs-comment">//Sorting of all the boids considered as key in the map by the length of their neighbors</span>
+            list&lt;boids&gt; sorted_free_boids &lt;- (potentialBoidsNeighborsMap.keys) sort_by (length (potentialBoidsNeighborsMap at each));
+            <span class="hljs-comment">//Removing of all the boids which has been considered as a key of the map, but  which are already included in a bigger list of neighbors by one of them neighbors</span>
+            loop one_boids <span class="hljs-string">over:</span> sorted_free_boids {
+                list&lt;boids&gt; one_boids_neighbors &lt;- potentialBoidsNeighborsMap at one_boids;
+                
+                <span class="hljs-keyword">if</span>  (one_boids_neighbors != nil) {
+                    loop one_neighbor <span class="hljs-string">over:</span> one_boids_neighbors {
+                        remove one_neighbor <span class="hljs-string">from:</span> potentialBoidsNeighborsMap; 
+                    }
+                }
+            }
+            <span class="hljs-comment">//Remove all the duplicates key of potentialBoidsNeighborsMap</span>
+            list&lt;boids&gt; boids_neighbors &lt;- (potentialBoidsNeighborsMap.keys);
+            loop one_key <span class="hljs-string">over:</span> boids_neighbors {
+                put (remove_duplicates (( potentialBoidsNeighborsMap at (one_key)) + one_key)) <span class="hljs-string">at:</span> one_key <span class="hljs-string">in:</span> potentialBoidsNeighborsMap;
+            }
+            
+            <span class="hljs-comment">//Create a flock of boids considering the key of potentialBoidsNeighborsMap</span>
+            loop one_key <span class="hljs-string">over:</span> (potentialBoidsNeighborsMap.keys) {
+                list&lt;boids&gt; micro_agents &lt;- potentialBoidsNeighborsMap at one_key;
+                    
+                <span class="hljs-keyword">if</span> ( (length (micro_agents)) &gt; <span class="hljs-number">1</span> ) {
+                    create flock <span class="hljs-string">number:</span> <span class="hljs-number">1</span> <span class="hljs-string">with:</span> [ <span class="hljs-string">color:</span>:rgb([rnd (<span class="hljs-number">255</span>), rnd (<span class="hljs-number">255</span>), rnd (<span class="hljs-number">255</span>)]) ] { 
+                        capture micro_agents <span class="hljs-string">as:</span> boids_delegation;
+                    }
+                }
+            } 
+        }
+    }  
+}
+<span class="hljs-comment">//Species boids_goal which represents the goal followed by the boids agent, using the skill moving</span>
+species boids_goal <span class="hljs-string">skills:</span> [moving] {
+    <span class="hljs-keyword">float</span> range <span class="hljs-string">const:</span> <span class="hljs-literal">true</span> <span class="hljs-string">init:</span> <span class="hljs-number">20.0</span>;
+    <span class="hljs-keyword">int</span> radius &lt;<span class="hljs-number">-3</span>;
+    
+    <span class="hljs-comment">//Reflex to make the goal move in circle</span>
+    reflex wander_in_circle{
+        
+        location &lt;- {world.shape.width<span class="hljs-regexp">/2 + world.shape.width/</span><span class="hljs-number">2</span> * cos (time*radius_speed), world.shape.width<span class="hljs-regexp">/2 + world.shape.width/</span><span class="hljs-number">2</span> * sin (time*radius_speed)};
+        goal &lt;- location;
+    }
+    
+    aspect <span class="hljs-keyword">default</span> {
+        draw circle(<span class="hljs-number">10</span>) <span class="hljs-string">color:</span> rgb (<span class="hljs-string">'red'</span>);
+        draw circle(<span class="hljs-number">40</span>) <span class="hljs-string">color:</span> rgb (<span class="hljs-string">'orange'</span>) <span class="hljs-string">size:</span> <span class="hljs-number">40</span> <span class="hljs-string">empty:</span> <span class="hljs-literal">true</span>;
+    }
+    
+    aspect sphere{
+        draw sphere(<span class="hljs-number">10</span>) <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'white'</span>);
+    }
+} 
+
+<span class="hljs-comment">//Species flock which represents the flock of boids agents, managing the boids agents captured</span>
+species flock  
+{
+    <span class="hljs-comment">//Represent the cohesion index of the flock</span>
+    <span class="hljs-keyword">float</span> cohesionIndex &lt;- two_boids_distance <span class="hljs-string">update:</span> (two_boids_distance + (length (members)));
+    rgb color &lt;- rgb ([<span class="hljs-number">64</span>, <span class="hljs-number">64</span>, <span class="hljs-number">64</span>]);
+    geometry shape <span class="hljs-string">update:</span> !(empty (members)) ? ( (polygon (members collect (boids_delegation (each)).location )) + 2.0 ) : ( polygon ([ {rnd (width_and_height_of_environment), rnd (width_and_height_of_environment)} ]) );
+     
+    <span class="hljs-comment">//Species that will represent the boids agents captured or inside a flock</span>
+    species boids_delegation <span class="hljs-string">parent:</span> boids <span class="hljs-string">topology:</span> topology(world.shape)  
+    {
+        list&lt;boids&gt; others -&gt; {( (boids_delegation overlapping (shape + range))) - self};
+ 
+        <span class="hljs-comment">//Action to compute the mass center of the flock</span>
+        action compute_mass_center <span class="hljs-string">type:</span> point 
+        {
+            loop o <span class="hljs-string">over:</span> others 
+            {
+                <span class="hljs-keyword">if</span>  dead(o) 
+                {
+                    do write <span class="hljs-string">message:</span> <span class="hljs-string">'in '</span> + name + <span class="hljs-string">' agent with others contains death agents'</span>; 
+                } 
+            }
+         
+            <span class="hljs-keyword">return</span> (length(others) &gt; <span class="hljs-number">0</span>) ? (mean (others collect (each.location)) ) : location;
+        }
+
+        reflex separation <span class="hljs-string">when:</span> apply_separation {
+        }
+        
+        reflex alignment <span class="hljs-string">when:</span> apply_alignment {
+        }
+        <span class="hljs-comment">//Reflex to apply the cohesion on the boids agents</span>
+        reflex cohesion <span class="hljs-string">when:</span> apply_cohesion {
+            point acc &lt;- (self compute_mass_center []) - location;
+            acc &lt;- acc / cohesion_factor;
+            velocity &lt;- velocity + acc;
+        }
+        
+        reflex avoid <span class="hljs-string">when:</span> apply_avoid {
+        }       
+    }
+    <span class="hljs-comment">//Reflex to capture boids agents and release captured boids agents</span>
+    reflex capture_release_boids {
+         list&lt;boids_delegation&gt; removed_components &lt;- boids_delegation where ((each distance_to location) &gt; cohesionIndex );
+         <span class="hljs-keyword">if</span> !(empty (removed_components)) {
+            release removed_components;
+         }
+         
+         list&lt;boids&gt; added_components &lt;- boids where ((each distance_to location) &lt; cohesionIndex );
+         <span class="hljs-keyword">if</span> !(empty (added_components)) {
+            capture added_components <span class="hljs-string">as:</span> boids_delegation;
+         }
+    }
+    <span class="hljs-comment">//Reflexe to kill the flock if the boids agents contained is lower than 2</span>
+    reflex dispose <span class="hljs-string">when:</span> ((length (members)) &lt; <span class="hljs-number">2</span>) {
+         release members;
+         do die;
+    }
+    <span class="hljs-comment">//Reflex to merge the flocks too close from each other</span>
+    reflex merge_nearby_flocks {
+        list&lt;flock&gt; nearby_flocks&lt;- (flock overlapping (shape +  merging_distance));
+        <span class="hljs-keyword">if</span> !(empty (nearby_flocks)) {
+            nearby_flocks &lt;- nearby_flocks sort_by (length (each.members));
+            flock largest_flock &lt;- nearby_flocks at ((length (nearby_flocks)) - <span class="hljs-number">1</span>);
+             
+            remove largest_flock <span class="hljs-string">from:</span> nearby_flocks;
+             
+            list&lt;boids&gt; added_components ;
+            loop one_flock <span class="hljs-string">over:</span> nearby_flocks {
+                release one_flock.members <span class="hljs-string">returns:</span> released_boids; 
+                
+                loop rb <span class="hljs-string">over:</span> released_boids {
+                    add boids(rb) <span class="hljs-string">to:</span> added_components;
+                }
+            }
+            
+            <span class="hljs-keyword">if</span> !(empty (added_components)) { 
+                ask largest_flock {
+                    capture added_components <span class="hljs-string">as:</span> boids_delegation;
+                }
+            } 
+         }
+    }
+    
+    aspect <span class="hljs-keyword">default</span> {
+        draw shape <span class="hljs-string">color:</span> color;
+    }
+}
+    
+<span class="hljs-comment">//Species to represent the boids aggregated</span>
+species aggregatedboids{
+    reflex updateLocation{
+      location &lt;- mean (boids collect (each.location)); 
+    }
+    aspect base{        
+        draw sphere(<span class="hljs-number">10</span>) <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'red'</span>);
+    }
+}
+<span class="hljs-comment">//Species to represent the boids agent using the skill moving</span>
+species boids <span class="hljs-string">skills:</span> [moving] {
+    <span class="hljs-comment">//Speed of the agent</span>
+    <span class="hljs-keyword">float</span> speed <span class="hljs-string">max:</span> maximal_speed &lt;- maximal_speed;
+    <span class="hljs-comment">//Range of movement for the neighbors</span>
+    <span class="hljs-keyword">float</span> range &lt;- minimal_distance * <span class="hljs-number">2</span>;
+    <span class="hljs-comment">//Velocity of the agent</span>
+    point velocity &lt;- {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>};
+    <span class="hljs-keyword">float</span> hue &lt;- rnd(<span class="hljs-number">360</span>) / <span class="hljs-number">360</span>;
+    
+    <span class="hljs-comment">//List of the neighbors boids</span>
+    list&lt;boids&gt; others <span class="hljs-string">update:</span> ((boids overlapping (circle (range)))  - self);
+    
+    <span class="hljs-comment">//Point of the mass center of the "flock" considered as the neighbors agents</span>
+    point mass_center <span class="hljs-string">update:</span>  (length(others) &gt; <span class="hljs-number">0</span>) ? (mean (others collect (each.location)) )  : location;
+    
+    <span class="hljs-comment">//Reflex to do the separation of the agents with the other boids in the minimal distance</span>
+    reflex separation <span class="hljs-string">when:</span> apply_separation {
+        point acc &lt;- {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>}; 
+        loop boid <span class="hljs-string">over:</span> (boids overlapping (circle(minimal_distance)))  {
+            acc &lt;- acc - ((location of boid) - location);
+        }  
+        velocity &lt;- velocity + acc;
+    }
+    
+    <span class="hljs-comment">//Reflex to do the alignement of the boids</span>
+    reflex alignment <span class="hljs-string">when:</span> apply_alignment {
+        point acc &lt;- mean (others collect (each.velocity)) - velocity;
+        velocity &lt;- velocity + (acc / alignment_factor);
+    }
+     
+    <span class="hljs-comment">//Reflex to apply the cohesion using the mass center of the "flock"</span>
+    reflex cohesion <span class="hljs-string">when:</span> apply_cohesion {
+        point acc &lt;- mass_center - location;
+        acc &lt;- acc / cohesion_factor;
+        velocity &lt;- velocity + acc; 
+    }
+    <span class="hljs-comment">//Reflex to avoid the obstacles</span>
+    reflex avoid <span class="hljs-string">when:</span> apply_avoid {
+        point acc &lt;- {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>};
+        list&lt;obstacle&gt; nearby_obstacles &lt;- (obstacle overlapping (circle (range)) );
+        loop obs <span class="hljs-string">over:</span> nearby_obstacles {
+            acc &lt;- acc - ((location of obs) - my (location));
+        }
+        velocity &lt;- velocity + acc; 
+    }
+    <span class="hljs-comment">//action to represent the bounding of the movement of the boids</span>
+    action bounding {
+        <span class="hljs-keyword">if</span>  !(torus_environment) {
+            <span class="hljs-keyword">if</span>  (location.x) &lt; xmin {
+                velocity &lt;- velocity + {bounds,<span class="hljs-number">0</span>};
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (location.x) &gt; xmax {
+                velocity &lt;- velocity - {bounds,<span class="hljs-number">0</span>};
+            }
+            
+            <span class="hljs-keyword">if</span> (location.y) &lt; ymin {
+                velocity &lt;- velocity + {<span class="hljs-number">0</span>,bounds};
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (location.y) &gt; ymax {
+                velocity &lt;- velocity - {<span class="hljs-number">0</span>,bounds};
+            }
+            
+        }
+    }
+    <span class="hljs-comment">//Reflex to follow the goal </span>
+    reflex follow_goal <span class="hljs-string">when:</span> apply_goal {
+        velocity &lt;- velocity + ((goal - location) / cohesion_factor);
+    }
+    <span class="hljs-comment">//Reflex to apply the wind vector</span>
+    reflex wind <span class="hljs-string">when:</span> apply_wind {
+        velocity &lt;- velocity + wind_vector;
+    }
+    <span class="hljs-comment">//action to move  </span>
+    action do_move {  
+        <span class="hljs-keyword">if</span> (((velocity.x) <span class="hljs-keyword">as</span> <span class="hljs-keyword">int</span>) = <span class="hljs-number">0</span>) and (((velocity.y) <span class="hljs-keyword">as</span> <span class="hljs-keyword">int</span>) = <span class="hljs-number">0</span>) {
+            velocity &lt;- {(rnd(<span class="hljs-number">4</span>)) <span class="hljs-number">-2</span>, (rnd(<span class="hljs-number">4</span>)) - <span class="hljs-number">2</span>}; 
+        }
+        point old_location &lt;- location; 
+        do goto <span class="hljs-string">target:</span> location + velocity;
+        velocity &lt;- location - old_location; 
+    }
+    
+    <span class="hljs-comment">//Reflex to do the movement, calling both bounding and do_move actions</span>
+    reflex movement {
+        do bounding;
+        do do_move;
+    }
+    
+    aspect basic{
+        draw triangle(boids_size) <span class="hljs-string">color:</span>rgb(<span class="hljs-string">'black'</span>);
+    }
+    aspect image {
+        draw (images at (rnd(<span class="hljs-number">2</span>))) <span class="hljs-string">size:</span> boids_size <span class="hljs-string">rotate:</span> heading <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'black'</span>) ;                
+    }
+            
+    aspect dynamicColor{
+        rgb cc &lt;- hsb (<span class="hljs-keyword">float</span>(heading)/<span class="hljs-number">360.0</span>,<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>);
+        draw triangle(<span class="hljs-number">20</span>) <span class="hljs-string">size:</span> <span class="hljs-number">15</span> <span class="hljs-string">rotate:</span> <span class="hljs-number">90</span> + heading <span class="hljs-string">color:</span> cc <span class="hljs-string">border:</span>cc <span class="hljs-string">depth:</span><span class="hljs-number">5</span>;
+        draw name;
+    }
+} 
+
+<span class="hljs-comment">//Species which represents the obstacles using the skill moving</span>
+species obstacle <span class="hljs-string">skills:</span> [moving] {
+    <span class="hljs-keyword">float</span> speed &lt;- <span class="hljs-number">0.1</span>;  
+    aspect <span class="hljs-keyword">default</span> {
+        draw triangle(<span class="hljs-number">20</span>) <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'yellow'</span>) <span class="hljs-string">depth:</span><span class="hljs-number">5</span>;
+    }
+}
+
+
+
+experiment start <span class="hljs-string">type:</span> gui {
+    output {
+        display RealBoids  <span class="hljs-string">type:</span>opengl <span class="hljs-string">z_fighting:</span><span class="hljs-literal">false</span> {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species boids <span class="hljs-string">aspect:</span> dynamicColor  <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>} <span class="hljs-string">trace:</span> <span class="hljs-number">30</span>;
+            species boids_goal <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};
+            species obstacle <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};        
+        }
+    }
+}
+
+experiment trajectory_analysis <span class="hljs-string">type:</span> gui {
+    output {
+        
+        display RealBoids  <span class="hljs-string">type:</span>opengl {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species boids <span class="hljs-string">aspect:</span> dynamicColor <span class="hljs-string">transparency:</span><span class="hljs-number">0.5</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};
+            species boids <span class="hljs-string">aspect:</span> image <span class="hljs-string">transparency:</span><span class="hljs-number">0.5</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.11</span>};
+            species boids_goal <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};
+            species obstacle <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};        
+        }
+                
+        display AggregatedBoidsTrajectory  <span class="hljs-string">type:</span>opengl  {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species aggregatedboids  <span class="hljs-string">aspect:</span> base <span class="hljs-string">trace:</span><span class="hljs-number">100</span> <span class="hljs-string">fading:</span> <span class="hljs-literal">true</span> ;
+            species boids_goal <span class="hljs-string">aspect:</span>sphere;       
+        }
+    } 
+}
+
+experiment SpaceTimeCube <span class="hljs-string">type:</span> gui {
+    output {
+        display RealBoids  <span class="hljs-string">type:</span>opengl {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species boids <span class="hljs-string">aspect:</span> dynamicColor <span class="hljs-string">transparency:</span><span class="hljs-number">0.5</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};
+            species boids <span class="hljs-string">aspect:</span> image <span class="hljs-string">transparency:</span><span class="hljs-number">0.5</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.11</span>};
+            species boids_goal <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};
+            species obstacle <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.1</span>};        
+        }
+        
+        display SpaceTimeCubeAll  <span class="hljs-string">type:</span>opengl {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species boids <span class="hljs-string">trace:</span><span class="hljs-literal">true</span>{
+                draw triangle(<span class="hljs-number">20</span>) <span class="hljs-string">size:</span> <span class="hljs-number">15</span> <span class="hljs-string">rotate:</span> <span class="hljs-number">90</span> + heading <span class="hljs-string">color:</span> hsb (<span class="hljs-keyword">float</span>(heading)<span class="hljs-regexp">/360.0,1.0,1.0) border:hsb (float(heading)/</span><span class="hljs-number">360.0</span>,<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>) <span class="hljs-string">depth:</span><span class="hljs-number">5</span> <span class="hljs-string">at:</span> {location.x ,location.y,location.z+time};   
+            }
+            species boids_goal <span class="hljs-string">trace:</span><span class="hljs-literal">true</span>{
+                draw sphere(<span class="hljs-number">10</span>) <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'yellow'</span>) <span class="hljs-string">at:</span> {location.x ,location.y,location.z+time};
+            }   
+        }
+                
+        display SpaceTimeCubeAggregated  <span class="hljs-string">type:</span>opengl {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species aggregatedboids <span class="hljs-string">trace:</span><span class="hljs-literal">true</span>{
+                draw sphere(<span class="hljs-number">10</span>) <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'red'</span>) <span class="hljs-string">at:</span> {location.x ,location.y,location.z+time}; 
+            }
+            species boids_goal <span class="hljs-string">trace:</span><span class="hljs-literal">true</span>{
+                draw sphere(<span class="hljs-number">10</span>) <span class="hljs-string">color:</span> rgb(<span class="hljs-string">'yellow'</span>) <span class="hljs-string">at:</span> {location.x ,location.y,location.z+time};
+            }   
+        }
+    }
+}
+
+experiment MultipleView <span class="hljs-string">type:</span> gui {
+    output {
+
+
+        display RealBoids   <span class="hljs-string">type:</span>opengl {
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species boids <span class="hljs-string">aspect:</span> image  <span class="hljs-string">transparency:</span><span class="hljs-number">0.5</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.25</span>};
+            species boids_goal <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.25</span>};
+            species obstacle ;
+            species boids  <span class="hljs-string">aspect:</span> dynamicColor <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> <span class="hljs-string">position:</span>{<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.24</span>};       
+        }
+        
+        display ThirdPersonn  <span class="hljs-string">type:</span>opengl <span class="hljs-string">camera_interaction:</span><span class="hljs-literal">false</span> <span class="hljs-string">camera_pos:</span>{<span class="hljs-keyword">int</span>(first(boids).location.x),<span class="hljs-keyword">int</span>(first(boids).location.y),<span class="hljs-number">250</span>} 
+<span class="hljs-symbol">        camera_look_pos:</span>{<span class="hljs-keyword">int</span>(first(boids).location.x),first(boids).location.y,<span class="hljs-number">0</span>} 
+<span class="hljs-symbol">        camera_up_vector:</span>{<span class="hljs-number">0.0</span>,<span class="hljs-number">-1.0</span>,<span class="hljs-number">0.0</span>} {
+        
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species obstacle;
+            species boids  <span class="hljs-string">aspect:</span> dynamicColor <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> ;
+            species boids_goal  <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span>;       
+        }
+        
+            
+        display FirstPerson  <span class="hljs-string">type:</span>opengl <span class="hljs-string">camera_interaction:</span><span class="hljs-literal">false</span> <span class="hljs-string">camera_pos:</span>{<span class="hljs-keyword">int</span>(first(boids).location.x),<span class="hljs-keyword">int</span>(first(boids).location.y),<span class="hljs-number">10</span>} 
+<span class="hljs-symbol">            camera_look_pos:</span>{cos(first(boids).heading)*first(boids).speed+<span class="hljs-keyword">int</span>(first(boids).location.x),
+            sin(first(boids).heading)*first(boids).speed+<span class="hljs-keyword">int</span>(first(boids).location.y),<span class="hljs-number">10</span>} 
+<span class="hljs-symbol">            camera_up_vector:</span>{<span class="hljs-number">0.0</span>,<span class="hljs-number">0.0</span>,<span class="hljs-number">1.0</span>} {    
+            image <span class="hljs-string">'background'</span> <span class="hljs-string">file:</span>file_path_to_ocean;
+            species obstacle ;
+            species boids  <span class="hljs-string">aspect:</span> dynamicColor <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span> ;
+            species boids_goal  <span class="hljs-string">transparency:</span><span class="hljs-number">0.2</span>;       
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

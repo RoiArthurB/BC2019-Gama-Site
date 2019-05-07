@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Tutorials/Tutorials/IncrementalModel/IncrementalModel_step4 · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;4-movement-on-graph&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#4-movement-on-graph&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. Movement on Graph&lt;/h1&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Tutorials/Tutorials/IncrementalModel/IncrementalModel_step4 · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;4-movement-on-graph&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#4-movement-on-graph&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4. Movement on Graph&lt;/h1&gt;
+"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Tutorials/Tutorials/IncrementalModel/IncrementalModel_step4</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="4-movement-on-graph"></a><a href="#4-movement-on-graph" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. Movement on Graph</h1>
+<p>This step illustrates how load a graph and use it for the displacement of our species.</p>
+<h2><a class="anchor" aria-hidden="true" id="formulation"></a><a href="#formulation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formulation</h2>
+<ul>
+<li>definition of a global graph to represent the road network</li>
+<li>definition of a new global variable: <strong>staying_coeff</strong> to represent the fact that people move more near 9h, 12h and 18h</li>
+<li>definition of two new variables for the people agents: <strong>target</strong> and <strong>staying_counter</strong></li>
+<li>definition of a new reflex for people agents: <strong>stay</strong></li>
+<li>modification of the <strong>move</strong> reflex of the people agents</li>
+</ul>
+<p><img src="resources/images/tutorials/Incremental_model4.jpg" alt="images/Incremental_model4.jpg"></p>
+<h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
+<h3><a class="anchor" aria-hidden="true" id="global-variables"></a><a href="#global-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>global variables</h3>
+<p>We define two new global variables:</p>
+<ul>
+<li><strong>road_network</strong> (graph) : represents the graph that will be built from the road network</li>
+<li><strong>staying_coeff</strong> (float) : represents the fact that people have more chance to move from their current building near 9h (go to work), 12h (lunch time) and 18h (go home). This variable is updated at each simulation step (use of the <strong>update</strong> facet).</li>
+</ul>
+<pre><code class="hljs"> <span class="hljs-literal">global</span>{
+    ....
+        graph road_network;
+    float staying_coeff update: <span class="hljs-number">10.0</span> ^ (<span class="hljs-number">1</span> + <span class="hljs-built_in">min</span>([<span class="hljs-built_in">abs</span>(<span class="hljs-symbol">current_hour</span> - <span class="hljs-number">9</span>), <span class="hljs-built_in">abs</span>(<span class="hljs-symbol">current_hour</span> - <span class="hljs-number">12</span>), 
+<span class="hljs-built_in">abs</span>(<span class="hljs-symbol">current_hour</span> - <span class="hljs-number">18</span>)]));
+    ....
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="initialization"></a><a href="#initialization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>initialization</h3>
+<p>We need to compute from the <strong>road</strong> agents, a graph for the moving of the <strong>people</strong> agents. The operator <strong>as_edge_graph</strong> allows to do that. It automatically builds from a set of agents or geometries a graph where the agents are the edges of the graph, a node represent the extremities of the agent geometry. The weight of each edge corresponds to the length of the road.</p>
+<pre><code class="hljs"><span class="hljs-built_in">global</span> {
+   <span class="hljs-params">...</span>
+   init {
+      <span class="hljs-params">...</span>
+      create road from: roads_shapefile;
+      road_network &lt;- as_edge_graph(road);  
+      <span class="hljs-params">...</span>
+   }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="people-agent"></a><a href="#people-agent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>people agent</h3>
+<p>First, we add two new variables for the people agents:</p>
+<ul>
+<li><strong>target</strong> (point): the target location that the people want to reach (a point inside a building)</li>
+<li><strong>staying_counter</strong> (int): the number of cycles since the agent arrived at its building</li>
+</ul>
+<p>We define a new reflex called <strong>stay</strong> that is activated when the agent has no target (target = nil), i.e. when the agent is inside a building. This reflex increments the <strong>staying_counter</strong>, then it test the probability to leave that is computed from the <strong>staying_counter</strong> (longer the agent is inside the building, more it has a chance to leave) and the staying_coeff (closer to 9h, 12h and 18h, more the agent has a chance to leave).
+If the agents decide to leave, it computes a new target as a random point inside one of the buildings (randomly chosen).</p>
+<pre><code class="hljs"><span class="hljs-attr">species</span> <span class="hljs-string">people skills:[moving]{     </span>
+    <span class="hljs-attr">...</span>
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">stay when: target = nil {</span>
+        <span class="hljs-attr">staying_counter</span> <span class="hljs-string">&lt;- staying_counter + 1;</span>
+        <span class="hljs-attr">if</span> <span class="hljs-string">flip(staying_counter / staying_coeff) {</span>
+            <span class="hljs-attr">target</span> <span class="hljs-string">&lt;- any_location_in (one_of(building));</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+    <span class="hljs-attr">...</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p>We modify the <strong>move</strong> reflex. Now, this reflex is activated only when the agent has a target (target != nil). In this case the agent moves in direction to its target using the <strong>goto</strong> action. Note that we specified a graph (<strong>road_network</strong>) to constraint the moving of the agents on the road network with the facet <strong>on</strong>. The agent uses the shortest path (according to the graph) to go to the target point. When the agent arrives at destination (location = location), the target is set to nil (the agent will stop moving) and the staying_counter is set to 0.</p>
+<pre><code class="hljs">species people skills:[moving]{     
+    ...
+    reflex move when: <span class="hljs-keyword">target</span> <span class="hljs-comment">!= nil{</span>
+        <span class="hljs-keyword">do</span> <span class="hljs-keyword">goto</span> <span class="hljs-keyword">target</span>:<span class="hljs-keyword">target</span> on: road_network;
+        <span class="hljs-keyword">if</span> (location = <span class="hljs-keyword">target</span>) {
+            <span class="hljs-keyword">target</span> &lt;- nil;
+            staying_counter &lt;- <span class="hljs-number">0</span>;
+        } 
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
+<pre><code class="hljs"><span class="hljs-attribute">model</span> model4 
+ 
+global {
+    <span class="hljs-attribute">int</span> nb_people &lt;- <span class="hljs-number">500</span>;
+    <span class="hljs-attribute">float</span> step &lt;- <span class="hljs-number">1</span> <span class="hljs-comment">#minutes;</span>
+    float infection_distance &lt;- <span class="hljs-number">2</span>.<span class="hljs-number">0</span> <span class="hljs-comment">#m;</span>
+    float proba_infection &lt;- <span class="hljs-number">0</span>.<span class="hljs-number">05</span>;
+    <span class="hljs-attribute">int</span> nb_infected_init &lt;- <span class="hljs-number">5</span>;
+    <span class="hljs-attribute">file</span> roads_shapefile &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-attribute">file</span> buildings_shapefile &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-attribute">geometry</span> shape &lt;- envelope(roads_shapefile);
+    <span class="hljs-attribute">int</span> current_hour update: (cycle / <span class="hljs-number">60</span>) mod <span class="hljs-number">24</span>;
+    <span class="hljs-attribute">graph</span> road_network;
+    <span class="hljs-attribute">float</span> staying_coeff update: <span class="hljs-number">10</span>.<span class="hljs-number">0</span><span class="hljs-regexp"> ^</span> (<span class="hljs-number">1</span> + min([abs(current_hour - <span class="hljs-number">9</span>), abs(current_hour - <span class="hljs-number">12</span>), abs(current_hour - <span class="hljs-number">18</span>)]));
+    <span class="hljs-attribute">int</span> nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
+    <span class="hljs-attribute">int</span> nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
+    
+    <span class="hljs-attribute">float</span> infected_rate update: nb_people_infected/length(people);
+    <span class="hljs-section">init</span> {
+        <span class="hljs-attribute">create</span> road from: roads_shapefile;
+        <span class="hljs-attribute">road_network</span> &lt;- as_edge_graph(road);
+        <span class="hljs-attribute">create</span> building from: buildings_shapefile;
+        <span class="hljs-attribute">create</span> people number:nb_people {
+            <span class="hljs-attribute">speed</span> &lt;- <span class="hljs-number">5</span>.<span class="hljs-number">0</span> <span class="hljs-comment">#km/#h;</span>
+            building bd &lt;- one_of(building);
+            <span class="hljs-attribute">location</span> &lt;- any_location_in(bd);
+        }
+        <span class="hljs-attribute">ask</span> nb_infected_init among people {
+            <span class="hljs-attribute">is_infected</span> &lt;- <span class="hljs-literal">true</span>;
+        }
+    }
+    <span class="hljs-attribute">reflex</span> end_simulation when: infected_rate = <span class="hljs-number">1</span>.<span class="hljs-number">0</span> {
+        <span class="hljs-attribute">do</span> halt;
+    }
+}
+
+<span class="hljs-attribute">species</span> people skills:[moving]{     
+    <span class="hljs-attribute">bool</span> is_infected &lt;- <span class="hljs-literal">false</span>;
+    <span class="hljs-attribute">point</span> target;
+    <span class="hljs-attribute">int</span> staying_counter;
+    <span class="hljs-attribute">reflex</span> staying when: target = nil {
+        <span class="hljs-attribute">staying_counter</span> &lt;- staying_counter + <span class="hljs-number">1</span>;
+        <span class="hljs-attribute">if</span> flip(staying_counter / staying_coeff) {
+            <span class="hljs-attribute">target</span> &lt;- any_location_in (one_of(building));
+        }
+    }
+        
+    <span class="hljs-attribute">reflex</span> move when: target != nil{
+        <span class="hljs-attribute">do</span> goto target:target <span class="hljs-literal">on</span>: road_network;
+        <span class="hljs-attribute">if</span> (location = target) {
+            <span class="hljs-attribute">target</span> &lt;- nil;
+            <span class="hljs-attribute">staying_counter</span> &lt;- <span class="hljs-number">0</span>;
+        } 
+    }
+    <span class="hljs-attribute">reflex</span> infect when: is_infected{
+        <span class="hljs-attribute">ask</span> people at_distance infection_distance {
+            <span class="hljs-attribute">if</span> flip(proba_infection) {
+                <span class="hljs-attribute">is_infected</span> &lt;- <span class="hljs-literal">true</span>;
+            }
+        }
+    }
+    <span class="hljs-attribute">aspect</span> circle{
+        <span class="hljs-attribute">draw</span> circle(<span class="hljs-number">5</span>) color:is_infected ? <span class="hljs-comment">#red : #green;</span>
+    }
+}
+
+species road {
+    <span class="hljs-attribute">aspect</span> geom {
+        <span class="hljs-attribute">draw</span> shape color: <span class="hljs-comment">#black;</span>
+    }
+}
+
+species building {
+    <span class="hljs-attribute">aspect</span> geom {
+        <span class="hljs-attribute">draw</span> shape color: <span class="hljs-comment">#gray;</span>
+    }
+}
+
+experiment main_experiment type:gui{
+    <span class="hljs-attribute">parameter</span> <span class="hljs-string">"Infection distance"</span> var: infection_distance;
+    <span class="hljs-attribute">parameter</span> <span class="hljs-string">"Proba infection"</span> var: proba_infection min: <span class="hljs-number">0</span>.<span class="hljs-number">0</span> max: <span class="hljs-number">1</span>.<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">parameter</span> <span class="hljs-string">"Nb people infected at init"</span> var: nb_infected_init ;
+    <span class="hljs-section">output</span> {
+        <span class="hljs-attribute">monitor</span> <span class="hljs-string">"Current hour"</span> value: current_hour;
+        <span class="hljs-attribute">monitor</span> <span class="hljs-string">"Infected people rate"</span> value: infected_rate;
+        <span class="hljs-attribute">display</span> map {
+            <span class="hljs-attribute">species</span> road aspect:geom;
+            <span class="hljs-attribute">species</span> building aspect:geom;
+            <span class="hljs-attribute">species</span> people aspect:circle;           
+        }
+        <span class="hljs-attribute">display</span> chart refresh:every(<span class="hljs-number">10</span>) {
+            <span class="hljs-attribute">chart</span> <span class="hljs-string">"Disease spreading"</span> type: series {
+                <span class="hljs-attribute">data</span> <span class="hljs-string">"susceptible"</span> value: nb_people_not_infected color: <span class="hljs-comment">#green;</span>
+                data <span class="hljs-string">"infected"</span> value: nb_people_infected color: <span class="hljs-comment">#red;</span>
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#formulation">Formulation</a></li><li><a href="#model-definition">Model Definition</a><ul class="toc-headings"><li><a href="#global-variables">global variables</a></li><li><a href="#initialization">initialization</a></li><li><a href="#people-agent">people agent</a></li></ul></li><li><a href="#complete-model">Complete Model</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Toy Models/Ants (Foraging and Sorting)/Ants (Foraging and Sorting) Ant Foraging (Complex) · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Toy Models/Ants (Foraging and Sorting)/Ants (Foraging and Sorting) Ant Foraging (Complex) · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Toy Models/Ants (Foraging and Sorting)/Ants (Foraging and Sorting) Ant Foraging (Complex)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="ant-foraging-complex"></a><a href="#ant-foraging-complex" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ant Foraging (Complex)</h1>
+<p>_Author : _</p>
+<p>Toy Model ant using the question of how ants search food and use pheromons to return to their nest once they did find food. Two experiments are proposed to show how to use batch : Batch and Genetic.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model ants
+
+global {
+    <span class="hljs-comment">//Evaporation value per cycle</span>
+    <span class="hljs-built_in">float</span> evaporation_per_cycle &lt;- <span class="hljs-number">5.0</span> min: <span class="hljs-number">0.0</span> max: <span class="hljs-number">240.0</span> parameter: <span class="hljs-string">'Evaporation of the signal (unit/cycle):'</span> category: <span class="hljs-string">'Signals'</span>;
+    <span class="hljs-comment">//Diffusion rate of the pheromon among the grid</span>
+    <span class="hljs-built_in">float</span> diffusion_rate &lt;- <span class="hljs-number">1.0</span> min: <span class="hljs-number">0.0</span> max: <span class="hljs-number">1.0</span> parameter: <span class="hljs-string">'Rate of diffusion of the signal (%/cycle):'</span> category: <span class="hljs-string">'Signals'</span>;
+    <span class="hljs-comment">//Size of the grid</span>
+    <span class="hljs-built_in">int</span> gridsize &lt;- <span class="hljs-number">100</span> min: <span class="hljs-number">30</span> parameter: <span class="hljs-string">'Width and Height of the grid:'</span> category: <span class="hljs-string">'Environment and Population'</span>;
+    <span class="hljs-comment">//Number of ants</span>
+    <span class="hljs-built_in">int</span> ants_number &lt;- <span class="hljs-number">200</span> min: <span class="hljs-number">1</span> parameter: <span class="hljs-string">'Number of ants:'</span> category: <span class="hljs-string">'Environment and Population'</span>;
+    <span class="hljs-comment">//Frequency of update of the grid</span>
+    <span class="hljs-built_in">int</span> grid_frequency &lt;- <span class="hljs-number">1</span> min: <span class="hljs-number">1</span> max: <span class="hljs-number">100</span> parameter: <span class="hljs-string">'Grid updates itself every:'</span> category: <span class="hljs-string">'Environment and Population'</span>;
+    <span class="hljs-comment">//Number of food places among the grid</span>
+    <span class="hljs-built_in">int</span> number_of_food_places &lt;- <span class="hljs-number">5</span> min: <span class="hljs-number">1</span> parameter: <span class="hljs-string">'Number of food depots:'</span> category: <span class="hljs-string">'Environment and Population'</span>;
+    <span class="hljs-built_in">float</span> grid_transparency &lt;- <span class="hljs-number">1.0</span>;
+    file ant_shape_empty <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- file(<span class="hljs-string">'../icons/ant.png'</span>);
+    image_file ant_shape_full <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- file(<span class="hljs-string">'../icons/full_ant.png'</span>);
+    <span class="hljs-comment">//The center of the grid that will be considered as the nest location</span>
+    point center <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- { round(gridsize / <span class="hljs-number">2</span>), round(gridsize / <span class="hljs-number">2</span>) };
+    <span class="hljs-built_in">int</span> food_gathered &lt;- <span class="hljs-number">1</span>;
+    <span class="hljs-built_in">int</span> food_placed &lt;- <span class="hljs-number">1</span>;
+    rgb background <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- rgb(#<span class="hljs-number">99</span>CC66);
+    rgb food_color <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- rgb(#<span class="hljs-number">312200</span>);
+    rgb nest_color <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- rgb(#<span class="hljs-number">000000</span>); 
+
+    geometry shape &lt;- square(gridsize);
+    init {
+        <span class="hljs-comment">//Creation of the food places placed randomly with a certain distance between each</span>
+        loop times: number_of_food_places {
+            point loc &lt;- { rnd(gridsize - <span class="hljs-number">10</span>) + <span class="hljs-number">5</span>, rnd(gridsize - <span class="hljs-number">10</span>) + <span class="hljs-number">5</span> };
+            list&lt;ant_grid&gt; food_places &lt;- (ant_grid where ((each distance_to loc) &lt; <span class="hljs-number">5</span>));
+            ask food_places {
+                <span class="hljs-keyword">if</span> food = <span class="hljs-number">0</span> {
+                    food &lt;- <span class="hljs-number">5</span>;
+                    food_placed &lt;- food_placed + <span class="hljs-number">5</span>;
+                    color &lt;- food_color;  
+                }                                           
+            }
+        }
+        <span class="hljs-comment">//Creation of the ants that will be placed in the nest</span>
+        create ant number: ants_number with: (location: center);
+    }
+    <span class="hljs-comment">//Reflex to diffuse the pheromon among the grid</span>
+    <span class="hljs-built_in">ref</span>lex diffuse {
+      diffuse var:road on:ant_grid proportion: diffusion_rate radius:<span class="hljs-number">3</span> propagation: gradient method:convolution;
+   }
+  
+}
+
+<span class="hljs-comment">//Grid used to discretize the space to place food</span>
+grid ant_grid width: gridsize height: gridsize neighbors: <span class="hljs-number">8</span> frequency: grid_frequency use_regular_agents: <span class="hljs-literal">false</span> use_individual_shapes: <span class="hljs-literal">false</span>{
+    <span class="hljs-built_in">bool</span> is_nest <span class="hljs-keyword">const</span>: <span class="hljs-literal">true</span> &lt;- (topology(ant_grid) distance_between [self, center]) &lt; <span class="hljs-number">4</span>;
+    <span class="hljs-built_in">float</span> road &lt;- <span class="hljs-number">0.0</span> max: <span class="hljs-number">240.0</span> update: (road &lt;= evaporation_per_cycle) ? <span class="hljs-number">0.0</span> : road - evaporation_per_cycle;
+    rgb color &lt;- is_nest ? nest_color : ((food &gt; <span class="hljs-number">0</span>) ? food_color : ((road &lt; <span class="hljs-number">0.001</span>) ? background : rgb(#<span class="hljs-number">009900</span>) + <span class="hljs-built_in">int</span>(road * <span class="hljs-number">5</span>))) update: is_nest ? nest_color : ((food &gt; <span class="hljs-number">0</span>) ?
+    food_color : ((road &lt; <span class="hljs-number">0.001</span>) ? background : rgb(#<span class="hljs-number">009900</span>) + <span class="hljs-built_in">int</span>(road * <span class="hljs-number">5</span>)));
+    <span class="hljs-built_in">int</span> food &lt;- <span class="hljs-number">0</span>;
+}
+<span class="hljs-comment">//Species ant that will move and follow a final state machine</span>
+species ant skills: [moving] control: fsm {
+    <span class="hljs-built_in">float</span> speed &lt;- <span class="hljs-number">1.0</span>;
+    <span class="hljs-built_in">bool</span> has_food &lt;- <span class="hljs-literal">false</span>;
+    
+    <span class="hljs-comment">//Reflex to place a pheromon stock in the cell</span>
+    <span class="hljs-built_in">ref</span>lex diffuse_road when:has_food=<span class="hljs-literal">true</span>{
+      ant_grid(location).road &lt;- ant_grid(location).road + <span class="hljs-number">100.0</span>;
+   }
+    <span class="hljs-comment">//Action to pick food</span>
+    action pick (<span class="hljs-built_in">int</span> amount) {
+        has_food &lt;- <span class="hljs-literal">true</span>;
+        ant_grid place &lt;- ant_grid(location);
+        place.food &lt;- place.food - amount;
+    }
+    <span class="hljs-comment">//Action to drop food</span>
+    action drop {
+        food_gathered &lt;- food_gathered + <span class="hljs-number">1</span>;
+        has_food &lt;- <span class="hljs-literal">false</span>;
+        heading &lt;- heading - <span class="hljs-number">180</span>;
+    }
+    <span class="hljs-comment">//Action to find the best place in the neighborhood cells</span>
+    point choose_best_place {
+        container list_places &lt;- ant_grid(location).neighbors;
+        <span class="hljs-keyword">if</span> (list_places count (each.food &gt; <span class="hljs-number">0</span>)) &gt; <span class="hljs-number">0</span> {
+            <span class="hljs-keyword">return</span> point(list_places first_with (each.food &gt; <span class="hljs-number">0</span>));
+        } <span class="hljs-keyword">else</span> {
+            list_places &lt;- (list_places where ((each.road &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">and</span> ((each distance_to center) &gt; (self distance_to center)))) sort_by (each.road);
+            <span class="hljs-keyword">return</span> point(last(list_places));
+        }
+
+    }
+    <span class="hljs-comment">//Reflex to drop food once the ant is in the nest</span>
+    <span class="hljs-built_in">ref</span>lex drop when: has_food <span class="hljs-keyword">and</span> (ant_grid(location)).is_nest {
+        <span class="hljs-keyword">do</span> drop();
+    }
+    <span class="hljs-comment">//Reflex to pick food when there is one at the same location</span>
+    <span class="hljs-built_in">ref</span>lex pick when: !has_food <span class="hljs-keyword">and</span> (ant_grid(location)).food &gt; <span class="hljs-number">0</span> {
+        <span class="hljs-keyword">do</span> pick(<span class="hljs-number">1</span>);
+    }
+    <span class="hljs-comment">//Initial state to make the ant wander </span>
+    state wandering initial: <span class="hljs-literal">true</span> {
+        <span class="hljs-keyword">do</span> wander(amplitude: <span class="hljs-number">90</span>);
+        <span class="hljs-built_in">float</span> pr &lt;- (ant_grid(location)).road;
+        transition to: carryingFood when: has_food;
+        transition to: followingRoad when: (pr &gt; <span class="hljs-number">0.05</span>) <span class="hljs-keyword">and</span> (pr &lt; <span class="hljs-number">4</span>);
+    }
+    <span class="hljs-comment">//State to carry food once it has been found</span>
+    state carryingFood {
+        <span class="hljs-keyword">do</span> goto(target: center);
+        transition to: wandering when: !has_food;
+    }
+    <span class="hljs-comment">//State to follow a pheromon road if once has been found</span>
+    state followingRoad {
+        point next_place &lt;- choose_best_place();
+        <span class="hljs-built_in">float</span> pr &lt;- (ant_grid(location)).road;
+        location &lt;- next_place;
+        transition to: carryingFood when: has_food;
+        transition to: wandering when: (pr &lt; <span class="hljs-number">0.05</span>) <span class="hljs-keyword">or</span> (next_place = nil);
+    }
+
+    aspect info {
+        draw circle(<span class="hljs-number">1</span>) empty: !has_food color: #red;
+        <span class="hljs-keyword">if</span> (destination != nil) {
+            draw line([location + {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.5</span>}, destination + {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0.5</span>}]) + <span class="hljs-number">0.1</span> color: #white border: <span class="hljs-literal">false</span>;
+        }
+
+        draw circle(<span class="hljs-number">4</span>) empty: <span class="hljs-literal">true</span> color: #white;
+        draw <span class="hljs-built_in">string</span>(self as <span class="hljs-built_in">int</span>) color: #white font: font(<span class="hljs-string">"Helvetica"</span>, <span class="hljs-number">12</span> * #zoom, #bold) at: my location - {<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-0.5</span>};
+        draw state color: #yellow  font: font(<span class="hljs-string">"Helvetica"</span>, <span class="hljs-number">10</span> * #zoom, #plain) at: my location + { <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0.5</span> } perspective: <span class="hljs-literal">false</span>;
+    }
+
+    aspect icon {
+        draw ant_shape_empty size: {<span class="hljs-number">7</span>,<span class="hljs-number">5</span>} rotate: my heading + <span class="hljs-number">1</span>;
+    }
+
+    aspect <span class="hljs-keyword">default</span> {
+        draw square(<span class="hljs-number">1</span>) empty: !has_food color: #blue rotate: my heading;
+    }
+}   
+<span class="hljs-comment">//Simple experiment to display the ants</span>
+experiment Displays type: gui {
+    point quadrant_size &lt;- { <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span> };
+    <span class="hljs-built_in">float</span> inc &lt;- <span class="hljs-number">0.001</span>;
+    <span class="hljs-built_in">float</span> pos &lt;- <span class="hljs-number">0.0</span>;
+    <span class="hljs-built_in">ref</span>lex moving_quadrant {
+    <span class="hljs-comment">//pos &lt;- pos + inc;</span>
+        <span class="hljs-keyword">if</span> (pos &gt; <span class="hljs-number">0.5</span> <span class="hljs-keyword">or</span> pos &lt;= <span class="hljs-number">0</span>) {
+            inc &lt;- -inc;
+        }
+        
+    }
+
+    output {
+        display Ants background: #white type: opengl {
+            image <span class="hljs-string">'../images/soil.jpg'</span> position: { pos, pos } size: quadrant_size;
+            agents <span class="hljs-string">"agents"</span> transparency: <span class="hljs-number">0.5</span> position: { pos, pos } size: quadrant_size value: (ant_grid as list) where ((each.food &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (each.road &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (each.is_nest));
+            species ant position: { pos, pos } size: quadrant_size aspect: icon;
+            grid ant_grid lines: #darkgray position: { <span class="hljs-number">0.5</span>, <span class="hljs-number">0</span> } size: quadrant_size;
+            species ant position: { <span class="hljs-number">0.5</span>, <span class="hljs-number">0</span> } size: quadrant_size aspect: info;
+        }
+    }
+}
+<span class="hljs-comment">//Complete experiment that will inspect all ants in a table</span>
+experiment Complete type: gui {
+    parameter <span class="hljs-string">'Number:'</span> var: ants_number init: <span class="hljs-number">100</span> unit: <span class="hljs-string">'ants'</span> category: <span class="hljs-string">'Environment and Population'</span>;
+    parameter <span class="hljs-string">'Grid dimension:'</span> var: gridsize init: <span class="hljs-number">100</span> unit: <span class="hljs-string">'(number of rows and columns)'</span> category: <span class="hljs-string">'Environment and Population'</span>;
+    parameter <span class="hljs-string">'Number of food depots:'</span> var: number_of_food_places init: <span class="hljs-number">5</span> min: <span class="hljs-number">1</span> category: <span class="hljs-string">'Environment and Population'</span>;
+
+    <span class="hljs-comment">// Experimentator</span>
+
+    init {
+        write <span class="hljs-string">"Experimentator agent running "</span> + self;
+       ants_number &lt;- <span class="hljs-number">200</span>;
+    }
+
+
+    output {
+        display Ants2D type: java2D {
+            image <span class="hljs-string">'../images/soil.jpg'</span> position: { <span class="hljs-number">0.05</span>, <span class="hljs-number">0.05</span> } size: { <span class="hljs-number">0.9</span>, <span class="hljs-number">0.9</span> };
+            agents <span class="hljs-string">"agents"</span> transparency: <span class="hljs-number">0.7</span> position: { <span class="hljs-number">0.05</span>, <span class="hljs-number">0.05</span> } size: { <span class="hljs-number">0.9</span>, <span class="hljs-number">0.9</span> } value: (ant_grid as list) where ((each.food &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (each.road &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (each.is_nest)) ;
+            species ant position: { <span class="hljs-number">0.05</span>, <span class="hljs-number">0.05</span> } size: { <span class="hljs-number">0.9</span>, <span class="hljs-number">0.9</span> } aspect: icon;
+            overlay <span class="hljs-string">"Texts"</span> transparency: <span class="hljs-number">0.3</span> background: rgb (<span class="hljs-number">99</span>, <span class="hljs-number">85</span>, <span class="hljs-number">66</span>,<span class="hljs-number">255</span>)  position: {<span class="hljs-number">10</span>°px, <span class="hljs-number">10</span>°px} size: {<span class="hljs-number">250</span>°px, <span class="hljs-number">150</span>°px} border: rgb (<span class="hljs-number">99</span>, <span class="hljs-number">85</span>, <span class="hljs-number">66</span>,<span class="hljs-number">255</span>) rounded: <span class="hljs-literal">true</span>{
+                draw ant_shape_full at: {<span class="hljs-number">60</span>°px, <span class="hljs-number">70</span>°px} size: {<span class="hljs-number">140</span>°px, <span class="hljs-number">100</span>°px} rotate: <span class="hljs-number">-60</span>;
+                draw (<span class="hljs-string">'Food foraged: '</span> + (((food_placed = <span class="hljs-number">0</span> ? <span class="hljs-number">0</span> : food_gathered / food_placed) * <span class="hljs-number">100</span>) with_precision <span class="hljs-number">2</span>) + <span class="hljs-string">'%'</span>) at: {<span class="hljs-number">40</span>°px,<span class="hljs-number">70</span>°px} font:font(<span class="hljs-string">"Arial"</span>, <span class="hljs-number">18</span>, #bold) color: #white;
+                draw (<span class="hljs-string">'Carrying ants: '</span> + (((<span class="hljs-number">100</span> * ant count (each.has_food <span class="hljs-keyword">or</span> each.state = <span class="hljs-string">"followingRoad"</span>)) / length(ant)) with_precision <span class="hljs-number">2</span>) + <span class="hljs-string">'%'</span>) at: {<span class="hljs-number">40</span>°px, <span class="hljs-number">100</span>°px} font:font(<span class="hljs-string">"Arial"</span>, <span class="hljs-number">18</span> , #bold) color: #white;
+            }
+                    
+        }
+        inspect <span class="hljs-string">"All ants"</span> type: table value: ant attributes: [<span class="hljs-string">'name'</span>, <span class="hljs-string">'location'</span>, <span class="hljs-string">'heading'</span>,<span class="hljs-string">'state'</span>];
+    }
+}
+<span class="hljs-comment">//Batch experiment to find the best way to maximize the food gathered using exhaustive method</span>
+experiment Batch type: batch repeat: <span class="hljs-number">4</span> keep_seed: <span class="hljs-literal">true</span> until: (food_gathered = food_placed) <span class="hljs-keyword">or</span> (time &gt; <span class="hljs-number">1000</span>) {
+    parameter <span class="hljs-string">'Size of the grid:'</span> var: gridsize init: <span class="hljs-number">75</span> unit: <span class="hljs-string">'width and height'</span>;
+    parameter <span class="hljs-string">'Number:'</span> var: ants_number among:[<span class="hljs-number">10</span>,<span class="hljs-number">20</span>,<span class="hljs-number">50</span>] unit: <span class="hljs-string">'ants'</span>;
+    parameter  <span class="hljs-string">'Evaporation:'</span> var: evaporation_per_cycle among: [<span class="hljs-number">0.1</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">10.0</span>] unit: <span class="hljs-string">'units every cycle'</span>;
+    parameter  <span class="hljs-string">'Diffusion:'</span> var: diffusion_rate min: <span class="hljs-number">0.1</span> max: <span class="hljs-number">1.0</span> unit: <span class="hljs-string">'rate every cycle (1.0 means 100%)'</span> step: <span class="hljs-number">0.2</span>;
+    method exhaustive maximize: food_gathered;
+
+    
+    permanent {
+        display Comparison background: #white {
+            chart <span class="hljs-string">"Food Gathered"</span> type: series {
+                    data <span class="hljs-string">"Min"</span> value:  min(ants_model collect each.food_gathered ) style: spline color: #darkgreen ;
+                    data <span class="hljs-string">"Max"</span> value:  max(ants_model collect each.food_gathered ) style: spline color: #red ;
+            }
+        }
+    }
+}
+
+<span class="hljs-comment">//Batch experiment to find the best way to maximize the food gathered using genetic method</span>
+experiment Genetic type: batch repeat: <span class="hljs-number">2</span> keep_seed: <span class="hljs-literal">true</span> until: (food_gathered = food_placed) <span class="hljs-keyword">or</span> (time &gt; <span class="hljs-number">1000</span>) {
+    parameter <span class="hljs-string">'Size of the grid:'</span> var: gridsize init: <span class="hljs-number">75</span> unit: <span class="hljs-string">'(width and height)'</span>;
+    parameter <span class="hljs-string">'Number:'</span> var: ants_number among:[<span class="hljs-number">10</span>,<span class="hljs-number">20</span>,<span class="hljs-number">50</span>] unit: <span class="hljs-string">'ants'</span>;
+    parameter  <span class="hljs-string">'Evaporation:'</span> var: evaporation_per_cycle among: [<span class="hljs-number">0.1</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">10.0</span>] unit: <span class="hljs-string">'units every cycle'</span>;
+    parameter <span class="hljs-string">'Diffusion:'</span> var: diffusion_rate min: <span class="hljs-number">0.1</span> max: <span class="hljs-number">1.0</span> unit: <span class="hljs-string">'rate every cycle (1.0 means 100%)'</span> step: <span class="hljs-number">0.2</span>;
+    method genetic maximize: food_gathered pop_dim: <span class="hljs-number">5</span> crossover_prob: <span class="hljs-number">0.7</span> mutation_prob: <span class="hljs-number">0.1</span> nb_prelim_gen: <span class="hljs-number">1</span> max_gen: <span class="hljs-number">20</span>;
+    
+        permanent {
+        display Comparison background: #white {
+            chart <span class="hljs-string">"Food Gathered"</span> type: series {
+                    data <span class="hljs-string">"Min"</span> value:  min(ants_model collect each.food_gathered ) style: spline color: #darkgreen ;
+                    data <span class="hljs-string">"Max"</span> value:  max(ants_model collect each.food_gathered ) style: spline color: #red ;
+            }
+        }
+    }
+}
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

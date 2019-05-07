@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Toy Models/Epidemiology/Epidemiology SIR (Switch) · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Toy Models/Epidemiology/Epidemiology SIR (Switch) · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Toy Models/Epidemiology/Epidemiology SIR (Switch)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="sir_switch"></a><a href="#sir_switch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SIR_switch</h1>
+<p>_Author : tri and hqnghi _</p>
+<p>A model which show how to implement ODE system, IBM model, and to switch from one to another using a threshold. Another interesting point seen in this model is the the minimization of the execution time by reducing the number of agents to compute infections.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model SIR_switch
+
+<span class="hljs-keyword">global</span> {
+    // Parameters
+    <span class="hljs-type">int</span> initial_S &lt;- <span class="hljs-number">495</span> ; // The number <span class="hljs-keyword">of</span> susceptible
+    <span class="hljs-type">int</span> initial_I &lt;- <span class="hljs-number">5</span>   ; // The number <span class="hljs-keyword">of</span> infected
+    <span class="hljs-type">int</span> initial_R &lt;- <span class="hljs-number">0</span>   ; // The number <span class="hljs-keyword">of</span> removed 
+
+    <span class="hljs-type">float</span> beta &lt;- <span class="hljs-number">0.1</span>   ; // The parameter Beta 
+    <span class="hljs-type">float</span> delta &lt;- <span class="hljs-number">0.01</span> ; // The parameter Delta    
+    
+    <span class="hljs-type">int</span> switch_threshold &lt;- <span class="hljs-number">120</span> ; // threshold <span class="hljs-keyword">for</span> switching models
+    <span class="hljs-type">bool</span> local_infection &lt;- <span class="hljs-keyword">true</span> ;
+    <span class="hljs-type">int</span> neighbors_range &lt;- <span class="hljs-number">2</span> ;
+    <span class="hljs-type">bool</span> local_random_walk &lt;- <span class="hljs-keyword">true</span> ; 
+    
+    
+    // <span class="hljs-keyword">Global</span> variables
+    <span class="hljs-type">int</span> grid_size &lt;- <span class="hljs-number">50</span>;
+geometry shape &lt;- square(grid_size);
+    <span class="hljs-type">int</span> number_Hosts &lt;- initial_S + initial_I + initial_R; // Total number <span class="hljs-keyword">of</span> individuals
+    SIR_model current_model; // serves <span class="hljs-keyword">as</span> an interface, it <span class="hljs-keyword">is</span> transparent <span class="hljs-keyword">to</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">if</span> model <span class="hljs-keyword">is</span> maths <span class="hljs-keyword">or</span> IBM
+
+    <span class="hljs-type">float</span> beta_maths;
+    <span class="hljs-type">int</span> gridSize &lt;- <span class="hljs-number">1</span>; //size <span class="hljs-keyword">of</span> the grid
+    <span class="hljs-type">float</span> neighborhoodSize &lt;- <span class="hljs-number">1.0</span>; // average size <span class="hljs-keyword">of</span> the neighborhood (<span class="hljs-keyword">in</span> number <span class="hljs-keyword">of</span> cells) 
+    <span class="hljs-type">float</span> adjust &lt;- <span class="hljs-number">0.721</span>; // <span class="hljs-keyword">to</span> adjust math model <span class="hljs-keyword">to</span> ABM <span class="hljs-keyword">when</span> <span class="hljs-keyword">using</span> random walk
+    <span class="hljs-type">bool</span> computeInfectionFromS &lt;- initial_S &lt; initial_I; // <span class="hljs-keyword">if</span> <span class="hljs-keyword">true</span>, use the S list <span class="hljs-keyword">to</span> compute infections. <span class="hljs-keyword">If</span> <span class="hljs-keyword">false</span>, use I list.
+    // the purpose <span class="hljs-keyword">is</span> <span class="hljs-keyword">to</span> minimize the number <span class="hljs-keyword">of</span> evaluation <span class="hljs-keyword">by</span> <span class="hljs-keyword">using</span> the smallest list.
+    
+    init {
+        <span class="hljs-keyword">create</span> new_scheduler;
+        <span class="hljs-comment">/* determine the size of the neighborhood and the average count of hosts neighbors */</span>
+        gridSize &lt;- length(sir_grid);
+        <span class="hljs-type">int</span> nbCells &lt;- <span class="hljs-number">0</span>;
+        
+        <span class="hljs-keyword">loop</span> cell <span class="hljs-keyword">over</span>: sir_grid {
+            nbCells &lt;- nbCells + length(cell.neighbors);
+        }
+
+        neighborhoodSize &lt;- nbCells / gridSize + <span class="hljs-number">1</span>; // +<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> count itself <span class="hljs-keyword">in</span> the neighborhood;
+        beta_maths &lt;- beta * neighborhoodSize * number_Hosts / gridSize * adjust;
+        
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'Switch will happen at population sizes around '</span> +switch_threshold;
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'Basic Reproduction Number (R0): '</span> + string(beta / delta) + <span class="hljs-string">'\n'</span>;
+        
+        //Creation <span class="hljs-keyword">of</span> the switch_model agent that will manage the switch <span class="hljs-keyword">between</span> the mathematical <span class="hljs-keyword">and</span> the individual based models
+        <span class="hljs-keyword">create</span> switch_model {
+            threshold_to_IBM &lt;- switch_threshold;
+            threshold_to_Maths &lt;- switch_threshold;
+        }
+        //Creation <span class="hljs-keyword">of</span> the model according <span class="hljs-keyword">to</span> the one <span class="hljs-keyword">to</span> <span class="hljs-keyword">begin</span> <span class="hljs-keyword">with</span>
+        <span class="hljs-keyword">if</span> (first(switch_model).start_with_IBM) {
+        //      <span class="hljs-keyword">write</span> <span class="hljs-string">'Starting with IBM model'</span>;
+            <span class="hljs-keyword">create</span> IBM_model;
+            current_model &lt;- first(IBM_model);
+        } <span class="hljs-keyword">else</span> {
+        //      <span class="hljs-keyword">write</span> <span class="hljs-string">'Starting with Maths model'</span>;
+            <span class="hljs-keyword">create</span> Math_model;
+            current_model &lt;- first(Math_model);
+        }
+        //Initialization <span class="hljs-keyword">of</span> the Susceptible, Infected, Resistant <span class="hljs-keyword">and</span> Total Compartiment
+        current_model.S &lt;- <span class="hljs-type">float</span>(initial_S);
+        current_model.I &lt;- <span class="hljs-type">float</span>(initial_I);
+        current_model.R &lt;- <span class="hljs-type">float</span>(initial_R);
+        current_model.N &lt;- number_Hosts;
+        
+        //Ask <span class="hljs-keyword">to</span> the model <span class="hljs-keyword">to</span> initialize itself according <span class="hljs-keyword">to</span> the <span class="hljs-keyword">value</span> initialized
+        ask current_model {
+            <span class="hljs-keyword">do</span> initialize;
+        }
+        
+        //<span class="hljs-keyword">Create</span> the SIR maths <span class="hljs-keyword">with</span> ODE <span class="hljs-keyword">to</span> compare
+        <span class="hljs-keyword">create</span> my_SIR_maths {
+            self.S &lt;- <span class="hljs-type">float</span>(myself.initial_S);
+            self.I &lt;- <span class="hljs-type">float</span>(myself.initial_I);
+            self.R &lt;- <span class="hljs-type">float</span>(myself.initial_R);
+            self.N &lt;- number_Hosts;
+            self.beta1 &lt;- beta * neighborhoodSize * (N / gridSize)* adjust;
+            self.alpha &lt;- delta;
+        }
+
+    }
+
+    reflex infection_computation_method {
+    <span class="hljs-comment">/* computing infection from S has a complexity of S*ngb, where ngb is the size of the neighborhood.
+     * computing infection from I has a complexity of I*ngb.
+     * this reflex determine which method has the lowest cost.
+     * */</span>
+        computeInfectionFromS &lt;- (Host count (<span class="hljs-keyword">each</span>.is_susceptible)) &lt; (Host count (<span class="hljs-keyword">each</span>.is_infected));
+    }
+
+}
+//Grid which represent the discretized space <span class="hljs-keyword">for</span> the host agents
+    grid sir_grid width: grid_size height: grid_size {
+        rgb color &lt;- #black;
+        list&lt;sir_grid&gt; neighbors &lt;- (self neighbors_at neighbors_range) of_species sir_grid;
+    }
+
+
+//Species which allows the execution <span class="hljs-keyword">of</span> <span class="hljs-keyword">only</span> Host, IBM_model, Math_model <span class="hljs-keyword">and</span> switch_model at <span class="hljs-keyword">each</span> <span class="hljs-keyword">cycle</span>
+species new_scheduler schedules: (Host + IBM_model + Math_model + switch_model) ;
+
+//Species which represent the manager <span class="hljs-keyword">between</span> IBM <span class="hljs-keyword">and</span> Math model
+species switch_model schedules: [] {
+    <span class="hljs-type">int</span> threshold_to_IBM &lt;- <span class="hljs-number">45</span>; // threshold under which the model swith <span class="hljs-keyword">to</span> IBM
+    <span class="hljs-type">int</span> threshold_to_Maths &lt;- <span class="hljs-number">50</span>; // threshold under which the model swith <span class="hljs-keyword">to</span> Maths model 
+    <span class="hljs-type">bool</span> start_with_IBM <span class="hljs-keyword">function</span>: { (initial_S &lt; threshold_to_IBM <span class="hljs-keyword">or</span> initial_I &lt; threshold_to_IBM) };
+
+    //Switch the model used <span class="hljs-keyword">to</span> IBM <span class="hljs-keyword">when</span> the threshold <span class="hljs-keyword">is</span> higher than the population
+    reflex switch_to_IBM <span class="hljs-keyword">when</span>: (current_model.model_type = <span class="hljs-string">'Maths'</span>) {
+        <span class="hljs-keyword">if</span> (current_model.S &lt; threshold_to_IBM <span class="hljs-keyword">or</span> current_model.I &lt; threshold_to_IBM) {
+            <span class="hljs-keyword">write</span> <span class="hljs-string">'Switch to IBM model at cycle '</span> + string(<span class="hljs-keyword">cycle</span>);
+            <span class="hljs-keyword">create</span> IBM_model {
+                self.S &lt;- current_model.S;
+                self.I &lt;- current_model.I;
+                self.R &lt;- current_model.R;
+                self.N &lt;- current_model.N;
+                <span class="hljs-keyword">do</span> initialize;
+            }
+
+            ask current_model {
+                <span class="hljs-keyword">do</span> remove_model;
+            }
+
+            current_model &lt;- first(IBM_model);
+        }
+
+    }
+    //Switch the model used <span class="hljs-keyword">to</span> Maths <span class="hljs-keyword">when</span> the threshold <span class="hljs-keyword">is</span> lower than the population
+    reflex switch_to_Maths <span class="hljs-keyword">when</span>: (current_model.model_type = <span class="hljs-string">'IBM'</span>) {
+        <span class="hljs-keyword">if</span> (current_model.S &gt; threshold_to_Maths <span class="hljs-keyword">and</span> current_model.I &gt; threshold_to_Maths) {
+            <span class="hljs-keyword">write</span> <span class="hljs-string">'Switch to Maths model at cycle '</span> + <span class="hljs-keyword">cycle</span>;
+            <span class="hljs-keyword">create</span> Math_model {
+                self.S &lt;- current_model.S;
+                self.I &lt;- current_model.I;
+                self.R &lt;- current_model.R;
+                self.N &lt;- current_model.N;
+                <span class="hljs-keyword">do</span> initialize;
+            }
+
+            ask current_model {
+                <span class="hljs-keyword">do</span> remove_model;
+            }
+
+            current_model &lt;- first(Math_model);
+        }
+
+    }
+
+}
+//Species which represent the SIR model used <span class="hljs-keyword">by</span> the IBM <span class="hljs-keyword">and</span> the Math models 
+species SIR_model schedules: [] {
+    <span class="hljs-type">float</span> S;
+    <span class="hljs-type">float</span> I;
+    <span class="hljs-type">float</span> R;
+    <span class="hljs-type">int</span> N;
+    string model_type &lt;- <span class="hljs-string">'none'</span>;
+    
+    action remove_model {
+        <span class="hljs-keyword">do</span> die;
+    }
+
+    action initialize ;
+
+}
+
+//Species IBM Model which represent the Individual based model, derivated <span class="hljs-keyword">from</span> SIR_model
+species IBM_model schedules: [] parent: SIR_model {
+    string model_type &lt;- <span class="hljs-string">'IBM'</span>;
+    
+    //Action <span class="hljs-keyword">to</span> initialize the Model <span class="hljs-keyword">with</span> SIR compartiments
+    action initialize {
+        
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'Initializing IBM model with S='</span> + round(S) + <span class="hljs-string">', I='</span> + round(I) + <span class="hljs-string">', R='</span> + round(R) + <span class="hljs-string">'\n'</span>;
+        //Creation <span class="hljs-keyword">of</span> the host agents
+        <span class="hljs-keyword">create</span> Host number: round(S) {
+            is_susceptible &lt;- <span class="hljs-keyword">true</span>;
+            is_infected &lt;- <span class="hljs-keyword">false</span>;
+            is_immune &lt;- <span class="hljs-keyword">false</span>;
+            color &lt;- #green;
+        }
+
+        <span class="hljs-keyword">create</span> Host number: round(I) {
+            is_susceptible &lt;- <span class="hljs-keyword">false</span>;
+            is_infected &lt;- <span class="hljs-keyword">true</span>;
+            is_immune &lt;- <span class="hljs-keyword">false</span>;
+            color &lt;- #red;
+        }
+
+        <span class="hljs-keyword">create</span> Host number: round(R) {
+            is_susceptible &lt;- <span class="hljs-keyword">false</span>;
+            is_infected &lt;- <span class="hljs-keyword">false</span>;
+            is_immune &lt;- <span class="hljs-keyword">true</span>;
+            color &lt;- #yellow;
+        }
+        <span class="hljs-keyword">do</span> count;
+    }
+
+    reflex count {
+        <span class="hljs-keyword">do</span> count;
+    }
+    //Action <span class="hljs-keyword">to</span> <span class="hljs-keyword">update</span> the different compartiments
+    action count {
+        S &lt;- <span class="hljs-type">float</span>(Host count (<span class="hljs-keyword">each</span>.is_susceptible));
+        I &lt;- <span class="hljs-type">float</span>(Host count (<span class="hljs-keyword">each</span>.is_infected));
+        R &lt;- <span class="hljs-type">float</span>(Host count (<span class="hljs-keyword">each</span>.is_immune));
+    }
+    //Action <span class="hljs-keyword">to</span> remove the model <span class="hljs-keyword">and</span> kill <span class="hljs-keyword">all</span> the agents it contains
+    action remove_model {
+        ask Host {
+            <span class="hljs-keyword">do</span> die;
+        }
+
+        <span class="hljs-keyword">do</span> die;
+    }
+
+}
+
+//Species Math Model which represent the mathematical Ordinary Differential Equations model, derivated <span class="hljs-keyword">from</span> SIR_model
+species Math_model schedules: [] parent: SIR_model {
+    string model_type &lt;- <span class="hljs-string">'Maths'</span>;
+    <span class="hljs-type">float</span> t;
+    
+    action initialize {
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'Initializing Maths model with S='</span> + S + <span class="hljs-string">', I='</span> + I + <span class="hljs-string">', R='</span> + R + <span class="hljs-string">'\n'</span>;
+    }
+
+    equation SIR {
+        diff(S, t) = (-beta_maths * S * I / N);
+        diff(I, t) = (beta_maths * S * I / N) - (delta * I);
+        diff(R, t) = (delta * I);
+    }
+
+    reflex solving {solve SIR <span class="hljs-keyword">method</span>: "rk4" step: <span class="hljs-number">0.01</span> ;}
+}
+//Species host used <span class="hljs-keyword">by</span> the Individual Based Model which <span class="hljs-keyword">move</span> <span class="hljs-keyword">from</span> one cell <span class="hljs-keyword">to</span> another
+species Host schedules: [] skills: [moving] {
+    <span class="hljs-type">bool</span> is_susceptible &lt;- <span class="hljs-keyword">true</span>;
+    <span class="hljs-type">bool</span> is_infected &lt;- <span class="hljs-keyword">false</span>;
+    <span class="hljs-type">bool</span> is_immune &lt;- <span class="hljs-keyword">false</span>;
+    rgb color &lt;- #green;
+    sir_grid myPlace;
+    
+    <span class="hljs-comment">/* next function computes the number of neighbors of the agent */</span>
+    <span class="hljs-type">int</span> ngb_number <span class="hljs-keyword">function</span>: {
+        length(((self) neighbors_at (<span class="hljs-number">2</span>)) of_species Host) - <span class="hljs-number">1</span> // <span class="hljs-number">-1</span> <span class="hljs-keyword">is</span> because the agent counts itself
+    };
+    
+    init {
+        myPlace &lt;- one_of(sir_grid <span class="hljs-keyword">as</span> list);
+        <span class="hljs-keyword">location</span> &lt;- myPlace.<span class="hljs-keyword">location</span>;
+    }
+
+    //Reflex <span class="hljs-keyword">to</span> <span class="hljs-keyword">move</span> the agents among the cells
+    reflex basic_move {
+        <span class="hljs-keyword">if</span> (!local_random_walk) {
+        <span class="hljs-comment">/* random walk among neighbors */</span>
+            myPlace &lt;- one_of(myPlace.neighbors);
+            <span class="hljs-keyword">location</span> &lt;- myPlace.<span class="hljs-keyword">location</span>;
+        } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">/* move agent to a random place anywhere in the grid */</span>
+            myPlace &lt;- <span class="hljs-keyword">any</span>(sir_grid);
+            <span class="hljs-keyword">location</span> &lt;- myPlace.<span class="hljs-keyword">location</span>;
+        }
+
+    }
+    //Reflex <span class="hljs-keyword">to</span> make the agent infected <span class="hljs-keyword">when</span> the infection <span class="hljs-keyword">is</span> computed <span class="hljs-keyword">from</span> S <span class="hljs-keyword">for</span> a better execution <span class="hljs-type">time</span>
+    reflex become_infected <span class="hljs-keyword">when</span>: (is_susceptible <span class="hljs-keyword">and</span> computeInfectionFromS) {
+        <span class="hljs-keyword">if</span> (flip(<span class="hljs-number">1</span> - (<span class="hljs-number">1</span> - beta) ^ (((self) neighbors_at (<span class="hljs-number">2</span>)) of_species Host) count (<span class="hljs-keyword">each</span>.is_infected))) {
+            is_susceptible &lt;- <span class="hljs-keyword">false</span>;
+            is_infected &lt;- <span class="hljs-keyword">true</span>;
+            is_immune &lt;- <span class="hljs-keyword">false</span>;
+            color &lt;- #red;
+        }
+
+    }
+    //Reflex <span class="hljs-keyword">to</span> make the agent infect others <span class="hljs-keyword">when</span> the infection <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> computed <span class="hljs-keyword">from</span> S <span class="hljs-keyword">for</span> a better execution <span class="hljs-type">time</span>
+    reflex infecte_others <span class="hljs-keyword">when</span>: (is_infected <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> (computeInfectionFromS)) {
+        <span class="hljs-keyword">loop</span> hst <span class="hljs-keyword">over</span>: ((self) neighbors_at (<span class="hljs-number">2</span>)) {
+            <span class="hljs-keyword">if</span> (hst.is_susceptible) {
+                <span class="hljs-keyword">if</span> (flip(beta)) {
+                    hst.is_susceptible &lt;- <span class="hljs-keyword">false</span>;
+                    hst.is_infected &lt;- <span class="hljs-keyword">true</span>;
+                    hst.is_immune &lt;- <span class="hljs-keyword">false</span>;
+                    hst.color &lt;- #red;
+                }
+            }
+        }
+    }
+    //Reflex <span class="hljs-keyword">to</span> make the agent resistant
+    reflex become_immune <span class="hljs-keyword">when</span>: (is_infected <span class="hljs-keyword">and</span> flip(delta)) {
+        is_susceptible &lt;- <span class="hljs-keyword">false</span>;
+        is_infected &lt;- <span class="hljs-keyword">false</span>;
+        is_immune &lt;- <span class="hljs-keyword">true</span>;
+        color &lt;- #yellow;
+    }
+
+    aspect basic {
+        draw circle(<span class="hljs-number">1</span>) color: color;
+    }
+
+}
+//Species which represent the SIR mathematical model 
+species my_SIR_maths {
+    <span class="hljs-type">float</span> t;
+    <span class="hljs-type">float</span> I &lt;- <span class="hljs-type">float</span>(iInit);
+    <span class="hljs-type">float</span> S &lt;- N - I;
+    <span class="hljs-type">float</span> R &lt;- <span class="hljs-number">0.0</span>;
+            
+    <span class="hljs-type">float</span> alpha &lt;- <span class="hljs-number">0.01</span> min: <span class="hljs-number">0.0</span> max: <span class="hljs-number">1.0</span>;
+    <span class="hljs-type">float</span> beta1 &lt;- <span class="hljs-number">0.1</span> min: <span class="hljs-number">0.0</span> max: <span class="hljs-number">1000.0</span>;
+    <span class="hljs-type">int</span> N &lt;- <span class="hljs-number">500</span> min: <span class="hljs-number">1</span> max: <span class="hljs-number">3000</span>;
+    <span class="hljs-type">int</span> iInit &lt;- <span class="hljs-number">1</span>;
+
+    equation SIR {
+        diff(S, t) = (-beta1 * S * I / N);
+        diff(I, t) = (beta1 * S * I / N) - (alpha * I);
+        diff(R, t) = (alpha * I);
+    }
+    
+    reflex solving {solve SIR <span class="hljs-keyword">method</span>:"rk4" step:<span class="hljs-number">0.01</span>;}
+
+}
+
+
+
+experiment mysimulation <span class="hljs-keyword">type</span>: gui {
+    parameter <span class="hljs-string">'Number of Susceptible'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: initial_S &lt;- <span class="hljs-number">495</span> category: "Initial population"; 
+    parameter <span class="hljs-string">'Number of Infected'</span>    <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: initial_I &lt;- <span class="hljs-number">5</span>   category: "Initial population";
+    parameter <span class="hljs-string">'Number of Removed'</span>     <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: initial_R &lt;- <span class="hljs-number">0</span>   category: "Initial population";
+
+    parameter <span class="hljs-string">'Beta (S-&gt;I)'</span>  <span class="hljs-keyword">type</span>: <span class="hljs-type">float</span> var: beta &lt;- <span class="hljs-number">1.0</span>   category: "Parameters";
+    parameter <span class="hljs-string">'Delta (I-&gt;R)'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">float</span> var: delta &lt;- <span class="hljs-number">0.01</span> category: "Parameters"; 
+    
+    parameter <span class="hljs-string">'Is the infection is computed locally?'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">bool</span> var: local_infection &lt;- <span class="hljs-keyword">true</span> category: "Infection";
+    parameter <span class="hljs-string">'Size of the neighbors'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: neighbors_range &lt;- <span class="hljs-number">2</span> min:<span class="hljs-number">1</span> max: <span class="hljs-number">5</span> category: "Infection";
+
+    parameter <span class="hljs-string">'Local Random Walk'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">bool</span> var: local_random_walk &lt;- <span class="hljs-keyword">true</span> category: "Agents"; 
+    
+    parameter <span class="hljs-string">'Switch models at'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: switch_threshold &lt;- <span class="hljs-number">120</span> category: "Model";
+    
+    output {
+        display <span class="hljs-string">'sir display'</span> {
+            grid sir_grid lines: #black;
+            species Host aspect: basic;
+        }
+    
+        display <span class="hljs-string">'Switch model'</span> {
+            chart <span class="hljs-string">'Susceptible'</span> <span class="hljs-keyword">type</span>: series background: #lightgray style: exploded {
+                data <span class="hljs-string">'susceptible'</span> <span class="hljs-keyword">value</span>: current_model.S color: #green;
+                data <span class="hljs-string">'infected'</span> <span class="hljs-keyword">value</span>: current_model.I color: #red;
+                data <span class="hljs-string">'immune'</span> <span class="hljs-keyword">value</span>: current_model.R color: #yellow;
+            }
+
+        }
+
+        display SI_maths  {
+            chart "SI" <span class="hljs-keyword">type</span>: series background: #white {
+                data <span class="hljs-string">'S'</span> <span class="hljs-keyword">value</span>: first((my_SIR_maths)).S color: #green;
+                data <span class="hljs-string">'I'</span> <span class="hljs-keyword">value</span>: first((my_SIR_maths)).I color: #red;
+                data <span class="hljs-string">'R'</span> <span class="hljs-keyword">value</span>: first((my_SIR_maths)).R color: #yellow;
+            }
+
+        }
+
+    }
+
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

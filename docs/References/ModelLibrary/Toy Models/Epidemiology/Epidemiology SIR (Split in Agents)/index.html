@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Toy Models/Epidemiology/Epidemiology SIR (Split in Agents) · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Toy Models/Epidemiology/Epidemiology SIR (Split in Agents) · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Toy Models/Epidemiology/Epidemiology SIR (Split in Agents)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="sir_split_in_agents"></a><a href="#sir_split_in_agents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SIR_split_in_agents</h1>
+<p>_Author : hqnghi _</p>
+<p>This model illustrates the possibility to split an equation system into several agents. All the equations are solve together thanks to the <code>simultaneously</code> facet of the equation statement. We also compare the split model with the simple SIR one.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model SIR_split_in_agents
+
+global {
+    <span class="hljs-keyword">int</span> number_S &lt;- <span class="hljs-number">495</span> ; <span class="hljs-comment">// The number of susceptible</span>
+    <span class="hljs-keyword">int</span> number_I &lt;- <span class="hljs-number">5</span>   ; <span class="hljs-comment">// The number of infected</span>
+    <span class="hljs-keyword">int</span> number_R &lt;- <span class="hljs-number">0</span>   ; <span class="hljs-comment">// The number of removed </span>
+
+    <span class="hljs-keyword">float</span> beta  &lt;- <span class="hljs-number">1.0</span>  ; <span class="hljs-comment">// The parameter Beta</span>
+    <span class="hljs-keyword">float</span> delta &lt;- <span class="hljs-number">0.01</span> ; <span class="hljs-comment">// The parameter Delta</span>
+    
+    <span class="hljs-comment">// Note that N will remain constant as demography is not taken into account in the SIR model.</span>
+    <span class="hljs-keyword">int</span> N &lt;- number_S + number_I + number_R ;
+    <span class="hljs-keyword">float</span> hKR4 &lt;- <span class="hljs-number">0.07</span> ;
+
+    init {
+        <span class="hljs-comment">//Creation of the representation of the susceptible agents</span>
+        create S_agt {
+            Ssize &lt;- <span class="hljs-keyword">float</span>(number_S) ;
+            self.beta &lt;- myself.beta ;
+        }
+        <span class="hljs-comment">//Creation of the representation of the infected agents</span>
+        create I_agt {
+            Isize &lt;- <span class="hljs-keyword">float</span>(number_I) ;
+            self.beta &lt;- myself.beta ;
+            self.delta &lt;- myself.delta ;
+        }
+        <span class="hljs-comment">//Creation of the representation of the recovered agents</span>
+        create R_agt {
+            Rsize &lt;- <span class="hljs-keyword">float</span>(number_R) ;
+            self.delta &lt;- myself.delta ;
+        }
+        <span class="hljs-comment">//Creation of the representation of the SIR agent representing the non split system</span>
+        create SIR_agt {
+            self.Sm &lt;- <span class="hljs-keyword">float</span>(number_S) ;
+            self.Im &lt;- <span class="hljs-keyword">float</span>(number_I) ;
+            self.Rm &lt;- <span class="hljs-keyword">float</span>(number_R) ;
+            
+            self.beta &lt;- myself.beta ;
+            self.delta &lt;- myself.delta ;
+        }
+    }
+}
+
+<span class="hljs-comment">//Species which represent the susceptible agents compartiment</span>
+species S_agt {
+    <span class="hljs-keyword">float</span> t ;       
+    <span class="hljs-keyword">float</span> Ssize ; <span class="hljs-comment">//number of susceptible</span>
+    
+    <span class="hljs-keyword">float</span> beta ;
+    <span class="hljs-comment">//Equation that will be solved simultaneously with the two other equations systems</span>
+    equation evol <span class="hljs-string">simultaneously:</span> [  ( I_agt ) ,  ( R_agt ) ] {
+        diff ( first ( S_agt ) . Ssize , t ) = 
+            ( - beta * first ( S_agt ) . Ssize * first (    I_agt ) . Isize / N ) ;
+    }
+    
+    reflex solving {solve evol <span class="hljs-string">method:</span> <span class="hljs-string">"rk4"</span> <span class="hljs-string">step:</span> <span class="hljs-number">0.01</span> ;}
+}
+<span class="hljs-comment">//Species which represent the infected agents compartiment</span>
+species I_agt {
+    <span class="hljs-keyword">float</span> t ;
+    <span class="hljs-keyword">float</span> Isize ; <span class="hljs-comment">// number of infected</span>
+    
+    <span class="hljs-keyword">float</span> beta ;
+    <span class="hljs-keyword">float</span> delta ;
+
+    <span class="hljs-comment">//Equation that will be solved simultaneously with the two other equations systems</span>
+    equation evol <span class="hljs-string">simultaneously:</span> [  ( S_agt ) ,  ( R_agt ) ] {
+        diff ( first ( I_agt ) . Isize , t ) = 
+            ( beta * first ( S_agt ) . Ssize * first ( I_agt ) . Isize / N ) 
+            - ( delta * first ( I_agt ) . Isize ) ;
+    }
+}
+<span class="hljs-comment">//Species which represent the resistant agents compartiment</span>
+species R_agt {
+    <span class="hljs-keyword">float</span> t ;       
+    <span class="hljs-keyword">float</span> Rsize ; <span class="hljs-comment">//number of resistant</span>
+    
+    <span class="hljs-keyword">float</span> delta ;
+
+    <span class="hljs-comment">//Equation that will be solved simultaneously with the two other equations systems</span>
+    equation evol <span class="hljs-string">simultaneously:</span> [ ( S_agt ) + ( I_agt ) ] {
+        diff ( first ( R_agt ) . Rsize , t ) = 
+            ( delta * first ( I_agt ) . Isize ) ;
+    }
+}
+
+<span class="hljs-comment">//Species which represent the ordinary differential equations system</span>
+species SIR_agt {
+    <span class="hljs-keyword">float</span> t ;
+    <span class="hljs-keyword">float</span> Im ;
+    <span class="hljs-keyword">float</span> Sm ;
+    <span class="hljs-keyword">float</span> Rm ;
+    
+    <span class="hljs-keyword">float</span> beta ;
+    <span class="hljs-keyword">float</span> delta ;
+    
+    equation SIR {
+        diff ( Sm , t ) = ( - beta * Sm * Im / N ) ; 
+        diff ( Im , t ) = ( beta * Sm   * Im / N ) - ( delta * Im ) ; 
+        diff ( Rm , t ) = ( delta * Im ) ;
+    }
+    
+    reflex solving {solve SIR <span class="hljs-string">method:</span> <span class="hljs-string">"rk4"</span> <span class="hljs-string">step:</span> <span class="hljs-number">0.01</span> ;}
+}
+
+
+experiment Simulation <span class="hljs-string">type:</span> gui {
+    parameter <span class="hljs-string">'Number of Susceptible'</span> <span class="hljs-string">type:</span> <span class="hljs-keyword">int</span> <span class="hljs-string">var:</span> number_S &lt;- <span class="hljs-number">495</span> <span class="hljs-string">category:</span> <span class="hljs-string">"Initial population"</span>; <span class="hljs-comment">// The initial number of susceptibles</span>
+    parameter <span class="hljs-string">'Number of Infected'</span>    <span class="hljs-string">type:</span> <span class="hljs-keyword">int</span> <span class="hljs-string">var:</span> number_I &lt;- <span class="hljs-number">5</span>   <span class="hljs-string">category:</span> <span class="hljs-string">"Initial population"</span>;
+    parameter <span class="hljs-string">'Number of Removed'</span>     <span class="hljs-string">type:</span> <span class="hljs-keyword">int</span> <span class="hljs-string">var:</span> number_R &lt;- <span class="hljs-number">0</span>   <span class="hljs-string">category:</span> <span class="hljs-string">"Initial population"</span>;
+
+    parameter <span class="hljs-string">'Beta (S-&gt;I)'</span>  <span class="hljs-string">type:</span> <span class="hljs-keyword">float</span> <span class="hljs-string">var:</span> beta &lt;- <span class="hljs-number">1.0</span>   <span class="hljs-string">category:</span> <span class="hljs-string">"Parameters"</span>;
+    parameter <span class="hljs-string">'Delta (I-&gt;R)'</span> <span class="hljs-string">type:</span> <span class="hljs-keyword">float</span> <span class="hljs-string">var:</span> delta &lt;- <span class="hljs-number">0.01</span> <span class="hljs-string">category:</span> <span class="hljs-string">"Parameters"</span>;
+    
+    output {
+        display <span class="hljs-string">"split system"</span> {
+            chart <span class="hljs-string">'Susceptible'</span> <span class="hljs-string">type:</span> series <span class="hljs-string">background:</span> rgb ( <span class="hljs-string">'lightGray'</span> ) {
+                data <span class="hljs-string">'susceptible'</span> <span class="hljs-string">value:</span> first ( S_agt ) . Ssize <span class="hljs-string">color:</span> rgb ( <span class="hljs-string">'green'</span> ) ;
+                data <span class="hljs-string">'infected'</span> <span class="hljs-string">value:</span> first ( I_agt ) . Isize <span class="hljs-string">color:</span> rgb ( <span class="hljs-string">'red'</span> ) ;
+                data <span class="hljs-string">'removed'</span> <span class="hljs-string">value:</span> first ( R_agt ) . Rsize <span class="hljs-string">color:</span> rgb ( <span class="hljs-string">'blue'</span> ) ;
+            }
+        }
+        display <span class="hljs-string">"unified system"</span>{
+            chart <span class="hljs-string">'Susceptible'</span> <span class="hljs-string">type:</span> series <span class="hljs-string">background:</span> rgb ( <span class="hljs-string">'lightGray'</span> ) {
+                data <span class="hljs-string">'susceptible_maths'</span> <span class="hljs-string">value:</span> first( SIR_agt ).Sm <span class="hljs-string">color:</span> rgb ( <span class="hljs-string">'green'</span> ) ;
+                data <span class="hljs-string">'infected_maths'</span> <span class="hljs-string">value:</span> first( SIR_agt ).Im <span class="hljs-string">color:</span> rgb ( <span class="hljs-string">'red'</span> ) ;
+                data <span class="hljs-string">'removed_maths'</span> <span class="hljs-string">value:</span> first( SIR_agt ).Rm <span class="hljs-string">color:</span> rgb ( <span class="hljs-string">'blue'</span> ) ;
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Additionnal Plugins/FIPA Skill/FIPA Skill FIPA Request (4) · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Additionnal Plugins/FIPA Skill/FIPA Skill FIPA Request (4) · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Additionnal Plugins/FIPA Skill/FIPA Skill FIPA Request (4)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="fipa-request-4"></a><a href="#fipa-request-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>FIPA Request (4)</h1>
+<p>This model demontrates a usecase of the FIPA Request interaction protocol.</p>
+<ul>
+<li>(Please see <a href="http://www.fipa.org/specs/fipa00026/index.html">http://www.fipa.org/specs/fipa00026/index.html</a> for the detail description of this protocol).</li>
+</ul>
+<ul>
+<li><p>The Initiator agent begins the 'fipa-request' conversation/intaction protocol by sending a 'request'</p></li>
+<li><p>message to the Participant agent with 'go sleeping' as content.</p></li>
+<li><p>On receiving a 'request' message, the Participant agent replies with an 'inform' message.</p></li>
+<li><p>According to the specification of the FIPA Requestion interaction protocol, the next possible messages</p></li>
+<li><p>after receiving a 'request' message are either 'refuse' message or 'agree' message.</p></li>
+<li><p>Hence replying with an 'inform' message upon receiving a 'request' message violates the protocol specification.</p></li>
+<li><p>GAMA will hence raise a GamaRuntimeException.</p></li>
+<li><p>A conversation is automatically ended in case of GamaRuntimeException raised. Hence this conversation ends.</p></li>
+</ul>
+<p>Code of the model :</p>
+<pre><code class="hljs">model fipa_request_4
+
+<span class="hljs-keyword">global</span> {
+    Participant p;
+    
+    init {
+        <span class="hljs-keyword">create</span> Initiator;
+        <span class="hljs-keyword">create</span> Participant <span class="hljs-keyword">returns</span>: ps;
+        
+        p &lt;- ps at <span class="hljs-number">0</span>;
+        
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'Step the simulation to observe the outcome in the console'</span>;
+    }
+}
+
+species Initiator skills: [fipa] {
+    reflex print_debug_infor {
+        <span class="hljs-keyword">write</span> <span class="hljs-type">name</span> + <span class="hljs-string">' with conversations: '</span> + (string(conversations)) + <span class="hljs-string">'; messages: '</span> + (string(mailbox));
+    }
+    
+    reflex send_request <span class="hljs-keyword">when</span>: (<span class="hljs-type">time</span> = <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'send message'</span>;
+        <span class="hljs-keyword">do</span> start_conversation <span class="hljs-keyword">with</span>: [ <span class="hljs-keyword">to</span> :: [p], protocol :: <span class="hljs-string">'fipa-request'</span>, performative :: <span class="hljs-string">'request'</span>, contents :: [<span class="hljs-string">'go sleeping'</span>] ];
+    }
+    
+    reflex read_refuse_message <span class="hljs-keyword">when</span>: !(empty(refuses)) {
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'read refuse messages'</span>;
+        <span class="hljs-keyword">loop</span> r <span class="hljs-keyword">over</span>: refuses {
+            <span class="hljs-keyword">write</span> <span class="hljs-string">'refuse message with content: '</span> + string(r.contents);
+        }
+    }
+}
+
+species Participant skills: [fipa] {
+    reflex print_debug_infor {
+        <span class="hljs-keyword">write</span> <span class="hljs-type">name</span> + <span class="hljs-string">' with conversations: '</span> + (string(conversations)) + <span class="hljs-string">'; messages: '</span> + (string(mailbox));
+    }
+
+    reflex reply_messages <span class="hljs-keyword">when</span>: (!empty(mailbox)) {
+        <span class="hljs-keyword">write</span> <span class="hljs-type">name</span> + <span class="hljs-string">' sends an inform message'</span>;
+        
+        
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'A GamaRuntimeException is raised to inform that the message\'</span>s performative doesn\<span class="hljs-string">'t respect the \'</span>request\<span class="hljs-string">' interaction protocol\'</span> specification<span class="hljs-string">';
+        do inform with: [ message :: (mailbox at 0), contents :: ['</span>I don\<span class="hljs-string">'t want'</span>] ]; // Attention: note that GAMA will <span class="hljs-keyword">raise</span> an <span class="hljs-keyword">exception</span> because an <span class="hljs-string">'inform'</span> message <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> appropriate here.
+    }
+}
+
+
+experiment test_request_interaction_protocol <span class="hljs-keyword">type</span>: gui {}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Tutorials/Tutorials/LunearysFlu/LuneraysFlu_step3 · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;3-importation-of-gis-data&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#3-importation-of-gis-data&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. Importation of GIS data&lt;/h1&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Tutorials/Tutorials/LunearysFlu/LuneraysFlu_step3 · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="&lt;h1&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;3-importation-of-gis-data&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#3-importation-of-gis-data&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;3. Importation of GIS data&lt;/h1&gt;
+"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Tutorials/Tutorials/LunearysFlu/LuneraysFlu_step3</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="3-importation-of-gis-data"></a><a href="#3-importation-of-gis-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. Importation of GIS data</h1>
+<p>This third step illustrates how load GIS data and to agentify them.</p>
+<p><img src="resources/images/tutorials/luneray3.png" alt="images/luneray3.png"></p>
+<h2><a class="anchor" aria-hidden="true" id="formulation"></a><a href="#formulation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formulation</h2>
+<ul>
+<li>Define 2 new species that will just be displayed: <em>road</em> and <em>building</em>.</li>
+<li>Define new global attributes to load GIS data (shape file).</li>
+<li>Use the GIS data to create the <em>road</em> and <em>building</em> agents.</li>
+<li>Add the <em>road</em> and <em>building</em> agents to the display.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
+<p>For this step, you will need to add the shapefiles of the roads and buildings inside the <em>includes</em> folder of the project. The shapefiles (and all the other files) can be found <a href="https://github.com/gama-platform/gama/wiki/resources/other/models/Luneray_flu.zip">here</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="species"></a><a href="#species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>species</h3>
+<p>In this model, we have to define two species of agents: the <strong>road</strong> agents and the <strong>building</strong> ones. These agents will not have a particular behavior, they will just be displayed.
+For each of this species we define an aspect called <em>geom</em>. As we want to represent the geometry of the agent, we then use the keyword <strong>draw</strong> that allow to draw a given geometry. In order to draw the geometry of the agent we use the attribute <strong>shape</strong> (which is a built-in attribute of all agents). The road will be displayed in black and the building in gray.</p>
+<pre><code class="hljs"><span class="hljs-attribute">species</span> road {
+    <span class="hljs-attribute">aspect</span> geom {
+        <span class="hljs-attribute">draw</span> shape color: <span class="hljs-comment">#black;</span>
+    }
+}
+
+species building {
+    <span class="hljs-attribute">aspect</span> geom {
+        <span class="hljs-attribute">draw</span> shape color: <span class="hljs-comment">#gray;</span>
+    }
+}
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="global-section"></a><a href="#global-section" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>global section</h3>
+<h4><a class="anchor" aria-hidden="true" id="global-variables"></a><a href="#global-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>global variables</h4>
+<p>GAMA allows to automatically read GIS data that are formatted as shape files (or as OSM file). In our model, we define 2 shapefiles: one corresponding to the roads and the other ones to the buildings. Note that GAMA is able to manage the projection of the GIS data.
+In order to set the right size (and position) of the world geometry, we define its value as the envelope of the road shapefile (and no more a square of 1500 meters).</p>
+<pre><code class="hljs"><span class="hljs-keyword">global</span>{
+    <span class="hljs-comment">//... other attributes</span>
+    <span class="hljs-keyword">file</span> roads_shapefile &lt;- <span class="hljs-keyword">file</span>(<span class="hljs-string">"../includes/routes.shp"</span>);
+    <span class="hljs-keyword">file</span> buildings_shapefile &lt;- <span class="hljs-keyword">file</span>(<span class="hljs-string">"../includes/batiments.shp"</span>);
+    geometry shape &lt;- envelope(roads_shapefile);    
+    <span class="hljs-comment">//... init</span>
+}
+
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="agentification-of-gis-data"></a><a href="#agentification-of-gis-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>agentification of GIS data</h3>
+<p>In GAMA, the agentification of GIS data is very straightforward: it only requires to use the <strong>create</strong> command with the <strong>from</strong> facet to pass the shapefile. Each object of the shapefile will be directly used to instantiate an agent of the specified species. The reading of an attribute in a shapefile is also very simple. It only requires to use the <strong>with</strong> facet: the argument of this facet is a dictionary of which the keys are the names of the agent attributes and the value the <strong>read</strong> command followed by the name of the shapefile attribute.</p>
+<p>In our model, we modify the init section in order to first create the <em>road</em> agents from the road shapefile, and the <em>building</em> agents from the building shapefile. Then, when creating people agents, we choose for them a random location inside a random building.
+Note that it is possible to execute a sequence of statements at the creation of agents by using a block ({...}) rather than a simple line (;) when using the <em>create</em> statement.</p>
+<pre><code class="hljs">global {
+    // world variable definition
+
+    init{
+        <span class="hljs-keyword">create</span> road <span class="hljs-keyword">from</span>: roads_shapefile;
+        <span class="hljs-keyword">create</span> building <span class="hljs-keyword">from</span>: buildings_shapefile;
+        <span class="hljs-keyword">create</span> people <span class="hljs-keyword">number</span>:nb_people {
+            location &lt;- any_location_in(one_of(building));      }       
+        }
+        ask nb_infected_init among people {
+            is_infected &lt;- true;
+        }
+    }
+}
+</code></pre>
+<p>We used here the <a href="Operators#one_of">one_of</a> operator that returns a random element from a list and the <a href="Operators#any_location_in">any_location_in</a> operator that returns a random location inside a geometry.</p>
+<h3><a class="anchor" aria-hidden="true" id="experiment"></a><a href="#experiment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>experiment</h3>
+<h4><a class="anchor" aria-hidden="true" id="output"></a><a href="#output" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Output</h4>
+<p>In the <em>map</em> display, we add the <em>road</em> and <em>building</em> species with their <em>geom</em> aspect just before the <em>people</em> species (in order to draw the people agents on the top of the roads and buildings).</p>
+<pre><code class="hljs">experiment main_experiment <span class="hljs-keyword">type</span>: gui {
+    <span class="hljs-params">...</span> <span class="hljs-comment">//parameter definition</span>
+
+    output {
+    <span class="hljs-params">...</span> <span class="hljs-comment">//monitor definition</span>
+
+        display <span class="hljs-built_in">map</span> <span class="hljs-keyword">type</span>: opengl{
+            species road aspect:geom;
+            species building aspect:geom;
+            species people aspect:circle;           
+        }
+        <span class="hljs-params">...</span> <span class="hljs-comment">//chart display definition</span>
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
+<pre><code class="hljs"><span class="hljs-attr">model</span> <span class="hljs-string">model3</span>
+
+<span class="hljs-attr">global</span> <span class="hljs-string">{</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">nb_people &lt;- 2147;</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">nb_infected_init &lt;- 5;</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">step &lt;- 5 #mn;</span>
+    <span class="hljs-attr">file</span> <span class="hljs-string">roads_shapefile &lt;- file("../includes/roads.shp");</span>
+    <span class="hljs-attr">file</span> <span class="hljs-string">buildings_shapefile &lt;- file("../includes/buildings.shp");</span>
+    <span class="hljs-attr">geometry</span> <span class="hljs-string">shape &lt;- envelope(roads_shapefile);    </span>
+    
+    <span class="hljs-attr">int</span> <span class="hljs-string">nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">infected_rate update: nb_people_infected/nb_people;</span>
+    
+    
+    <span class="hljs-attr">init{</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">road from: roads_shapefile;</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">building from: buildings_shapefile;</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">people number:nb_people {</span>
+            <span class="hljs-attr">location</span> <span class="hljs-string">&lt;- any_location_in(one_of(building));              </span>
+        <span class="hljs-attr">}</span>
+        <span class="hljs-attr">ask</span> <span class="hljs-string">nb_infected_init among people {</span>
+            <span class="hljs-attr">is_infected</span> <span class="hljs-string">&lt;- true;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">people skills:[moving]{     </span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">speed &lt;- (2 + rnd(3)) #km/#h;</span>
+    <span class="hljs-attr">bool</span> <span class="hljs-string">is_infected &lt;- false;</span>
+    
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">move{</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">wander;</span>
+    <span class="hljs-attr">}</span>
+
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">infect when: is_infected{</span>
+        <span class="hljs-attr">ask</span> <span class="hljs-string">people at_distance 10 #m {</span>
+            <span class="hljs-attr">if</span> <span class="hljs-string">flip(0.05) {</span>
+                <span class="hljs-attr">is_infected</span> <span class="hljs-string">&lt;- true;</span>
+            <span class="hljs-attr">}</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">circle {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">circle(10) color:is_infected ? #red : #green;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">road {</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">geom {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">shape color: #black;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">building {</span>
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">geom {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">shape color: #gray;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">main type: gui {</span>
+    <span class="hljs-attr">parameter</span> <span class="hljs-string">"Nb people infected at init" var: nb_infected_init min: 1 max: 2147;</span>
+
+    <span class="hljs-attr">output</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">monitor</span> <span class="hljs-string">"Infected people rate" value: infected_rate;</span>
+        
+        <span class="hljs-attr">display</span> <span class="hljs-string">map {</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">road aspect:geom;</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">building aspect:geom;</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">people aspect:circle;           </span>
+        <span class="hljs-attr">}</span>
+        
+        <span class="hljs-attr">display</span> <span class="hljs-string">chart_display refresh: every(10 #cycle) {</span>
+            <span class="hljs-attr">chart</span> <span class="hljs-string">"Disease spreading" type: series {</span>
+                <span class="hljs-attr">data</span> <span class="hljs-string">"susceptible" value: nb_people_not_infected color: #green;</span>
+                <span class="hljs-attr">data</span> <span class="hljs-string">"infected" value: nb_people_infected color: #red;</span>
+            <span class="hljs-attr">}</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+<p><a href="LuneraysFlu_step4">Next step: Use of a graph to constraint the movements of people</a></p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#formulation">Formulation</a></li><li><a href="#model-definition">Model Definition</a><ul class="toc-headings"><li><a href="#species">species</a></li><li><a href="#global-section">global section</a></li><li><a href="#agentification-of-gis-data">agentification of GIS data</a></li><li><a href="#experiment">experiment</a></li></ul></li><li><a href="#complete-model">Complete Model</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

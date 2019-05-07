@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Tutorials/LearnGAMLStepByStep/ManipulateBasicSpecies/DefiningActionsAndBehaviors · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Tutorials/LearnGAMLStepByStep/ManipulateBasicSpecies/DefiningActionsAndBehaviors · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Tutorials/LearnGAMLStepByStep/ManipulateBasicSpecies/DefiningActionsAndBehaviors</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="defining-actions-and-behaviors"></a><a href="#defining-actions-and-behaviors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining actions and behaviors</h1>
+<p>Both actions and behaviors can be seen as methods in OOP. They can be defined in any species.</p>
+<h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
+<ul>
+<li><a href="#action">Action</a>
+<ul>
+<li><a href="#declare-an-action">Declare an action</a></li>
+<li><a href="#call-an-action">Call an action</a></li>
+</ul></li>
+<li><a href="#behavior">Behavior</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="action"></a><a href="#action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Action</h2>
+<h3><a class="anchor" aria-hidden="true" id="declare-an-action"></a><a href="#declare-an-action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declare an action</h3>
+<p>An action is a function run by an instance of species. An action can return a value (in that case, the type of return has to be specify just before the name of the action), or not (in that case, you just have to put the keyword <code>action</code> before the name of the action).</p>
+<pre><code class="hljs">species my<span class="hljs-number">_</span>species {
+    int action<span class="hljs-number">_</span>with<span class="hljs-number">_</span><span class="hljs-keyword">return</span><span class="hljs-number">_</span><span class="hljs-keyword">value</span> {
+        <span class="hljs-comment">// statements...</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    action action<span class="hljs-number">_</span>without<span class="hljs-number">_</span><span class="hljs-keyword">return</span><span class="hljs-number">_</span><span class="hljs-keyword">value</span> {
+        <span class="hljs-comment">// statements...</span>
+    }
+}
+</code></pre>
+<p>Arguments can also be mandated in your action. You have to specify the type and the name of the argument:</p>
+<pre><code class="hljs"><span class="hljs-function">action <span class="hljs-title">action_without_return_value</span> <span class="hljs-params">(<span class="hljs-keyword">int</span> argA, <span class="hljs-keyword">float</span> argB)</span> </span>{
+    <span class="hljs-comment">// statements...</span>
+}
+</code></pre>
+<p>If you want to have some optional arguments in the list, you can give some by default values to turn them optional. Nb: it is better to define the optional arguments at the end of the list of argument.</p>
+<pre><code class="hljs">action my_action (<span class="hljs-built_in">int</span> argA, <span class="hljs-built_in">float</span> argB &lt;- <span class="hljs-number">5.1</span>, point argC &lt;- {<span class="hljs-number">0</span>,<span class="hljs-number">0</span>}) {
+    <span class="hljs-comment">// statements...</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="call-an-action"></a><a href="#call-an-action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Call an action</h3>
+<p>To call an action, you have to use the statement <code>do</code>. You can use the statement do different ways:</p>
+<ul>
+<li>With facets : after specifying the name of your action, you can specify the values of your arguments as if the name of your arguments were facets:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-keyword">do</span> my_action argA:<span class="hljs-number">5</span> argB:<span class="hljs-number">5.1</span>;
+</code></pre>
+<ul>
+<li>With parenthesis : after specifying the name of your action, you can specify the values of your arguments in the same order they were declared, between parenthesis:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-keyword">do</span> my_action (<span class="hljs-number">5</span>,<span class="hljs-number">5.1</span>);
+</code></pre>
+<p>We incite you to promote the second writing. To catch the returned value, you can also skip the do statement, and store the value directly in a temporary variable:</p>
+<pre><code class="hljs"><span class="hljs-built_in">int</span> var1 &lt;- my_action(<span class="hljs-number">5</span>,<span class="hljs-number">5.1</span>);
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="behavior"></a><a href="#behavior" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Behavior</h2>
+<p>A behavior, or reflex, is an action which is called automatically at each time step by an agent.</p>
+<pre><code class="hljs">reflex my_reflex {
+    <span class="hljs-built_in">write</span> (<span class="hljs-string">"Executing the inconditional reflex"</span>);
+<span class="hljs-comment">// statements...</span>
+}
+</code></pre>
+<p>With the facet when, this reflex is only executed when the boolean expression evaluates to true. It is a convenient way to specify the behavior of agents.</p>
+<pre><code class="hljs"><span class="hljs-selector-tag">reflex</span> <span class="hljs-selector-tag">my_reflex</span> <span class="hljs-keyword">when</span>:flip(<span class="hljs-number">0.5</span>) {
+    <span class="hljs-selector-tag">write</span> (<span class="hljs-string">"Executing the conditional reflex"</span>);
+<span class="hljs-comment">// statements...</span>
+}
+</code></pre>
+<p>Reflex, unlike actions, cannot be called from another context. But a reflex can, of course, call actions.</p>
+<p>Nb : Init is a special reflex, that occurs only when the agent is created.</p>
+<h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
+<p>To practice a bit with those notions, we will build an easy example. Let's build a model with a species balloon that has 2 attributes: balloon_size (float) and balloon_color (rgb). Each balloon has a random position and color, his aspect is a sphere. Each step, a balloon has a probability to spawn in the environment. Once a balloon is created, its size is 10cm, and each step, the size increases by 1cm. Once the balloon size reaches 50cm, the balloon has a probability to burst. Once 10 balloons are destroyed, the simulation stops. The volume of each balloon is displayed in the balloon position.</p>
+<p><img src="resources/images/manipulateBasicSpecies/burst_the_baloon.png" alt="images/burst_the_baloon.png"></p>
+<p>Here is one of the multiple possible implementation:</p>
+<pre><code class="hljs"><span class="hljs-attr">model</span> <span class="hljs-string">burst_the_baloon</span>
+
+<span class="hljs-attr">global{</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">worldDimension &lt;- 5#m;</span>
+    <span class="hljs-attr">geometry</span> <span class="hljs-string">shape &lt;- square(worldDimension);</span>
+    <span class="hljs-attr">int</span> <span class="hljs-string">nbBaloonDead &lt;- 0;</span>
+
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">buildBaloon when:(flip(0.1)) {</span>
+        <span class="hljs-attr">create</span> <span class="hljs-string">species:balloon number:1;</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">endSimulation when:nbBaloonDead&gt;10 {</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">halt;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">species</span> <span class="hljs-string">balloon {</span>
+    <span class="hljs-attr">float</span> <span class="hljs-string">balloon_size;</span>
+    <span class="hljs-attr">rgb</span> <span class="hljs-string">balloon_color;</span>
+    <span class="hljs-attr">init</span> <span class="hljs-string">{</span>
+        <span class="hljs-attr">balloon_size</span> <span class="hljs-string">&lt;- 0.1;</span>
+        <span class="hljs-attr">balloon_color</span> <span class="hljs-string">&lt;- rgb(rnd(255),rnd(255),rnd(255));</span>
+    <span class="hljs-attr">}</span>
+
+    <span class="hljs-attr">reflex</span> <span class="hljs-string">balloon_grow {</span>
+        <span class="hljs-attr">balloon_size</span> <span class="hljs-string">&lt;- balloon_size + 0.01;</span>
+        <span class="hljs-attr">if</span> <span class="hljs-string">(balloon_size &gt; 0.5) {</span>
+            <span class="hljs-attr">if</span> <span class="hljs-string">(flip(0.2)) {</span>
+                <span class="hljs-attr">do</span> <span class="hljs-string">balloon_burst;</span>
+            <span class="hljs-attr">}</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">float</span> <span class="hljs-string">balloon_volume (float diameter) {</span>
+        <span class="hljs-attr">float</span> <span class="hljs-string">exact_value &lt;- 2/3*#pi*diameter^3;</span>
+        <span class="hljs-attr">float</span> <span class="hljs-string">round_value &lt;- (round(exact_value*1000))/1000;</span>
+        <span class="hljs-attr">return</span> <span class="hljs-string">round_value;</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">action</span> <span class="hljs-string">balloon_burst {</span>
+        <span class="hljs-attr">write</span> <span class="hljs-string">"the baloon is dead !";</span>
+        <span class="hljs-attr">nbBaloonDead</span> <span class="hljs-string">&lt;- nbBaloonDead + 1;</span>
+        <span class="hljs-attr">do</span> <span class="hljs-string">die;</span>
+    <span class="hljs-attr">}</span>
+    
+    <span class="hljs-attr">aspect</span> <span class="hljs-string">balloon_aspect {</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">circle(balloon_size) color:balloon_color;</span>
+        <span class="hljs-attr">draw</span> <span class="hljs-string">text:string(balloon_volume(balloon_size)) color:#black;</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+
+<span class="hljs-attr">experiment</span> <span class="hljs-string">my_experiment type:gui</span>
+<span class="hljs-attr">{</span>
+    <span class="hljs-attr">output{</span>
+        <span class="hljs-attr">display</span> <span class="hljs-string">myDisplay {</span>
+            <span class="hljs-attr">species</span> <span class="hljs-string">balloon aspect:balloon_aspect;</span>
+        <span class="hljs-attr">}</span>
+    <span class="hljs-attr">}</span>
+<span class="hljs-attr">}</span>
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#index">Index</a></li><li><a href="#action">Action</a><ul class="toc-headings"><li><a href="#declare-an-action">Declare an action</a></li><li><a href="#call-an-action">Call an action</a></li></ul></li><li><a href="#behavior">Behavior</a></li><li><a href="#example">Example</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

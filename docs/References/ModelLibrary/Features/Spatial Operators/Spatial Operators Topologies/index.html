@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Features/Spatial Operators/Spatial Operators Topologies · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Features/Spatial Operators/Spatial Operators Topologies · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Features/Spatial Operators/Spatial Operators Topologies</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="spatial-operators"></a><a href="#spatial-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Spatial Operators</h1>
+<p><em>Author : Patrick Taillandier</em></p>
+<p>A model which shows how to use spatial operator, allowing the user to change the parameter operator in the experiment to test the different operators and see the results</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model gridfilter
+
+global {
+    <span class="hljs-built_in">map</span>&lt;string,<span class="hljs-built_in">map</span>&lt;dummy,rgb&gt;&gt; theDummies;
+    <span class="hljs-built_in">map</span>&lt;string,<span class="hljs-built_in">map</span>&lt;cell,rgb&gt;&gt; theCells;
+    string parameter_operator &lt;-<span class="hljs-string">"closest_to"</span> among:[<span class="hljs-string">"closest_to"</span>,<span class="hljs-string">"at_distance"</span>,<span class="hljs-string">"neighbors_at"</span>,<span class="hljs-string">"distance_to"</span>,<span class="hljs-string">"path_to"</span>,<span class="hljs-string">"cluster_distance"</span>,<span class="hljs-string">"cluster_hierarchical"</span>];
+    init {
+        
+        <span class="hljs-comment">//Create the agents</span>
+        do create_dummy_agents;
+ 
+
+        <span class="hljs-comment">//Different actions to test the operators</span>
+        do test_agents_at_distance;
+        do test_distance_to;
+        do test_neighbors_at;
+        do test_path_to;
+        do test_simple_clustering_by_distance;
+        do test_hierarchical_clustering;
+        do test_agent_closest_to;   
+    }  
+    
+    action test_agent_closest_to {
+        <span class="hljs-comment">//It is possible to use the topology of the world (default), the graph or the grid</span>
+        <span class="hljs-built_in">add</span> [dummy(<span class="hljs-number">8</span>)::#yellow] at:<span class="hljs-string">"closest_to"</span> to:theDummies;
+        <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:dummy closest_to (dummy(<span class="hljs-number">8</span>)) to:theDummies[<span class="hljs-string">"closest_to"</span>];
+        
+        
+        <span class="hljs-built_in">add</span> [cell(<span class="hljs-number">40</span>)::#yellow] at:<span class="hljs-string">"closest_to"</span> to:theCells;
+        <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:cell closest_to (cell(<span class="hljs-number">40</span>)) to:theCells[<span class="hljs-string">"closest_to"</span>];
+    }
+    action test_agents_at_distance {
+        
+        <span class="hljs-comment">//It is possible to use the topology of the world (default), the graph or the grid</span>
+        ask dummy(<span class="hljs-number">8</span>)
+        {
+            <span class="hljs-built_in">add</span> [self::#yellow] at:<span class="hljs-string">"at_distance"</span> to:theDummies;
+            <span class="hljs-built_in">loop</span> a_dummy over: agents_at_distance(<span class="hljs-number">30</span>) of_species dummy
+            {   
+                <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:a_dummy to:theDummies[<span class="hljs-string">"at_distance"</span>];
+            }
+        }
+        ask cell(<span class="hljs-number">40</span>)
+        {
+            <span class="hljs-built_in">add</span> [self::#yellow] at:<span class="hljs-string">"at_distance"</span> to:theCells;
+            <span class="hljs-built_in">loop</span> a_cell over: agents_at_distance(<span class="hljs-number">10</span>) of_species cell
+            {   
+                <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:a_cell to:theCells[<span class="hljs-string">"at_distance"</span>];
+            }
+        }
+    }
+    
+    action test_neighbors_at {
+        
+        <span class="hljs-comment">//It is possible to use the topology of the world (default), the graph or the grid</span>
+        <span class="hljs-comment">//The operator neighbors_at gives the same results that neighbors_of( an_agent, a_distance )</span>
+        
+        <span class="hljs-built_in">add</span> [dummy(<span class="hljs-number">8</span>)::#yellow] at:<span class="hljs-string">"neighbors_at"</span> to:theDummies;
+        <span class="hljs-built_in">loop</span> a_dummy over: dummy(<span class="hljs-number">8</span>) neighbors_at <span class="hljs-number">30</span>
+        {   
+            <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:a_dummy to:theDummies[<span class="hljs-string">"neighbors_at"</span>];
+        }
+        <span class="hljs-built_in">add</span> [cell(<span class="hljs-number">40</span>)::#yellow] at:<span class="hljs-string">"neighbors_at"</span> to:theCells;
+        <span class="hljs-built_in">loop</span> a_cell over: cell(<span class="hljs-number">40</span>) neighbors_at <span class="hljs-number">20</span>
+        {   
+            <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:a_cell to:theCells[<span class="hljs-string">"neighbors_at"</span>];
+        }
+    }
+    
+    action test_distance_to {
+        
+        <span class="hljs-comment">//It is possible to use the topology of the world (default), the graph or the grid</span>
+        <span class="hljs-comment">//The operator distance_to gives the same results that the operator topology distance_between[an_agent_A,an_agent_B]</span>
+        <span class="hljs-built_in">add</span> [dummy(<span class="hljs-number">8</span>)::#yellow] at:<span class="hljs-string">"distance_to"</span> to:theDummies;
+        <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:dummy(<span class="hljs-number">5</span>) to:theDummies[<span class="hljs-string">"distance_to"</span>];
+        
+        <span class="hljs-built_in">add</span> [cell(<span class="hljs-number">40</span>)::#yellow] at:<span class="hljs-string">"distance_to"</span> to:theCells;
+        <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:cell(<span class="hljs-number">27</span>) to:theCells[<span class="hljs-string">"distance_to"</span>];
+    }
+    
+    action test_path_to {
+        
+        <span class="hljs-comment">//It is possible to use the topology of the world (default), the graph or the grid</span>
+        <span class="hljs-comment">//The operator distance_to gives the same results that the operator topology path_between[an_agent_A,an_agent_B]</span>
+        <span class="hljs-built_in">add</span> [dummy(<span class="hljs-number">8</span>)::#yellow] at:<span class="hljs-string">"path_to"</span> to:theDummies;
+        <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:dummy(<span class="hljs-number">9</span>) to:theDummies[<span class="hljs-string">"path_to"</span>];
+        
+        <span class="hljs-built_in">add</span> [cell(<span class="hljs-number">40</span>)::#yellow] at:<span class="hljs-string">"path_to"</span> to:theCells;
+        <span class="hljs-built_in">add</span> #<span class="hljs-built_in">red</span> at:cell(<span class="hljs-number">28</span>) to:theCells[<span class="hljs-string">"path_to"</span>];
+    }
+    action test_simple_clustering_by_distance 
+    {
+        <span class="hljs-comment">//Can be used for other topologies by adding using(topology(cell)) for example</span>
+        
+        list&lt;list&lt;dummy&gt;&gt; clusteredDummies &lt;- list&lt;list&lt;dummy&gt;&gt;(dummy simple_clustering_by_distance <span class="hljs-number">30</span>);
+        <span class="hljs-built_in">loop</span> a_list over: clusteredDummies
+        {
+            rgb colorList &lt;- rgb(rnd(<span class="hljs-number">255</span>),rnd(<span class="hljs-number">255</span>),rnd(<span class="hljs-number">255</span>));
+            <span class="hljs-built_in">loop</span> a_dummy over: a_list
+            {
+                <span class="hljs-keyword">if</span>(length(theDummies[<span class="hljs-string">"cluster_distance"</span>])=<span class="hljs-number">0</span>)
+                {
+                    <span class="hljs-built_in">add</span> <span class="hljs-built_in">map</span>&lt;dummy,rgb&gt;([a_dummy::colorList]) at:<span class="hljs-string">"cluster_distance"</span> to:theDummies;
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-built_in">add</span> colorList at:a_dummy to:theDummies[<span class="hljs-string">"cluster_distance"</span>];
+                }
+            }
+        }
+    }
+    action test_hierarchical_clustering {
+        <span class="hljs-comment">//Can be used for other topologies by adding using(topology(cell)) for example</span>
+        list&lt;list&lt;dummy&gt;&gt; clusteredDummies &lt;- list&lt;list&lt;dummy&gt;&gt;(dummy hierarchical_clustering <span class="hljs-number">10</span>);
+        
+        <span class="hljs-built_in">loop</span> a_list over: clusteredDummies
+        {
+            rgb colorList &lt;- rgb(rnd(<span class="hljs-number">255</span>),rnd(<span class="hljs-number">255</span>),rnd(<span class="hljs-number">255</span>));
+            <span class="hljs-built_in">loop</span> a_dummy over: a_list
+            {
+                <span class="hljs-keyword">if</span>(length(theDummies[<span class="hljs-string">"cluster_hierarchical"</span>])=<span class="hljs-number">0</span>)
+                {
+                    <span class="hljs-built_in">add</span> <span class="hljs-built_in">map</span>&lt;dummy,rgb&gt;([a_dummy::colorList]) at:<span class="hljs-string">"cluster_hierarchical"</span> to:theDummies;
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-built_in">add</span> colorList at:a_dummy to:theDummies[<span class="hljs-string">"cluster_hierarchical"</span>];
+                }
+            }
+        }
+    }
+    action create_dummy_agents {
+        create dummy with: [location :: {<span class="hljs-number">5</span>,<span class="hljs-number">5</span>}];
+        create dummy with: [location :: {<span class="hljs-number">8</span>,<span class="hljs-number">9</span>}];
+        create dummy with: [location :: {<span class="hljs-number">14</span>,<span class="hljs-number">6</span>}];
+        create dummy with: [location :: {<span class="hljs-number">35</span>,<span class="hljs-number">55</span>}];
+        create dummy with: [location :: {<span class="hljs-number">25</span>,<span class="hljs-number">75</span>}];
+        create dummy with: [location :: {<span class="hljs-number">56</span>,<span class="hljs-number">80</span>}];
+        create dummy with: [location :: {<span class="hljs-number">10</span>,<span class="hljs-number">70</span>}];
+        create dummy with: [location :: {<span class="hljs-number">80</span>,<span class="hljs-number">8</span>}];
+        create dummy with: [location :: {<span class="hljs-number">34</span>,<span class="hljs-number">78</span>}];
+        create dummy with: [location :: {<span class="hljs-number">67</span>,<span class="hljs-number">32</span>}];
+        <span class="hljs-built_in">loop</span> i from: <span class="hljs-number">0</span> to: length(dummy) - <span class="hljs-number">1</span> {
+            ask dummy[i] {id &lt;- string(i);}
+        }
+    }
+    
+}
+
+grid cell <span class="hljs-built_in">width</span>: <span class="hljs-number">10</span> <span class="hljs-built_in">height</span>: <span class="hljs-number">10</span> neighbors: <span class="hljs-number">4</span>{
+    rgb <span class="hljs-built_in">color</span> &lt;- #<span class="hljs-built_in">green</span>;
+}
+
+species dummy {
+    string id;
+    aspect <span class="hljs-keyword">default</span> {
+        <span class="hljs-title">draw</span> circle(<span class="hljs-number">2</span>) <span class="hljs-built_in">color</span>: #yellow;
+        <span class="hljs-title">draw</span> id <span class="hljs-built_in">size</span>: <span class="hljs-number">6</span> <span class="hljs-built_in">color</span>: #black;
+    }
+}
+experiment topology_test type: gui {
+    <span class="hljs-comment">/** Insert here the definition of the input and output of the model */</span>
+    parameter <span class="hljs-string">"Operator"</span> var: parameter_operator;
+    output {
+        
+        display Continuous_Environment  
+        {
+            graphics cell
+            {
+                <span class="hljs-built_in">loop</span> a_key over: theCells[parameter_operator].pairs {
+                    <span class="hljs-title">draw</span> a_key.<span class="hljs-built_in">key</span> at:a_key.<span class="hljs-built_in">key</span>.location <span class="hljs-built_in">color</span>: theCells[parameter_operator][a_key.<span class="hljs-built_in">key</span>] ;
+                }
+                <span class="hljs-built_in">loop</span> a_cell over: cell-theCells[parameter_operator].keys
+                {
+                    <span class="hljs-title">draw</span> a_cell at:a_cell.location <span class="hljs-built_in">color</span>: #<span class="hljs-built_in">green</span> ;
+                }
+                
+                <span class="hljs-comment">//Display a line between the two chosen cell for the distance_to operator</span>
+                <span class="hljs-keyword">if</span>(parameter_operator=<span class="hljs-string">"distance_to"</span>)
+                {
+                    geometry aLine &lt;- <span class="hljs-built_in">line</span>([theCells[parameter_operator].keys[<span class="hljs-number">0</span>].location,theCells[parameter_operator].keys[<span class="hljs-number">1</span>].location]) +<span class="hljs-number">1.2</span>;
+                    <span class="hljs-title">draw</span> (aLine) <span class="hljs-built_in">color</span>:#silver;
+                    <span class="hljs-title">draw</span> string(distance_to (theCells[parameter_operator].keys[<span class="hljs-number">0</span>].location,theCells[parameter_operator].keys[<span class="hljs-number">1</span>].location)) at:aLine.location <span class="hljs-built_in">size</span>: <span class="hljs-number">6</span> <span class="hljs-built_in">color</span>: #silver;    
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-comment">//Display a path between the two chosen cell for the path_to operator</span>
+                    <span class="hljs-keyword">if</span>(parameter_operator=<span class="hljs-string">"path_to"</span>)
+                    {
+                            path aPath &lt;- theCells[parameter_operator].keys[<span class="hljs-number">0</span>] path_to theCells[parameter_operator].keys[<span class="hljs-number">1</span>].location;
+                            <span class="hljs-built_in">loop</span> eg over: aPath.edges
+                            {
+                                <span class="hljs-title">draw</span> (geometry(eg)+<span class="hljs-number">1.2</span>) <span class="hljs-built_in">color</span>:#silver;
+                            }
+                    }
+                }
+            }
+            graphics dummy
+            {
+                <span class="hljs-built_in">loop</span> a_key over: theDummies[parameter_operator].pairs {
+                    <span class="hljs-title">draw</span> circle(<span class="hljs-number">2</span>) at:a_key.<span class="hljs-built_in">key</span>.location <span class="hljs-built_in">color</span>: theDummies[parameter_operator][a_key.<span class="hljs-built_in">key</span>] ;
+                    <span class="hljs-title">draw</span> a_key.<span class="hljs-built_in">key</span>.id at:a_key.<span class="hljs-built_in">key</span>.location <span class="hljs-built_in">size</span>: <span class="hljs-number">6</span> <span class="hljs-built_in">color</span>: #black;  
+                }
+                <span class="hljs-built_in">loop</span> a_dummy over: dummy-theDummies[parameter_operator].keys
+                {
+                    <span class="hljs-title">draw</span> circle(<span class="hljs-number">2</span>) at:a_dummy.location <span class="hljs-built_in">color</span>: #grey ;
+                    <span class="hljs-title">draw</span> a_dummy.id at:a_dummy.location <span class="hljs-built_in">size</span>: <span class="hljs-number">6</span> <span class="hljs-built_in">color</span>: #black;  
+                }
+                <span class="hljs-comment">//Display a line between the two chosen dummies for the distance_to operator</span>
+                <span class="hljs-keyword">if</span>(parameter_operator=<span class="hljs-string">"distance_to"</span>)
+                {
+                    geometry aLine &lt;- <span class="hljs-built_in">line</span>([theDummies[parameter_operator].keys[<span class="hljs-number">0</span>].location,theDummies[parameter_operator].keys[<span class="hljs-number">1</span>].location]) +<span class="hljs-number">1.2</span>;
+                    <span class="hljs-title">draw</span> (aLine) <span class="hljs-built_in">color</span>:#pink;
+                    <span class="hljs-title">draw</span> string(distance_to (theDummies[parameter_operator].keys[<span class="hljs-number">0</span>].location,theDummies[parameter_operator].keys[<span class="hljs-number">1</span>].location)) at:aLine.location <span class="hljs-built_in">size</span>: <span class="hljs-number">6</span> <span class="hljs-built_in">color</span>: #pink;  
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-comment">//Display a path between the two chosen dummies for the path_to operator</span>
+                    <span class="hljs-keyword">if</span>(parameter_operator=<span class="hljs-string">"path_to"</span>)
+                    {
+                            path aPath &lt;- theDummies[parameter_operator].keys[<span class="hljs-number">0</span>] path_to theDummies[parameter_operator].keys[<span class="hljs-number">1</span>].location;
+                            <span class="hljs-built_in">loop</span> eg over: aPath.edges
+                            {
+                                <span class="hljs-title">draw</span> (geometry(eg)+<span class="hljs-number">1.2</span>) <span class="hljs-built_in">color</span>:#pink;
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

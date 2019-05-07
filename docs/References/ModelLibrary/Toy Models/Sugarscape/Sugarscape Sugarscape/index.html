@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Toy Models/Sugarscape/Sugarscape Sugarscape · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Toy Models/Sugarscape/Sugarscape Sugarscape · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Toy Models/Sugarscape/Sugarscape Sugarscape</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="sugarscape"></a><a href="#sugarscape" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sugarscape</h1>
+<p>_Author : _</p>
+<p>A model with animal moving on a grid to find sugar. The animal agents have a life duration and die if it is reached or if they don't have anymore sugar.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model sugarscape
+
+  
+<span class="hljs-keyword">global</span> {
+    <span class="hljs-comment">// Parameters </span>
+    
+    <span class="hljs-comment">//Growth rate of the sugar</span>
+    <span class="hljs-keyword">int</span> sugarGrowthRate &lt;- <span class="hljs-number">1</span>;
+    <span class="hljs-comment">//Minimum age of death</span>
+    <span class="hljs-keyword">int</span> minDeathAge &lt;- <span class="hljs-number">60</span>;
+    <span class="hljs-comment">//Maximum age of death</span>
+    <span class="hljs-keyword">int</span> maxDeathAge &lt;- <span class="hljs-number">100</span>;
+    <span class="hljs-comment">//Metabolism maximum</span>
+    <span class="hljs-keyword">int</span> maxMetabolism &lt;- <span class="hljs-number">3</span>;
+    
+    <span class="hljs-comment">//Maximum and Minimum initial sugar</span>
+    <span class="hljs-keyword">int</span> maxInitialSugar &lt;- <span class="hljs-number">25</span> ;
+    <span class="hljs-keyword">int</span> minInitialSugar &lt;- <span class="hljs-number">5</span>;
+    <span class="hljs-comment">//Maximum range</span>
+    <span class="hljs-keyword">int</span> maxRange &lt;- <span class="hljs-number">6</span>;
+    <span class="hljs-keyword">bool</span> replace &lt;- <span class="hljs-keyword">true</span>;
+    <span class="hljs-comment">//Number of agents</span>
+    <span class="hljs-keyword">int</span> numberOfAgents &lt;- <span class="hljs-number">400</span>;  
+    
+    <span class="hljs-comment">// Environment</span>
+    geometry shape &lt;- rectangle(<span class="hljs-number">50</span>, <span class="hljs-number">50</span>);
+        
+    file&lt;<span class="hljs-keyword">int</span>&gt; types  &lt;- file&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-string">'../images/sugarscape.pgm'</span>);
+    rgb FFFFAA <span class="hljs-keyword">const</span>: <span class="hljs-keyword">true</span> &lt;- rgb(<span class="hljs-string">'#FFFFAA'</span>);
+    rgb FFFF55 <span class="hljs-keyword">const</span>: <span class="hljs-keyword">true</span> &lt;- rgb(<span class="hljs-string">'#FFFF55'</span>);
+    rgb dark_yellow <span class="hljs-keyword">const</span>: <span class="hljs-keyword">true</span> &lt;- rgb(<span class="hljs-string">'#EEB422'</span>);
+    rgb less_red <span class="hljs-keyword">const</span>: <span class="hljs-keyword">true</span> &lt;- rgb(<span class="hljs-string">'#FF5F5F'</span>);
+    
+    init {
+        
+        <span class="hljs-comment">//Create the animal</span>
+        create animal number: numberOfAgents;
+        
+        <span class="hljs-comment">//Ask to each sugar cell to set its sugar</span>
+        ask sugar_cell {
+            maxSugar &lt;- (types at {grid_x,grid_y});
+            sugar &lt;- maxSugar;
+            color &lt;- [<span class="hljs-comment">#white,FFFFAA,FFFF55,#yellow,dark_yellow] at sugar;</span>
+        }
+    }
+}
+
+    <span class="hljs-comment">//Grid species representing the sugar cells</span>
+    grid sugar_cell width: <span class="hljs-number">50</span> height: <span class="hljs-number">50</span> neighbors: <span class="hljs-number">4</span> use_individual_shapes: <span class="hljs-keyword">false</span> use_regular_agents: <span class="hljs-keyword">false</span>{ 
+        <span class="hljs-comment">//Maximum sugar</span>
+        <span class="hljs-keyword">int</span> maxSugar;
+        <span class="hljs-comment">//Sugar contained in thecell</span>
+        <span class="hljs-keyword">int</span> sugar update: sugar + sugarGrowthRate max: maxSugar;
+        rgb color update: [<span class="hljs-comment">#white,FFFFAA,FFFF55,#yellow,dark_yellow] at sugar;</span>
+        map&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">list</span>&lt;sugar_cell&gt;&gt; neighbors;
+        
+        <span class="hljs-comment">//Initialization of the neighbors</span>
+        init {
+            loop i from: <span class="hljs-number">1</span> to: maxRange {
+                neighbors[i] &lt;- <span class="hljs-keyword">self</span> neighbors_at i; 
+            }
+        }
+    }   
+    
+<span class="hljs-comment">//Species animal representing the animal agents</span>
+species animal {
+    <span class="hljs-comment">//Color of the animal</span>
+    rgb color  &lt;- <span class="hljs-comment">#red;</span>
+    <span class="hljs-comment">//Speed of the animal</span>
+    <span class="hljs-keyword">float</span> speed  &lt;- <span class="hljs-number">1.0</span>;
+    <span class="hljs-comment">//Metabolism of the animal</span>
+    <span class="hljs-keyword">int</span> metabolism  min: <span class="hljs-number">1</span> &lt;- rnd(maxMetabolism);
+    <span class="hljs-comment">//Perception range of the animal</span>
+    <span class="hljs-keyword">int</span> vision  min: <span class="hljs-number">1</span> &lt;- rnd(maxRange);
+    <span class="hljs-comment">//Maximal age of the animal</span>
+    <span class="hljs-keyword">int</span> maxAge  min: minDeathAge max: maxDeathAge &lt;- rnd (maxDeathAge - minDeathAge) + minDeathAge;
+    <span class="hljs-comment">//Size of the animal</span>
+    <span class="hljs-keyword">float</span> size  &lt;- <span class="hljs-number">0.5</span>;
+    <span class="hljs-comment">//Sugar of the animal</span>
+    <span class="hljs-keyword">int</span> sugar min: <span class="hljs-number">0</span> &lt;- (rnd (maxInitialSugar - minInitialSugar)) + minInitialSugar update: sugar - metabolism;
+    <span class="hljs-comment">//Age of the animal</span>
+    <span class="hljs-keyword">int</span> age max: maxAge &lt;- <span class="hljs-number">0</span> update: <span class="hljs-keyword">int</span>(age + step);
+    <span class="hljs-comment">//Place of the animal</span>
+    sugar_cell place ; 
+    
+    <span class="hljs-comment">//Launched at the initialization of the animal agent</span>
+    init {
+        <span class="hljs-comment">//Set the place as one of the sugar cell</span>
+        place &lt;- one_of(sugar_cell);
+        location &lt;- place.location;
+    }
+    <span class="hljs-comment">//Move the agent to another place and collect the sugar of the previous place</span>
+    reflex basic_move { 
+        sugar &lt;- sugar + place.sugar;
+        place.sugar &lt;- <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">list</span>&lt;sugar_cell&gt; neighbors &lt;- place.neighbors[vision];
+        <span class="hljs-keyword">list</span>&lt;sugar_cell&gt; poss_targets &lt;- (neighbors) where (each.sugar &gt; <span class="hljs-number">0</span>);
+        <span class="hljs-comment">//If no sugar is found in the neighbors cells, move randomly</span>
+        place &lt;- <span class="hljs-keyword">empty</span>(poss_targets) ? one_of (neighbors) : one_of (poss_targets);
+        location &lt;- place.location;
+    }
+    <span class="hljs-comment">//Reflex to kill the animal once it reaches its maximal age or it doesn't have sugar anymore</span>
+    reflex end_of_life when: (sugar = <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (age = maxAge) {
+        <span class="hljs-keyword">if</span> replace {
+            create animal ;
+        }
+        <span class="hljs-keyword">do</span> <span class="hljs-keyword">die</span>;
+    }
+    aspect <span class="hljs-keyword">default</span> {
+        draw circle(<span class="hljs-number">0.5</span>) color: <span class="hljs-comment">#red;</span>
+    }
+}
+
+experiment sugarscape type: gui{
+    parameter <span class="hljs-string">'Growth rate of sugar:'</span> <span class="hljs-keyword">var</span>: sugarGrowthRate category: <span class="hljs-string">'Environment'</span>;
+    parameter <span class="hljs-string">'Minimum age of death:'</span> <span class="hljs-keyword">var</span>: minDeathAge &lt;- <span class="hljs-number">60</span> category: <span class="hljs-string">'Agents'</span>;
+    parameter <span class="hljs-string">'Maximum age of death:'</span> <span class="hljs-keyword">var</span>: maxDeathAge &lt;- <span class="hljs-number">100</span> category: <span class="hljs-string">'Agents'</span>;
+    parameter <span class="hljs-string">'Maximum metabolism:'</span> <span class="hljs-keyword">var</span>: maxMetabolism &lt;- <span class="hljs-number">3</span> category: <span class="hljs-string">'Agents'</span>;
+    parameter <span class="hljs-string">'Maximum initial sugar per cell:'</span>  <span class="hljs-keyword">var</span>: maxInitialSugar &lt;- <span class="hljs-number">25</span> category: <span class="hljs-string">'Environment'</span>;
+    parameter <span class="hljs-string">'Minimum initial sugar per cell:'</span> <span class="hljs-keyword">var</span>: minInitialSugar &lt;- <span class="hljs-number">5</span> category: <span class="hljs-string">'Environment'</span>;
+    parameter <span class="hljs-string">'Maximum range of vision:'</span> <span class="hljs-keyword">var</span>: maxRange &lt;- <span class="hljs-number">6</span> category: <span class="hljs-string">'Agents'</span>;
+    parameter <span class="hljs-string">'Replace dead agents ?'</span> <span class="hljs-keyword">var</span>: replace &lt;- <span class="hljs-keyword">true</span> category: <span class="hljs-string">'Agents'</span>;
+    parameter <span class="hljs-string">'Number of agents:'</span> <span class="hljs-keyword">var</span>: numberOfAgents &lt;- <span class="hljs-number">400</span> category: <span class="hljs-string">'Agents'</span>;
+    
+    output {
+        display grille {
+            grid sugar_cell;
+            species animal;
+        }
+        display chart refresh: every(<span class="hljs-number">5</span>) {
+            chart <span class="hljs-string">'Energy'</span> type: pie background: <span class="hljs-comment">#lightgray style: exploded {</span>
+                data <span class="hljs-string">"strong"</span> value: (animal <span class="hljs-keyword">as</span> <span class="hljs-keyword">list</span>) count (each.sugar &gt; <span class="hljs-number">8</span>) color: <span class="hljs-comment">#green;</span>
+                data <span class="hljs-string">"weak"</span> value: (animal <span class="hljs-keyword">as</span> <span class="hljs-keyword">list</span>) count (each.sugar &lt; <span class="hljs-number">9</span>) color: <span class="hljs-comment">#red;</span>
+            }
+        }
+        display chart2 refresh: every(<span class="hljs-number">5</span>) {
+            chart <span class="hljs-string">'Energy'</span> type: histogram background: <span class="hljs-comment">#lightgray {</span>
+                data <span class="hljs-string">"strong"</span> value: (animal <span class="hljs-keyword">as</span> <span class="hljs-keyword">list</span>) count (each.sugar &gt; <span class="hljs-number">8</span>)  color: <span class="hljs-comment">#green;</span>
+                data <span class="hljs-string">"weak"</span> value: (animal <span class="hljs-keyword">as</span> <span class="hljs-keyword">list</span>) count (each.sugar &lt; <span class="hljs-number">9</span>)  color: <span class="hljs-comment">#red;</span>
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>

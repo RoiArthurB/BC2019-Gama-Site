@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>References/ModelLibrary/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains) · Test Site</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A website for testing"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="References/ModelLibrary/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains) · Test Site"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="A website for testing"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/BC2019-Gama-Site/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="Test Site Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="Test Site Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site"/><h2 class="headerTitleWithLogo">Test Site</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/doc1" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">References/ModelLibrary/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="sir-split-in-agents-multiple-strains"></a><a href="#sir-split-in-agents-multiple-strains" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SIR (Split in Agents, Multiple Strains)</h1>
+<p><em>Author : tri and nghi</em></p>
+<p>This model is an extension of the model SIR_split_in_agents.gaml. It creates several agents of one compartment type (here typically several I_agt).</p>
+<p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains)/chart_1system_eq-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains)/chart_3system_eq-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
+<pre><code class="hljs">model SIR_split_in_agents_multiple_strains
+
+<span class="hljs-keyword">global</span> {
+    // Parameters
+    <span class="hljs-type">int</span> number_S &lt;- <span class="hljs-number">495</span> ; // The number <span class="hljs-keyword">of</span> susceptible
+    <span class="hljs-type">int</span> number_I &lt;- <span class="hljs-number">5</span> ; // The number <span class="hljs-keyword">of</span> infected
+    <span class="hljs-type">int</span> number_R &lt;- <span class="hljs-number">0</span> ; // The number <span class="hljs-keyword">of</span> removed 
+
+    <span class="hljs-type">float</span> _beta &lt;- <span class="hljs-number">1.0</span> ; // The parameter Beta
+    <span class="hljs-type">float</span> _delta &lt;- <span class="hljs-number">0.01</span> ; // The parameter Delta
+    
+    // <span class="hljs-keyword">Global</span> variables
+    <span class="hljs-type">int</span> strain_number &lt;- <span class="hljs-number">2</span>;
+    <span class="hljs-type">int</span> N &lt;- number_S + number_I * strain_number + number_R;    
+    <span class="hljs-type">float</span> hKR4 &lt;- <span class="hljs-number">0.01</span>;
+    
+    init {
+        <span class="hljs-keyword">create</span> S_agt {
+            Ssize &lt;- <span class="hljs-type">float</span>(number_S);
+        }
+
+        <span class="hljs-keyword">create</span> I_agt number: strain_number {
+            Isize &lt;- <span class="hljs-type">float</span>(number_I);
+            self.beta &lt;- _beta; 
+            self.delta &lt;- _delta; 
+        }
+
+        <span class="hljs-keyword">create</span> R_agt {
+            Rsize &lt;- <span class="hljs-type">float</span>(number_R);
+        }
+
+        <span class="hljs-keyword">create</span> my_SIR_maths {
+            self.Sm &lt;- <span class="hljs-type">float</span>(number_S);
+            self.Im &lt;- <span class="hljs-type">float</span>(number_I) * strain_number;
+            self.Rm &lt;- <span class="hljs-type">float</span>(number_R);
+        }
+
+        <span class="hljs-keyword">write</span> <span class="hljs-string">'Basic Reproduction Number (R0): '</span> + string(_beta * number_S / (_delta));
+    }
+
+}
+
+
+species S_agt {
+    <span class="hljs-type">float</span> t;        
+    <span class="hljs-type">float</span> Ssize;
+    
+    equation evol simultaneously: [I_agt, R_agt] {
+        diff(self.Ssize, t) = (- sum(I_agt accumulate [<span class="hljs-keyword">each</span>.beta * <span class="hljs-keyword">each</span>.Isize]) * self.Ssize / N);
+    }
+
+    reflex solving {solve evol <span class="hljs-keyword">method</span>: "rk4" step: hKR4 ;}
+}
+
+species I_agt {
+    <span class="hljs-type">float</span> t;        
+    <span class="hljs-type">float</span> Isize;
+     
+    <span class="hljs-type">float</span> beta;
+    <span class="hljs-type">float</span> delta;
+    
+    equation evol simultaneously: [S_agt, R_agt] {
+        diff(self.Isize, t) = (beta * first(S_agt).Ssize * self.Isize / N) - (delta * self.Isize);
+    }
+}
+
+species R_agt {
+    <span class="hljs-type">float</span> t;        
+    <span class="hljs-type">float</span> Rsize;
+
+    equation evol simultaneously: [I_agt] {
+        diff(self.Rsize, t) = (sum(I_agt collect (<span class="hljs-keyword">each</span>.delta * <span class="hljs-keyword">each</span>.Isize)));
+    }
+}
+
+species my_SIR_maths {
+    <span class="hljs-type">float</span> t;
+    <span class="hljs-type">float</span> Im;
+    <span class="hljs-type">float</span> Sm;
+    <span class="hljs-type">float</span> Rm;
+    
+    equation SIR {
+        diff(self.Sm, t) = (-_beta * Sm * Im / N);
+        diff(self.Im, t) = (_beta * Sm * Im / N) - (_delta * Im);
+        diff(self.Rm, t) = (_delta * Im);
+    }
+
+    reflex solving {solve SIR <span class="hljs-keyword">method</span>: "rk4" step: hKR4;}
+}
+
+
+
+experiment Simulation <span class="hljs-keyword">type</span>: gui {
+    parameter <span class="hljs-string">'Number of Susceptible'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: number_S &lt;- <span class="hljs-number">495</span> category: "Initial population"; 
+    parameter <span class="hljs-string">'Number of Infected'</span>    <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: number_I &lt;- <span class="hljs-number">5</span>   category: "Initial population";
+    parameter <span class="hljs-string">'Number of Removed'</span>     <span class="hljs-keyword">type</span>: <span class="hljs-type">int</span> var: number_R &lt;- <span class="hljs-number">0</span>   category: "Initial population";
+
+    parameter <span class="hljs-string">'Beta (S-&gt;I)'</span>  <span class="hljs-keyword">type</span>: <span class="hljs-type">float</span> var: _beta &lt;- <span class="hljs-number">1.0</span>   category: "Parameters";
+    parameter <span class="hljs-string">'Delta (I-&gt;R)'</span> <span class="hljs-keyword">type</span>: <span class="hljs-type">float</span> var: _delta &lt;- <span class="hljs-number">0.01</span> category: "Parameters";    
+    
+    output {
+        display chart_3system_eq {
+            chart <span class="hljs-string">'Split system'</span> <span class="hljs-keyword">type</span>: series background: #lightgray {
+                data <span class="hljs-string">'susceptible'</span> <span class="hljs-keyword">value</span>: first(S_agt).Ssize color: #green;
+                data <span class="hljs-string">'infected0'</span> <span class="hljs-keyword">value</span>: first(I_agt).beta * first(I_agt).Isize color: #white;
+                data <span class="hljs-string">'infected1'</span> <span class="hljs-keyword">value</span>: last(I_agt).beta * last(I_agt).Isize color: #yellow;
+                data <span class="hljs-string">'i1+i2'</span> <span class="hljs-keyword">value</span>: sum(I_agt accumulate (<span class="hljs-keyword">each</span>.beta * <span class="hljs-keyword">each</span>. Isize)) color: rgb ( <span class="hljs-string">'red'</span> ) ;              
+                data <span class="hljs-string">'recovered'</span> <span class="hljs-keyword">value</span>: first(R_agt).Rsize color: #blue;
+            }
+
+        }
+
+        display chart_1system_eq  {
+            chart <span class="hljs-string">'unified system'</span> <span class="hljs-keyword">type</span>: series background: #lightgray {
+                data <span class="hljs-string">'susceptible_maths'</span> <span class="hljs-keyword">value</span>: first(my_SIR_maths).Sm color: #green;
+                data <span class="hljs-string">'infected_maths'</span> <span class="hljs-keyword">value</span>: first(my_SIR_maths).Im color: #red;
+                data <span class="hljs-string">'recovered_maths'</span> <span class="hljs-keyword">value</span>: first(my_SIR_maths).Rm color: #blue;
+            }
+        }
+    }
+}
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/img/favicon.ico" alt="Test Site" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/BC2019-Gama-Site/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div></body></html>
