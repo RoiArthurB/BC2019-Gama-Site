@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "A website for testing",
+    "tagline": "GAMA, modeling made easy",
     "docs": {
       "_Footer": {
         "title": "_Footer"
@@ -47,9 +47,6 @@
       },
       "Download-GAMA": {
         "title": "Download-GAMA"
-      },
-      "doc5": {
-        "title": "Fifth Document"
       },
       "G__BlankPage": {
         "title": "G__BlankPage"
@@ -1580,7 +1577,9 @@
       }
     },
     "links": {
+      "Index": "Index",
       "Docs": "Docs",
+      "API": "API",
       "Help": "Help",
       "Blog": "Blog"
     },

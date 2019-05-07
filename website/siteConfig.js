@@ -20,11 +20,14 @@
   },
 ];
 */
+
+const BASE_URL = '/BC2019-Gama-Site/';
+
 const siteConfig = {
-  title: 'Test Site', // Title for your website.
-  tagline: 'A website for testing',
+  title: 'GAMA-Platform', // Title for your website.
+  tagline: 'GAMA, modeling made easy',
   url: 'https://roiarthurb.github.io', // Your website URL
-  baseUrl: '/BC2019-Gama-Site/', // Base URL for your project */
+  baseUrl: BASE_URL, // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -38,7 +41,8 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'doc1', label: 'Docs'},
+    {index: 'Home', label: 'Index'},
+    {doc: 'Home', label: 'Docs'},
 //    {doc: 'doc4', label: 'API'},
     {page: 'help', label: 'Help'},
     {blog: true, label: 'Blog'},
@@ -84,8 +88,7 @@ const siteConfig = {
   scripts: [
 	'https://buttons.github.io/buttons.js',
 	'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-//	siteConfig["baseUrl"] + 'js/code-block-buttons.js',
-	'/BC2019-Gama-Site/js/code-block-buttons.js'
+	BASE_URL + 'js/code-block-buttons.js'
   ],
 
   stylesheets: ['/css/code-block-buttons.css'],
@@ -96,8 +99,8 @@ const siteConfig = {
   cleanUrl: true,
 
   // Open Graph and Twitter card images.
-  ogImage: 'img/undraw_online.svg',
-  twitterImage: 'img/undraw_tweetstorm.svg',
+  ogImage: 'resources/images/general/GamaPlatform.png',
+  twitterImage: 'resources/images/general/GamaPlatform.png',
 
   // Show documentation's last contributor's name.
   // enableUpdateBy: true,
