@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Clustering Spatial Clustering · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Clustering Spatial Clustering · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Clustering Spatial Clustering</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="clustering-of-agents-by-their-distance"></a><a href="#clustering-of-agents-by-their-distance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Clustering of agents by their distance</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Clustering Spatial Clustering · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Clustering Spatial Clustering · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Clustering Spatial Clustering</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="clustering-of-agents-by-their-distance"></a><a href="#clustering-of-agents-by-their-distance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Clustering of agents by their distance</h1>
 <p><em>Author :  Patrick Taillandier</em></p>
 <p>A model to show how to use clustering operators with simple_clustering_by_distance to take into account the distances between agents or between cells to create the clusters,  and showing the relations between the people from the same cluster.</p>
 <p>Code of the model :</p>
@@ -6,27 +6,27 @@
 model clustering
 
 global {
-    //define the maximal distance between people in the continuous environement (in meters): if the distance between 2 people is lower than this value, they will be in the same group
+    <span class="hljs-comment">//define the maximal distance between people in the continuous environement (in meters): if the distance between 2 people is lower than this value, they will be in the same group</span>
     float max_dist_people &lt;- 20.0;
     
-    //define the maximal distance between cells (in number of cells): if the distance between 2 cells is lower than this value, they will be in the same group
+    <span class="hljs-comment">//define the maximal distance between cells (in number of cells): if the distance between 2 cells is lower than this value, they will be in the same group</span>
     int max_dist_cell &lt;- 1;
     
-    //probability for a cell to have vegetation
+    <span class="hljs-comment">//probability for a cell to have vegetation</span>
     float proba_vegetation &lt;- 0.2;
     
-    //create the people agents
+    <span class="hljs-comment">//create the people agents</span>
     init {
         create people number:20; 
     }
     
-    //reflex that builds the people clusters
+    <span class="hljs-comment">//reflex that builds the people clusters</span>
     reflex people_clustering {
-        //clustering by using the simple clustering operator: two people agents are in the same groups if their distance is lower than max_dist_people (in meters)
-        //returns a list of lists (i.e. a list of groups, a group is a list of people agents)
+        <span class="hljs-comment">//clustering by using the simple clustering operator: two people agents are in the same groups if their distance is lower than max_dist_people (in meters)</span>
+        <span class="hljs-comment">//returns a list of lists (i.e. a list of groups, a group is a list of people agents)</span>
         list&lt;list&lt;people&gt;&gt; clusters &lt;- list&lt;list&lt;people&gt;&gt;(simple_clustering_by_distance(people, max_dist_people));
         
-        //We give a random color to each group (i.e. to each people agents of the group)
+        <span class="hljs-comment">//We give a random color to each group (i.e. to each people agents of the group)</span>
         loop cluster over: clusters {
             rgb rnd_color &lt;- rnd_color(255);
             ask cluster {
@@ -34,14 +34,14 @@ global {
             }
         }
         
-        //build the hierchical clustering (https://en.wikipedia.org/wiki/Hierarchical_clustering)
+        <span class="hljs-comment">//build the hierchical clustering (https://en.wikipedia.org/wiki/Hierarchical_clustering)</span>
         list clustering_tree &lt;- hierarchical_clustering (people, max_dist_people);
         
-        //create groups from the results of the hierarchical clustering
-        do create_groups(clustering_tree, nil);
+        <span class="hljs-comment">//create groups from the results of the hierarchical clustering</span>
+        do create_groups(clustering_tree, <span class="hljs-literal">nil</span>);
     }
     
-    //recursive action that create group_people agents from the list of group.
+    <span class="hljs-comment">//recursive action that create group_people agents from the list of group.</span>
     action create_groups (list group, group_people parent_gp) {
         bool compute_shape &lt;- false;
         loop el over: group {
@@ -50,7 +50,7 @@ global {
             }
             else {
                 create group_people returns: created_g{
-                    if (parent_gp != nil) {
+                    if (parent_gp != <span class="hljs-literal">nil</span>) {
                         add self to: parent_gp.sub_groups;
                     }
                     parent &lt;- parent_gp;
@@ -59,14 +59,14 @@ global {
                 compute_shape &lt;- true;
             }
         }
-        if (compute_shape and parent_gp != nil) {
+        if (compute_shape and parent_gp != <span class="hljs-literal">nil</span>) {
             ask parent_gp {
                 shape &lt;- polyline (sub_groups collect each.location);
             }
             
         }
     }
-    //reflex that builds the cell clusters
+    <span class="hljs-comment">//reflex that builds the cell clusters</span>
     reflex forest_clustering {
         list&lt;list&lt;vegetation_cell&gt;&gt; clusters &lt;- list&lt;list&lt;vegetation_cell&gt;&gt;(simple_clustering_by_distance(vegetation_cell where (each.color = #green), max_dist_cell));
         loop cluster over: clusters {
@@ -106,16 +106,16 @@ species group_people {
     group_people parent;
     aspect default {
         draw shape + 0.2 color: #red;
-        if (parent != nil) {
+        if (parent != <span class="hljs-literal">nil</span>) {
             draw line ([location, parent.location]) end_arrow: 2 color: #red;
         }
     }
 }
 
 experiment clustering type: gui {
-    parameter "Maximal distance for people clustering" var: max_dist_people min: 0.0 max: 100.0 category: "People";
-    parameter "Maximal distance for vegetation cell clustering" var: max_dist_cell min: 0 max: 5 category: "Forest";
-    parameter "Probability for vegetation cells" var: proba_vegetation min: 0.1 max: 1.0 category: "Forest";
+    parameter <span class="hljs-string">"Maximal distance for people clustering"</span> var: max_dist_people min: 0.0 max: 100.0 category: <span class="hljs-string">"People"</span>;
+    parameter <span class="hljs-string">"Maximal distance for vegetation cell clustering"</span> var: max_dist_cell min: 0 max: 5 category: <span class="hljs-string">"Forest"</span>;
+    parameter <span class="hljs-string">"Probability for vegetation cells"</span> var: proba_vegetation min: 0.1 max: 1.0 category: <span class="hljs-string">"Forest"</span>;
     output {
         display map_people_clusters {
             species people aspect: cluster;
@@ -131,7 +131,7 @@ experiment clustering type: gui {
     }
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

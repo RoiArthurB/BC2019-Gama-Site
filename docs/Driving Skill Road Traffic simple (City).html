@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Driving Skill Road Traffic simple (City) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Driving Skill Road Traffic simple (City) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Driving Skill Road Traffic simple (City)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="simple-road-network"></a><a href="#simple-road-network" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Simple Road Network</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Driving Skill Road Traffic simple (City) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Driving Skill Road Traffic simple (City) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Driving Skill Road Traffic simple (City)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="simple-road-network"></a><a href="#simple-road-network" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Simple Road Network</h1>
 <p><em>Author : Patrick Taillandier</em></p>
 <p>Model using shapefiles to create buildings and a road graph, with people going from their living place to their work place depending on the hour. The traffic jam is also taken into account to slow the people agents when they are too much on the same road. The experiment shows a display of the city, with people agents, buildings and roads, a display of the traffic jam occuring on the roads, and a chart display showing two charts : one for the traffic jam coefficients, and an other for the objectives of the people agents.</p>
 <p>Code of the model :</p>
@@ -8,56 +8,56 @@ model RoadTrafficCity
    
 global {   
     
-    //Shapefiles for the buildings, the roads and the bounds of the environment
-    file shape_file_roads parameter: "Shapefile for the roads:" category: "GIS" &lt;- file("../includes/ManhattanRoads.shp") ;
-    file shape_file_bounds parameter: "Shapefile for the bounds:" category: "GIS" &lt;- file("../includes/ManhattanBounds.shp") ;
-    file shape_file_buildings parameter: "Shapefile for the buildings:" category: "GIS" &lt;- file("../includes/ManhattanBuildings.shp") ;
+    <span class="hljs-comment">//Shapefiles for the buildings, the roads and the bounds of the environment</span>
+    file shape_file_roads parameter: <span class="hljs-string">"Shapefile for the roads:"</span> category: <span class="hljs-string">"GIS"</span> &lt;- file(<span class="hljs-string">"../includes/ManhattanRoads.shp"</span>) ;
+    file shape_file_bounds parameter: <span class="hljs-string">"Shapefile for the bounds:"</span> category: <span class="hljs-string">"GIS"</span> &lt;- file(<span class="hljs-string">"../includes/ManhattanBounds.shp"</span>) ;
+    file shape_file_buildings parameter: <span class="hljs-string">"Shapefile for the buildings:"</span> category: <span class="hljs-string">"GIS"</span> &lt;- file(<span class="hljs-string">"../includes/ManhattanBuildings.shp"</span>) ;
     geometry shape &lt;- envelope(shape_file_bounds);
     
-    //Stock the number of times agents reached their goal (their house or work place)
+    <span class="hljs-comment">//Stock the number of times agents reached their goal (their house or work place)</span>
     int nbGoalsAchived &lt;- 0;
     
-    //represent the day time for the agent to inform them to go work or home
+    <span class="hljs-comment">//represent the day time for the agent to inform them to go work or home</span>
     int day_time update: cycle mod 144 ;
     
-    //Variables to manage the minimal and maximal time to start working
+    <span class="hljs-comment">//Variables to manage the minimal and maximal time to start working</span>
     int min_work_start &lt;- 36;
     int max_work_start &lt;- 60;
     
-    //Number of people created
+    <span class="hljs-comment">//Number of people created</span>
     int nb_people &lt;- 500;
     
-    //Variables to manage the minimal and maximal time to go home
+    <span class="hljs-comment">//Variables to manage the minimal and maximal time to go home</span>
     int min_work_end &lt;- 84; 
     int max_work_end &lt;- 132; 
     
-    //Manage the speed allowed in the model for the people agents
+    <span class="hljs-comment">//Manage the speed allowed in the model for the people agents</span>
     float min_speed &lt;- 50.0;
     float max_speed &lt;- 100.0; 
     
-    //Graph of the road network
+    <span class="hljs-comment">//Graph of the road network</span>
     graph the_graph;
     
      
     init {  
         
-        //creation of the agents of road and building species using the shapefile and linking the 
-        create road from: shape_file_roads with:[nbLanes::int(read("lanes"))];
+        <span class="hljs-comment">//creation of the agents of road and building species using the shapefile and linking the </span>
+        create road from: shape_file_roads with:[nbLanes::int(read(<span class="hljs-string">"lanes"</span>))];
         create building from: shape_file_buildings;
         
-        //Increase the shape of roads according to the number of lanes it has
+        <span class="hljs-comment">//Increase the shape of roads according to the number of lanes it has</span>
         ask road as list {
             visu_geom &lt;- shape + (2 * nbLanes); 
         }
-        //Initliazation of the graph with the road species
+        <span class="hljs-comment">//Initliazation of the graph with the road species</span>
         the_graph &lt;-  (as_edge_graph(road));
         
-        //Initialization of nb_people agents of people species
-        // and definition of their living and working places
+        <span class="hljs-comment">//Initialization of nb_people agents of people species</span>
+        <span class="hljs-comment">// and definition of their living and working places</span>
         create people number: nb_people { 
             living_space &lt;- 3.0;
             tolerance &lt;- 0.1;
-            lanes_attribute &lt;- "nbLanes";
+            lanes_attribute &lt;- <span class="hljs-string">"nbLanes"</span>;
             obstacle_species &lt;- [species(self)]; 
             speed &lt;- min_speed + rnd (max_speed - min_speed) ;
             start_work &lt;- min_work_start + rnd (max_work_start - min_work_start) ;
@@ -68,7 +68,7 @@ global {
         }   
     }
     
-    //Update of the graph every 10 Cycles to take into account the traffic jam of the road in the weights of the graph
+    <span class="hljs-comment">//Update of the graph every 10 Cycles to take into account the traffic jam of the road in the weights of the graph</span>
     reflex update_graph when:every(10){
         map&lt;road,float&gt; weights_map &lt;- road as_map (each:: (each.shape.perimeter * each.coeff_traffic));
         the_graph &lt;- the_graph with_weights weights_map;
@@ -89,9 +89,9 @@ species road  {
     } 
     
     
-    //Command that the user can execute to remove or add a road 
-    user_command "Remove a road" action: remove;
-    user_command "Add a road" action: add;
+    <span class="hljs-comment">//Command that the user can execute to remove or add a road </span>
+    user_command <span class="hljs-string">"Remove a road"</span> action: remove;
+    user_command <span class="hljs-string">"Add a road"</span> action: add;
          
     action remove {
         blocked &lt;- true;
@@ -130,24 +130,24 @@ species building  {
 species people skills: [driving]{ 
     float speed; 
     rgb color &lt;- rgb([rnd(255),rnd(255),rnd(255)]) ;
-    point targetBis &lt;- nil ; 
-    point previousLoc &lt;- nil;
+    point targetBis &lt;- <span class="hljs-literal">nil</span> ; 
+    point previousLoc &lt;- <span class="hljs-literal">nil</span>;
     bool normalMove &lt;- true;
     float evadeDist &lt;- 500.0;
-    building living_place &lt;- nil ;
-    building working_place &lt;- nil ;
+    building living_place &lt;- <span class="hljs-literal">nil</span> ;
+    building working_place &lt;- <span class="hljs-literal">nil</span> ;
     int start_work ;
     int end_work  ;
     string objective ; 
-    point the_target &lt;- nil ;
+    point the_target &lt;- <span class="hljs-literal">nil</span> ;
         
-    //Reflex to make the agent move while it had a target and normalMove equals true
-    reflex move when: the_target != nil and normalMove{
+    <span class="hljs-comment">//Reflex to make the agent move while it had a target and normalMove equals true</span>
+    reflex move when: the_target != <span class="hljs-literal">nil</span> and normalMove{
         previousLoc &lt;- copy(location);
         do goto_driving target: the_target on: the_graph speed: speed ; 
         switch location { 
             match the_target {
-                the_target &lt;- nil;
+                the_target &lt;- <span class="hljs-literal">nil</span>;
                 nbGoalsAchived &lt;- nbGoalsAchived +1;
             }
             match previousLoc {
@@ -157,7 +157,7 @@ species people skills: [driving]{
         }
     }
         
-    //Reflex to make the agent move when it is not normal moving 
+    <span class="hljs-comment">//Reflex to make the agent move when it is not normal moving </span>
     reflex EvadeMove when: !(normalMove){
         previousLoc &lt;- copy(location);
         do goto_driving target: targetBis on: the_graph speed: speed ; 
@@ -171,15 +171,15 @@ species people skills: [driving]{
         }
     }
     
-    //Reflex to make the agent go to its working place when it's time to go work
+    <span class="hljs-comment">//Reflex to make the agent go to its working place when it's time to go work</span>
     reflex time_to_work when: day_time = start_work {
-        objective &lt;- "working" ;
+        objective &lt;- <span class="hljs-string">"working"</span> ;
         the_target &lt;- any_location_in (working_place);
     }
     
-    //Reflex to make the agent go to its living place when it's time to go home
+    <span class="hljs-comment">//Reflex to make the agent go to its living place when it's time to go home</span>
     reflex time_to_go_home when: day_time = end_work {
-        objective &lt;- "go home" ;
+        objective &lt;- <span class="hljs-string">"go home"</span> ;
         the_target &lt;- any_location_in (living_place); 
     }  
     
@@ -189,16 +189,16 @@ species people skills: [driving]{
 }
 
 experiment traffic type: gui {
-    parameter "Shapefile for the buildings:" var: shape_file_buildings category: "GIS" ;
-    parameter "Shapefile for the roads:" var: shape_file_roads category: "GIS" ;
-    parameter "Shapefile for the bounds:" var: shape_file_bounds category: "GIS" ;
-    parameter "Number of people agents" var: nb_people category: "People" ;
-    parameter "Earliest hour to start work" var: min_work_start category: "People" ;
-    parameter "Latest hour to start work" var: max_work_start category: "People" ;
-    parameter "Earliest hour to end work" var: min_work_end category: "People" ;
-    parameter "Latest hour to end work" var: max_work_end category: "People" ;
-    parameter "minimal speed" var: min_speed category: "People" ;
-    parameter "maximal speed" var: max_speed category: "People" ;
+    parameter <span class="hljs-string">"Shapefile for the buildings:"</span> var: shape_file_buildings category: <span class="hljs-string">"GIS"</span> ;
+    parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
+    parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
+    parameter <span class="hljs-string">"Number of people agents"</span> var: nb_people category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"Earliest hour to start work"</span> var: min_work_start category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"Latest hour to start work"</span> var: max_work_start category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"Earliest hour to end work"</span> var: min_work_end category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"Latest hour to end work"</span> var: max_work_end category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"minimal speed"</span> var: min_speed category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"maximal speed"</span> var: max_speed category: <span class="hljs-string">"People"</span> ;
     
     output {
         display city_display {
@@ -211,23 +211,23 @@ experiment traffic type: gui {
             species road aspect: traffic_jam ;
         }
         display chart_display refresh: every(10) {
-            chart "Traffic jam" type: series size: {0.9, 0.4} position: {0.05, 0.05} {
-                data "Mean road traffic coefficient" value: mean (road collect each.coeff_traffic) style: line color: #green ;
-                data "Max road traffic coefficient" value: road max_of (each.coeff_traffic) style: line color: #red ;
+            chart <span class="hljs-string">"Traffic jam"</span> type: series size: {0.9, 0.4} position: {0.05, 0.05} {
+                data <span class="hljs-string">"Mean road traffic coefficient"</span> value: mean (road collect each.coeff_traffic) style: line color: #green ;
+                data <span class="hljs-string">"Max road traffic coefficient"</span> value: road max_of (each.coeff_traffic) style: line color: #red ;
             }
-            chart "People Objectif" type: pie style: exploded size: {0.9, 0.4} position: {0.05, 0.55} {
-                data "Working" value: length ((people as list) where (each.objective="working")) color: #green ;
-                data "Staying home" value: length ((people as list) where (each.objective="go home")) color: #blue ;
+            chart <span class="hljs-string">"People Objectif"</span> type: pie style: exploded size: {0.9, 0.4} position: {0.05, 0.55} {
+                data <span class="hljs-string">"Working"</span> value: length ((people as list) where (each.objective=<span class="hljs-string">"working"</span>)) color: #green ;
+                data <span class="hljs-string">"Staying home"</span> value: length ((people as list) where (each.objective=<span class="hljs-string">"go home"</span>)) color: #blue ;
             }
         }
-        monitor "Number of goals achieved" value: nbGoalsAchived ;
+        monitor <span class="hljs-string">"Number of goals achieved"</span> value: nbGoalsAchived ;
     }
 }
 
 
 
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

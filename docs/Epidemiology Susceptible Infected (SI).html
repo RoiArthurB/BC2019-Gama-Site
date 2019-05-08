@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Epidemiology Susceptible Infected (SI) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Epidemiology Susceptible Infected (SI) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Epidemiology Susceptible Infected (SI)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="si-without-ode"></a><a href="#si-without-ode" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SI without ODE</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Epidemiology Susceptible Infected (SI) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Epidemiology Susceptible Infected (SI) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Epidemiology Susceptible Infected (SI)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="si-without-ode"></a><a href="#si-without-ode" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SI without ODE</h1>
 <p>_Author : _</p>
 <p>A simple SI model without Ordinary Differential Equations showing agents moving randomly among a grid and becoming infected</p>
 <p>Code of the model :</p>
@@ -7,24 +7,24 @@ model si
 
 global { 
     
-    int number_S &lt;- 495;  // The number of susceptible
-    int number_I &lt;- 5 ; // The number of infected
-    float survivalProbability &lt;- 1/(70*365) ; // The survival probability
-    float beta &lt;- 0.05 ;    // The parameter Beta
-    float nu &lt;- 0.001 ; // The parameter Nu
-    int numberHosts &lt;- number_S+number_I; //Total number of hosts
-    bool local_infection &lt;- true ; //Infection spread locally or not
-    int neighbors_size &lt;- 2 ; //Size of the neighborhood
+    int number_S &lt;- 495;  <span class="hljs-comment">// The number of susceptible</span>
+    int number_I &lt;- 5 ; <span class="hljs-comment">// The number of infected</span>
+    float survivalProbability &lt;- 1/(70*365) ; <span class="hljs-comment">// The survival probability</span>
+    float beta &lt;- 0.05 ;    <span class="hljs-comment">// The parameter Beta</span>
+    float nu &lt;- 0.001 ; <span class="hljs-comment">// The parameter Nu</span>
+    int numberHosts &lt;- number_S+number_I; <span class="hljs-comment">//Total number of hosts</span>
+    bool local_infection &lt;- true ; <span class="hljs-comment">//Infection spread locally or not</span>
+    int neighbors_size &lt;- 2 ; <span class="hljs-comment">//Size of the neighborhood</span>
     geometry shape &lt;- square(50);
     init { 
-        //Creation of all the susceptible hosts
+        <span class="hljs-comment">//Creation of all the susceptible hosts</span>
         create Host number: number_S {
             is_susceptible &lt;- true;
             is_infected &lt;-  false;
             is_immune &lt;-  false; 
             color &lt;-  #green;
         }
-        //Creation of all the infected hosts
+        <span class="hljs-comment">//Creation of all the infected hosts</span>
         create Host number: number_I {
             is_susceptible &lt;-  false; 
             is_infected &lt;-  true;
@@ -32,20 +32,20 @@ global {
             color &lt;-  #red;  
        }
    }
-   //Reflex to update the number of infected hosts
+   <span class="hljs-comment">//Reflex to update the number of infected hosts</span>
    reflex compute_nb_infected {
         number_I &lt;- Host count (each.is_infected);
    }  
 }
 
-//Grid to discretize space
+<span class="hljs-comment">//Grid to discretize space</span>
 grid si_grid width: 50 height: 50 use_individual_shapes: false use_regular_agents: false frequency: 0{
     rgb color &lt;- #black;
     list&lt;si_grid&gt; neighbors &lt;- (self neighbors_at neighbors_size) ;       
 }
-//Species host which represent the possible hosts of a disease
+<span class="hljs-comment">//Species host which represent the possible hosts of a disease</span>
 species Host  {
-    //Booleans to represent the state of the agent
+    <span class="hljs-comment">//Booleans to represent the state of the agent</span>
     bool is_susceptible &lt;- true;
     bool is_infected &lt;- false;
     bool is_immune &lt;- false;
@@ -53,17 +53,17 @@ species Host  {
     int sic_count &lt;- 0;
     si_grid myPlace;
     
-    //The agent is placed randomly among the grid
+    <span class="hljs-comment">//The agent is placed randomly among the grid</span>
     init {
         myPlace &lt;- one_of (si_grid as list);
         location &lt;- myPlace.location;
     }        
-    //Reflex to move the agents in its neighborhood
+    <span class="hljs-comment">//Reflex to move the agents in its neighborhood</span>
     reflex basic_move {
         myPlace &lt;- one_of (myPlace.neighbors) ;
         location &lt;- myPlace.location;
     }
-    //Reflex to infect the agent if it is susceptible and according to the other infected agents
+    <span class="hljs-comment">//Reflex to infect the agent if it is susceptible and according to the other infected agents</span>
     reflex become_infected when: is_susceptible {
         float rate &lt;- 0.0;
         if(local_infection) {
@@ -86,7 +86,7 @@ species Host  {
             color &lt;-  #red;    
         }
     }
-    //Reflex to kill the agent according to the death rate
+    <span class="hljs-comment">//Reflex to kill the agent according to the death rate</span>
     reflex shallDie when: flip(nu) {
         create species(self) {
             myPlace &lt;- myself.myPlace ;
@@ -102,13 +102,13 @@ species Host  {
 
 
 experiment Simulation type: gui { 
-    parameter "Number of Susceptible" var: number_S ;// The number of susceptible
-    parameter "Number of Infected" var: number_I ;  // The number of infected
-    parameter "Survival Probability" var: survivalProbability ; // The survival probability
-    parameter "Beta (S-&gt;I)" var:beta;   // The parameter Beta
-    parameter "Mortality" var:nu ;  // The parameter Nu
-    parameter "Is the infection is computed locally?" var:local_infection ;
-    parameter "Size of the neighbors" var:neighbors_size ;
+    parameter <span class="hljs-string">"Number of Susceptible"</span> var: number_S ;<span class="hljs-comment">// The number of susceptible</span>
+    parameter <span class="hljs-string">"Number of Infected"</span> var: number_I ;  <span class="hljs-comment">// The number of infected</span>
+    parameter <span class="hljs-string">"Survival Probability"</span> var: survivalProbability ; <span class="hljs-comment">// The survival probability</span>
+    parameter <span class="hljs-string">"Beta (S-&gt;I)"</span> var:beta;   <span class="hljs-comment">// The parameter Beta</span>
+    parameter <span class="hljs-string">"Mortality"</span> var:nu ;  <span class="hljs-comment">// The parameter Nu</span>
+    parameter <span class="hljs-string">"Is the infection is computed locally?"</span> var:local_infection ;
+    parameter <span class="hljs-string">"Size of the neighbors"</span> var:neighbors_size ;
     
     output { 
         display si_display {
@@ -117,16 +117,16 @@ experiment Simulation type: gui {
         }
             
         display chart refresh: every(10) {
-            chart "Susceptible" type: series background: #lightgray style: exploded {
-                data "susceptible" value: Host count (each.is_susceptible) color: #green;
-                data "infected" value: Host count (each.is_infected) color: #red;
+            chart <span class="hljs-string">"Susceptible"</span> type: series background: #lightgray style: exploded {
+                data <span class="hljs-string">"susceptible"</span> value: Host count (each.is_susceptible) color: #green;
+                data <span class="hljs-string">"infected"</span> value: Host count (each.is_infected) color: #red;
             }
         }
             
     }
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

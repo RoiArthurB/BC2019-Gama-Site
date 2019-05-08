@@ -1,59 +1,59 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Boids Boids 3D Motion · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Boids Boids 3D Motion · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Boids Boids 3D Motion</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="boids-3d-motion"></a><a href="#boids-3d-motion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Boids 3D Motion</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Boids Boids 3D Motion · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Boids Boids 3D Motion · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Boids Boids 3D Motion</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="boids-3d-motion"></a><a href="#boids-3d-motion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Boids 3D Motion</h1>
 <p>_Author : _</p>
 <p>This model shows the movement of boids following a goal, and creating without their own volonty, a flock .  The goal agent and the boids will move within the 3D space.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">model boids_3D 
 global torus: torus_environment{ 
-    //Number of boids to create
-    int number_of_agents parameter: 'Number of agents' &lt;- 100 min: 1 max: 1000000;
-    //Number of obstacles to create
-    int number_of_obstacles parameter: 'Number of obstacles' &lt;- 0 min: 0;
-    //Size of the boids
-    int boids_size parameter: 'Boids size' &lt;- 50 min: 1;
-    //Maximal speed of the boids
-    float maximal_speed parameter: 'Maximal speed' &lt;- 15.0 min: 0.1 max: 15.0;
-    //Factor for the boids flock
-    int cohesion_factor parameter: 'Cohesion Factor' &lt;- 100; 
-    int alignment_factor parameter: 'Alignment Factor' &lt;- 100; 
-    float minimal_distance parameter: 'Minimal Distance' &lt;- 10.0; 
-    //MAximal angle of turn for the boids
-    int maximal_turn parameter: 'Maximal Turn' &lt;- 90 min: 0 max: 359; 
-    //environment parameters
-    int width_and_height_of_environment parameter: 'Width/Height of the Environment' &lt;- 800;  
-    int z_max parameter: 'Z max of the Environment' &lt;- 400;  
-    bool torus_environment parameter: 'Toroidal Environment ?' &lt;- false; 
-    //Experiment parameter
-    bool apply_cohesion &lt;- true parameter: 'Apply Cohesion ?';
-    bool apply_alignment &lt;- true parameter: 'Apply Alignment ?';   
-    bool apply_separation &lt;- true parameter: 'Apply Separation ?';   
-    bool apply_goal &lt;- true parameter: 'Follow Goal ?'; 
-    bool apply_wind &lt;- true parameter: 'Apply Wind ?';     
-    //Wind variable
-    point wind_vector &lt;- {0,0,0}  parameter: 'Direction of the wind';   
-    //Duration of the goal
+    <span class="hljs-comment">//Number of boids to create</span>
+    int number_of_agents parameter: <span class="hljs-string">'Number of agents'</span> &lt;- 100 min: 1 max: 1000000;
+    <span class="hljs-comment">//Number of obstacles to create</span>
+    int number_of_obstacles parameter: <span class="hljs-string">'Number of obstacles'</span> &lt;- 0 min: 0;
+    <span class="hljs-comment">//Size of the boids</span>
+    int boids_size parameter: <span class="hljs-string">'Boids size'</span> &lt;- 50 min: 1;
+    <span class="hljs-comment">//Maximal speed of the boids</span>
+    float maximal_speed parameter: <span class="hljs-string">'Maximal speed'</span> &lt;- 15.0 min: 0.1 max: 15.0;
+    <span class="hljs-comment">//Factor for the boids flock</span>
+    int cohesion_factor parameter: <span class="hljs-string">'Cohesion Factor'</span> &lt;- 100; 
+    int alignment_factor parameter: <span class="hljs-string">'Alignment Factor'</span> &lt;- 100; 
+    float minimal_distance parameter: <span class="hljs-string">'Minimal Distance'</span> &lt;- 10.0; 
+    <span class="hljs-comment">//MAximal angle of turn for the boids</span>
+    int maximal_turn parameter: <span class="hljs-string">'Maximal Turn'</span> &lt;- 90 min: 0 max: 359; 
+    <span class="hljs-comment">//environment parameters</span>
+    int width_and_height_of_environment parameter: <span class="hljs-string">'Width/Height of the Environment'</span> &lt;- 800;  
+    int z_max parameter: <span class="hljs-string">'Z max of the Environment'</span> &lt;- 400;  
+    bool torus_environment parameter: <span class="hljs-string">'Toroidal Environment ?'</span> &lt;- false; 
+    <span class="hljs-comment">//Experiment parameter</span>
+    bool apply_cohesion &lt;- true parameter: <span class="hljs-string">'Apply Cohesion ?'</span>;
+    bool apply_alignment &lt;- true parameter: <span class="hljs-string">'Apply Alignment ?'</span>;   
+    bool apply_separation &lt;- true parameter: <span class="hljs-string">'Apply Separation ?'</span>;   
+    bool apply_goal &lt;- true parameter: <span class="hljs-string">'Follow Goal ?'</span>; 
+    bool apply_wind &lt;- true parameter: <span class="hljs-string">'Apply Wind ?'</span>;     
+    <span class="hljs-comment">//Wind variable</span>
+    point wind_vector &lt;- {0,0,0}  parameter: <span class="hljs-string">'Direction of the wind'</span>;   
+    <span class="hljs-comment">//Duration of the goal</span>
     int goal_duration &lt;- 30 update: (goal_duration - 1); 
-    //Location of the goal
+    <span class="hljs-comment">//Location of the goal</span>
     point goal &lt;- {rnd (width_and_height_of_environment - 2) + 1, rnd (width_and_height_of_environment -2) + 1 ,(rnd(z_max - 2) + 1)}; 
-    list images &lt;- [file('../images/bird1.png'),file('../images/bird2.png'),file('../images/bird3.png')]; 
+    list images &lt;- [file(<span class="hljs-string">'../images/bird1.png'</span>),file(<span class="hljs-string">'../images/bird2.png'</span>),file(<span class="hljs-string">'../images/bird3.png'</span>)]; 
     geometry shape &lt;- cube(width_and_height_of_environment);
     init {
-        //Creation of the boids agents that will be placed randomly within the environment
+        <span class="hljs-comment">//Creation of the boids agents that will be placed randomly within the environment</span>
         create boids number: number_of_agents { 
             location &lt;- {rnd (width_and_height_of_environment - 2) + 1, rnd (width_and_height_of_environment -2) + 1 , (rnd(z_max - 2) + 1)};
         } 
-        //Creation of the goal
+        <span class="hljs-comment">//Creation of the goal</span>
         create boids_goal {
             location &lt;- goal;
         }
     }
 }
 
-//Species boids_goal that will represent the goal agent, using the skill moving
+<span class="hljs-comment">//Species boids_goal that will represent the goal agent, using the skill moving</span>
 species boids_goal skills: [moving3D] {
     float range init: 20.0;
     
-    //Reflex to make the goal agent wander in a certain amplitude and a certain speed, 
-    //Respecting the minimal and maximal z values
+    <span class="hljs-comment">//Reflex to make the goal agent wander in a certain amplitude and a certain speed, </span>
+    <span class="hljs-comment">//Respecting the minimal and maximal z values</span>
     reflex wander { 
         do  wander amplitude: 45 speed: 20; 
         if (location.z) &lt; 0 {
@@ -69,20 +69,20 @@ species boids_goal skills: [moving3D] {
     }
 } 
 
-//Species boids that will represent the boids agents, using the skill moving
+<span class="hljs-comment">//Species boids that will represent the boids agents, using the skill moving</span>
 species boids skills: [moving] {
-    //Attribute for the speed of the boids
+    <span class="hljs-comment">//Attribute for the speed of the boids</span>
     float speed max: maximal_speed &lt;- maximal_speed;
-    //Range of sensing of the boids
+    <span class="hljs-comment">//Range of sensing of the boids</span>
     float range &lt;- minimal_distance * 2;
     point velocity &lt;- {0,0, 0} ;
     
-    //List of the others boids in the range distance of the agent
+    <span class="hljs-comment">//List of the others boids in the range distance of the agent</span>
     list others update: ((boids at_distance range)  - self);
-    //Mass center of the "flock" represented as the other boids in the sensing range
+    <span class="hljs-comment">//Mass center of the "flock" represented as the other boids in the sensing range</span>
     point mass_center update:  (length(others) &gt; 0) ? (mean (others collect (each.location)) )  : location;
     
-    //Reflex to apply separation
+    <span class="hljs-comment">//Reflex to apply separation</span>
     reflex separation when: apply_separation {
         point acc &lt;- {0,0,0};
         loop boid over: (boids at_distance (minimal_distance))  {
@@ -90,19 +90,19 @@ species boids skills: [moving] {
         }  
         velocity &lt;- velocity + acc;
     }
-    //Reflex to apply alignment
+    <span class="hljs-comment">//Reflex to apply alignment</span>
     reflex alignment when: apply_alignment {
         point acc &lt;- (length(others) &gt; 0) ? (mean (others collect (each.velocity))) : {0.0,0.0,0.0};
         acc &lt;- acc - velocity;
         velocity &lt;- velocity + (acc / alignment_factor);
     }
-    //Reflex to apply cohesion
+    <span class="hljs-comment">//Reflex to apply cohesion</span>
     reflex cohesion when: apply_cohesion {
         point acc &lt;- mass_center - location;
         acc &lt;- acc / cohesion_factor;
         velocity &lt;- velocity + acc; 
     }
-    //Action to make the agent location within the environment
+    <span class="hljs-comment">//Action to make the agent location within the environment</span>
     action bounding {
         if (location.z) &lt; 0 {
             location &lt;- {location.x,location.y,0};
@@ -110,15 +110,15 @@ species boids skills: [moving] {
             location &lt;- {location.x,location.y,z_max};
         }
     }
-    //Reflex to make the agent follow the goal
+    <span class="hljs-comment">//Reflex to make the agent follow the goal</span>
     reflex follow_goal when: apply_goal {
         velocity &lt;- velocity + ((goal - location) / cohesion_factor);
     }
-    //Reflex to apply the wind by using the vector of wind
+    <span class="hljs-comment">//Reflex to apply the wind by using the vector of wind</span>
     reflex wind when: apply_wind {
         velocity &lt;- velocity + wind_vector;
     }
-    //Action to make the agent moving
+    <span class="hljs-comment">//Action to make the agent moving</span>
     action do_move {  
         if (((velocity.x) as int) = 0) and (((velocity.y) as int) = 0) and (((velocity.z) as int) = 0) {
             velocity &lt;- {(rnd(4)) -2, (rnd(4)) - 2,  ((rnd(4)) - 2)} ; 
@@ -127,7 +127,7 @@ species boids skills: [moving] {
         do goto target: location + velocity;
         velocity &lt;- location - old_location;
     }
-    //Reflex to move the agent, calling both bounding and do_move action
+    <span class="hljs-comment">//Reflex to move the agent, calling both bounding and do_move action</span>
     reflex movement {
         do bounding;
         do do_move;
@@ -149,7 +149,7 @@ experiment boids_3D type: gui {
     output {
         
         display Sky1 type:opengl  z_fighting:false{
-            image 'background' file:'../images/ocean.jpg' ;
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/ocean.jpg'</span> ;
             species boids aspect: image;
             species boids_goal; 
         }
@@ -158,7 +158,7 @@ experiment boids_3D type: gui {
     }
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

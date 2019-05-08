@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Co-model Example Comodel_SIR_Switch · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Co-model Example Comodel_SIR_Switch · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Co-model Example Comodel_SIR_Switch</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="comodel-sir-switch"></a><a href="#comodel-sir-switch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Comodel SIR Switch</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Co-model Example Comodel_SIR_Switch · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Co-model Example Comodel_SIR_Switch · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Co-model Example Comodel_SIR_Switch</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="comodel-sir-switch"></a><a href="#comodel-sir-switch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Comodel SIR Switch</h1>
 <p><em>Author : HUYNH Quang Nghi</em></p>
 <p>This is a comodel that implement the dynamic of SIR_switch: it will use the EBM when the density of population is big and ABM when the density of population is low. It demonstrate the capability of using dynamically the legacy models.
 SIR_ABM_coupling is the coupling that manipulates the elements inside SIR_ABM model and proposes the function would be used from outside. SIR_ABM is a simple example of SIR that use the agents to represent the spreading of disease..
@@ -55,27 +55,27 @@ experiment SIR_ABM_exp type:gui{
 </code></pre>
 <pre><code class="hljs">model SIR_ABM_coupling
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">"SIR_ABM.gaml"</span>
+import <span class="hljs-string">"SIR_ABM.gaml"</span>
 experiment SIR_ABM_coupling_exp type: gui parent: SIR_ABM_exp
 {
     int get_num_S
     {
-        <span class="hljs-keyword">return</span> length(Host where (each.state = <span class="hljs-number">0</span>));
+        return length(Host where (each.state = 0));
     }
 
     int get_num_I
     {
-        <span class="hljs-keyword">return</span> length(Host where (each.state = <span class="hljs-number">1</span>));
+        return length(Host where (each.state = 1));
     }
 
     int get_num_R
     {
-        <span class="hljs-keyword">return</span> length(Host where (each.state = <span class="hljs-number">2</span>));
+        return length(Host where (each.state = 2));
     }
 
     action set_num_S_I_R (int numS, int numI, int numR)
     {
-        unknown call;
+        <span class="hljs-type">unknown</span> call;
         call &lt;- set_num_S(numS);
         call &lt;- set_num_I(numI);
         call &lt;- set_num_R(numR);
@@ -83,42 +83,42 @@ experiment SIR_ABM_coupling_exp type: gui parent: SIR_ABM_exp
 
     action set_num_S (int num)
     {
-        ask (Host where (each.state = <span class="hljs-number">0</span>))
+        ask (Host where (each.state = 0))
         {
-            <span class="hljs-keyword">do</span> die;
+            do die;
         }
 
         create Host number: num
         {
-            state &lt;- <span class="hljs-number">0</span>;
+            state &lt;- 0;
         }
 
     }
 
     action set_num_I (int num)
     {
-        ask (Host where (each.state = <span class="hljs-number">1</span>))
+        ask (Host where (each.state = 1))
         {
-            <span class="hljs-keyword">do</span> die;
+            do die;
         }
 
         create Host number: num
         {
-            state &lt;- <span class="hljs-number">1</span>;
+            state &lt;- 1;
         }
 
     }
 
     action set_num_R (int num)
     {
-        ask (Host where (each.state = <span class="hljs-number">2</span>))
+        ask (Host where (each.state = 2))
         {
-            <span class="hljs-keyword">do</span> die;
+            do die;
         }
 
         create Host number: num
         {
-            state &lt;- <span class="hljs-number">2</span>;
+            state &lt;- 2;
         }
 
     }
@@ -159,8 +159,8 @@ species agent_with_SIR_dynamic {
     }
                 
     reflex solving {
-//      write S;
-        solve SIR method: "rk4" step: h;// cycle_length: 1/h ;
+<span class="hljs-comment">//      write S;</span>
+        solve SIR method: <span class="hljs-string">"rk4"</span> step: h;<span class="hljs-comment">// cycle_length: 1/h ;</span>
     }    
 }
 
@@ -168,10 +168,10 @@ species agent_with_SIR_dynamic {
 experiment SIR_EBM_exp type: gui {
     output { 
         display display_charts {
-            chart "SIR_agent" type: series background: #white {
-                data 'S' value: first(list(agent_with_SIR_dynamic)).S color: #green ;               
-                data 'I' value: first(list(agent_with_SIR_dynamic)).I color: #red ;
-                data 'R' value: first(list(agent_with_SIR_dynamic)).R color: #blue ;
+            chart <span class="hljs-string">"SIR_agent"</span> type: series background: #white {
+                data <span class="hljs-string">'S'</span> value: first(list(agent_with_SIR_dynamic)).S color: #green ;               
+                data <span class="hljs-string">'I'</span> value: first(list(agent_with_SIR_dynamic)).I color: #red ;
+                data <span class="hljs-string">'R'</span> value: first(list(agent_with_SIR_dynamic)).R color: #blue ;
             }
         }
     }
@@ -179,27 +179,27 @@ experiment SIR_EBM_exp type: gui {
 </code></pre>
 <pre><code class="hljs">model SIR_EBM_coupling
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">"SIR_EBM.gaml"</span>
+import <span class="hljs-string">"SIR_EBM.gaml"</span>
 experiment SIR_EBM_coupling_exp type: gui parent: SIR_EBM_exp
 {
     int get_num_S
     {
-        <span class="hljs-keyword">return</span> first(agent_with_SIR_dynamic).S;
+        return first(agent_with_SIR_dynamic).S;
     }
 
     int get_num_I
     {
-        <span class="hljs-keyword">return</span> first(agent_with_SIR_dynamic).I;
+        return first(agent_with_SIR_dynamic).I;
     }
 
     int get_num_R
     {
-        <span class="hljs-keyword">return</span> first(agent_with_SIR_dynamic).R;
+        return first(agent_with_SIR_dynamic).R;
     }
 
     action set_num_S_I_R (int numS, int numI, int numR)
     {
-        unknown call;
+        <span class="hljs-type">unknown</span> call;
         call &lt;- set_num_S(numS);
         call &lt;- set_num_I(numI);
         call &lt;- set_num_R(numR);
@@ -229,15 +229,15 @@ experiment SIR_EBM_coupling_exp type: gui parent: SIR_EBM_exp
 <p>Code of the model :</p>
 <pre><code class="hljs">model Comodel_SIR_Switch
 
-import "Legacy_models/SIR_EBM_coupling.gaml" as SIR_1
-import "Legacy_models/SIR_ABM_coupling.gaml" as SIR_2
+import <span class="hljs-string">"Legacy_models/SIR_EBM_coupling.gaml"</span> as SIR_1
+import <span class="hljs-string">"Legacy_models/SIR_ABM_coupling.gaml"</span> as SIR_2
 
 
 global
 {
     geometry shape &lt;- envelope(square(100));
-    int switch_threshold &lt;- 120; // threshold for switching models
-    int threshold_to_IBM &lt;- 220; // threshold under which the model swith to IBM
+    int switch_threshold &lt;- 120; <span class="hljs-comment">// threshold for switching models</span>
+    int threshold_to_IBM &lt;- 220; <span class="hljs-comment">// threshold under which the model swith to IBM</span>
     int threshold_to_Maths &lt;- 20;
     init
     {
@@ -255,12 +255,12 @@ species Switch
     int R &lt;- 0;
     reflex request_from_micro_model
     {
-        //if the size of S population and I population are bigger than a threshold, use the EBM
+        <span class="hljs-comment">//if the size of S population and I population are bigger than a threshold, use the EBM</span>
         if (S &gt; threshold_to_Maths and I &gt; threshold_to_Maths)
         {
             ask world
             {
-                unknown call;
+                <span class="hljs-type">unknown</span> call;
                 call &lt;- first(SIR_1.SIR_EBM_coupling_exp).set_num_S_I_R(myself.S, myself.I, myself.R);
                 ask first(SIR_1.SIR_EBM_coupling_exp).simulation
                 {
@@ -278,12 +278,12 @@ species Switch
 
         }
         
-        //if the size of S population or  I population are smaller  than a threshold, use the ABM
+        <span class="hljs-comment">//if the size of S population or  I population are smaller  than a threshold, use the ABM</span>
         if (I &lt; threshold_to_IBM or S &lt; threshold_to_IBM)
         {
             ask world
             {
-                unknown call;
+                <span class="hljs-type">unknown</span> call;
                 call &lt;- first(SIR_2.SIR_ABM_coupling_exp).set_num_S_I_R(myself.S, myself.I, myself.R);
                 ask first(SIR_2.SIR_ABM_coupling_exp).simulation
                 {
@@ -316,11 +316,11 @@ experiment Simple_exp type: gui
     {
         display co_SIR_chart
         {
-            chart "SIR_agent" type: series background: # white
+            chart <span class="hljs-string">"SIR_agent"</span> type: series background: # white
             {
-                data 'S' value: first(Switch).S color: # green;
-                data 'I' value: first(Switch).I color: # red;
-                data 'R' value: first(Switch).R color: # yellow;
+                data <span class="hljs-string">'S'</span> value: first(Switch).S color: # green;
+                data <span class="hljs-string">'I'</span> value: first(Switch).I color: # red;
+                data <span class="hljs-string">'R'</span> value: first(Switch).R color: # yellow;
             }
 
         }
@@ -329,7 +329,7 @@ experiment Simple_exp type: gui
 
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

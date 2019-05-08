@@ -1,27 +1,27 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>3D Visualization 3D camera and trajectories · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="3D Visualization 3D camera and trajectories · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">3D Visualization 3D camera and trajectories</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="3d-camera-and-camera-positionning-with-boids-model"></a><a href="#3d-camera-and-camera-positionning-with-boids-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3D Camera and Camera Positionning with Boids model</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>3D Visualization 3D camera and trajectories · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="3D Visualization 3D camera and trajectories · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">3D Visualization 3D camera and trajectories</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="3d-camera-and-camera-positionning-with-boids-model"></a><a href="#3d-camera-and-camera-positionning-with-boids-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3D Camera and Camera Positionning with Boids model</h1>
 <p><em>Author : Arnaud Grignard</em></p>
 <p>Model using the Boids model to represent the flight of boids following a goal and avoiding obstacles.</p>
 <p>Five experiments are proposed with differents goals : understanding of the model used (Boids_gui), 3D Display (start), 3D Display with trajectories analysis of boids (trajectory_analysis), one coupling both previous experiments and the time simulated with boids going higher and higher according to the time (SpaceTimeCube) and a model presenting the different views possible in the 3D Display : first person, third person and global view (Multiple view).</p>
 <p>Imported model :</p>
 <pre><code class="hljs">model boids 
 
-//make the environment torus according to the bool variable torus_environment 
+<span class="hljs-comment">//make the environment torus according to the bool variable torus_environment </span>
 global torus: torus_environment{ 
     
-    //Variable to represent the number of boids to create
+    <span class="hljs-comment">//Variable to represent the number of boids to create</span>
     int number_of_agents &lt;- 10 min: 1 max: 1000000;
-    //Variable to represent the number of obstacles to create
+    <span class="hljs-comment">//Variable to represent the number of obstacles to create</span>
     int number_of_obstacles &lt;- 5 min: 0;
-    //Variable to represent the maximal speed of the boids agents
+    <span class="hljs-comment">//Variable to represent the maximal speed of the boids agents</span>
     float maximal_speed &lt;- 15.0 min: 0.1 max: 15.0;
     
-    //Variables to manage the boids movements
+    <span class="hljs-comment">//Variables to manage the boids movements</span>
     int cohesion_factor &lt;- 200;
     int alignment_factor &lt;- 100; 
     float minimal_distance &lt;- 10.0; 
     int maximal_turn &lt;- 90 min: 0 max: 359; 
     
-    //Variables for the environment 
+    <span class="hljs-comment">//Variables for the environment </span>
     int width_and_height_of_environment &lt;- 800;  
     bool torus_environment &lt;- false; 
     bool apply_cohesion &lt;- true ;
@@ -32,19 +32,19 @@ global torus: torus_environment{
     bool apply_wind &lt;- true;   
     bool moving_obstacles &lt;- false;   
     
-    //Bounds of the environment
+    <span class="hljs-comment">//Bounds of the environment</span>
     int bounds &lt;- int(width_and_height_of_environment / 20) depends_on: [width_and_height_of_environment]; 
-    //Vector to represent the direction of the wind
+    <span class="hljs-comment">//Vector to represent the direction of the wind</span>
     point wind_vector &lt;- {0,0}; 
     
-    //Variables for the goal : its duration and its location determined randomlly
+    <span class="hljs-comment">//Variables for the goal : its duration and its location determined randomlly</span>
     int goal_duration &lt;- 30 update: (goal_duration - 1); 
     point goal &lt;- {rnd (width_and_height_of_environment - 2) + 1, rnd (width_and_height_of_environment -2) + 1 }; 
     
-    //Images available for the aspect of the boids
-    list images of: image_file &lt;- [file('../images/bird1.png'),file('../images/bird2.png'),file('../images/bird3.png')]; 
+    <span class="hljs-comment">//Images available for the aspect of the boids</span>
+    list images of: image_file &lt;- [file(<span class="hljs-string">'../images/bird1.png'</span>),file(<span class="hljs-string">'../images/bird2.png'</span>),file(<span class="hljs-string">'../images/bird3.png'</span>)]; 
     
-    //Determine the bounding rectangle of the environment
+    <span class="hljs-comment">//Determine the bounding rectangle of the environment</span>
     int xmin &lt;- bounds depends_on: [bounds];    
     int ymin &lt;- bounds depends_on: [bounds];  
     int xmax &lt;- (width_and_height_of_environment - bounds);     
@@ -196,28 +196,28 @@ species obstacle skills: [moving] {
 
 
 experiment Boids_gui type: gui {
-    parameter 'Number of agents' var: number_of_agents;
-    parameter 'Number of obstacles' var: number_of_obstacles;
-    parameter 'Maximal speed' var: maximal_speed;
-    parameter 'Cohesion Factor' var: cohesion_factor;
-    parameter 'Alignment Factor' var: alignment_factor; 
-    parameter 'Minimal Distance'  var: minimal_distance; 
-    parameter 'Maximal Turn'  var: maximal_turn; 
-    parameter 'Width/Height of the Environment' var: width_and_height_of_environment ;  
-    parameter 'Toroidal Environment ?'  var: torus_environment ; 
-    parameter 'Apply Cohesion ?' var: apply_cohesion ;
-    parameter 'Apply Alignment ?' var: apply_alignment ;   
-    parameter 'Apply Separation ?' var: apply_separation ;   
-    parameter 'Follow Goal ?' var: apply_goal ; 
-    parameter 'Apply Avoidance ?' var: apply_avoid ;   
-    parameter 'Apply Wind ?' var: apply_wind ;     
-    parameter 'Moving Obstacles ?' var: moving_obstacles  ;    
-    parameter 'Direction of the wind' var: wind_vector ;  
+    parameter <span class="hljs-string">'Number of agents'</span> var: number_of_agents;
+    parameter <span class="hljs-string">'Number of obstacles'</span> var: number_of_obstacles;
+    parameter <span class="hljs-string">'Maximal speed'</span> var: maximal_speed;
+    parameter <span class="hljs-string">'Cohesion Factor'</span> var: cohesion_factor;
+    parameter <span class="hljs-string">'Alignment Factor'</span> var: alignment_factor; 
+    parameter <span class="hljs-string">'Minimal Distance'</span>  var: minimal_distance; 
+    parameter <span class="hljs-string">'Maximal Turn'</span>  var: maximal_turn; 
+    parameter <span class="hljs-string">'Width/Height of the Environment'</span> var: width_and_height_of_environment ;  
+    parameter <span class="hljs-string">'Toroidal Environment ?'</span>  var: torus_environment ; 
+    parameter <span class="hljs-string">'Apply Cohesion ?'</span> var: apply_cohesion ;
+    parameter <span class="hljs-string">'Apply Alignment ?'</span> var: apply_alignment ;   
+    parameter <span class="hljs-string">'Apply Separation ?'</span> var: apply_separation ;   
+    parameter <span class="hljs-string">'Follow Goal ?'</span> var: apply_goal ; 
+    parameter <span class="hljs-string">'Apply Avoidance ?'</span> var: apply_avoid ;   
+    parameter <span class="hljs-string">'Apply Wind ?'</span> var: apply_wind ;     
+    parameter <span class="hljs-string">'Moving Obstacles ?'</span> var: moving_obstacles  ;    
+    parameter <span class="hljs-string">'Direction of the wind'</span> var: wind_vector ;  
     
     output {
         display Sky
         {
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species boids aspect: image;
             species boids_goal;
             species obstacle;
@@ -229,18 +229,18 @@ experiment Boids_gui type: gui {
 <pre><code class="hljs">
 model boidsVisualization
 
-//import everything from Boids model, even the experiments
-import "../includes/Boids.gaml"
+<span class="hljs-comment">//import everything from Boids model, even the experiments</span>
+import <span class="hljs-string">"../includes/Boids.gaml"</span>
 
 experiment start type: gui {
     
-    //each cycle will have a minimum duration of 0.03 second to slow the experiment allowing a better view of the dynamics
+    <span class="hljs-comment">//each cycle will have a minimum duration of 0.03 second to slow the experiment allowing a better view of the dynamics</span>
     float minimum_cycle_duration &lt;- 0.03;
     
-    //the type opengl allows the 3D Display instead of only 2D
+    <span class="hljs-comment">//the type opengl allows the 3D Display instead of only 2D</span>
     output {
         display RealBoids  type:opengl z_fighting:false {
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species boids aspect: image  position:{0,0,0.1};
             species boids_goal transparency:0.2 position:{0,0,0.1};
             species obstacle position:{0,0,0.1};        
@@ -254,7 +254,7 @@ experiment trajectory_analysis type: gui {
     output {
         
         display RealBoids  type:opengl {
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species boids trace:100{
                 draw triangle(20) rotate: 90 + heading color: hsb (float(heading)/360.0,1.0,1.0) depth:8 ;  
             }
@@ -269,14 +269,14 @@ experiment SpaceTimeCube type: gui {
     float minimum_cycle_duration &lt;- 0.03;
     output {
         display RealBoids  type:opengl {
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species boids aspect: image transparency:0.5 position:{0,0,0.11};
             species boids_goal transparency:0.2 position:{0,0,0.1};
             species obstacle position:{0,0,0.1};        
         }
         
         display SpaceTimeCubeAll  type:opengl {
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species boids trace:100{
                 draw triangle(20) rotate: 90 + heading color: hsb (float(heading)/360.0,1.0,1.0) depth:8 at: {location.x ,location.y,location.z+time};  
             }
@@ -292,17 +292,17 @@ experiment MultipleView type: gui {
     float minimum_cycle_duration &lt;- 0.03;
     output {
         display RealBoids   type:opengl {
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species boids aspect: image  transparency:0.5 position:{0,0,0.25};
             species boids_goal transparency:0.2 position:{0,0,0.25};
             species obstacle ;
             species boids  aspect: image transparency:0.2 position:{0,0,0.24};      
         }
-        //The facet camera_pos is the position of the camera in the 3D display and the facet camera_look_pos is the position where the camera is looking
+        <span class="hljs-comment">//The facet camera_pos is the position of the camera in the 3D display and the facet camera_look_pos is the position where the camera is looking</span>
         display ThirdPersonn  type:opengl camera_interaction:false camera_pos:{int(first(boids).location.x),int(first(boids).location.y),250} 
         camera_look_pos:{int(first(boids).location.x),(first(boids).location.y),0} camera_up_vector:{0.0,-1.0,0.0} {
         
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species obstacle;
             species boids{
                 draw triangle(20) rotate: 90 + heading color: hsb (float(heading)/360.0,1.0,1.0) depth:8 ;  
@@ -312,12 +312,12 @@ experiment MultipleView type: gui {
             }   
         }
         
-        //The facet camera_up_vector allows the definition of the vector on which the top of the camera point at, it has to be perpendicular to the look vector
+        <span class="hljs-comment">//The facet camera_up_vector allows the definition of the vector on which the top of the camera point at, it has to be perpendicular to the look vector</span>
         display FirstPerson  type:opengl camera_interaction:false camera_pos:{int(first(boids).location.x),int(first(boids).location.y),10} 
             camera_look_pos:{cos(first(boids).heading)*first(boids).speed+int(first(boids).location.x),
             sin(first(boids).heading)*first(boids).speed+int(first(boids).location.y),10} 
             camera_up_vector:{0.0,0.0,1.0} {    
-            image 'background' file:'../images/sky.jpg';
+            image <span class="hljs-string">'background'</span> file:<span class="hljs-string">'../images/sky.jpg'</span>;
             species obstacle ;
             species boids{
                 draw triangle(20) rotate: 90 + heading color: hsb (float(heading)/360.0,1.0,1.0) depth:8 ;  
@@ -329,7 +329,7 @@ experiment MultipleView type: gui {
     }
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

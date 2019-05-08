@@ -1,4 +1,54 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>RunSeveralSimulations · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="RunSeveralSimulations · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">RunSeveralSimulations</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="run-several-simulations"></a><a href="#run-several-simulations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run Several Simulations</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>RunSeveralSimulations · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="RunSeveralSimulations · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Learn GAML step by step</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">General<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Home">Home</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/NewVersionChanges">NewVersionChanges</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/PedagogicalMaterials">PedagogicalMaterials</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Platform<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/PlatformDocumentation">PlatformDocumentation</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Installation And Launching</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Installation">Installation</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Launching">Launching</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Headless">Headless</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Updating">Updating</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/InstallingPlugins">InstallingPlugins</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Troubleshooting">Troubleshooting</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Workspace, Projects and Models</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/NavigatingWorkspace">NavigatingWorkspace</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ChangingWorkspace">ChangingWorkspace</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ImportingModels">ImportingModels</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Editing Models</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GamlEditorGeneralities">GamlEditorGeneralities</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GamlEditorToolbar">GamlEditorToolbar</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ValidationOfModels">ValidationOfModels</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Running Experiments</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/LaunchingExperiments">LaunchingExperiments</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ExperimentsUserInterface">ExperimentsUserInterface</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/MenusAndCommands">MenusAndCommands</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ParametersView">ParametersView</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/InspectorsAndMonitors">InspectorsAndMonitors</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Displays">Displays</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/BatchSpecific">BatchSpecific</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ErrorsView">ErrorsView</a></li></ul></div><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Preferences">Preferences</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Learn GAML step by step<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Introduction">Introduction</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Start with GAML</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ModelOrganization">ModelOrganization</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/BasicProgrammingConceptsInGAML">BasicProgrammingConceptsInGAML</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Manipulate basic Species</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GlobalSpecies">GlobalSpecies</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/RegularSpecies">RegularSpecies</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningActionsAndBehaviors">DefiningActionsAndBehaviors</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/InteractionBetweenAgents">InteractionBetweenAgents</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/AttachingSkills">AttachingSkills</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Inheritance">Inheritance</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Defining Advanced Species</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GridSpecies">GridSpecies</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GraphSpecies">GraphSpecies</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/MirrorSpecies">MirrorSpecies</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Defining GUI Experiment</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningParameters">DefiningParameters</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningDisplaysGeneralities">DefiningDisplaysGeneralities</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningCharts">DefiningCharts</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Defining3DDisplays">Defining3DDisplays</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningMonitorsAndInspectors">DefiningMonitorsAndInspectors</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningExportFiles">DefiningExportFiles</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DefiningUserInteraction">DefiningUserInteraction</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Exploring Models</h4><ul><li class="navListItem navListItemActive"><a class="navItem" href="/BC2019-Gama-Site/docs/RunSeveralSimulations">RunSeveralSimulations</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/BatchExperiments">BatchExperiments</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ExplorationMethods">ExplorationMethods</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Optimizing Model Section</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/RuntimeConcepts">RuntimeConcepts</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OptimizingModels">OptimizingModels</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Multi-Paradigm Modeling</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ControlArchitecture">ControlArchitecture</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Equations">Equations</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Recipes<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ManipulateOSMDatas">ManipulateOSMDatas</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Diffusion">Diffusion</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/UsingDatabase">UsingDatabase</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/CallingR">CallingR</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/UsingFIPAACL">UsingFIPAACL</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GamAnalyzer">GamAnalyzer</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/UsingBDI">UsingBDI</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/UsingDrivingSkill">UsingDrivingSkill</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ManipulateDates">ManipulateDates</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ManipulateLight">ManipulateLight</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Comodel">Comodel</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Save-and-restore-simulations">Save-and-restore-simulations</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/UsingNetwork">UsingNetwork</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Headless-mode-for-dummies">Headless-mode-for-dummies</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/FAQ">FAQ</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/KnownIssues">KnownIssues</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">GAML References<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Built-in Species</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/AgentBuiltIn">AgentBuiltIn</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ModelBuiltIn">ModelBuiltIn</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ExperimentBuiltIn">ExperimentBuiltIn</a></li></ul></div><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/BuiltInSkills">BuiltInSkills</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/BuiltInArchitectures">BuiltInArchitectures</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Statements">Statements</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DataTypes">DataTypes</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/FileTypes">FileTypes</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Expressions</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Literals">Literals</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/UnitsAndConstants">UnitsAndConstants</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/PseudoVariables">PseudoVariables</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/VariablesAndAttributes">VariablesAndAttributes</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OperatorsAA">OperatorsAA</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OperatorsBC">OperatorsBC</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OperatorsDH">OperatorsDH</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OperatorsIM">OperatorsIM</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OperatorsNR">OperatorsNR</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OperatorsSZ">OperatorsSZ</a></li></ul></div><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Index">Index</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Tutorials<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/PredatorPrey">PredatorPrey</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/RoadTrafficModel">RoadTrafficModel</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/ThreeD">ThreeD</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/IncrementalModel">IncrementalModel</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/LuneraysFlu">LuneraysFlu</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/CoModelingTutorial">CoModelingTutorial</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/BDIAgents">BDIAgents</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Developing Extensions<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/InstallingGitVersion">InstallingGitVersion</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/GamaArchitecture">GamaArchitecture</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingPlugins">DevelopingPlugins</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingSkills">DevelopingSkills</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingStatements">DevelopingStatements</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingOperators">DevelopingOperators</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingTypes">DevelopingTypes</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingSpecies">DevelopingSpecies</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingControlArchitectures">DevelopingControlArchitectures</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingIndexAnnotations">DevelopingIndexAnnotations</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/DevelopingIScope">DevelopingIScope</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/CreatingAReleaseOfGama">CreatingAReleaseOfGama</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Documentation">Documentation</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/WebsiteGeneration">WebsiteGeneration</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Else<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/References">References</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Projects">Projects</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/TrainingSession">TrainingSession</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Events">Events</a></li><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/OlderVersions">OlderVersions</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Coding Camp</h4><ul><li class="navListItem"><a class="navItem" href="/BC2019-Gama-Site/docs/Event__CC15_Reorganization">Event__CC15_Reorganization</a></li></ul></div></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">RunSeveralSimulations</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="run-several-simulations"></a><a href="#run-several-simulations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run Several Simulations</h1>
 <p>To explore a model, the easiest and the most intuitive way to proceed is running several simulations with several parameter value, and see the differences from the output. GAMA provides you the possibility to launch several simulations from the GUI.</p>
 <h2><a class="anchor" aria-hidden="true" id="index"></a><a href="#index" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Index</h2>
 <ul>
@@ -41,12 +91,12 @@ global {
 }
 
 experiment my_experiment type:gui  {
-    parameter name:"background color:" var:bgd_color init:#blue;
+    parameter name:<span class="hljs-string">"background color:"</span> var:bgd_color init:#blue;
     init {
         create simulation with:[bgd_color::#red];
     }
     output {
-        display "my_display" background:bgd_color{}
+        display <span class="hljs-string">"my_display"</span> background:bgd_color{}
     }
 }
 </code></pre>
@@ -57,14 +107,14 @@ experiment my_experiment type:gui  {
 
 global {
     init {
-        write <span class="hljs-string">"new simulation created ! Its name is "</span>+name;
+        <span class="hljs-statement">write</span> <span class="hljs-string">"new simulation created ! Its name is "</span>+name;
     }
 }
 
 experiment my_experiment type:gui  {
     init {
     }
-    reflex when:(mod(cycle,<span class="hljs-number">10</span>)=<span class="hljs-number">0</span> and cycle!=<span class="hljs-number">0</span>) {
+    reflex when:(mod(cycle,10)=0 and cycle!=0) {
         create simulation;
     }
     output {
@@ -72,7 +122,7 @@ experiment my_experiment type:gui  {
 }
 </code></pre>
 <p>You may ask, what is the purpose of such a thing ? Well, with such a short model, it is not very interesting, for sure. But you can imagine running a simulation, and if the simulation reaches a certain state, it can be closed, and another simulation can be run instead with different parameters (a simulation can be closed by doing a &quot;do die&quot; on itself). You can also imagine to run two simulations, and to communicate from one to an other through the experiment, as it is shown in this easy model, where agents can move from one simulation to another :</p>
-<p><img src="resources/images/exploringModel/change_world.png" alt="resources/images/exploringModel/change_world.png"></p>
+<p><img src="../resources/images/exploringModel/change_world.png" alt="resources/images/exploringModel/change_world.png"></p>
 <pre><code class="hljs">model smallWorld
 
 global {
@@ -144,17 +194,17 @@ experiment fromWorldToWorld type: gui {
 }
 </code></pre>
 <p>Here is an other example of application of application, available in the model library. Here we run 4 times the Ant Foraging model, with different parameters.</p>
-<p><img src="resources/images/exploringModel/multi_foraging.jpg" alt="resources/images/exploringModel/multi_foraging.jpg"></p>
+<p><img src="../resources/images/exploringModel/multi_foraging.jpg" alt="resources/images/exploringModel/multi_foraging.jpg"></p>
 <h2><a class="anchor" aria-hidden="true" id="random-seed"></a><a href="#random-seed" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Random seed</h2>
 <h3><a class="anchor" aria-hidden="true" id="defining-the-seed-from-the-model"></a><a href="#defining-the-seed-from-the-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining the seed from the model</h3>
 <p>If you run several simulations, you may want to use the same seed for each one of those simulations (to compare the influence of a certain parameter, in exactly the same conditions).</p>
 <p>Let's remind you that <code>seed</code> is a built-in attribute of the model. You than just need to specify the value of your seed during the creation of the simulation if you want to fix the seed :</p>
-<pre><code class="hljs">create simulation <span class="hljs-keyword">with</span>:[seed::<span class="hljs-number">10.0</span>];
+<pre><code class="hljs">create simulation with:[seed::10.0];
 </code></pre>
 <p>You can also specify the seed if you are inside the <code>init</code> scope of your <code>global</code> agent.</p>
 <pre><code class="hljs">global {
     init {
-        seed&lt;<span class="hljs-number">-10.0</span>;
+        seed&lt;-10.0;
     }
 }
 </code></pre>
@@ -162,7 +212,7 @@ experiment fromWorldToWorld type: gui {
 <h3><a class="anchor" aria-hidden="true" id="defining-the-seed-from-the-experiment"></a><a href="#defining-the-seed-from-the-experiment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining the seed from the experiment</h3>
 <p>The experiment agent also have a built-in attribute <code>seed</code>. The value of this seed is defined in your <a href="Preferences#simulation">simulation preferences</a>. The first simulation created is created <strong>with the seed value of the experiment</strong>.</p>
 <p>The following sequence diagram can explain you better how the affectation of the seed attribute works :</p>
-<p><img src="resources/images/exploringModel/sequence_diagram_seed_affectation.png" alt="resources/images/exploringModel/sequence_diagram_seed_affectation.png"></p>
+<p><img src="../resources/images/exploringModel/sequence_diagram_seed_affectation.png" alt="resources/images/exploringModel/sequence_diagram_seed_affectation.png"></p>
 <p>The affectation of an attribute is always done in this order :
 (1) the attribute is affected with a specific value in the species scope. If no attribute value is specified, the value is a default value.
 (2) if a value is specified for this attribute in the <code>create</code> statement, then the attribute value is affected again.
@@ -188,9 +238,9 @@ species my_species skills:[moving] {
 
 experiment my_experiment type:gui  {
     float seedValue &lt;- 10.0;
-    float seed &lt;- seedValue; // force the value of the seed.
+    float seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
-        // create a second simulation with the same seed as the main simulation
+        <span class="hljs-comment">// create a second simulation with the same seed as the main simulation</span>
         create simulation with:[seed::seedValue];
     }
     output {
@@ -201,7 +251,7 @@ experiment my_experiment type:gui  {
 }
 </code></pre>
 <p>When you run this simulation, their execution is exactly similar.</p>
-<p><img src="resources/images/exploringModel/same_simulation_one_agent.png" alt="resources/images/exploringModel/same_simulation_one_agent.png"></p>
+<p><img src="../resources/images/exploringModel/same_simulation_one_agent.png" alt="resources/images/exploringModel/same_simulation_one_agent.png"></p>
 <p>Let's try now to add a new species in this model, and to add a parameter to the simulation for the number of agents created for this species.</p>
 <pre><code class="hljs">model multi_simulations
 
@@ -233,7 +283,7 @@ species my_speciesB skills:[moving] {
 
 experiment my_experiment type:gui  {
     float seedValue &lt;- 10.0;
-    float seed &lt;- seedValue; // force the value of the seed.
+    float seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
         create simulation with:[seed::seedValue,number_of_speciesB::2];
     }
@@ -246,54 +296,54 @@ experiment my_experiment type:gui  {
 }
 </code></pre>
 <p>Then you run the experiment, you may find something strange...</p>
-<p><img src="resources/images/exploringModel/same_simulation_2_species.png" alt="resources/images/exploringModel/same_simulation_2_species.png"></p>
+<p><img src="../resources/images/exploringModel/same_simulation_2_species.png" alt="resources/images/exploringModel/same_simulation_2_species.png"></p>
 <p>Even if the first step seems ok (the greed agent and one of the two red agent is initialized with the same location), the simulation differs completly. You should have expected to have the same behavior for the greed agent in both of the simulation, but it is not the case. The explaination of this behavior is that a random number generator has generated more random numbers in the second simulation than in the first one.</p>
 <p>If you don't understand, here is a short example that may help you to understand better :</p>
 <pre><code class="hljs">model multi_simulations
 
 global {
-    int iteration_number &lt;- <span class="hljs-number">1</span>;
+    int iteration_number &lt;- 1;
     reflex update {
         float value;
         loop times:iteration_number {
-            value&lt;-rnd(<span class="hljs-number">10.0</span>);
-            write value;
+            value&lt;-rnd(10.0);
+            <span class="hljs-statement">write</span> value;
         }
-        write <span class="hljs-string">"cycle "</span>+cycle+<span class="hljs-string">" in experiment "</span>+name+<span class="hljs-string">" : "</span>+value;
+        <span class="hljs-statement">write</span> <span class="hljs-string">"cycle "</span>+cycle+<span class="hljs-string">" in experiment "</span>+name+<span class="hljs-string">" : "</span>+value;
     }
 }
 
 experiment my_experiment type:gui  {
-    float seedValue &lt;- <span class="hljs-number">10.0</span>;
+    float seedValue &lt;- 10.0;
     float seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
-        create simulation <span class="hljs-keyword">with</span>:[seed::seedValue,<span class="hljs-attr">iteration_number</span>::<span class="hljs-number">2</span>];
+        create simulation with:[seed::seedValue,iteration_number::2];
     }
     output {
     }
 }
 </code></pre>
 <p>The output will be something like that :</p>
-<pre><code class="hljs"><span class="hljs-number">7.67003069780383</span>
-cycle <span class="hljs-number">0</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">7.67003069780383</span>
-<span class="hljs-number">7.67003069780383</span>
-<span class="hljs-number">0.22889843360303863</span>
-cycle <span class="hljs-number">0</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">0.22889843360303863</span>
-<span class="hljs-number">0.22889843360303863</span>
-cycle <span class="hljs-number">1</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">0.22889843360303863</span>
-<span class="hljs-number">4.5220913306263855</span>
-<span class="hljs-number">0.8363180333035425</span>
-cycle <span class="hljs-number">1</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">0.8363180333035425</span>
-<span class="hljs-number">4.5220913306263855</span>
-cycle <span class="hljs-number">2</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">4.5220913306263855</span>
-<span class="hljs-number">5.460148568140819</span>
-<span class="hljs-number">4.158355846617511</span>
-cycle <span class="hljs-number">2</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">4.158355846617511</span>
-<span class="hljs-number">0.8363180333035425</span>
-cycle <span class="hljs-number">3</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model0 : <span class="hljs-number">0.8363180333035425</span>
-<span class="hljs-number">1.886091659169562</span>
-<span class="hljs-number">4.371253083874633</span>
-cycle <span class="hljs-number">3</span> <span class="hljs-keyword">in</span> experiment multi_simulations_model1 : <span class="hljs-number">4.371253083874633</span>
+<pre><code class="hljs">7.67003069780383
+cycle 0 in experiment multi_simulations_model0 : 7.67003069780383
+7.67003069780383
+0.22889843360303863
+cycle 0 in experiment multi_simulations_model1 : 0.22889843360303863
+0.22889843360303863
+cycle 1 in experiment multi_simulations_model0 : 0.22889843360303863
+4.5220913306263855
+0.8363180333035425
+cycle 1 in experiment multi_simulations_model1 : 0.8363180333035425
+4.5220913306263855
+cycle 2 in experiment multi_simulations_model0 : 4.5220913306263855
+5.460148568140819
+4.158355846617511
+cycle 2 in experiment multi_simulations_model1 : 4.158355846617511
+0.8363180333035425
+cycle 3 in experiment multi_simulations_model0 : 0.8363180333035425
+1.886091659169562
+4.371253083874633
+cycle 3 in experiment multi_simulations_model1 : 4.371253083874633
 </code></pre>
 <p>Which means :</p>
 <table>
@@ -338,21 +388,21 @@ species my_species skills:[moving] {
 experiment my_experiment type:gui  {
     float seed &lt;- 10.0;
     init {
-        create simulation with:[rng::"cellular",seed::10.0];
-        create simulation with:[rng::"java",seed::10.0];
+        create simulation with:[rng::<span class="hljs-string">"cellular"</span>,seed::10.0];
+        create simulation with:[rng::<span class="hljs-string">"java"</span>,seed::10.0];
     }
     output {
         display my_display {
             species my_species aspect:base;
-            graphics "my_graphic" {
+            graphics <span class="hljs-string">"my_graphic"</span> {
                 draw rectangle(35,10) at:{0,0} color:#lightgrey;
-                draw rng at:{3,3} font:font("Helvetica", 20 , #plain) color:#black;
+                draw rng at:{3,3} font:font(<span class="hljs-string">"Helvetica"</span>, 20 , #plain) color:#black;
             }
         }
     }
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/BC2019-Gama-Site/docs/DefiningUserInteraction"><span class="arrow-prev">← </span><span class="function-name-prevnext">DefiningUserInteraction</span></a><a class="docs-next button" href="/BC2019-Gama-Site/docs/BatchExperiments"><span class="function-name-prevnext">BatchExperiments</span><span class="arrow-next"> →</span></a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

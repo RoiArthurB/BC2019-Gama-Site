@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Diffusion Statement Uniform diffusion with mask (Avoid mask) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Diffusion Statement Uniform diffusion with mask (Avoid mask) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Docs</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Help</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Diffusion Statement Uniform diffusion with mask (Avoid mask)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="uniform-diffusion-with-mask-avoid-mask"></a><a href="#uniform-diffusion-with-mask-avoid-mask" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Uniform diffusion with mask (Avoid mask)</h1>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Diffusion Statement Uniform diffusion with mask (Avoid mask) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA, modeling made easy"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Diffusion Statement Uniform diffusion with mask (Avoid mask) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA, modeling made easy"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/atom.xml" title="GAMA-Platform Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://roiarthurb.github.io/BC2019-Gama-Site/blog/feed.xml" title="GAMA-Platform Blog RSS Feed"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/docs/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/docs/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Contribute</a></li><li class=""><a href="/BC2019-Gama-Site/blog/" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Diffusion Statement Uniform diffusion with mask (Avoid mask)</h1></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="uniform-diffusion-with-mask-avoid-mask"></a><a href="#uniform-diffusion-with-mask-avoid-mask" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Uniform diffusion with mask (Avoid mask)</h1>
 <p><em>Author : Julien Mazars</em></p>
 <p>This model is used to show how a uniform diffusion can be used with a mask. The cell at the center of the grid emit a pheromon at each step, which is spread through the grid thanks to the diffusion mechanism. A mask is used to restrict the diffusion to a &quot;corridor&quot; (the white part of the bmp image). The first display shows a diffusion avoiding the masked cells (the value is redistributed to the neighboring cells, to have a constant number of pheromon), the second display shows a diffusion without avoiding the masked cells (the value is diffused in the masked cell, and never rediffused again).</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Uniform diffusion with mask (Avoid mask)/a-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Uniform diffusion with mask (Avoid mask)/b-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
@@ -6,18 +6,18 @@
 model diffusion_with_mask
 
 global {
-    int grid_size &lt;- 64; // better to have a pow of 2 for the size of the grid
+    int grid_size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
     geometry shape &lt;- envelope(square(grid_size) * 10);
     cells_avoid_mask selected_cells1;
     cells_diffuse_on_mask selected_cells2;
-    // Load the image mask as a matrix. The white part of the image is the part where diffusion will work, and the black part is where diffusion will be blocked.
-    matrix mymask &lt;- file("../includes/complex_mask.bmp") as_matrix({grid_size,grid_size});
-    // Declare a uniform diffusion matrix
+    <span class="hljs-comment">// Load the image mask as a matrix. The white part of the image is the part where diffusion will work, and the black part is where diffusion will be blocked.</span>
+    matrix mymask &lt;- file(<span class="hljs-string">"../includes/complex_mask.bmp"</span>) as_matrix({grid_size,grid_size});
+    <span class="hljs-comment">// Declare a uniform diffusion matrix</span>
     matrix&lt;float&gt; mat_diff &lt;- matrix([
                                     [1/9,1/9,1/9],
                                     [1/9,1/9,1/9],
                                     [1/9,1/9,1/9]]);
-    // Initialize the emiter cell as the cell at the center of the word
+    <span class="hljs-comment">// Initialize the emiter cell as the cell at the center of the word</span>
     init {
         selected_cells1 &lt;- location as cells_avoid_mask;
         selected_cells2 &lt;- location as cells_diffuse_on_mask;
@@ -32,7 +32,7 @@ global {
     }
 
     reflex diff {
-        // Declare a diffusion on the grid "cells". The value of the diffusion will be store in the new variable "phero" of the cell.
+        <span class="hljs-comment">// Declare a diffusion on the grid "cells". The value of the diffusion will be store in the new variable "phero" of the cell.</span>
         diffuse var: phero on: cells_avoid_mask matrix: mat_diff mask: mymask avoid_mask: true;
         diffuse var: phero on: cells_diffuse_on_mask matrix: mat_diff mask: mymask; 
     }
@@ -40,20 +40,20 @@ global {
 
 
 grid cells_avoid_mask height: grid_size width: grid_size {
-    // "phero" is the variable storing the value of the diffusion
+    <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     float phero &lt;- 0.0;
-    // the color of the cell is linked to the value of "phero".
+    <span class="hljs-comment">// the color of the cell is linked to the value of "phero".</span>
     rgb color &lt;- (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0) update: (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0);
-    // Update the "grid_value", which will be used for the elevation of the cell
+    <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
     float grid_value update: phero * 100;
 } 
 
 grid cells_diffuse_on_mask height: grid_size width: grid_size {
-    // "phero" is the variable storing the value of the diffusion
+    <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     float phero &lt;- 0.0;
-    // the color of the cell is linked to the value of "phero".
+    <span class="hljs-comment">// the color of the cell is linked to the value of "phero".</span>
     rgb color &lt;- (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0) update: (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0);
-    // Update the "grid_value", which will be used for the elevation of the cell
+    <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
     float grid_value update: phero * 100;
 } 
 
@@ -61,17 +61,17 @@ grid cells_diffuse_on_mask height: grid_size width: grid_size {
 experiment diffusion type: gui {
     output {
         display a type: opengl {
-            // Display the grid with elevation
+            <span class="hljs-comment">// Display the grid with elevation</span>
             grid cells_avoid_mask elevation: true triangulation: true;
         }
         display b type: opengl {
-            // Display the grid with elevation
+            <span class="hljs-comment">// Display the grid with elevation</span>
             grid cells_diffuse_on_mask elevation: true triangulation: true;
         }
     }
 }
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site/resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Docs</h5><a href="/BC2019-Gama-Site/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc2.html">Guides (or other categories)</a><a href="/BC2019-Gama-Site/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/BC2019-Gama-Site/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/BC2019-Gama-Site/blog">Blog</a><a href="https://github.com/">GitHub</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//resources/images/general/GamaPlatform.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;
