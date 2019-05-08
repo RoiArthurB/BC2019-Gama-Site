@@ -1579,10 +1579,7 @@
       "Blog": "Blog"
     },
     "categories": {
-      "Home": "Home",
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "Home": "Home"
     }
   },
   "pages-strings": {
