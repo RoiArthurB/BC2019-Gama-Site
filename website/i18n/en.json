@@ -1565,12 +1565,18 @@
       "Blog": "Blog"
     },
     "categories": {
+      "Tutorials": "Tutorials",
+      "PredatorPrey": "PredatorPrey",
+      "RoadTrafficModel": "RoadTrafficModel",
+      "ThreeD": "ThreeD",
+      "IncrementalModel": "IncrementalModel",
+      "LuneraysFlu": "LuneraysFlu",
+      "BDIAgents": "BDIAgents",
       "General": "General",
       "Platform": "Platform",
       "Learn GAML step by step": "Learn GAML step by step",
       "Recipes": "Recipes",
       "GAML References": "GAML References",
-      "Tutorials": "Tutorials",
       "Developing Extensions": "Developing Extensions",
       "Else": "Else"
     }
