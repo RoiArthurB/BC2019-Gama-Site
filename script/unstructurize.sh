@@ -11,7 +11,7 @@
 #
 # ex: <baseUrl>/[docs,wiki]/<file>
 
-#!/bash/sh
+#!/bin/sh
 
 # If no folder _docs/_
 if [ ! -d ./docs ];then
@@ -29,6 +29,8 @@ if [ -d ./website/static/resources ];then
 fi
 
 mv ./gama.wiki/resources ./website/static/
+
+cp -R ./website/static/resources/* ./website/static/
 
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
