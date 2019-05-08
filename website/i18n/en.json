@@ -1558,8 +1558,10 @@
       }
     },
     "links": {
-      "Docs": "Docs",
-      "Help": "Help",
+      "Documentation": "Documentation",
+      "Tutorials": "Tutorials",
+      "Download": "Download",
+      "Contribute": "Contribute",
       "Blog": "Blog"
     },
     "categories": {
