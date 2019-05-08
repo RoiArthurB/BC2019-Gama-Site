@@ -16,6 +16,7 @@ before_script:
   - git clone https://github.com/gama-platform/gama.wiki.git
 #  Reorganise folders to be more Docusaurus-friendly
   - sh ./script/unstructurize.sh
+  - sh ./script/link_fixer.sh
   #- sh script/autoHeader.sh
 script:
 #  Compile website
