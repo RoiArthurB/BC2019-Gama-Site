@@ -149,10 +149,10 @@ const siteConfig = {
 //    {doc: 'doc4', label: 'API'},
     {page: 'help', label: 'Help'},
     {blog: true, label: 'Blog'},
-    // Determines search bar position among links
-    { search: true },
     // Determines language drop down position among links
-    { languages: true }
+    { languages: true },
+    // Determines search bar position among links
+    { search: true }
   ],
 
 
@@ -165,6 +165,9 @@ const siteConfig = {
   headerIcon: '/resources/images/general/GamaPlatform.png',
   footerIcon: '/resources/images/general/GamaPlatform.png',
   favicon: '/resources/images/general/GamaPlatform.png',
+
+	/* Sidebar Menu Collapsible titles */
+  docsSideNavCollapsible: true,
 
 	/* Colors for website */
   colors: {
