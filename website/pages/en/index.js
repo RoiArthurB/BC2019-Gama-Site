@@ -13,6 +13,7 @@ const MarkdownBlock = CompLibrary.MarkdownBlock; /* Used to read markdown */
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
+/*	FIRST MAIN BLOCK	*/
 class HomeSplash extends React.Component {
   render() {
     const {siteConfig, language = ''} = this.props;
@@ -31,13 +32,13 @@ class HomeSplash extends React.Component {
 
     const Logo = props => (
       <div className="projectLogo">
-        <img src={props.img_src} alt="Project Logo" />
+        <img src={siteConfig.headerIcon} alt="Project Logo" />
       </div>
     );
 
     const ProjectTitle = () => (
       <h2 className="projectTitle">
-        {siteConfig.title}
+        {siteConfig.tagline}
         <small>{siteConfig.tagline}</small>
       </h2>
     );
@@ -58,16 +59,58 @@ class HomeSplash extends React.Component {
       </div>
     );
 
+    const ImgSoftware = props => (
+      <div className="pluginWrapper">
+        <img src={props.img_src} alt="GAMA-Platform Software" />
+      </div>
+    );
+
+    const Design = props => (    
+      <style dangerouslySetInnerHTML={{__html: `
+        .fixedHeaderContainer, footer{
+          display: none;
+        }
+
+        .navPusher{
+          padding: 0;
+        }
+
+        .homeSplashFade {
+            max-height: 100vh;
+            background: linear-gradient(#121020,#21233e);
+            overflow: hidden;
+        }
+        .homeSplashFade {
+            min-height: 700px;
+            max-height: 100vh;
+            background: linear-gradient(#121020,#21233e);
+            position: relative;
+            overflow: hidden;
+        }
+        .projectTitle {
+          color: white;
+        }
+        .projectTitle > small {
+          width: 50%;
+          margin: 1.5em auto 0 auto;
+        }
+
+        .promoSection {
+            margin: 3em;
+        }
+      `}} />
+    );
+
     return (
       <SplashContainer>
-        <Logo img_src={`${baseUrl}img/undraw_monitor.svg`} />
         <div className="inner">
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href="#try">Try It Out</Button>
-            <Button href={docUrl('doc1.html')}>Example Link</Button>
-            <Button href={docUrl('doc2.html')}>Example Link 2</Button>
+            <Button href={docUrl('Home')}>Documentation</Button>
+            <Button href={docUrl('Tutorials')}>Tutorials</Button>
           </PromoSection>
+          <ImgSoftware img_src={`${baseUrl}img/flipper.png`} />
+          <Design/>
         </div>
       </SplashContainer>
     );
@@ -79,131 +122,9 @@ class Index extends React.Component {
     const {config: siteConfig, language = ''} = this.props;
     const {baseUrl} = siteConfig;
 
-    const Block = props => (
-      <Container
-        padding={['bottom', 'top']}
-        id={props.id}
-        background={props.background}>
-        <GridBlock
-          align="center"
-          contents={props.children}
-          layout={props.layout}
-        />
-      </Container>
-    );
-
-    const FeatureCallout = () => (
-      <div
-        className="productShowcaseSection paddingBottom"
-        style={{textAlign: 'center'}}>
-        <h2>Feature Callout</h2>
-        <MarkdownBlock>These are features of this project</MarkdownBlock>
-      </div>
-    );
-
-    const TryOut = () => (
-      <Block id="try">
-        {[
-          {
-            content:
-              'To make your landing page more attractive, use illustrations! Check out ' +
-              '[**unDraw**](https://undraw.co/) which provides you with customizable illustrations which are free to use. ' +
-              'The illustrations you see on this page are from unDraw.',
-            image: `${baseUrl}img/undraw_code_review.svg`,
-            imageAlign: 'left',
-            title: 'Wonderful SVG Illustrations',
-          },
-        ]}
-      </Block>
-    );
-
-    const Description = () => (
-      <Block background="dark">
-        {[
-          {
-            content:
-              'This is another description of how this project is useful',
-            image: `${baseUrl}img/undraw_note_list.svg`,
-            imageAlign: 'right',
-            title: 'Description',
-          },
-        ]}
-      </Block>
-    );
-
-    const LearnHow = () => (
-      <Block background="light">
-        {[
-          {
-            content:
-              'Each new Docusaurus project has **randomly-generated** theme colors.',
-            image: `${baseUrl}img/undraw_youtube_tutorial.svg`,
-            imageAlign: 'right',
-            title: 'Randomly Generated Theme Colors',
-          },
-        ]}
-      </Block>
-    );
-
-    const Features = () => (
-      <Block layout="fourColumn">
-        {[
-          {
-            content: 'This is the content of my feature',
-            image: `${baseUrl}img/undraw_react.svg`,
-            imageAlign: 'top',
-            title: 'Feature One',
-          },
-          {
-            content: 'The content of my second feature',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
-            imageAlign: 'top',
-            title: 'Feature Two',
-          },
-        ]}
-      </Block>
-    );
-
-    const Showcase = () => {
-      if ((siteConfig.users || []).length === 0) {
-        return null;
-      }
-
-      const showcase = siteConfig.users
-        .filter(user => user.pinned)
-        .map(user => (
-          <a href={user.infoLink} key={user.infoLink}>
-            <img src={user.image} alt={user.caption} title={user.caption} />
-          </a>
-        ));
-
-      const pageUrl = page => baseUrl + (language ? `${language}/` : '') + page;
-
-      return (
-        <div className="productShowcaseSection paddingBottom">
-          <h2>Who is Using This?</h2>
-          <p>This project is used by all these people</p>
-          <div className="logos">{showcase}</div>
-          <div className="more-users">
-            <a className="button" href={pageUrl('users.html')}>
-              More {siteConfig.title} Users
-            </a>
-          </div>
-        </div>
-      );
-    };
-
     return (
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
-        <div className="mainContainer">
-          <Features />
-          <FeatureCallout />
-          <LearnHow />
-          <TryOut />
-          <Description />
-          <Showcase />
-        </div>
       </div>
     );
   }
