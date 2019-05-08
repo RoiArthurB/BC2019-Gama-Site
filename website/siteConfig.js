@@ -37,7 +37,7 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'BC20	19-Gama-Site',
+  projectName: 'BC2019-Gama-Site',
   organizationName: 'RoiArthurB',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
@@ -117,7 +117,8 @@ const siteConfig = {
 	  CSS
 	*/
   stylesheets: [
-	'/css/code-block-buttons.css'
+	'/css/code-block-buttons.css',
+	'https://use.fontawesome.com/releases/v5.8.2/css/all.css'
   ],
 
 
