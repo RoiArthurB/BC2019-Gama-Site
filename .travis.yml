@@ -17,7 +17,7 @@ before_script:
 #  Reorganise folders to be more Docusaurus-friendly
   - sh ./script/unstructurize.sh
   - sh ./script/link_fixer.sh
-  #- sh script/autoHeader.sh
+  - sh script/autoHeader.sh
 script:
 #  Compile website
   - cd website && yarn install && GIT_USER="${GH_NAME}" yarn run publish-gh-pages
