@@ -7,7 +7,7 @@
 
 # This script will correct images path in <files>.md.
 #
-# ex: <baseUrl>/[docs,wiki]/<file>
+# ex: <baseUrl>/[docs,wiki]/<file>	
 #	prev: ![images/parent_species.png](resources/images/tutorials/parent_species.png)
 #	new : ![images/parent_species.png](../resources/images/tutorials/parent_species.png)
 

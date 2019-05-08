@@ -20,4 +20,4 @@ before_script:
   #- sh script/autoHeader.sh
 script:
 #  Compile website
-  - cd website && npm install && GIT_USER="${GH_NAME}" USE_SSH=true npm run publish-gh-pages
+  - cd website && yarn install && GIT_USER="${GH_NAME}" USE_SSH=true yarn run publish-gh-pages

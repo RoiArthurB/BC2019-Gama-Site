@@ -476,19 +476,6 @@
       "Displays": {
         "title": "Displays"
       },
-      "doc1": {
-        "title": "Latin-ish",
-        "sidebar_label": "Example Page"
-      },
-      "doc2": {
-        "title": "document number 2"
-      },
-      "doc3": {
-        "title": "This is document number 3"
-      },
-      "doc4": {
-        "title": "This is Doc 4"
-      },
       "docGAMAv17.pdf": {
         "title": "docGAMAv17.pdf"
       },
@@ -656,9 +643,6 @@
       },
       "Events": {
         "title": "Events"
-      },
-      "doc5": {
-        "title": "Fifth Document"
       },
       "ExperimentBuiltIn": {
         "title": "ExperimentBuiltIn"

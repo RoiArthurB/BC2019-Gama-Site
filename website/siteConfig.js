@@ -162,9 +162,9 @@ const siteConfig = {
 	 */
 
 	/* path to images for header/footer */
-  headerIcon: 'resources/images/general/GamaPlatform.png',
-  footerIcon: 'resources/images/general/GamaPlatform.png',
-  favicon: 'resources/images/general/GamaPlatform.png',
+  headerIcon: '/resources/images/general/GamaPlatform.png',
+  footerIcon: '/resources/images/general/GamaPlatform.png',
+  favicon: '/resources/images/general/GamaPlatform.png',
 
 	/* Colors for website */
   colors: {
@@ -190,8 +190,8 @@ const siteConfig = {
   copyright: `Copyright © ${new Date().getFullYear()} GAMA-Platform`,
 
   	/*	Open Graph and Twitter card images.	*/
-  ogImage: 'resources/images/general/GamaPlatform.png',
-  twitterImage: 'resources/images/general/GamaPlatform.png',
+  ogImage: '/resources/images/general/GamaPlatform.png',
+  twitterImage: '/resources/images/general/GamaPlatform.png',
 
   // Show documentation's last contributor's name.
   // enableUpdateBy: true,

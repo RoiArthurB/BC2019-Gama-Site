@@ -30,7 +30,8 @@ fi
 
 mv ./gama.wiki/resources ./website/static/
 
-cp -R ./website/static/resources/* ./website/static/
+# Soft link form _resource/_ folder in root _static/_ folder
+ln -s ./website/static/resources/* ./website/static/
 
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
