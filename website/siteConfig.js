@@ -43,6 +43,12 @@ const siteConfig = {
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
 
+  // Keyword between baseUrl and file
+  // (default = 'docs', or can be removed)
+  // ex: https://gama-platform.github.io/wiki/Home
+  //                                     ^^^^
+  docsUrl: 'wiki',
+
   algolia: {
     apiKey: '0f9f28b9ab9efae89810921a351753b5',
     indexName: 'github',
@@ -52,36 +58,36 @@ const siteConfig = {
     // Highlight.js theme to use for syntax highlighting in code blocks.
     theme: 'default',
     hljs: function(hljs) {
-	hljs.registerLanguage('gaml', function(hljs) {
-		return {
-			aliases: ['gaml', 'gama', 'gama-language'],
-			keywords: KEYWORDS,
-			contains: [
-				hljs.COMMENT(
-				'/\\*\\*',
-				'\\*/',
-				{
-					relevance : 0,
-					contains : [
-						{
-							// eat up @'s in emails to prevent them to be recognized as doctags
-							begin: /\w+@/, relevance: 0
-						},
-						{
-							className : 'doctag',
-							begin : '@[A-Za-z]+'
-						}
-					]
-				}
-				),
-				hljs.C_LINE_COMMENT_MODE,
-				hljs.C_BLOCK_COMMENT_MODE,
-				hljs.APOS_STRING_MODE,
-				hljs.QUOTE_STRING_MODE
-			]
-			// ...
-		}
-	});
+    	hljs.registerLanguage('gaml', function(hljs) {
+    		return {
+    			aliases: ['gaml', 'gama', 'gama-language'],
+    			keywords: KEYWORDS,
+    			contains: [
+    				hljs.COMMENT(
+    				'/\\*\\*',
+    				'\\*/',
+    				{
+    					relevance : 0,
+    					contains : [
+    						{
+    							// eat up @'s in emails to prevent them to be recognized as doctags
+    							begin: /\w+@/, relevance: 0
+    						},
+    						{
+    							className : 'doctag',
+    							begin : '@[A-Za-z]+'
+    						}
+    					]
+    				}
+    				),
+    				hljs.C_LINE_COMMENT_MODE,
+    				hljs.C_BLOCK_COMMENT_MODE,
+    				hljs.APOS_STRING_MODE,
+    				hljs.QUOTE_STRING_MODE
+    			]
+    			// ...
+    		}
+    	});
     },
     defaultLang: 'gaml'//'java'
   },
