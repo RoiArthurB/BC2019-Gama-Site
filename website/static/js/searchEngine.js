@@ -3,7 +3,7 @@
 /*
  *  VARIABLES
  */
-var database, fuse, searchInput;
+var database, fuse;
 
 var options = {
   shouldSort: true,
@@ -48,9 +48,7 @@ function initSearchEngine(){
   /*  EVENT LISTENER  */
 
   // Get search input
-  searchInput = document.getElementById('search_input_react');
-
-  document.addEventListener('keyup', requestSearch);
+  document.getElementById('search_input_react').addEventListener('keyup', requestSearch);
 }
 
 
@@ -74,7 +72,6 @@ function displayResult(result){
   }
 }
 
-
 // On page ready
 // -> Wait Fuse.js to be loaded
-window.onload = initSearchEngine();
+document.addEventListener('DOMContentLoaded', initSearchEngine, false);
