@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Modavi · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Modavi · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Modavi</h1></header><article><div><span><p><em>Author : Arnaud Grignard</em></p>
+<p>From a reference model with node of a given class, a spatial graph is created (or a barabasi graph if spatialGraph is set to false) in the advanced view to represent the interaction in the reference model.An abstract view/controller is created to summarize the interaction in the advanced viewin a macro graph and control the reference model by defining an action (user_command) for each macroNode and macroEdge.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model modavi
+ 
+global {
+    <span class="hljs-comment">//Graph of the agents</span>
+    graph&lt;node_agent,edge_agent&gt; my_graph ;
+    
+    <span class="hljs-comment">//Number of agents to create</span>
+    int nbAgent parameter: <span class="hljs-string">'Number of Agents'</span> min: 1 &lt;- 500 category: <span class="hljs-string">'Model'</span>;
+    <span class="hljs-comment">//Number of value per class</span>
+    int nbValuePerClass parameter: <span class="hljs-string">'Number of value per class'</span> min: 1 max:100 &lt;- 15 category: <span class="hljs-string">'Model'</span>;
+    <span class="hljs-comment">//Boolean to know if we display a spatial graph or not</span>
+    bool spatialGraph parameter: <span class="hljs-string">'Spatial Graph'</span> &lt;- true category: <span class="hljs-string">'Model'</span>;
+    <span class="hljs-comment">//Distance to link two node agents</span>
+    float distance parameter: <span class="hljs-string">'Distance'</span> min: 1.0&lt;- 10.0 category: <span class="hljs-string">'Model'</span>;
+    <span class="hljs-comment">//Threshold</span>
+    int threshold parameter: <span class="hljs-string">'Threshold'</span> min: 0 &lt;- 0 category: <span class="hljs-string">'Model'</span>;
+
+    <span class="hljs-comment">//Size of a node agent</span>
+    int nodeSize parameter: <span class="hljs-string">'Node size'</span> min: 1 &lt;- 1 category: <span class="hljs-string">'Aspect'</span>;
+    <span class="hljs-comment">//Size of a macro node agent</span>
+    int macroNodeSize parameter: <span class="hljs-string">'Macro Node size'</span> min: 1 &lt;- 2 category: <span class="hljs-string">'Aspect'</span>;
+    
+    <span class="hljs-comment">//Number of type of class</span>
+    int nbTypeOfClass &lt;-1;
+    
+    <span class="hljs-comment">//Zoom factor</span>
+    int zoomFactor &lt;- nbTypeOfClass;
+
+    <span class="hljs-comment">//List of the different interaction matrices</span>
+    list&lt;matrix&lt;int&gt;&gt; interactionMatrix &lt;-list_with(nbTypeOfClass,matrix([0]));
+    <span class="hljs-comment">//Number maximum of edges</span>
+    int nbEdgeMax;
+    
+    <span class="hljs-comment">//Reflex to update the interaction matrix list</span>
+    reflex updateInteractionMatrix{
+        <span class="hljs-comment">//Ask for each edge agent to update it sources and destination to create the matrix</span>
+        ask edge_agent{
+            loop i from:0 to: nbTypeOfClass-1{                                                          
+                src &lt;- my_graph source_of(self);
+                dest &lt;- my_graph target_of(self);
+                int tmp &lt;- (interactionMatrix[i]  at {(src.classVector[i]-1),(dest.classVector[i]-1)});
+                interactionMatrix[i][src.classVector[i]-1,dest.classVector[i]-1] &lt;- (tmp+1);
+            }
+        }
+    }
+    
+    <span class="hljs-comment">//Reflex to compute te maximum number of edges</span>
+    reflex computeNbEdgeMax{
+        <span class="hljs-comment">//Number maximum of edges</span>
+        nbEdgeMax &lt;-1;
+        <span class="hljs-comment">//Ask for each macro edge its aggregated link list number</span>
+        ask macroEdge{
+            if(nbAggregatedLinkList[0] &gt; nbEdgeMax){
+                nbEdgeMax &lt;-nbAggregatedLinkList[0];
+            }   
+        }
+    }
+
+    <span class="hljs-comment">//Initialization of the model</span>
+    init {
+        <span class="hljs-comment">//Initialization of the matrix</span>
+        do InitInteractionMatrix;
+        <span class="hljs-comment">//If we want a spatial graph in that case we create a graph according to their distance, else we create a barabasi albert graph</span>
+        if(spatialGraph){
+            create node_agent number:nbAgent;
+            my_graph &lt;- graph&lt;node_agent, edge_agent&gt;(as_distance_graph(node_agent, ([<span class="hljs-string">"distance"</span>::distance, <span class="hljs-string">"species"</span>::edge_agent])));
+            
+        }
+        else{
+          my_graph &lt;- graph&lt;node_agent, edge_agent&gt;(generate_barabasi_albert(node_agent,edge_agent,nbAgent,2,true));    
+        }
+        
+        <span class="hljs-comment">//For each node agent, we compute its class value</span>
+        ask node_agent as list{
+            loop i from:0 to:nbTypeOfClass-1{
+                classVector[i] &lt;- rnd(nbValuePerClass-1)+1;
+            }       
+        }
+
+        int i&lt;-1;
+        <span class="hljs-comment">//Creation of the macronode according to the number of value per class</span>
+        create macroNode number: nbValuePerClass{    
+            class &lt;-i;
+            location &lt;- {(cos (((class-1)/nbValuePerClass)*360)*50 +50),(sin (((class-1)/nbValuePerClass)*360)*50+50),0};
+            color &lt;- hsb (i/nbValuePerClass,1.0,1.0);
+            do updatemyNodes;
+            i&lt;-i+1; 
+        }
+        <span class="hljs-comment">//We finally create the macroGraph</span>
+        create macroGraph;
+     }
+     <span class="hljs-comment">//Action to initialize the interaction Matrix according to the number of type of classes</span>
+     action InitInteractionMatrix{
+         loop i from:0 to:nbTypeOfClass-1{
+                interactionMatrix[i] &lt;- 0 as_matrix({nbValuePerClass,nbValuePerClass});
+          } 
+    }
+}
+
+
+    <span class="hljs-comment">//Species to represent the node_agent</span>
+    species node_agent  {
+        <span class="hljs-comment">//Color of the node agent</span>
+        rgb color;
+        <span class="hljs-comment">//List of the class</span>
+        list&lt;int&gt; classVector &lt;- list_with (nbTypeOfClass,0);
+        <span class="hljs-comment">//List of the position</span>
+        list&lt;point&gt; posVector &lt;- list_with (nbTypeOfClass,{0,0});
+        <span class="hljs-comment">//List of the color</span>
+        list&lt;rgb&gt; colorList &lt;- list_with (nbTypeOfClass, rgb(0,0,0));
+                                
+        <span class="hljs-comment">//Shuffle the classes of the node_agent</span>
+        reflex shuffleClass{
+            loop i from:0 to: nbTypeOfClass-1{
+                classVector[i] &lt;- rnd(nbValuePerClass-1)+1;
+            }   
+        }
+        
+        aspect real {            
+            draw sphere(nodeSize) color: colorList[0];
+        } 
+                                
+        aspect coloredByClass{
+            loop i from:0 to: nbTypeOfClass-1{
+                colorList[i]&lt;- hsb (classVector[i]/nbValuePerClass,1.0,1.0);                    
+                posVector[i] &lt;- {(location.x+i*110)*(1/zoomFactor),(location.y)*(1/zoomFactor),0};  
+                draw sphere(nodeSize/zoomFactor) color: colorList[i] at: posVector[i] ;   
+            }
+        }
+    
+    }
+    
+    <span class="hljs-comment">//Species edge_agent to represent the edge of the graph</span>
+    species edge_agent { 
+        rgb color;
+        <span class="hljs-comment">//Source of the edge</span>
+        node_agent src;
+        <span class="hljs-comment">//Target of the edge</span>
+        node_agent dest;
+             
+        aspect base {
+            draw shape color: rgb(125,125,125);
+        }   
+        
+        aspect edgeGenericSpatialized{
+            loop i from:0 to: nbTypeOfClass-1{
+              if ((src != <span class="hljs-literal">nil</span>) and (dest !=<span class="hljs-literal">nil</span>) ){
+                draw line( [ (src.posVector[i]) , (dest.posVector[i])] ) color:rgb(125,125,125);
+              }
+            }
+        }
+    }
+    <span class="hljs-comment">//Species representing the macro node agents</span>
+    species macroNode{
+        rgb color;
+        int class;
+        <span class="hljs-comment">//List of all the aggregated nodes</span>
+        list&lt;int&gt; nbAggregatedNodes &lt;- list_with(nbTypeOfClass,0);
+        <span class="hljs-comment">//List of all the position</span>
+        list&lt;point&gt; posVector &lt;-list_with(nbTypeOfClass,{0,0});
+         
+        <span class="hljs-comment">//Update the nodes of the agents</span>
+        reflex update{
+            do updatemyNodes;
+        }
+        <span class="hljs-comment">//For each classes, find all the nodes with the same classes</span>
+        action updatemyNodes{
+            loop i from:0 to: nbTypeOfClass-1{          
+                nbAggregatedNodes[i]&lt;-0;
+                ask node_agent as list{
+                  if    (classVector[i] = myself.class) {
+                    myself.nbAggregatedNodes[i] &lt;- myself.nbAggregatedNodes[i]+1;
+                  }  
+                }
+            }       
+        } 
+        
+        aspect sphere{
+            draw sphere((nbAggregatedNodes[0]/10)*macroNodeSize) color: color at: point([location.x,location.y]) ;
+        }
+        
+        aspect Generic{
+            loop i from:0 to: nbTypeOfClass-1
+            {
+            posVector[i] &lt;- {(location.x+i*150)*(1/zoomFactor),(location.y)*(1/zoomFactor),0};  
+            draw sphere((nbAggregatedNodes[i]/10)*macroNodeSize*(1/zoomFactor)) color: color at: posVector[i] ;
+            }
+        }
+        
+        <span class="hljs-comment">//This action only works when having nbTypeOfClass=1</span>
+        action removeMicroNode{
+            ask node_agent as list{
+                  if    (classVector[0] = myself.class) {
+                      do die;
+                  }  
+             }
+        }
+        
+        user_command <span class="hljs-string">"Remove all micro node"</span> action: removeMicroNode;
+    }
+    
+    <span class="hljs-comment">//Species macroEdge representing the macro edges agents</span>
+    species macroEdge  { 
+        rgb color &lt;- #black;
+        <span class="hljs-comment">//Source of the macroedge</span>
+        macroNode src;
+        <span class="hljs-comment">//Destination of the macroedge</span>
+        macroNode dest;
+        <span class="hljs-comment">//List of all the aggregated links</span>
+        list&lt;int&gt; nbAggregatedLinkList &lt;- list_with(nbTypeOfClass,0);
+        
+        aspect base {
+            loop i from:0 to: nbTypeOfClass-1{
+                if(nbAggregatedLinkList[i]&gt;threshold){
+                draw (line([src.posVector[i],dest.posVector[i]]) buffer ((nbAggregatedLinkList[i])/((length(edge_agent)))*nbEdgeMax)) color: rgb(125,125,125) border:rgb(125,125,125);  
+                }
+            }
+        }
+        
+        <span class="hljs-comment">//Action to remove a micro edge</span>
+        action removeMicroEdge{
+            ask edge_agent as list{
+                  if    ((self.src.classVector[0] =  myself.src.class) and (self.dest.classVector[0] =  myself.dest.class)) {
+                      do die;
+                  }  
+             }
+        }
+        
+        user_command <span class="hljs-string">"Remove all micro edge"</span> action: removeMicroEdge;   
+    }
+    
+    <span class="hljs-comment">//Species macroGraph representing the macro graph composed of macroNode and macroEdge</span>
+    species macroGraph {
+        
+
+    <span class="hljs-comment">//Reflex to update the graph by killing all the previous edges first </span>
+   reflex updateAllMacroEdge {  
+        ask macroEdge as list{
+            do die;
+        }
+        
+        loop h from:0 to: nbTypeOfClass-1{
+            loop i from: 0 to: nbValuePerClass-1{
+              loop j from: 0 to: nbValuePerClass-1{
+                int tmp &lt;- interactionMatrix[h] at {i,j}; 
+
+                if(i!=j){
+                    create macroEdge{
+                      nbAggregatedLinkList[h] &lt;- tmp;
+                      src &lt;- macroNode[i];
+                      dest &lt;- macroNode[j];
+                    }     
+                }      
+              }
+            }
+        }
+    }
+    <span class="hljs-comment">//Reflex to initialize the matrix</span>
+    reflex initMatrix{
+        loop i from:0 to:nbTypeOfClass-1{
+          interactionMatrix[i] &lt;- 0 as_matrix({nbValuePerClass,nbValuePerClass});   
+        }   
+      } 
+    }
+
+
+
+experiment MODAVI type: gui {
+    output {            
+        display MODAVI type:opengl draw_env:false {
+            graphics <span class="hljs-string">'ReferenceModel'</span>{
+                draw <span class="hljs-string">"Reference model"</span> at:{200,50,0} size:5 color: #black perspective:false;
+            }
+            species node_agent aspect: real position:{100,0,0.01} ;
+            
+            graphics <span class="hljs-string">'View1'</span>{
+                draw <span class="hljs-string">"Advanced view"</span> at:{50,210,0} size:5 color: #black perspective:false;
+            }
+            species node_agent aspect: coloredByClass position: {0,100,0.02};
+            species edge_agent aspect: edgeGenericSpatialized position: {0,100,0.02};
+            
+            graphics <span class="hljs-string">'AbstractView'</span>{
+                draw <span class="hljs-string">"Abstract view/controller"</span> at:{250,210,0} size:5 color: #black perspective:false;
+            }
+            species macroNode aspect:Generic position: {200,100,0.01};
+            species macroEdge aspect:base position: {200,100,0.01}; 
+        }
+    }       
+}
+
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

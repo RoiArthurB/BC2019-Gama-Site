@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>OSM Loading Driving · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="OSM Loading Driving · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">OSM Loading Driving</h1></header><article><div><span><p><em>Author : Patrick Taillandier</em></p>
+<p>Model to show how to import OSM Files, using them to create agents for a road network, and saving the different agents in shapefiles. The first goal of this model is to prepare data for the driving skill models.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+
+model OSMdata_to_shapefile 
+ 
+global{
+    <span class="hljs-comment">//map used to filter the object to build from the OSM file according to attributes. for an exhaustive list, see: http://wiki.openstreetmap.org/wiki/Map_Features</span>
+    map filtering &lt;- map([<span class="hljs-string">"highway"</span>::[<span class="hljs-string">"primary"</span>, <span class="hljs-string">"secondary"</span>, <span class="hljs-string">"tertiary"</span>, <span class="hljs-string">"motorway"</span>, <span class="hljs-string">"living_street"</span>,<span class="hljs-string">"residential"</span>, <span class="hljs-string">"unclassified"</span>]]);
+    
+    <span class="hljs-comment">//OSM file to load</span>
+    file&lt;geometry&gt; osmfile &lt;-  file&lt;geometry&gt;(osm_file(<span class="hljs-string">"../includes/rouen.gz"</span>, filtering))  ;
+    
+    geometry shape &lt;- envelope(osmfile);
+    graph the_graph; 
+    map&lt;point, intersection&gt; nodes_map;
+    
+    
+
+    init {
+        <span class="hljs-statement">write</span> <span class="hljs-string">"OSM file loaded: "</span> + length(osmfile) + <span class="hljs-string">" geometries"</span>;
+        
+        <span class="hljs-comment">//from the OSM file, creation of the selected agents</span>
+        loop geom over: osmfile {
+            if (shape covers geom) {
+                string highway_str &lt;- string(geom get (<span class="hljs-string">"highway"</span>));
+                if (length(geom.points) = 1 ) {
+                    if ( highway_str != <span class="hljs-literal">nil</span> ) {
+                        string crossing &lt;- string(geom get (<span class="hljs-string">"crossing"</span>));
+                        create intersection with: [shape ::geom, type:: highway_str, crossing::crossing] {
+                            nodes_map[location] &lt;- self;
+                        }
+                    }
+                } else {
+                    string oneway &lt;- string(geom get (<span class="hljs-string">"oneway"</span>));
+                    float maxspeed_val &lt;- float(geom get (<span class="hljs-string">"maxspeed"</span>));
+                    string lanes_str &lt;- string(geom get (<span class="hljs-string">"lanes"</span>));
+                    int lanes_val &lt;- empty(lanes_str) ? 1 : ((length(lanes_str) &gt; 1) ? int(first(lanes_str)) : int(lanes_str));
+                    create road with: [shape ::geom, type:: highway_str, oneway::oneway, maxspeed::maxspeed_val, lanes::lanes_val] {
+                        if lanes &lt; 1 {lanes &lt;- 1;} <span class="hljs-comment">//default value for the lanes attribute</span>
+                        if maxspeed = 0 {maxspeed &lt;- 50.0;} <span class="hljs-comment">//default value for the maxspeed attribute</span>
+                    }
+                }   
+            }
+        }
+        <span class="hljs-statement">write</span> <span class="hljs-string">"Road and node agents created"</span>;
+        
+        ask road {
+            point ptF &lt;- first(shape.points);
+            if (not(ptF in nodes_map)) {
+                create intersection with:[location::ptF] {
+                    nodes_map[location] &lt;- self;
+                }   
+            }
+            point ptL &lt;- last(shape.points);
+            if (not(ptL in nodes_map)) {
+                create intersection with:[location::ptL] {
+                    nodes_map[location] &lt;- self;
+                }
+            }
+        }
+            
+        <span class="hljs-statement">write</span> <span class="hljs-string">"Supplementary node agents created"</span>;
+        ask intersection {
+            if (empty (road overlapping (self))) {
+                do die;
+            }
+        }
+        
+        <span class="hljs-statement">write</span> <span class="hljs-string">"node agents filtered"</span>;
+        
+        <span class="hljs-comment">//Save all the road agents inside the file with the path written, using the with: facet to make a link between attributes and columns of the resulting shapefiles. </span>
+        save road type:<span class="hljs-string">"shp"</span> to:<span class="hljs-string">"../includes/roads.shp"</span> with:[lanes::<span class="hljs-string">"lanes"</span>,maxspeed::<span class="hljs-string">"maxspeed"</span>, oneway::<span class="hljs-string">"oneway"</span>] ;
+        save intersection type:<span class="hljs-string">"shp"</span> to:<span class="hljs-string">"../includes/nodes.shp"</span> with:[type::<span class="hljs-string">"type"</span>, crossing::<span class="hljs-string">"crossing"</span>] ;
+        <span class="hljs-statement">write</span> <span class="hljs-string">"road and node shapefile saved"</span>;
+    }
+}
+    
+
+species road{
+    rgb color &lt;- rgb(rnd(255),rnd(255),rnd(255));
+    string type;
+    string oneway;
+    float maxspeed;
+    int lanes;
+    aspect base_ligne {
+        draw shape color: color; 
+    }
+    
+} 
+    
+species intersection {
+    string type;
+    string crossing;
+    aspect base { 
+        draw square(3) color: #red ;
+    }
+} 
+    
+
+experiment fromOSMtoShapefiles type: gui {
+    output {
+        display map type: opengl {
+            graphics <span class="hljs-string">"world"</span> {
+                draw world.shape.contour;
+            }
+            species road aspect: base_ligne  refresh: false  ;
+            species intersection aspect: base   refresh: false ;
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

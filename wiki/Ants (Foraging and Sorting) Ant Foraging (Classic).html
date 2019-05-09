@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Ant Foraging (Classic) · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Ant Foraging (Classic) · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Ant Foraging (Classic)</h1></header><article><div><span><p>_Author : _</p>
+<p>Toy Model ant using the question of how ants search food and use pheromons to return to their nest once they did find food. This model is considered as the classic one.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model ants
+
+global {
+    <span class="hljs-comment">//Number of ants</span>
+    int ants_number &lt;- 100 min: 1 max: 2000 ;
+    <span class="hljs-comment">//Evaporation value per cycle</span>
+    float evaporation_per_cycle &lt;- 5.0 min: 0.0 max: 240.0 ;
+    <span class="hljs-comment">//Diffusion rate for the pheromon diffused among the grid</span>
+    float diffusion_rate &lt;- 0.5 min: 0.0 max: 1.0 ;
+    bool use_icons &lt;- true ;
+    bool display_state &lt;- true;
+    <span class="hljs-comment">//Size of the grid</span>
+    int gridsize &lt;- 75 ;
+    <span class="hljs-comment">//Center of the grid that will be used as a nest for the ants</span>
+    point center const: true &lt;- { (gridsize / 2),  (gridsize / 2)} ;
+    file types const: true &lt;- (pgm_file(<span class="hljs-string">'../images/environment75x75.pgm'</span>)) ;
+    string ant_shape_empty const: true &lt;- <span class="hljs-string">'../icons/ant.png'</span> ;
+    string ant_shape_full const: true &lt;- <span class="hljs-string">'../icons/full_ant.png'</span>  ;
+    rgb C00CC00 const: true &lt;- rgb(<span class="hljs-string">'#00CC00'</span>) ;    
+    rgb C009900 const: true &lt;- rgb(<span class="hljs-string">'#009900'</span>) ; 
+    rgb C005500 const: true &lt;- rgb(<span class="hljs-string">'#005500'</span>) ; 
+    int food_gathered &lt;- 0 ;    
+    geometry shape &lt;- square(gridsize);
+    init{  
+        <span class="hljs-comment">//Creation of the ants that will be placed randomly in the nest</span>
+        create ant number: ants_number with: [location::any_location_in (ant_grid(center))] ;
+    }
+    <span class="hljs-comment">//Reflex to diffuse the pheromon among the grid</span>
+    reflex diffuse {
+      diffuse var:road on:ant_grid proportion: diffusion_rate radius:2 propagation: gradient;
+   }
+
+}
+
+<span class="hljs-comment">//Grid that will be used to place the food in a discretized space</span>
+grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: false {
+    list&lt;ant_grid&gt; neighbors &lt;- self neighbors_at 1;
+    float road &lt;- 0.0 max:240.0 update: (road&lt;=evaporation_per_cycle) ? 0.0 : road-evaporation_per_cycle;
+    int type &lt;- int(types at {grid_x,grid_y}) ;
+    bool isNestLocation &lt;- (self distance_to center) &lt; 4 ;
+    bool isFoodLocation &lt;- type = 2 ; 
+    rgb color &lt;- isNestLocation ? °sienna:((food &gt; 0)? °brown : ((road &lt; 0.001)? #darkgoldenrod: ((road &gt; 2)? °white : ((road &gt; 0.5)? (C00CC00) : ((road &gt; 0.2)? (C009900) : (C005500)))))) update: isNestLocation ? °sienna:((food &gt; 0)? °brown : ((road &lt; 0.001)?#darkgoldenrod : ((road &gt; 2)? °white : ((road &gt; 0.5)? (C00CC00) : ((road &gt; 0.2)? (C009900) : (C005500)))))) ;
+    int food &lt;- isFoodLocation ? 5 : 0 ;
+    int nest const: true &lt;- 300 - int(self distance_to center) ;
+    
+}
+<span class="hljs-comment">//Species ant that will move and follow a final state machine</span>
+species ant skills: [moving] control: fsm {
+    float speed &lt;- 2.0 ;
+    ant_grid place update: ant_grid (location ); 
+    string im &lt;- <span class="hljs-string">'ant_shape_empty'</span> ;
+    bool hasFood &lt;- false ;
+    <span class="hljs-comment">//Reflex to allow the diffusion of the road of pheromon by putting pheromon inside a cell</span>
+    reflex diffuse_road when:hasFood=true{
+      ant_grid(location).road &lt;- ant_grid(location).road + 100.0;
+   }
+   <span class="hljs-comment">//Action to pick the food</span>
+    action pick {
+        im &lt;- ant_shape_full ;
+        hasFood &lt;- true ;
+        place.food &lt;- place.food - 1 ;
+    }
+    <span class="hljs-comment">//Action to drop the food</span>
+    action drop {
+        food_gathered &lt;- food_gathered + 1 ;  
+        hasFood &lt;- false ;
+        heading &lt;- heading - 180 ;
+    }
+    <span class="hljs-comment">//Action to find the best cell in the neighborhood of the ant</span>
+    action choose_best_place type: ant_grid {  
+        list&lt;ant_grid&gt; list_places &lt;- place.neighbors ;
+        if (list_places count (each.food &gt; 0)) &gt; 0  { 
+            return (list_places first_with (each.food &gt; 0)) ;
+        } else {
+                int min_nest  &lt;-  (list_places min_of (each.nest)) ;
+                list_places &lt;- list_places sort ((each.nest = min_nest) ? each.road :  0.0) ;
+                return last(list_places) ;
+            }
+    } 
+    <span class="hljs-comment">//initial state of the ant that will make it wander until it finds food or a road</span>
+    state wandering initial: true { 
+        do wander amplitude:120 ;
+        transition to: carryingFood when: place.food &gt; 0 {
+            
+             
+            do pick ;
+        }
+        transition to: followingRoad when: place.road &gt; 0.05 ; 
+    }
+    <span class="hljs-comment">//State to carry food to the nest once it has been found</span>
+    state carryingFood {
+        do goto target: center ;
+        transition to: wandering when: place.isNestLocation { 
+            do drop ;
+        }
+    }
+    <span class="hljs-comment">//State to follow a pheromon road once it has been found</span>
+    state followingRoad {
+        location &lt;- (self choose_best_place()) as point ;
+        transition to: carryingFood when: place.food &gt; 0 {
+            do pick ;
+        }
+        transition to: wandering when: (place.road &lt; 0.05) ;
+    }
+    aspect text {
+        if use_icons {
+            draw  hasFood ? file(ant_shape_full) : file(ant_shape_empty) rotate: heading at: location size: {8,5} ;
+        } else {
+            draw circle(1.0) empty: !hasFood color: rgb (<span class="hljs-string">'orange'</span>) ;
+        }
+        if display_state {
+            draw state at: location + {-3,1.5} color: °white font: font(<span class="hljs-string">"Helvetica"</span>, 14 * #zoom, #plain) perspective:true;
+        }
+    } 
+    aspect default {
+        draw circle(1.0) empty: !hasFood color: #orange ; 
+    }           
+}
+
+experiment Ant type: gui {
+    parameter <span class="hljs-string">'Number of ants:'</span> var: ants_number category: <span class="hljs-string">'Model'</span> ;
+    parameter <span class="hljs-string">'Evaporation of the signal (unit/cycle):'</span> var: evaporation_per_cycle category: <span class="hljs-string">'Model'</span> ;
+    parameter <span class="hljs-string">'Rate of diffusion of the signal (%/cycle):'</span> var: diffusion_rate category: <span class="hljs-string">'Model'</span> ;
+    parameter <span class="hljs-string">'Use icons for the agents:'</span> var: use_icons category: <span class="hljs-string">'Display'</span> ;
+    parameter <span class="hljs-string">'Display state of agents:'</span> var: display_state category: <span class="hljs-string">'Display'</span> ;
+    output {
+        display Ants type: opengl  {
+            grid ant_grid ;
+            species ant aspect: text ;
+        }
+    }
+}
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

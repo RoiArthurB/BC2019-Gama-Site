@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>grid_move · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="grid_move · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">grid_move</h1></header><article><div><span><p>_Author : _</p>
+<p>A 3D model which show how to represent an evacuation system with obstacles, cohesion factor and velocity. The people are placed randomly and have to escape by going to a target point, within a discretized space by a grid. The agents don't use the skill moving to move.</p>
+<p>![F:\Gama\GamaWiki\resources\images\modelLibraryScreenshots\Toy Models\Evacuation\Evacuation grid_move\map-10.png](../F:\Gama\GamaWiki\resources\images\modelLibraryScreenshots\Toy Models\Evacuation\Evacuation grid_move\map-10.png)</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">model grid_move
+
+global {
+    <span class="hljs-comment">//Shapefile of the buildings</span>
+    file building_shapefile &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-comment">//Shape of the world</span>
+    geometry shape &lt;- envelope(building_shapefile);
+    <span class="hljs-comment">//Maximum memory of the agent to avoid loop of the agents</span>
+    int max_memory &lt;- 5;
+    <span class="hljs-comment">//Size of the people agents</span>
+    float people_size &lt;- 2.0;
+    <span class="hljs-comment">//Number of people agents</span>
+    int nb_people &lt;- 500;
+    <span class="hljs-comment">//Evacuation point for the people agents</span>
+    point target_point &lt;- {world.location.x, 0};
+    
+    init {
+        <span class="hljs-comment">//Creation of the building agents using the shapefile</span>
+        create building from: building_shapefile
+        {
+            <span class="hljs-comment">//Initialization of the cell is_obstacle attribute</span>
+            ask cell overlapping self {
+                is_obstacle &lt;- true;
+                color &lt;- #black;
+            }
+        }
+
+        list&lt;cell&gt; free_cell &lt;- cell where not (each.is_obstacle);
+        cell the_target_cell &lt;- cell closest_to target_point;
+        <span class="hljs-comment">//Creation of the people agent</span>
+        create people number: nb_people {
+            <span class="hljs-comment">//People agent are placed randomly among the cells which haven't people or obstacle</span>
+            current_cell &lt;- one_of(free_cell);
+            current_cell.is_free &lt;- false;
+            remove current_cell from: free_cell;
+            location &lt;- current_cell.location;
+            target_cell &lt;- the_target_cell;
+            memory &lt;&lt; current_cell;
+            
+        }
+    }
+}
+<span class="hljs-comment">//Species which represent the buildings</span>
+species building {
+    float height &lt;- 3.0 + rnd(5);
+    aspect default {
+        draw shape color: #gray depth: height;
+    }
+}
+<span class="hljs-comment">//Species which represent the people agent moving from one cell to its neighbors</span>
+species people {
+    <span class="hljs-comment">//Current cell of the agent</span>
+    cell current_cell;
+    <span class="hljs-comment">//Evacuation cell of the agent</span>
+    cell target_cell;
+    <span class="hljs-comment">//List of the cells already passed by the agents and mesmorized</span>
+    list&lt;cell&gt; memory;
+    <span class="hljs-comment">//Size of the agent</span>
+    float size &lt;- people_size;
+    rgb color &lt;- rgb(rnd(255),rnd(255),rnd(255));
+    
+    
+    <span class="hljs-comment">//Reflex to kill the agent once it is close enough to an evacuation point</span>
+    reflex end when: location distance_to target_cell.location &lt;= 2 * people_size {
+        current_cell.is_free &lt;- true;
+        do die;
+    }
+    <span class="hljs-comment">//Reflex to move the agent</span>
+    reflex move {
+        <span class="hljs-comment">//List of all the cells possible (which aren't obstacles, without people on it and on which the agent hasn't already passed</span>
+        list&lt;cell&gt; possible_cells &lt;- current_cell neighbors_at 1 where (not (each.is_obstacle) and each.is_free and not (each in memory));
+        <span class="hljs-comment">//If there is possible cell, the agent move on the closest one to the evacuation point</span>
+        if not empty(possible_cells) {
+            current_cell.is_free &lt;- true;
+            current_cell &lt;- shuffle(possible_cells) with_min_of (each.location distance_to target_cell.location);
+            location &lt;- current_cell.location;
+            current_cell.is_free &lt;- false;
+            <span class="hljs-comment">//Management of the memory of the agents</span>
+            memory &lt;&lt; current_cell; 
+            if (length(memory) &gt; max_memory) {
+                remove memory[0] from: memory;
+            }
+        }
+    }
+    
+    aspect default {
+        draw pyramid(size) color: color;
+        draw sphere(size/3) at: {location.x,location.y,size} color: color;
+    }
+}
+<span class="hljs-comment">//Grid species to discretize space</span>
+grid cell width: 150 height: 150  neighbors: 8 frequency: 0 {
+    bool is_obstacle &lt;- false;
+    bool is_free &lt;- true;
+    rgb color &lt;- #white;
+}
+
+experiment main type: gui {
+    parameter <span class="hljs-string">"nb people"</span> var: nb_people min: 1 max: 1000;
+    output {
+        display map type: opengl camera_pos: {world.location.x,-world.shape.height*1.5,70}
+                        camera_look_pos:{world.location.x,0,0}    {
+            image <span class="hljs-string">'../images/soil.jpg'</span>;
+            species building refresh: false;
+            species people;
+            graphics <span class="hljs-string">"exit"</span> refresh: false {
+                draw sphere(2 * people_size) at: target_point color: #green;    
+            }
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

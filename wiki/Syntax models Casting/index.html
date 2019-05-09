@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Casting Syntax · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Casting Syntax · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Casting Syntax</h1></header><article><div><span><p><em>Author : A. Drogoul &amp; P. Taillandier</em></p>
+<p>different ways of transforming objects and agents in GAML.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model Casting
+
+species to_int {
+    init {
+        <span class="hljs-statement">write</span> sample(int(1));
+        <span class="hljs-statement">write</span> sample(int(1.0));
+        <span class="hljs-statement">write</span> sample(int(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(int(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(int(°pink));
+        <span class="hljs-statement">write</span> sample(int(true));
+        <span class="hljs-statement">write</span> sample(int(self));
+        <span class="hljs-statement">write</span> sample(int([]));
+        <span class="hljs-statement">write</span> sample(int([0]));
+        <span class="hljs-statement">write</span> sample(int({0,0,0}));
+        <span class="hljs-statement">write</span> sample(int(0::0));
+        <span class="hljs-statement">write</span> sample(int([0::0]));
+        <span class="hljs-statement">write</span> sample(int(#AABBCC));
+        <span class="hljs-statement">write</span> sample(int(°meter));              
+    }
+}
+
+
+species to_float{
+    init {
+        <span class="hljs-statement">write</span> sample(float(1));
+        <span class="hljs-statement">write</span> sample(float(1.0));
+        <span class="hljs-statement">write</span> sample(float(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(float(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(float(°pink));
+        <span class="hljs-statement">write</span> sample(float(true));
+        <span class="hljs-statement">write</span> sample(float(self));
+        <span class="hljs-statement">write</span> sample(float([]));
+        <span class="hljs-statement">write</span> sample(float([0]));
+        <span class="hljs-statement">write</span> sample(float(0::0));
+        <span class="hljs-statement">write</span> sample(float([0::0]));
+        <span class="hljs-statement">write</span> sample(float({0,0,0}));
+        <span class="hljs-statement">write</span> sample(float(#AABBCC));
+        <span class="hljs-statement">write</span> sample(float(°meter));                
+    }
+}
+
+
+species to_string{
+    init {
+        <span class="hljs-statement">write</span> sample(string(1));
+        <span class="hljs-statement">write</span> sample(string(1.0));
+        <span class="hljs-statement">write</span> sample(string(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(string(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(string(°pink));
+        <span class="hljs-statement">write</span> sample(string(true));
+        <span class="hljs-statement">write</span> sample(string(self));
+        <span class="hljs-statement">write</span> sample(string([]));
+        <span class="hljs-statement">write</span> sample(string([0]));
+        <span class="hljs-statement">write</span> sample(string({0,0,0}));
+        <span class="hljs-statement">write</span> sample(string(#AABBCC));
+        <span class="hljs-statement">write</span> sample(string(°meter));               
+    }
+}
+
+species to_point{
+    init {
+        <span class="hljs-statement">write</span> sample(point(1));
+        <span class="hljs-statement">write</span> sample(point(1.0));
+        <span class="hljs-statement">write</span> sample(point(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(point(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(point(°pink));
+        <span class="hljs-statement">write</span> sample(point(true));
+        <span class="hljs-statement">write</span> sample(point(self));
+        <span class="hljs-statement">write</span> sample(point([]));
+        <span class="hljs-statement">write</span> sample(point([0]));
+        <span class="hljs-statement">write</span> sample(point(0::0));
+        <span class="hljs-statement">write</span> sample(point([0::0]));
+        <span class="hljs-statement">write</span> sample(point({0,0,0}));
+        <span class="hljs-statement">write</span> sample(point(#AABBCC));
+        <span class="hljs-statement">write</span> sample(point(°meter));                
+    }
+}
+species to_list{
+    init {
+        <span class="hljs-statement">write</span> sample(list(1));
+        <span class="hljs-statement">write</span> sample(list(1.0));
+        <span class="hljs-statement">write</span> sample(list(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(list(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(list(°pink));
+        <span class="hljs-statement">write</span> sample(list(true));
+        <span class="hljs-statement">write</span> sample(list(self));
+        <span class="hljs-statement">write</span> sample(list([]));
+        <span class="hljs-statement">write</span> sample(list([0]));
+        <span class="hljs-statement">write</span> sample(list(0::0));
+        <span class="hljs-statement">write</span> sample(list([0::0])); 
+        <span class="hljs-statement">write</span> sample(list({0,0,0}));
+        <span class="hljs-statement">write</span> sample(list(#AABBCC));
+        <span class="hljs-statement">write</span> sample(list(°meter));             
+    }
+}
+species to_pair{
+    init {
+        <span class="hljs-statement">write</span> sample(pair(1));
+        <span class="hljs-statement">write</span> sample(pair(1.0));
+        <span class="hljs-statement">write</span> sample(pair(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(pair(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(pair(°pink));
+        <span class="hljs-statement">write</span> sample(pair(true));
+        <span class="hljs-statement">write</span> sample(pair(self));
+        <span class="hljs-statement">write</span> sample(pair([]));
+        <span class="hljs-statement">write</span> sample(pair([0]));
+        <span class="hljs-statement">write</span> sample(pair(0::0));
+        <span class="hljs-statement">write</span> sample(pair([0::0]));
+        <span class="hljs-statement">write</span> sample(pair({0,0,0}));
+        <span class="hljs-statement">write</span> sample(pair(#AABBCC));
+        <span class="hljs-statement">write</span> sample(pair(°meter));             
+    }
+}
+species to_map{
+    init {
+        <span class="hljs-statement">write</span> sample(map&lt;float, int&gt;(°meter));
+        <span class="hljs-statement">write</span> sample(map(1));
+        <span class="hljs-statement">write</span> sample(map(1.0));
+        <span class="hljs-statement">write</span> sample(map(<span class="hljs-string">"1"</span>));
+        <span class="hljs-statement">write</span> sample(map(<span class="hljs-string">"1.0"</span>));
+        <span class="hljs-statement">write</span> sample(map(°pink));
+        <span class="hljs-statement">write</span> sample(map(true));
+        <span class="hljs-statement">write</span> sample(map(self));
+        <span class="hljs-statement">write</span> sample(map([]));
+        <span class="hljs-statement">write</span> sample(map([0]));
+        <span class="hljs-statement">write</span> sample(map(0::0));
+        <span class="hljs-statement">write</span> sample(map([0::0]));
+        <span class="hljs-statement">write</span> sample(map({0,0,0}));
+        <span class="hljs-statement">write</span> sample(map(#AABBCC));
+        <span class="hljs-statement">write</span> sample(map&lt;int,string&gt;(1));               
+    }
+}
+experiment Casting type: gui{
+    user_command <span class="hljs-string">"to int"</span> {create to_int;}
+    user_command <span class="hljs-string">"to float"</span> {create to_float;}
+    user_command <span class="hljs-string">"to string"</span> {create to_string;}
+    user_command <span class="hljs-string">"to point"</span> {create to_point;}
+    user_command <span class="hljs-string">"to list"</span> {create to_list;}
+    user_command <span class="hljs-string">"to pair"</span> {create to_pair;}
+    user_command <span class="hljs-string">"to map"</span> {create to_map;}
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

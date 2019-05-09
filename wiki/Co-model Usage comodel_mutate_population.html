@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>comodel_with_the_coupling · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="comodel_with_the_coupling · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">comodel_with_the_coupling</h1></header><article><div><span><p><em>Author : HUYNH Quang Nghi</em></p>
+<p>This is a simple comodel serve to demonstrate the importation and instatiation of micro-model  using the couplings  with the mutation the population of micro-model. A population can be a collection from itself and from other mircro-model</p>
+<p>Imported models :</p>
+<pre><code class="hljs">model PreyPredator
+ global
+{
+    geometry shape &lt;- square(100);
+    float perceipt_radius &lt;- 20.0;
+    int preyinit &lt;- 500;
+    int predatorinit &lt;- 3;
+    list&lt;agent&gt; lstPredator &lt;- list&lt;agent&gt;(predator);
+    list&lt;agent&gt; lstPrey &lt;- list&lt;agent&gt;(prey);
+    init
+    {
+        create prey number: preyinit;
+        create predator number: predatorinit;
+        lstPredator &lt;- list&lt;agent&gt;(predator);
+        lstPrey &lt;- list&lt;agent&gt;(prey);
+    }
+
+}
+
+species generic_species skills: [moving]
+{
+    float speed &lt;- 1.0;
+    point goal &lt;- <span class="hljs-literal">nil</span>;
+    bool is_chased &lt;- false;
+    reflex live_with_my_goal
+    {
+        if (goal != <span class="hljs-literal">nil</span>)
+        {
+            do wander speed: speed;
+            do goto target: goal speed: speed;
+        } else
+        {
+            do wander speed: speed;
+        }
+
+    }
+
+}
+
+species prey parent: generic_species
+{
+    geometry shape &lt;- circle(0.5);
+    float speed &lt;- 0.2;
+    rgb color &lt;- # green;
+    reflex fleeing
+    {
+        if (length((lstPredator where (each != <span class="hljs-literal">nil</span> and !dead(each) and each distance_to self &lt; perceipt_radius))) &gt; 0)
+        {
+            speed &lt;- 1.0;
+            is_chased &lt;- true;
+            color &lt;- # lime;
+            if (goal = <span class="hljs-literal">nil</span>)
+            {
+                agent a &lt;- any(((lstPrey where (each != <span class="hljs-literal">nil</span> and !dead(each) and !generic_species(each).is_chased))));
+                if (a != <span class="hljs-literal">nil</span> and !dead(a))
+                {
+                    if (flip(0.5))
+                    {
+                        goal &lt;- a.location;
+                    } else
+                    {
+                        goal &lt;- any_location_in(world.shape);
+                    }
+
+                } else
+                {
+                    goal &lt;- any_location_in(world.shape);
+                }
+
+            }
+
+        }
+
+        if (goal != <span class="hljs-literal">nil</span> and self.location distance_to goal &lt; 0.5)
+        {
+            goal &lt;- <span class="hljs-literal">nil</span>;
+        }
+
+        if (length((lstPredator where (each != <span class="hljs-literal">nil</span> and !dead(each))) where (each distance_to self &lt;= perceipt_radius)) = 0)
+        {
+            is_chased &lt;- false;
+            color &lt;- # green;
+            speed &lt;- 0.2;
+        }
+
+    }
+
+    aspect default
+    {
+        draw shape color: color;
+    }
+
+}
+
+species predator parent: generic_species
+{
+    geometry shape &lt;- triangle(2);
+    rgb color &lt;- # red;
+    reflex hunting
+    {
+        if (goal = <span class="hljs-literal">nil</span>)
+        {
+            list tmp &lt;- (lstPrey where (!dead(each) and each.shape distance_to self.shape &lt; perceipt_radius));
+            if (length(tmp) &gt; 0)
+            {
+                agent a &lt;- first(tmp sort (each.shape distance_to self.shape));
+                if (a = <span class="hljs-literal">nil</span>)
+                {
+                    a &lt;- any((lstPrey where (!dead(each))));
+                }
+
+                if (a != <span class="hljs-literal">nil</span>)
+                {
+                    speed &lt;- 2.0;
+                    goal &lt;- a.location;
+                }
+
+            }
+
+        } else if ((self.location distance_to goal &lt; 0.5))
+        {
+            ask lstPrey where (!dead(each) and each.location distance_to goal &lt; 0.5)
+            {
+                do die;
+            }
+
+            goal &lt;- <span class="hljs-literal">nil</span>;
+            speed &lt;- 1.0;
+        }
+
+    }
+
+    aspect default
+    {
+        draw circle(perceipt_radius) color: # pink empty: true;
+        draw shape color: color rotate: 90 + my heading;
+    }
+
+}
+
+experiment prey_predator_exp type: gui
+{
+    output
+    {
+        display main_display
+
+        {
+            species prey;
+            species predator;
+        }
+
+    }
+
+}
+</code></pre>
+<pre><code class="hljs">model PreyPredator_coupling
+import <span class="hljs-string">"PreyPredator.gaml"</span>
+
+global
+{   
+}
+
+experiment PreyPredator_coupling_exp parent:prey_predator_exp type: gui
+{
+geometry shape&lt;- square(100);
+    list&lt;prey&gt; getPrey{
+        return list(prey);
+    }
+        list&lt;predator&gt; getPredator{
+        return list(predator);
+    }
+    
+    <span class="hljs-comment">//if we redefine the output, i.e, a blank output, the displays in parent experiement dont show.</span>
+    output
+    {
+    }
+
+}
+
+
+</code></pre>
+<p>Code of the model :</p>
+<pre><code class="hljs">model comodel_with_the_coupling
+
+import <span class="hljs-string">"PreyPredator_coupling.gaml"</span> as myP
+
+
+global
+{
+    <span class="hljs-comment">// set the shape of world as a rectangle 200 x 100</span>
+    geometry shape &lt;- rectangle(200, 100);
+    init
+    {
+        <span class="hljs-comment">//instantiate three instant of micro-model PreyPredator</span>
+        create myP.PreyPredator_coupling_exp with: [shape::square(100), preyinit::rnd(20), predatorinit::1] number: 3;
+        
+        <span class="hljs-comment">//explicitly save the orginal population of predator and original population of prey of each micro-model</span>
+        list&lt;agent&gt; lstpredator0 &lt;- myP.PreyPredator_coupling_exp[0].getPredator();
+        list&lt;agent&gt; lstprey0 &lt;- myP.PreyPredator_coupling_exp[0].getPrey();
+        
+        list&lt;agent&gt; lstpredator1 &lt;- myP.PreyPredator_coupling_exp[1].getPredator();
+        list&lt;agent&gt; lstprey1 &lt;- myP.PreyPredator_coupling_exp[1].getPrey();
+        
+        list&lt;agent&gt; lstpredator2 &lt;- myP.PreyPredator_coupling_exp[2].getPredator();
+        list&lt;agent&gt; lstprey2 &lt;- myP.PreyPredator_coupling_exp[2].getPrey();
+        
+        <span class="hljs-comment">//mutate the popuplation of micro-model by assigning the list above to  the population of micro-models</span>
+        (myP.PreyPredator_coupling_exp[0].simulation).lstPredator &lt;- lstpredator2;
+        (myP.PreyPredator_coupling_exp[1].simulation).lstPredator &lt;- lstprey2;
+        (myP.PreyPredator_coupling_exp[2].simulation).lstPredator &lt;- lstprey1;
+        
+        
+        (myP.PreyPredator_coupling_exp[0].simulation).lstPrey &lt;- lstprey0 + lstprey1;
+        (myP.PreyPredator_coupling_exp[1].simulation).lstPrey &lt;- lstpredator1;
+        (myP.PreyPredator_coupling_exp[2].simulation).lstPrey &lt;- lstpredator0 + lstprey2;
+        
+        <span class="hljs-comment">//change the shape correspond with the new role of agent in the new populations</span>
+        ask (myP.PreyPredator_coupling_exp accumulate each.simulation.lstPredator)
+        {
+            shape &lt;- triangle(2);
+        }
+
+        ask (myP.PreyPredator_coupling_exp accumulate each.simulation.lstPrey)
+        {
+            shape &lt;- circle(0.5);
+        }
+
+    }
+
+    reflex simulate_micro_models
+    {
+        <span class="hljs-comment">// ask all simulation do their job</span>
+        ask (myP.PreyPredator_coupling_exp collect each.simulation)
+        {
+            do _step_;
+        }
+
+    }
+
+}
+
+experiment comodel_with_the_coupling_exp type: gui
+{
+    output
+    {
+        <span class="hljs-comment">//a mixing display of all agents from all populations</span>
+        display <span class="hljs-string">"comodel"</span>
+        {
+            agents <span class="hljs-string">"agentprey"</span> value: (myP.PreyPredator_coupling_exp accumulate each.getPrey());
+            agents <span class="hljs-string">"agentpredator"</span> value: (myP.PreyPredator_coupling_exp accumulate each.getPredator());
+        }
+
+    }
+
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

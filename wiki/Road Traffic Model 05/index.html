@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Dynamic update of the road network · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Dynamic update of the road network · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Dynamic update of the road network</h1></header><article><div><span><p>5th part of the tutorial: Road Traffic</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model tutorial_gis_city_traffic
+
+global {
+    file shape_file_buildings &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
+    file shape_file_roads &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
+    file shape_file_bounds &lt;- file(<span class="hljs-string">"../includes/bounds.shp"</span>);
+    geometry shape &lt;- envelope(shape_file_bounds);
+    float step &lt;- 10 #mn;
+    int nb_people &lt;- 100;
+    int current_hour update: (time / #hour) mod 24;
+    int min_work_start &lt;- 6;
+    int max_work_start &lt;- 8;
+    int min_work_end &lt;- 16; 
+    int max_work_end &lt;- 20; 
+    float min_speed &lt;- 1.0 #km / #h;
+    float max_speed &lt;- 5.0 #km / #h; 
+    float destroy &lt;- 0.02;
+    graph the_graph;
+    
+    init {
+        create building from: shape_file_buildings with: [type::string(read (<span class="hljs-string">"NATURE"</span>))] {
+            if type=<span class="hljs-string">"Industrial"</span> {
+                color &lt;- #blue ;
+            }
+        }
+        create road from: shape_file_roads ;
+        map&lt;road,float&gt; weights_map &lt;- road as_map (each:: (each.destruction_coeff * each.shape.perimeter));
+        the_graph &lt;- as_edge_graph(road) with_weights weights_map;
+        
+        
+        list&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
+        list&lt;building&gt;  industrial_buildings &lt;- building  where (each.type=<span class="hljs-string">"Industrial"</span>) ;
+        create people number: nb_people {
+            speed &lt;- min_speed + rnd (max_speed - min_speed) ;
+            start_work &lt;- min_work_start + rnd (max_work_start - min_work_start) ;
+            end_work &lt;- min_work_end + rnd (max_work_end - min_work_end) ;
+            living_place &lt;- one_of(residential_buildings) ;
+            working_place &lt;- one_of(industrial_buildings) ;
+            objective &lt;- <span class="hljs-string">"resting"</span>;
+            location &lt;- any_location_in (living_place); 
+        }
+    }
+    
+    reflex update_graph{
+        map&lt;road,float&gt; weights_map &lt;- road as_map (each:: (each.destruction_coeff * each.shape.perimeter));
+        the_graph &lt;- the_graph with_weights weights_map;
+    }
+}
+
+species building {
+    string type; 
+    rgb color &lt;- #gray  ;
+    
+    aspect base {
+        draw shape color: color ;
+    }
+}
+
+species road  {
+    float destruction_coeff &lt;- 1 + ((rnd(100))/ 100.0) max: 2.0;
+    int colorValue &lt;- int(255*(destruction_coeff - 1)) update: int(255*(destruction_coeff - 1));
+    rgb color &lt;- rgb(min([255, colorValue]),max ([0, 255 - colorValue]),0)  update: rgb(min([255, colorValue]),max ([0, 255 - colorValue]),0) ;
+    
+    aspect base {
+        draw shape color: color ;
+    }
+}
+
+species people skills:[moving] {
+    rgb color &lt;- #yellow ;
+    building living_place &lt;- <span class="hljs-literal">nil</span> ;
+    building working_place &lt;- <span class="hljs-literal">nil</span> ;
+    int start_work ;
+    int end_work  ;
+    string objective ; 
+    point the_target &lt;- <span class="hljs-literal">nil</span> ;
+        
+    reflex time_to_work when: current_hour = start_work and objective = <span class="hljs-string">"resting"</span>{
+        objective &lt;- <span class="hljs-string">"working"</span> ;
+        the_target &lt;- any_location_in (working_place);
+    }
+        
+    reflex time_to_go_home when: current_hour = end_work and objective = <span class="hljs-string">"working"</span>{
+        objective &lt;- <span class="hljs-string">"resting"</span> ;
+        the_target &lt;- any_location_in (living_place); 
+    } 
+     
+    reflex move when: the_target != <span class="hljs-literal">nil</span> {
+        path path_followed &lt;- self goto [target::the_target, on::the_graph, return_path:: true];
+        list&lt;geometry&gt; segments &lt;- path_followed.segments;
+        loop line over: segments {
+            float dist &lt;- line.perimeter;
+            ask road(path_followed agent_from_geometry line) { 
+                destruction_coeff &lt;- destruction_coeff + (destroy * dist / shape.perimeter);
+            }
+        }
+        if the_target = location {
+            the_target &lt;- <span class="hljs-literal">nil</span> ;
+        }
+    }
+    
+    aspect base {
+        draw circle(10) color: color;
+    }
+}
+
+experiment road_traffic type: gui {
+    parameter <span class="hljs-string">"Shapefile for the buildings:"</span> var: shape_file_buildings category: <span class="hljs-string">"GIS"</span> ;
+    parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
+    parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
+    parameter <span class="hljs-string">"Number of people agents"</span> var: nb_people category: <span class="hljs-string">"People"</span> ;
+    parameter <span class="hljs-string">"Earliest hour to start work"</span> var: min_work_start category: <span class="hljs-string">"People"</span> min: 2 max: 8;
+    parameter <span class="hljs-string">"Latest hour to start work"</span> var: max_work_start category: <span class="hljs-string">"People"</span> min: 8 max: 12;
+    parameter <span class="hljs-string">"Earliest hour to end work"</span> var: min_work_end category: <span class="hljs-string">"People"</span> min: 12 max: 16;
+    parameter <span class="hljs-string">"Latest hour to end work"</span> var: max_work_end category: <span class="hljs-string">"People"</span> min: 16 max: 23;
+    parameter <span class="hljs-string">"minimal speed"</span> var: min_speed category: <span class="hljs-string">"People"</span> min: 0.1 #km/#h ;
+    parameter <span class="hljs-string">"maximal speed"</span> var: max_speed category: <span class="hljs-string">"People"</span> max: 10 #km/#h;
+    parameter <span class="hljs-string">"Value of destruction when a people agent takes a road"</span> var: destroy category: <span class="hljs-string">"Road"</span> ;
+    output {
+        display city_display type:opengl {
+            species building aspect: base ;
+            species road aspect: base ;
+            species people aspect: base ;
+        }
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>

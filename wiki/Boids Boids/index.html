@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Boids · GAMA-Platform</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="GAMA"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Boids · GAMA-Platform"/><meta property="og:type" content="website"/><meta property="og:url" content="https://roiarthurb.github.io/BC2019-Gama-Site/"/><meta property="og:description" content="GAMA"/><meta property="og:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://roiarthurb.github.io/BC2019-Gama-Site//resources/images/general/GamaPlatform.png"/><link rel="shortcut icon" href="/BC2019-Gama-Site//img/gama-logo.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js" async=""></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js" async=""></script><script type="text/javascript" src="/BC2019-Gama-Site/js/code-block-buttons.js" async=""></script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/help" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Boids</h1></header><article><div><span><p>_Author : _</p>
+<p>This model shows the movement of boids following a goal, and creating without their own volonty, a flock. The experiment proposes to display in a 3D view the different boids and allows the user to move the goal to see the behaviour of boids.</p>
+<p>Code of the model :</p>
+<pre><code class="hljs">
+model boids 
+global torus: torus_environment{ 
+    <span class="hljs-comment">//Number of boids that will be created</span>
+    int number_of_agents &lt;- 50 min: 1 max: 1000000;
+    <span class="hljs-comment">//Number of obstacles for the boids movement to represent</span>
+    int number_of_obstacles &lt;- 0 min: 0;
+    <span class="hljs-comment">//Maximal speed of the boids</span>
+    float maximal_speed &lt;- 15.0 min: 0.1 max: 15.0;
+    <span class="hljs-comment">//Factors for the group of boids</span>
+    int cohesion_factor &lt;- 200;
+    int alignment_factor &lt;- 100; 
+    <span class="hljs-comment">//Variables for the movement of the boids</span>
+    float minimal_distance &lt;- 10.0; 
+    int maximal_turn &lt;- 45 min: 0 max: 359; 
+    
+    int width_and_height_of_environment &lt;- 1000;  
+    bool torus_environment &lt;- false; 
+    bool apply_cohesion &lt;- true ;
+    bool apply_alignment &lt;- true ;
+    bool apply_separation &lt;- true;
+    bool apply_avoid &lt;- true;  
+    bool apply_wind &lt;- true;   
+    bool moving_obstacles &lt;- false;   
+    int bounds &lt;- int(width_and_height_of_environment / 20); 
+    <span class="hljs-comment">//Vector for the wind</span>
+    point wind_vector &lt;- {0,0}; 
+    list images of: image_file &lt;- [file(<span class="hljs-string">'../images/bird1.png'</span>),file(<span class="hljs-string">'../images/bird2.png'</span>),file(<span class="hljs-string">'../images/bird3.png'</span>)]; 
+    int xmin &lt;- bounds;   
+    int ymin &lt;- bounds;  
+    int xmax &lt;- (width_and_height_of_environment - bounds);     
+    int ymax &lt;- (width_and_height_of_environment - bounds);   
+    
+    <span class="hljs-comment">//Action to move the goal to the mouse location</span>
+    action move_goal(point mouse) {
+        ask first(boids_goal) {
+            do goto target: mouse speed: 30;
+        }
+    }
+    
+    geometry shape &lt;- square(width_and_height_of_environment);
+    
+    init { 
+        <span class="hljs-comment">//Create the boids agents</span>
+        create boids number: number_of_agents { 
+             location &lt;- {rnd (width_and_height_of_environment - 2) + 1, rnd (width_and_height_of_environment -2) + 1 };
+        } 
+        <span class="hljs-comment">//Create the obstacles agents</span>
+        create obstacle number: number_of_obstacles {
+            location &lt;- {rnd (width_and_height_of_environment - 2) + 1, rnd (width_and_height_of_environment -2) + 1 }; 
+        }
+        <span class="hljs-comment">//Create the goal that boids will follow</span>
+        create  boids_goal; 
+    }   
+}
+
+<span class="hljs-comment">//Species boids goal which represents the goal that will be followed by boids agents using the skill moving</span>
+species boids_goal skills: [moving] {
+    float range  &lt;- 20.0;
+    
+    <span class="hljs-comment">//If the mouse is not used, then the goal just wander</span>
+    reflex wander {  
+        do  wander amplitude: 45 speed: 20;  
+    }
+    
+    aspect default {
+        draw circle(10) color: #red ;
+        draw circle(40) color: #orange empty: true;
+    }
+} 
+<span class="hljs-comment">//Species boids which represents the boids agents whom follow the boid goal agents, using the skill moving</span>
+species boids skills: [moving] {
+    <span class="hljs-comment">//Speed of the boids agents</span>
+    float speed max: maximal_speed &lt;- maximal_speed;
+    <span class="hljs-comment">//Range used to consider the group of the agent</span>
+    float range &lt;- minimal_distance * 2;
+    point velocity &lt;- {0,0};
+        
+    <span class="hljs-comment">//Reflex used when the separation is applied to change the velocity of the boid</span>
+    reflex separation when: apply_separation {
+        point acc &lt;- {0,0};
+        ask (boids overlapping (circle(minimal_distance)))  {
+            acc &lt;- acc - ((location) - myself.location);
+        }  
+        velocity &lt;- velocity + acc;
+    }
+    
+    <span class="hljs-comment">//Reflex to align the boid with the other boids in the range</span>
+    reflex alignment when: apply_alignment {
+        list others  &lt;- ((boids overlapping (circle (range)))  - self);
+        point acc &lt;- mean (others collect (each.velocity)) - velocity;
+        velocity &lt;- velocity + (acc / alignment_factor);
+    }
+     
+    <span class="hljs-comment">//Reflex to apply the cohesion of the boids group in the range of the agent</span>
+    reflex cohesion when: apply_cohesion {
+        list others &lt;- ((boids overlapping (circle (range)))  - self);
+        point mass_center &lt;- (length(others) &gt; 0) ? mean (others collect (each.location)) : location;
+
+        point acc &lt;- mass_center - location;
+        acc &lt;- acc / cohesion_factor; 
+        velocity &lt;- velocity + acc;   
+    }
+    
+    <span class="hljs-comment">//Reflex to avoid the obstacles</span>
+    reflex avoid when: apply_avoid { 
+        point acc &lt;- {0,0};
+        list&lt;obstacle&gt; nearby_obstacles &lt;- (obstacle overlapping (circle (range)) );
+        loop obs over: nearby_obstacles {
+            acc &lt;- acc - ((location of obs) - my (location));
+        }
+        velocity &lt;- velocity + acc; 
+    }
+    
+    <span class="hljs-comment">//action to represent the bounding of the environment considering the velocity of the boid</span>
+    action bounding {
+        if  !(torus_environment) {
+            if  (location.x) &lt; xmin {
+                velocity &lt;- velocity + {bounds,0};
+            } else if (location.x) &gt; xmax {
+                velocity &lt;- velocity - {bounds,0};
+            }
+            
+            if (location.y) &lt; ymin {
+                velocity &lt;- velocity + {0,bounds};
+            } else if (location.y) &gt; ymax {
+                velocity &lt;- velocity - {0,bounds};
+            }
+            
+        }
+    }
+    <span class="hljs-comment">//Reflex to follow the goal </span>
+    reflex follow_goal {
+        velocity &lt;- velocity + ((first(boids_goal).location - location) / cohesion_factor);
+    }
+    <span class="hljs-comment">//Reflex to apply the wind vector on the velocity</span>
+    reflex wind when: apply_wind {
+        velocity &lt;- velocity + wind_vector;
+    }
+    
+    <span class="hljs-comment">//Action to move the agent  </span>
+    action do_move {  
+        if (((velocity.x) as int) = 0) and (((velocity.y) as int) = 0) {
+            velocity &lt;- {(rnd(4)) -2, (rnd(4)) - 2};
+        }
+        point old_location &lt;- copy(location);
+        do goto target: location + velocity;
+        velocity &lt;- location - old_location;
+    }
+    
+    <span class="hljs-comment">//Reflex to apply the movement by calling the do_move action</span>
+    reflex movement {
+        do do_move;
+    }
+    
+    aspect image {
+        draw (images at (rnd(2))) size: {50,50} rotate: heading ;      
+    }
+    aspect circle { 
+        draw circle(15)  color: #red;
+    }
+    
+    aspect default { 
+        draw circle(20) color: #lightblue empty: true;
+    }
+} 
+
+<span class="hljs-comment">//Species obstacle that represents the obstacles avoided by the boids agents using the skill moving</span>
+species obstacle skills: [moving] {
+    float speed &lt;- 2.0;
+    geometry shape &lt;- triangle(15);
+    
+    <span class="hljs-comment">//Reflex to move the obstacles if it is available</span>
+    reflex move_obstacles when: moving_obstacles {
+        <span class="hljs-comment">//Will make the agent go to a boid with a 50% probability</span>
+        if flip(0.5)  
+        { 
+            do goto target: one_of(boids);
+        } 
+        else{ 
+            do wander amplitude: 360;   
+        }
+    }
+    aspect default {
+        draw  triangle(20) color: #black ;
+    }
+
+}
+
+
+experiment boids_gui type: gui {
+    parameter <span class="hljs-string">'Number of agents'</span> var: number_of_agents;
+    parameter <span class="hljs-string">'Number of obstacles'</span> var: number_of_obstacles;
+    parameter <span class="hljs-string">'Maximal speed'</span> var: maximal_speed;
+    parameter <span class="hljs-string">'Cohesion Factor'</span> var: cohesion_factor;
+    parameter <span class="hljs-string">'Alignment Factor'</span> var: alignment_factor; 
+    parameter <span class="hljs-string">'Minimal Distance'</span>  var: minimal_distance; 
+    parameter <span class="hljs-string">'Maximal Turn'</span>  var: maximal_turn; 
+    parameter <span class="hljs-string">'Width/Height of the Environment'</span> var: width_and_height_of_environment ;  
+    parameter <span class="hljs-string">'Toroidal Environment ?'</span>  var: torus_environment ; 
+    parameter <span class="hljs-string">'Apply Cohesion ?'</span> var: apply_cohesion ;
+    parameter <span class="hljs-string">'Apply Alignment ?'</span> var: apply_alignment ;   
+    parameter <span class="hljs-string">'Apply Separation ?'</span> var: apply_separation ;   
+    parameter <span class="hljs-string">'Apply Avoidance ?'</span> var: apply_avoid ;   
+    parameter <span class="hljs-string">'Apply Wind ?'</span> var: apply_wind ;     
+    parameter <span class="hljs-string">'Moving Obstacles ?'</span> var: moving_obstacles  ;    
+    parameter <span class="hljs-string">'Direction of the wind'</span> var: wind_vector ;  
+    
+    <span class="hljs-comment">//Minimum duration of a step to better see the movements</span>
+    float minimum_cycle_duration &lt;- 0.01;
+
+    output {
+        display Sky  background: #blue type: opengl { 
+            image <span class="hljs-string">'../images/sky.jpg'</span> refresh: false;
+            species boids aspect: image trace: 10 fading: true ;
+            species boids_goal;
+            species obstacle;
+            <span class="hljs-comment">//Event to call the action move_goal in global if the mouse move within the experiment</span>
+            event mouse_move action: move_goal;
+        }
+
+    }
+}
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: '0f9f28b9ab9efae89810921a351753b5',
+                indexName: 'github',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
