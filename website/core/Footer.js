@@ -53,24 +53,24 @@ class Footer extends React.Component {
           <div>
             <h5>Mailing list</h5>
             <a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank">
-		<i class="fas fa-envelope"></i> For Users<br />
-		gama-platform@googlegroups.com
+          		<i class="fas fa-envelope"></i> For Users<br />
+          		gama-platform@googlegroups.com
             </a>
             <a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank">
-		<i class="fas fa-envelope"></i> For Developers<br />
-		gama-dev@googlegroups.com
+          		<i class="fas fa-envelope"></i> For Developers<br />
+          		gama-dev@googlegroups.com
             </a>
           </div>
           <div>
             <h5>Ecosystem</h5>
             <a href="https://github.com/gama-platform/gama">
-		<i class="fab fa-github"></i> GitHub Gama
+		          <i class="fab fa-github"></i> GitHub Gama
             </a>
             <a href="https://github.com/gama-platform/gama.experimental">
-		<i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins
+		          <i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins
             </a>
             <a href="https://github.com/gama-platform/gama.models.experimental">
-		<i class="fas fa-scroll"></i> Gama Experimental Models
+		          <i class="fas fa-scroll"></i> Gama Experimental Models
             </a>
           </div>
         </section>

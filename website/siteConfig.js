@@ -103,26 +103,31 @@ const siteConfig = {
 	*/
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [
-	{
-		src: 'https://buttons.github.io/buttons.js',
-		async: true
-	},
-	{
-		src: 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-		async: true
-	},
-	{
-		src: BASE_URL + 'js/code-block-buttons.js',
-		async: true
-	}
+  	{
+  		src: 'https://buttons.github.io/buttons.js',
+  		async: true
+  	},
+  	{
+  		src: 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
+  		async: true
+  	},
+    {
+      src: BASE_URL + 'js/code-block-buttons.js',
+      async: true
+    },
+    {
+      src: '../node_modules/fuse.js/dist/fuse.js',
+      //src: 'https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js',
+      async: true
+    }
   ],
 
 	/*	
 	  CSS
 	*/
   stylesheets: [
-	'/css/code-block-buttons.css',
-	'https://use.fontawesome.com/releases/v5.8.2/css/all.css'
+  	BASE_URL + '/css/code-block-buttons.css',
+  	'https://use.fontawesome.com/releases/v5.8.2/css/all.css'
   ],
 
 
