@@ -95,8 +95,6 @@ const siteConfig = {
   // If you have users set above, you add it here:
 //  users,
 
-  // On page navigation for the current documentation page.
-  //onPageNav: 'separate',
   // No .html extensions for paths.
   cleanUrl: true,
 
@@ -178,6 +176,12 @@ const siteConfig = {
 
 	/* Sidebar Menu Collapsible titles */
   docsSideNavCollapsible: true,
+
+  /* On page navigation for the current documentation page. */
+  onPageNav: 'separate',
+
+  /* Add a little "scroll to top" button */
+  scrollToTop: true,
 
 	/* Colors for website */
   colors: {
