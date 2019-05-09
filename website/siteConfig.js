@@ -149,9 +149,9 @@ const siteConfig = {
   headerLinks: [
     {doc: 'Home',	label: 'Documentation'},
     {doc: 'Tutorials',	label: 'Tutorials'},
-    {page: 'help',	label: 'Download'},	// Page == download
-    {page: 'help',	label: 'Contribute'},	// Page == contribute
-//    {page: 'help', label: 'Help'},
+    {page: 'help',	label: 'Download'},	
+    {doc: 'Contribute',	label: 'Contribute'},
+    // Enable blog
 //    {blog: true, label: 'Blog'},
     // Determines language drop down position among links
     { languages: false },
