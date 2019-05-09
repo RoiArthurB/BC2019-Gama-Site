@@ -116,8 +116,7 @@ const siteConfig = {
       async: true
     },
     {
-      src: '../node_modules/fuse.js/dist/fuse.js',
-      //src: 'https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js',
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js',
       async: true
     }
   ],
