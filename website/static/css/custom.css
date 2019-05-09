@@ -1,5 +1,27 @@
 /* your custom css */
 
+.buttonOrange {
+  border-color: #EEB64F;
+  color: #EEB64F;
+}
+.buttonOrange:hover{ background: #EEB64F; }
+.buttonRed {
+  border-color: #D2673B;
+  color: #D2673B;
+}
+.buttonRed:hover{ background: #D2673B; }
+.buttonBlue {
+  border-color: #3670A0;
+  color: #3670A0;
+}
+.buttonBlue:hover{ background: #3670A0; }
+.buttonWhiteActive:hover {
+  border-color: #fff;
+  background: #fff;
+  color: black;
+}
+.buttonWhiteActive{ background: #ddd; color: black;
+  border-color: #ddd; }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }

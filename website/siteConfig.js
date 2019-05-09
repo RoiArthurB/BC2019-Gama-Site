@@ -122,10 +122,18 @@ const siteConfig = {
   ],
 
 
-	/*
-	 *		METADATA
-	 *	Website title, etc
-	 */
+  /*
+   *    DOWNLOAD
+   *  Version and Name version of the zip file
+   */
+  zipName: 'GAMA1.8_RC2',
+  downloadVersion: '1.8',
+
+
+  /*
+   *    METADATA
+   *  Website title, etc
+   */
   title: 'GAMA-Platform', // Title for your website.
   tagline: 'GAMA',
   frontPagePresentation: 'GAMA is a modeling and simulation development environment for building spatially explicit agent-based simulations.',
@@ -158,7 +166,7 @@ const siteConfig = {
 	 */
 
 	/* path to images for header/footer */
-  headerIcon: '/img/gama-logo.png',
+  headerIcon: '/img/gama-logo_white.png',
   footerIcon: '/img/gama-logo.png',
   favicon: '/img/gama-logo.png',
 
@@ -167,8 +175,8 @@ const siteConfig = {
 
 	/* Colors for website */
   colors: {
-    primaryColor: '#2e8555',
-    secondaryColor: '#ff0000',
+    primaryColor: '#3670A0',//'#2e8555',
+    secondaryColor: '#EEB64F',
   },
 
 	/* Custom fonts for website */

@@ -78,10 +78,10 @@ class HomeSplash extends React.Component {
             <FlexItem>
               <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href="./download" className="button button4">Download</Button>
-            <Button href={docUrl('Home')} className="button button1">Discover</Button>
-            <Button href={docUrl('Tutorials')} className="button button2">Learn</Button>
-            <Button href="./Download" className="button button3">Contribute</Button>
+            <Button href="./download" className="button buttonWhiteActive">Download</Button>
+            <Button href={docUrl('Home')} className="button buttonOrange">Discover</Button>
+            <Button href={docUrl('Tutorials')} className="button buttonRed">Learn</Button>
+            <Button href="./Download" className="button buttonBlue">Contribute</Button>
           </PromoSection>
             </FlexItem>
           </FlexContainer>
@@ -129,31 +129,6 @@ class Index extends React.Component {
 
         /*  BUTTONS */
         .button { border-width: 2px;font-weight: bold; }
-        .button1 {
-          border-color: #EEB64F;
-          color: #EEB64F;
-        }
-        .button1:hover{ background: #EEB64F; }
-        .button2 {
-          border-color: #D2673B;
-          color: #D2673B;
-        }
-        .button2:hover{ background: #D2673B; }
-        .button3 {
-          border-color: #3670A0;
-          color: #3670A0;
-        }
-        .button3:hover{ background: #3670A0; }
-        .button4:hover {
-          border-color: #fff;
-          background: #fff;
-          color: black;
-        }
-        .button4{ background: #ddd; color: black;
-          border-color: #ddd; }
-        .projectTitle small{ 
-          text-align: left; 
-        }
       `}} />
     );
 
