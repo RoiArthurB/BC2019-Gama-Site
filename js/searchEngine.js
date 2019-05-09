@@ -1,40 +1,48 @@
 //import Fuse from 'fuse.js';
 
 /*
-var request = new XMLHttpRequest();
-request.open('POST', 'database/index.json', true);
+ *  VARIABLES
+ */
+var database, fuse;
 
-request.onload = function() {
-  if (request.status >= 200 && request.status < 400) {
-    // Success!
-    var data = JSON.parse(request.responseText);
-
-    console.log(data);
-  } else {
-    // We reached our target server, but it returned an error
-    console.error("Can't load database for Search Engine");
-    console.error(request);
-  }
+var options = {
+  shouldSort: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    "title",
+    "author.firstName"
+  ]
 };
 
-request.onerror = function() {
-  // There was a connection error of some sort
-};
-
-request.send();
-*/
-
-// Get generated json index
-//const database = 'database/index.json'.toURL().text();
 /*
-const fuse = new Fuse(database, {
-  keys: ['title'],
-  shouldSort: true
-});*/
+ *  INIT SEARCH ENGINE
+ */
+function initSearchEngine(){
+  var client = new XMLHttpRequest();
+  
+  // Get json file with an asynchrone request
+  client.open('GET', '/BC2019-Gama-Site/database/index.json');
 
-var client = new XMLHttpRequest();
-client.open('GET', 'database/index.json');
-client.onreadystatechange = function() {
-  alert(client.responseText);
+  // Prepare request
+  client.onreadystatechange = function() {
+  
+    // Get database
+    const tmp = client.responseText;
+    database = JSON.parse(tmp);
+
+    // Load Fuse search engine
+    fuse = new Fuse(database, options);
+  }
+
+  // Send request
+  client.send();
 }
-client.send();
+
+
+// On page ready
+// -> Wait Fuse.js to be loaded
+window.onload = initSearchEngine();
