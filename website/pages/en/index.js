@@ -73,7 +73,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <FlexContainer>
             <FlexItem>
-              <Logo src={`${baseUrl}${siteConfig.headerIcon}`} />
+              <Logo src={`${baseUrl}${siteConfig.footerIcon}`} />
             </FlexItem>
             <FlexItem>
               <ProjectTitle siteConfig={siteConfig} />
