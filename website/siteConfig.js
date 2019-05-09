@@ -152,7 +152,7 @@ const siteConfig = {
     {page: 'help',	label: 'Download'},	// Page == download
     {page: 'help',	label: 'Contribute'},	// Page == contribute
 //    {page: 'help', label: 'Help'},
-    {blog: false, label: 'Blog'},
+//    {blog: true, label: 'Blog'},
     // Determines language drop down position among links
     { languages: false },
     // Determines search bar position among links
