@@ -103,6 +103,11 @@ const siteConfig = {
 	*/
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [
+    {
+      // SHOULD be loaded BEFORE searchEngine.js
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js',
+      async: true
+    },
   	{
   		src: 'https://buttons.github.io/buttons.js',
   		async: true
@@ -116,7 +121,7 @@ const siteConfig = {
       async: true
     },
     {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js',
+      src: BASE_URL + 'js/searchEngine.js',
       async: true
     }
   ],
