@@ -106,7 +106,7 @@ const siteConfig = {
     {
       // SHOULD be loaded BEFORE searchEngine.js
       src: 'https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.4/fuse.min.js',
-      async: true
+      async: false
     },
   	{
   		src: 'https://buttons.github.io/buttons.js',
@@ -122,7 +122,7 @@ const siteConfig = {
     },
     {
       src: BASE_URL + 'js/searchEngine.js',
-      async: true
+      async: false
     }
   ],
 
@@ -130,7 +130,7 @@ const siteConfig = {
 	  CSS
 	*/
   stylesheets: [
-  	BASE_URL + '/css/code-block-buttons.css',
+  	BASE_URL + 'css/code-block-buttons.css',
   	'https://use.fontawesome.com/releases/v5.8.2/css/all.css'
   ],
 
