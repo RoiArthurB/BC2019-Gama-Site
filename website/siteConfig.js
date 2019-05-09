@@ -127,7 +127,7 @@ const siteConfig = {
 	 *	Website title, etc
 	 */
   title: 'GAMA-Platform', // Title for your website.
-  tagline: 'GAMA, modeling made easy',
+  tagline: 'GAMA',
   frontPagePresentation: 'GAMA is a modeling and simulation development environment for building spatially explicit agent-based simulations.',
 
 

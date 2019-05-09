@@ -42,7 +42,7 @@ class HomeSplash extends React.Component {
     const ProjectTitle = () => (
       <h2 className="projectTitle">
         {siteConfig.tagline}
-        <small>{siteConfig.tagline}</small>
+        <small>{siteConfig.frontPagePresentation}</small>
       </h2>
     );
 
@@ -77,14 +77,14 @@ class HomeSplash extends React.Component {
             </FlexItem>
             <FlexItem>
               <ProjectTitle siteConfig={siteConfig} />
-            </FlexItem>
-          </FlexContainer>
           <PromoSection>
+            <Button href="./download" className="button button4">Download</Button>
             <Button href={docUrl('Home')} className="button button1">Discover</Button>
             <Button href={docUrl('Tutorials')} className="button button2">Learn</Button>
-            <Button href={docUrl('Tutorials')} className="button button3">Masterize</Button>
-            <Button href={docUrl('Download')} className="button button4">Download</Button>
+            <Button href="./Download" className="button button3">Contribute</Button>
           </PromoSection>
+            </FlexItem>
+          </FlexContainer>
           <ImgSoftware img_src={`${baseUrl}img/flipper.png`} />
         </div>
       </SplashContainer>
@@ -99,6 +99,10 @@ class Index extends React.Component {
 
     const Design = props => (    
       <style dangerouslySetInnerHTML={{__html: `
+        .container {
+          display:  inline-flex;
+          align-items: center;
+        }
         /*  One Screen  */
         .fixedHeaderContainer, footer{ display: none; }
         .navPusher{ padding: 0; }
@@ -123,27 +127,32 @@ class Index extends React.Component {
         }
 
         /*  BUTTONS */
+        .button { border-width: 2px;font-weight: bold; }
         .button1 {
-          border: 1px solid #EEB64F;
+          border-color: #EEB64F;
           color: #EEB64F;
         }
         .button1:hover{ background: #EEB64F; }
         .button2 {
-          border: 1px solid #D2673B;
+          border-color: #D2673B;
           color: #D2673B;
         }
         .button2:hover{ background: #D2673B; }
         .button3 {
-          border: 1px solid #3670A0;
+          border-color: #3670A0;
           color: #3670A0;
         }
         .button3:hover{ background: #3670A0; }
         .button4:hover {
-          border: 1px solid #fff;
+          border-color: #fff;
           background: #fff;
           color: black;
         }
-        .button4{ background: #ddd; color: black; }
+        .button4{ background: #ddd; color: black;
+          border-color: #ddd; }
+        .projectTitle small{ 
+          text-align: left; 
+        }
       `}} />
     );
 
