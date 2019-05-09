@@ -158,9 +158,9 @@ const siteConfig = {
 	 */
 
 	/* path to images for header/footer */
-  headerIcon: '/resources/images/general/GamaPlatform.png',
-  footerIcon: '/resources/images/general/GamaPlatform.png',
-  favicon: '/resources/images/general/GamaPlatform.png',
+  headerIcon: '/img/gama-logo.png',
+  footerIcon: '/img/gama-logo.png',
+  favicon: '/img/gama-logo.png',
 
 	/* Sidebar Menu Collapsible titles */
   docsSideNavCollapsible: true,

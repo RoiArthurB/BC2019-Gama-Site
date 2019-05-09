@@ -124,6 +124,7 @@ class Index extends React.Component {
 
         .projectLogo {
           position: inherit !important;
+          padding: 0 !important;
         }
 
         /*  BUTTONS */
