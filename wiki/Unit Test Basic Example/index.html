@@ -8,7 +8,7 @@
 <p>A model which shows how to use the unit test to show the possible errors you have to go in the Views, Preferences, Simulation, in &quot;Errors&quot; Uncheck &quot;stop at the first error&quot;, to show all the errors.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model test_unitTest_framework
+<span class="hljs-builtin">model</span> test_unitTest_framework
 
 global {
     init {
@@ -17,13 +17,13 @@ global {
 }
 
 <span class="hljs-comment">//Species to do the different unit tests</span>
-species test_species {
-    int a &lt;- 0;
+<span class="hljs-literal">species</span> test_species {
+    <span class="hljs-literal">int</span> a &lt;- 0;
     
     <span class="hljs-comment">//Setup a to 10 launched before each test</span>
     setup {
         a &lt;- 10;
-        <span class="hljs-statement">write</span> <span class="hljs-string">"SetUp : a = "</span> + a;
+        write <span class="hljs-string">"SetUp : a = "</span> + a;
     }
 
     <span class="hljs-comment">//First test executing comparison between numbers</span>
@@ -34,22 +34,22 @@ species test_species {
     
     <span class="hljs-comment">//Second test executing comparison between list and type</span>
     test t2 {
-        assert any([1,2,3]) is_not: <span class="hljs-literal">nil</span>;
-        assert any([1,2,3]) is int;
+        assert any([1,2,3]) is_not: nil;
+        assert any([1,2,3]) is <span class="hljs-literal">int</span>;
         assert any([1,2,3]) is_not: 5;
-        assert any([1,2,3]) is float;
-        assert any([1,2,3]) is string;
+        assert any([1,2,3]) is <span class="hljs-literal">float</span>;
+        assert any([1,2,3]) is <span class="hljs-literal">string</span>;
     }
 
     <span class="hljs-comment">//test the incrementation of a</span>
     test incement_a {
         a&lt;- a + 10;
-            <span class="hljs-statement">write</span> <span class="hljs-string">"a: "</span> + a;
+            write <span class="hljs-string">"a: "</span> + a;
     }
     
     <span class="hljs-comment">//Third test for lists</span>
     test t3 {
-        list&lt;int&gt; aa;
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt; aa;
         assert aa[0] raises: <span class="hljs-string">"error"</span>;
         assert aa[0] raises: <span class="hljs-string">""</span>;
         assert a raises: <span class="hljs-string">"error"</span>;
@@ -57,7 +57,7 @@ species test_species {
 }
 
 
-experiment new type: gui {}
+<span class="hljs-builtin">experiment</span> new type: gui {}
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {

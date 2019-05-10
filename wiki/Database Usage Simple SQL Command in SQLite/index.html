@@ -27,56 +27,56 @@
 <li>Note: the file emptyFile.db is only ... an empty file.</li>
 </ul>
 <p>Code of the model :</p>
-<pre><code class="hljs">model SQLite_selectNUpdate
+<pre><code class="hljs"><span class="hljs-builtin">model</span> SQLite_selectNUpdate
 
 global {
-    map&lt;string, string&gt; PARAMS &lt;- [<span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'sqlite'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">'../../includes/emptyFile.db'</span>];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; PARAMS &lt;- ['dbtype'::'sqlite', 'database'::'../../includes/emptyFile.db'];
     init {
         create DB_Accessor;
 
         <span class="hljs-comment">// Test of the connection to the database</span>
-        if (first(DB_Accessor) testConnection [params::PARAMS] = false) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"Connection impossible"</span>;
+        <span class="hljs-keyword">if</span> (first(DB_Accessor) testConnection [params::PARAMS] = false) {
+            write <span class="hljs-string">"Connection impossible"</span>;
             do halt;
         }
 
         ask (DB_Accessor) {
             do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"CREATE TABLE registration"</span> + <span class="hljs-string">"(id INTEGER PRIMARY KEY, "</span> + <span class="hljs-string">" first TEXT NOT NULL, "</span> + <span class="hljs-string">" last TEXT NOT NULL, "</span> + <span class="hljs-string">" age INTEGER);"</span>;
-            <span class="hljs-statement">write</span> <span class="hljs-string">"REGISTRATION table has been created."</span>;
+            write <span class="hljs-string">"REGISTRATION table has been created."</span>;
             do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"INSERT INTO registration "</span> + <span class="hljs-string">"VALUES(100, 'Zara', 'Ali', 18);"</span>;
-            do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"INSERT INTO registration "</span> + <span class="hljs-string">"VALUES(?, ?, ?, ?);"</span> values: [101, <span class="hljs-string">'Mr'</span>, <span class="hljs-string">'Mme'</span>, 45];
-            do insert params: PARAMS into: <span class="hljs-string">"registration"</span> values: [102, <span class="hljs-string">'Mahnaz'</span>, <span class="hljs-string">'Fatma'</span>, 25];
-            do insert params: PARAMS into: <span class="hljs-string">"registration"</span> columns: [<span class="hljs-string">"id"</span>, <span class="hljs-string">"first"</span>, <span class="hljs-string">"last"</span>] values: [103, <span class="hljs-string">'Zaid tim'</span>, <span class="hljs-string">'Kha'</span>];
-            do insert params: PARAMS into: <span class="hljs-string">"registration"</span> columns: [<span class="hljs-string">"id"</span>, <span class="hljs-string">"first"</span>, <span class="hljs-string">"last"</span>] values: [104, <span class="hljs-string">'Bill'</span>, <span class="hljs-string">'Clark'</span>];
-            <span class="hljs-statement">write</span> <span class="hljs-string">"Five records have been inserted."</span>;
-            <span class="hljs-statement">write</span> <span class="hljs-string">"Click on &lt;&lt;Step&gt;&gt; button to view selected data"</span>;
+            do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"INSERT INTO registration "</span> + <span class="hljs-string">"VALUES(?, ?, ?, ?);"</span> values: [101, 'Mr', 'Mme', 45];
+            do insert params: PARAMS into: <span class="hljs-string">"registration"</span> values: [102, 'Mahnaz', 'Fatma', 25];
+            do insert params: PARAMS into: <span class="hljs-string">"registration"</span> columns: [<span class="hljs-string">"id"</span>, <span class="hljs-string">"first"</span>, <span class="hljs-string">"last"</span>] values: [103, 'Zaid tim', 'Kha'];
+            do insert params: PARAMS into: <span class="hljs-string">"registration"</span> columns: [<span class="hljs-string">"id"</span>, <span class="hljs-string">"first"</span>, <span class="hljs-string">"last"</span>] values: [104, 'Bill', 'Clark'];
+            write <span class="hljs-string">"Five records have been inserted."</span>;
+            write <span class="hljs-string">"Click on &lt;&lt;Step&gt;&gt; button to view selected data"</span>;
         }
 
     }
 
 }
 
-species DB_Accessor skills: [SQLSKILL] {
-    reflex select {
-        list&lt;list&gt; t &lt;- list&lt;list&gt; (self select [params::PARAMS, select::<span class="hljs-string">"SELECT * FROM registration"</span>]);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Select before updated "</span> + t;
+<span class="hljs-literal">species</span> DB_Accessor skills: [<span class="hljs-builtin">SQLSKILL</span>] {
+    <span class="hljs-builtin">reflex</span> select {
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; t &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; (self select [params::PARAMS, select::<span class="hljs-string">"SELECT * FROM registration"</span>]);
+        write <span class="hljs-string">"Select before updated "</span> + t;
     }
 
-    reflex update {
+    <span class="hljs-builtin">reflex</span> update {
         do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"UPDATE registration SET age = 30 WHERE id IN (100, 101)"</span>;
         do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"DELETE FROM registration where id=103 "</span>;
-        list&lt;list&gt; t &lt;- list&lt;list&gt; (self select [params::PARAMS, select::<span class="hljs-string">"SELECT * FROM registration"</span>]);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Select after updated "</span> + t;
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; t &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; (self select [params::PARAMS, select::<span class="hljs-string">"SELECT * FROM registration"</span>]);
+        write <span class="hljs-string">"Select after updated "</span> + t;
     }
 
-    reflex drop {
+    <span class="hljs-builtin">reflex</span> drop {
         do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"DROP TABLE registration"</span>;
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Registration table has been dropped."</span>;
+        write <span class="hljs-string">"Registration table has been dropped."</span>;
     }
 
 }
 
-experiment simple_SQL_exp type: gui {
+<span class="hljs-builtin">experiment</span> simple_SQL_exp type: gui {
 }     
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>

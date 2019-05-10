@@ -7,55 +7,55 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Definition of people agents</h1></header><article><div><span><p>second part of the tutorial: Road Traffic</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model tutorial_gis_city_traffic
+<span class="hljs-builtin">model</span> tutorial_gis_city_traffic
 
 global {
-    file shape_file_buildings &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
-    file shape_file_roads &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
-    file shape_file_bounds &lt;- file(<span class="hljs-string">"../includes/bounds.shp"</span>);
-    geometry shape &lt;- envelope(shape_file_bounds);
-    float step &lt;- 10 #mn;
-    int nb_people &lt;- 100;
+    <span class="hljs-literal">file</span> shape_file_buildings &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-literal">file</span> shape_file_roads &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/bounds.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
+    <span class="hljs-literal">float</span> step &lt;- 10 #mn;
+    <span class="hljs-literal">int</span> nb_people &lt;- 100;
     
     init {
-        create building from: shape_file_buildings with: [type::string(read (<span class="hljs-string">"NATURE"</span>))] {
-            if type=<span class="hljs-string">"Industrial"</span> {
+        create building from: shape_file_buildings with: [type::<span class="hljs-literal">string</span>(read (<span class="hljs-string">"NATURE"</span>))] {
+            <span class="hljs-keyword">if</span> type=<span class="hljs-string">"Industrial"</span> {
                 color &lt;- #blue ;
             }
         }
         create road from: shape_file_roads ;
-        list&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
+        <span class="hljs-literal">list</span>&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
         create people number: nb_people {
             location &lt;- any_location_in (one_of (residential_buildings));
         }
     }
 }
 
-species building {
-    string type; 
-    rgb color &lt;- #gray  ;
+<span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">string</span> type; 
+    <span class="hljs-literal">rgb</span> color &lt;- #gray  ;
     
     aspect base {
         draw shape color: color ;
     }
 }
 
-species road  {
-    rgb color &lt;- #black ;
+<span class="hljs-literal">species</span> road  {
+    <span class="hljs-literal">rgb</span> color &lt;- #black ;
     aspect base {
         draw shape color: color ;
     }
 }
 
-species people {
-    rgb color &lt;- #yellow ;
+<span class="hljs-literal">species</span> people {
+    <span class="hljs-literal">rgb</span> color &lt;- #yellow ;
     
     aspect base {
         draw circle(10) color: color;
     }
 }
 
-experiment road_traffic type: gui {
+<span class="hljs-builtin">experiment</span> road_traffic type: gui {
     parameter <span class="hljs-string">"Shapefile for the buildings:"</span> var: shape_file_buildings category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
@@ -63,9 +63,9 @@ experiment road_traffic type: gui {
     
     output {
         display city_display type:opengl {
-            species building aspect: base ;
-            species road aspect: base ;
-            species people aspect: base ;
+            <span class="hljs-literal">species</span> building aspect: base ;
+            <span class="hljs-literal">species</span> road aspect: base ;
+            <span class="hljs-literal">species</span> people aspect: base ;
         }
     }
 }

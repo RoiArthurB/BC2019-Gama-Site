@@ -12,43 +12,43 @@
 <li><p>to convert geometry to WKB format (see SQLite_libspatialite model)</p></li>
 </ul>
 <p>Code of the model :</p>
-<pre><code class="hljs">model Sqlite_QGis
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Sqlite_QGis
  
   
 global { 
-    map BOUNDS &lt;- [<span class="hljs-comment">//'srid'::'4326', // optinal</span>
+    <span class="hljs-literal">map</span> BOUNDS &lt;- [<span class="hljs-comment">//'srid'::'4326', // optinal</span>
                   <span class="hljs-string">"dbtype"</span>::<span class="hljs-string">"sqlite"</span>,
                   <span class="hljs-string">"database"</span>::<span class="hljs-string">"../../includes/spatialite.db"</span>
                   ,<span class="hljs-string">"select"</span>::   <span class="hljs-string">"select geom  from bounds;"</span> 
                                                         
                               ]; 
-    map PARAMS &lt;- [<span class="hljs-comment">//'srid'::'4326', // optinal</span>
+    <span class="hljs-literal">map</span> PARAMS &lt;- [<span class="hljs-comment">//'srid'::'4326', // optinal</span>
                     <span class="hljs-string">"dbtype"</span>::<span class="hljs-string">"sqlite"</span>,
                     <span class="hljs-string">"database"</span>::<span class="hljs-string">"../../includes/bph.db"</span>];
-    string QUERY &lt;- <span class="hljs-string">"SELECT name, type, geom as geom FROM buildings ;"</span>;
-    geometry shape &lt;- envelope(BOUNDS);         
+    <span class="hljs-literal">string</span> QUERY &lt;- <span class="hljs-string">"SELECT name, type, geom as geom FROM buildings ;"</span>;
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(BOUNDS);         
             
     init {
         create DB_accessor {
             create buildings from: (self select [params:: PARAMS, select:: QUERY]) 
-                             with:[ <span class="hljs-string">'name'</span>::<span class="hljs-string">"name"</span>,<span class="hljs-string">'type'</span>::<span class="hljs-string">"type"</span>, <span class="hljs-string">'shape'</span>:: geometry(<span class="hljs-string">"geom"</span>)];
+                             with:[ 'name'::<span class="hljs-string">"name"</span>,'type'::<span class="hljs-string">"type"</span>, 'shape':: <span class="hljs-literal">geometry</span>(<span class="hljs-string">"geom"</span>)];
          }
     }
 }
 
-species DB_accessor skills: [SQLSKILL];
+<span class="hljs-literal">species</span> DB_accessor skills: [<span class="hljs-builtin">SQLSKILL</span>];
 
-species buildings {
-    string type;
+<span class="hljs-literal">species</span> buildings {
+    <span class="hljs-literal">string</span> type;
     aspect default {
         draw shape color: #gray ;
     }   
 }   
 
-experiment DB2agentSQLite type: gui {
+<span class="hljs-builtin">experiment</span> DB2agentSQLite type: gui {
     output {
         display fullView {
-            species buildings aspect: default;
+            <span class="hljs-literal">species</span> buildings aspect: default;
         }
     }
 }

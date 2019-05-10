@@ -9,29 +9,29 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Basic model (prey agents)</h1></header><article><div><span><p>First part of the tutorial : Predator Prey</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model prey_predator
+<span class="hljs-builtin">model</span> prey_predator
 
 global {
-    int nb_preys_init &lt;- 200;
+    <span class="hljs-literal">int</span> nb_preys_init &lt;- 200;
     init {
         create prey number: nb_preys_init ;
     }
 }
 
-species prey {
-    float size &lt;- 1.0 ;
-    rgb color &lt;- #blue;
+<span class="hljs-literal">species</span> prey {
+    <span class="hljs-literal">float</span> size &lt;- 1.0 ;
+    <span class="hljs-literal">rgb</span> color &lt;- #blue;
         
     aspect base {
         draw circle(size) color: color ;
     }
 } 
 
-experiment prey_predator type: gui {
+<span class="hljs-builtin">experiment</span> prey_predator type: gui {
     parameter <span class="hljs-string">"Initial number of preys: "</span> var: nb_preys_init min: 1 max: 1000 category: <span class="hljs-string">"Prey"</span> ;
     output {
         display main_display {
-            species prey aspect: base ;
+            <span class="hljs-literal">species</span> prey aspect: base ;
         }
     }
 }

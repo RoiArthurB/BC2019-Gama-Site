@@ -6,29 +6,29 @@
         });
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Agent Based Clustering</h1></header><article><div><span><p><em>Author : Jean-Daniel Zucker with Patrick Taillandier's and Arnaud Grignard's Help</em></p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model MASKMEANS
+<pre><code class="hljs"><span class="hljs-builtin">model</span> MASKMEANS
 
 
 global
 {
 <span class="hljs-comment">// the number of classes to create (kmeans)</span>
 <span class="hljs-comment">// It corresponds to the centroids</span>
-    int k &lt;- 4;
+    <span class="hljs-literal">int</span> k &lt;- 4;
     <span class="hljs-comment">// the number of points</span>
-    int N &lt;- 100;
+    <span class="hljs-literal">int</span> N &lt;- 100;
     <span class="hljs-comment">//number of dimensions</span>
-    int dimensions;
+    <span class="hljs-literal">int</span> dimensions;
     init
     {
     <span class="hljs-comment">//create datapoints agents</span>
         create datapoints number: N
         {
-            if (dimensions = 3)
+            <span class="hljs-keyword">if</span> (dimensions = 3)
             {
                 location &lt;- { rnd(100), rnd(100), rnd(100) };
             }
 
-            if (dimensions = 2)
+            <span class="hljs-keyword">if</span> (dimensions = 2)
             {
                 location &lt;- { rnd(100), rnd(100) };
             }
@@ -38,12 +38,12 @@ global
         <span class="hljs-comment">//create centroid agents</span>
         create centroids number: k
         {
-            if (dimensions = 3)
+            <span class="hljs-keyword">if</span> (dimensions = 3)
             {
                 location &lt;- { rnd(100), rnd(100), rnd(100) };
             }
 
-            if (dimensions = 2)
+            <span class="hljs-keyword">if</span> (dimensions = 2)
             {
                 location &lt;- { rnd(100), rnd(100) };
             }
@@ -53,7 +53,7 @@ global
         <span class="hljs-comment">//give a random color to each centroid (i.e. to each datapoints agents of the group)</span>
         loop c over: centroids
         {
-            rgb col &lt;- rnd_color(255);
+            <span class="hljs-literal">rgb</span> col &lt;- rnd_color(255);
             ask c
             {
                 color_kmeans &lt;- col;
@@ -63,12 +63,12 @@ global
 
     }
 
-    reflex assign_points_to_centroid when: even(cycle)
+    <span class="hljs-builtin">reflex</span> assign_points_to_centroid when: even(cycle)
     {
     <span class="hljs-comment">// The "assignment" step is also referred to as expectation step,</span>
         ask centroids
         {
-            mypoints &lt;- list&lt;datapoints&gt; ([]);
+            mypoints &lt;- <span class="hljs-literal">list</span>&lt;datapoints&gt; ([]);
         }
 
         loop pt over: datapoints
@@ -84,7 +84,7 @@ global
 
     }
 
-    reflex update_centroids when: not even(cycle)
+    <span class="hljs-builtin">reflex</span> update_centroids when: not even(cycle)
     {
     <span class="hljs-comment">// the "update step" as maximization step,</span>
     <span class="hljs-comment">// making this algorithm a variant of the generalized expectation-maximization algorithm.</span>
@@ -100,9 +100,9 @@ global
 
 }
 
-species datapoints
+<span class="hljs-literal">species</span> datapoints
 {
-    rgb color_kmeans &lt;- # grey;
+    <span class="hljs-literal">rgb</span> color_kmeans &lt;- # grey;
     centroids mycenter;
     aspect kmeans_aspect2D
     {
@@ -116,10 +116,10 @@ species datapoints
 
 }
 
-species centroids
+<span class="hljs-literal">species</span> centroids
 {
-    rgb color_kmeans &lt;- # grey;
-    list&lt;datapoints&gt; mypoints;
+    <span class="hljs-literal">rgb</span> color_kmeans &lt;- # grey;
+    <span class="hljs-literal">list</span>&lt;datapoints&gt; mypoints;
     aspect kmeans_aspect2D
     {
         draw cross(3, 0.5) color: color_kmeans border: # black;
@@ -140,24 +140,24 @@ species centroids
 
 }
 
-experiment clustering2D type: gui
+<span class="hljs-builtin">experiment</span> clustering2D type: gui
 {
     parameter <span class="hljs-string">"Number of clusters to split the data into"</span> var: k category: <span class="hljs-string">"KMEANS"</span>;
     parameter <span class="hljs-string">"Number of points to be clustered"</span> var: N init: 100;
     parameter <span class="hljs-string">"Number of dimensions"</span> var: dimensions init: 2 min: 2 max: 2;
     font regular &lt;- font(<span class="hljs-string">"Helvetica"</span>, 14, # bold);
         
-    point target &lt;- { 20, 95 };
+    <span class="hljs-literal">point</span> target &lt;- { 20, 95 };
     output
     {
         display map_kmeans
         {
-            species datapoints aspect: kmeans_aspect2D;
-            species centroids aspect: kmeans_aspect2D;
+            <span class="hljs-literal">species</span> datapoints aspect: kmeans_aspect2D;
+            <span class="hljs-literal">species</span> centroids aspect: kmeans_aspect2D;
             graphics <span class="hljs-string">"Full target"</span>
             {
                 draw rectangle(100, 4) color: # yellow at: target + { 30, 0 };
-                if (not even(cycle))
+                <span class="hljs-keyword">if</span> (not even(cycle))
                 {
                 <span class="hljs-comment">// the "update step" as maximization step, (a mean is done to recenter)</span>
                     draw <span class="hljs-string">"Next step is maximisation step the centroid will move to the means of its points"</span> at: target + { 0, 0 } font: regular color: # red;
@@ -173,12 +173,12 @@ experiment clustering2D type: gui
     }
 }
 
-experiment clustering3D type: gui
+<span class="hljs-builtin">experiment</span> clustering3D type: gui
 {
     parameter <span class="hljs-string">"Number of clusters to split the data into"</span> var: k category: <span class="hljs-string">"KMEANS"</span>;
     parameter <span class="hljs-string">"Number of points to be clustered"</span> var: N init: 100;
     font regular &lt;- font(<span class="hljs-string">"Helvetica"</span>, 14, # bold);
-    point target &lt;- { 20, 95 };
+    <span class="hljs-literal">point</span> target &lt;- { 20, 95 };
     parameter <span class="hljs-string">"Number of dimensions"</span> var: dimensions init: 3 min: 3 max: 3;
     action _init_ {
         create MASKMEANS_model with: [dimensions::3];
@@ -187,8 +187,8 @@ experiment clustering3D type: gui
     {
         display map_kmeans type: opengl
         {
-            species datapoints aspect: kmeans_aspect3D;
-            species centroids aspect: kmeans_aspect3D;
+            <span class="hljs-literal">species</span> datapoints aspect: kmeans_aspect3D;
+            <span class="hljs-literal">species</span> centroids aspect: kmeans_aspect3D;
         }
 
     }

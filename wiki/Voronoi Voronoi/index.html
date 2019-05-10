@@ -8,21 +8,21 @@
 <p>A model showing how to clusterize space using the closest center as the kernel of our cluster. The space is discretized using a grid, each cell computing its distance from a center to know in which cluster it is.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model voronoi
+<span class="hljs-builtin">model</span> voronoi
  
 global {
     <span class="hljs-comment">// Parameters </span>
     <span class="hljs-comment">//Number of points</span>
-    int num_points &lt;- 4 min: 1 max: 1000;
+    <span class="hljs-literal">int</span> num_points &lt;- 4 min: 1 max: 1000;
     <span class="hljs-comment">//Size of the environment</span>
-    int env_width &lt;- 100 min: 10 max: 400;
-    int env_height &lt;- 100 min: 10 max: 400;
+    <span class="hljs-literal">int</span> env_width &lt;- 100 min: 10 max: 400;
+    <span class="hljs-literal">int</span> env_height &lt;- 100 min: 10 max: 400;
     
     <span class="hljs-comment">// Environment</span>
-    geometry shape &lt;- rectangle(env_width, env_height);
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(env_width, env_height);
     
     init { 
-        <span class="hljs-statement">write</span> <span class="hljs-string">'This model shows how Voronoi-like shapes can be drawn on a regular surface. A set of mobile agents is placed on a grid. Each agent possesses an attribute called *inside_color*. Each step, the agents move randomly and the grid cells paint themselves using the *inside_color* of the nearest agent. Dynamical boundaries then appear on the screen without any further calculations.'</span>;
+        write 'This <span class="hljs-builtin">model</span> shows how Voronoi-like shapes can be drawn on a regular surface. A set of mobile agents is placed on a grid. Each <span class="hljs-literal">agent</span> possesses an attribute called *inside_color*. Each step, the agents move randomly and the grid cells paint themselves using the *inside_color* of the nearest <span class="hljs-literal">agent</span>. Dynamical boundaries then appear on the screen without any further calculations.';
         <span class="hljs-comment">//Creation of all the points</span>
         create center number: num_points ;  
     }   
@@ -30,14 +30,14 @@ global {
 <span class="hljs-comment">//Grid for the voronoi clustering</span>
 grid cell width: env_width height: env_height neighbors: 8 use_regular_agents: false {
     <span class="hljs-comment">// Note: since GAMA 1.7, the topology needs to be specified for this computation to use continuous distances</span>
-    center closest_center &lt;- <span class="hljs-literal">nil</span> update: (center closest_to self.location) using topology(world);
-    rgb color &lt;- #white update: (closest_center).color;
+    center closest_center &lt;- nil update: (center closest_to self.location) using <span class="hljs-literal">topology</span>(world);
+    <span class="hljs-literal">rgb</span> color &lt;- #white update: (closest_center).color;
 }
 <span class="hljs-comment">//Species representing the center of a Voronoi point</span>
-species center skills: [moving] { 
-    rgb color &lt;- rgb([rnd (255),rnd (255),rnd (255)]); 
+<span class="hljs-literal">species</span> center skills: [<span class="hljs-builtin">moving</span>] { 
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>([rnd (255),rnd (255),rnd (255)]); 
     <span class="hljs-comment">//Make the center of the cluster wander in the environment       </span>
-    reflex wander {
+    <span class="hljs-builtin">reflex</span> wander {
         do wander amplitude: 90;
     }  
     aspect base {
@@ -46,15 +46,15 @@ species center skills: [moving] {
 }
 
 
-experiment voronoi type: gui{ 
-    parameter <span class="hljs-string">'Number of points:'</span> var: num_points;
-    parameter <span class="hljs-string">'Width of the environment:'</span> var: env_width;
-    parameter <span class="hljs-string">'Height of the environment:'</span> var: env_height;
+<span class="hljs-builtin">experiment</span> voronoi type: gui{ 
+    parameter 'Number of points:' var: num_points;
+    parameter 'Width of the environment:' var: env_width;
+    parameter 'Height of the environment:' var: env_height;
     
     output {
         display Voronoi type: opengl {
             grid cell  ;
-            species center aspect: base ;
+            <span class="hljs-literal">species</span> center aspect: base ;
         }
     }   
 }

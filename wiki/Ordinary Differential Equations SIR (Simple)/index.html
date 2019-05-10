@@ -8,7 +8,7 @@
 <p>A simple example of ODE use into agents with the example of the SIR equation system.</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Simple)/display_charts-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model simple_ODE_SIR
+<span class="hljs-builtin">model</span> simple_ODE_SIR
 
 global {
     init{
@@ -17,19 +17,19 @@ global {
 }
 
 
-species agent_with_SIR_dynamic {
-    int N &lt;- 1500 ;
-    int iInit &lt;- 1;     
+<span class="hljs-literal">species</span> agent_with_SIR_dynamic {
+    <span class="hljs-literal">int</span> N &lt;- 1500 ;
+    <span class="hljs-literal">int</span> iInit &lt;- 1;     
 
-    float t;  
-    float S &lt;- N - float(iInit);          
-    float I &lt;- float(iInit); 
-    float R &lt;- 0.0; 
+    <span class="hljs-literal">float</span> t;  
+    <span class="hljs-literal">float</span> S &lt;- N - <span class="hljs-literal">float</span>(iInit);          
+    <span class="hljs-literal">float</span> I &lt;- <span class="hljs-literal">float</span>(iInit); 
+    <span class="hljs-literal">float</span> R &lt;- 0.0; 
     
-    float alpha &lt;- 0.2 min: 0.0 max: 1.0;
-    float beta &lt;- 0.8 min: 0.0 max: 1.0;
+    <span class="hljs-literal">float</span> alpha &lt;- 0.2 min: 0.0 max: 1.0;
+    <span class="hljs-literal">float</span> beta &lt;- 0.8 min: 0.0 max: 1.0;
 
-    float h &lt;- 0.01;
+    <span class="hljs-literal">float</span> h &lt;- 0.01;
    
     equation SIR{ 
         diff(S,t) = (- beta * S * I / N);
@@ -37,19 +37,19 @@ species agent_with_SIR_dynamic {
         diff(R,t) = (alpha * I);
     }
                 
-    reflex solving {
+    <span class="hljs-builtin">reflex</span> solving {
         solve SIR method: <span class="hljs-string">"rk4"</span> step: h ;<span class="hljs-comment">//cycle_length: 1/h ;</span>
     }    
 }
 
 
-experiment maths type: gui {
+<span class="hljs-builtin">experiment</span> maths type: gui {
     output { 
         display display_charts {
             chart <span class="hljs-string">"SIR_agent"</span> type: series background: #white {
-                data <span class="hljs-string">'S'</span> value: first(list(agent_with_SIR_dynamic)).S color: #green ;               
-                data <span class="hljs-string">'I'</span> value: first(list(agent_with_SIR_dynamic)).I color: #red ;
-                data <span class="hljs-string">'R'</span> value: first(list(agent_with_SIR_dynamic)).R color: #blue ;
+                data 'S' value: first(<span class="hljs-literal">list</span>(agent_with_SIR_dynamic)).S color: #green ;               
+                data 'I' value: first(<span class="hljs-literal">list</span>(agent_with_SIR_dynamic)).I color: #red ;
+                data 'R' value: first(<span class="hljs-literal">list</span>(agent_with_SIR_dynamic)).R color: #blue ;
             }
         }
     }

@@ -7,12 +7,12 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">comodel_with_the_coupling</h1></header><article><div><span><p><em>Author : HUYNH Quang Nghi</em></p>
 <p>This is a simple comodel serve to demonstrate the importation and instatiation of micro-model using the couplings</p>
 <p>Imported models :</p>
-<pre><code class="hljs">model M2
+<pre><code class="hljs"><span class="hljs-builtin">model</span> M2
 
 
 global
 {
-    int n &lt;- 4;
+    <span class="hljs-literal">int</span> n &lt;- 4;
     init
     {
         create B number: n;
@@ -20,12 +20,12 @@ global
 
 }
 
-species B skills: [moving]
+<span class="hljs-literal">species</span> B skills: [<span class="hljs-builtin">moving</span>]
 {
-    int IQ &lt;- rnd(100);
-    reflex dolive
+    <span class="hljs-literal">int</span> IQ &lt;- rnd(100);
+    <span class="hljs-builtin">reflex</span> dolive
     {
-        <span class="hljs-statement">write</span> <span class="hljs-string">""</span> + <span class="hljs-string">"i'm alive !!"</span>;
+        write <span class="hljs-string">""</span> + <span class="hljs-string">"i'm alive !!"</span>;
         do wander;
     }
 
@@ -36,13 +36,13 @@ species B skills: [moving]
 
 }
 
-experiment M2_exp type: gui
+<span class="hljs-builtin">experiment</span> M2_exp type: gui
 {
     output
     {
         display <span class="hljs-string">"m2_disp"</span>
         {
-            species B aspect: default;
+            <span class="hljs-literal">species</span> B aspect: default;
         }
 
     }
@@ -51,17 +51,17 @@ experiment M2_exp type: gui
 
 
 </code></pre>
-<pre><code class="hljs">model M2_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> M2_coupling
 import <span class="hljs-string">"m2.gaml"</span>
 
 global
 {
 }
 
-experiment M2_coupling_exp parent:M2_exp type: gui
+<span class="hljs-builtin">experiment</span> M2_coupling_exp parent:M2_exp type: gui
 {
-    list&lt;B&gt; getB{
-        return list(B);
+    <span class="hljs-literal">list</span>&lt;B&gt; getB{
+        return <span class="hljs-literal">list</span>(B);
     }
     
     <span class="hljs-comment">//if we redefine the output, i.e, a blank output, the displays in parent experiement dont show.</span>
@@ -73,12 +73,12 @@ experiment M2_coupling_exp parent:M2_exp type: gui
 
 
 </code></pre>
-<pre><code class="hljs">model M1
+<pre><code class="hljs"><span class="hljs-builtin">model</span> M1
 
 
 global
 {
-    int n &lt;- 8;
+    <span class="hljs-literal">int</span> n &lt;- 8;
     init
     {
         create A number: n;
@@ -86,12 +86,12 @@ global
 
 }
 
-species A skills: [moving]
+<span class="hljs-literal">species</span> A skills: [<span class="hljs-builtin">moving</span>]
 {
-    int IQ &lt;- rnd(100);
-    reflex dolive
+    <span class="hljs-literal">int</span> IQ &lt;- rnd(100);
+    <span class="hljs-builtin">reflex</span> dolive
     {
-        <span class="hljs-statement">write</span> <span class="hljs-string">""</span> + <span class="hljs-string">"i'm alive !!"</span>;
+        write <span class="hljs-string">""</span> + <span class="hljs-string">"i'm alive !!"</span>;
         do wander;
     }
 
@@ -102,13 +102,13 @@ species A skills: [moving]
 
 }
 
-experiment M1_exp type: gui
+<span class="hljs-builtin">experiment</span> M1_exp type: gui
 {
     output
     {
         display <span class="hljs-string">"m1_disp"</span>
         {
-            species A aspect: default;
+            <span class="hljs-literal">species</span> A aspect: default;
         }
 
     }
@@ -117,17 +117,17 @@ experiment M1_exp type: gui
 
 
 </code></pre>
-<pre><code class="hljs">model M1_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> M1_coupling
 import <span class="hljs-string">"m1.gaml"</span>
 
 global
 {
 }
 
-experiment M1_coupling_exp parent:M1_exp type: gui
+<span class="hljs-builtin">experiment</span> M1_coupling_exp parent:M1_exp type: gui
 {
-    list&lt;A&gt; getA{
-        return list(A);
+    <span class="hljs-literal">list</span>&lt;A&gt; getA{
+        return <span class="hljs-literal">list</span>(A);
     }
     
     <span class="hljs-comment">//if we redefine the output, i.e, a blank output, the displays in parent experiement dont show.</span>
@@ -140,20 +140,20 @@ experiment M1_coupling_exp parent:M1_exp type: gui
 
 </code></pre>
 <p>Code of the model :</p>
-<pre><code class="hljs">model comodel_with_the_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> comodel_with_the_coupling
 
 import <span class="hljs-string">"m1_coupling.gaml"</span> as micro_model_1
 import <span class="hljs-string">"m2_coupling.gaml"</span> as micro_model_2
 
 global
 {
-    geometry shape&lt;-envelope(square(100));
+    <span class="hljs-literal">geometry</span> shape&lt;-envelope(square(100));
     init{
         <span class="hljs-comment">//micro_model must be instantiated by create statement. We create an experiment inside the micro-model and the simulation will be created implicitly (1 experiment have only 1 simulation).</span>
         create micro_model_1.M1_coupling_exp;
         create micro_model_2.M2_coupling_exp number:5;
     }
-    reflex simulate_micro_models{
+    <span class="hljs-builtin">reflex</span> simulate_micro_models{
         
         <span class="hljs-comment">//tell all experiments of micro_model_1 do 1 step;</span>
         ask (micro_model_1.M1_coupling_exp collect each.simulation){
@@ -167,7 +167,7 @@ global
     }
 }
 
-experiment comodel_with_the_coupling type: gui{
+<span class="hljs-builtin">experiment</span> comodel_with_the_coupling type: gui{
     output{
         display <span class="hljs-string">"comodel"</span> {
             <span class="hljs-comment">//to display the agents of micro-models, we use the agent layer with the values come from the coupling.</span>

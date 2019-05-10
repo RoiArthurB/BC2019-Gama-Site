@@ -8,17 +8,17 @@
 <p>This model is used to show how a uniform diffusion can be used with a mask. The cell at the center of the grid emit a pheromon at each step, which is spread through the grid thanks to the diffusion mechanism. A mask is used to restrict the diffusion to a &quot;corridor&quot; (the white part of the bmp image). The first display shows a diffusion avoiding the masked cells (the value is redistributed to the neighboring cells, to have a constant number of pheromon), the second display shows a diffusion without avoiding the masked cells (the value is diffused in the masked cell, and never rediffused again).</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Uniform diffusion with mask (Avoid mask)/a-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Uniform diffusion with mask (Avoid mask)/b-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model diffusion_with_mask
+<span class="hljs-builtin">model</span> diffusion_with_mask
 
 global {
-    int grid_size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
-    geometry shape &lt;- envelope(square(grid_size) * 10);
+    <span class="hljs-literal">int</span> grid_size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(grid_size) * 10);
     cells_avoid_mask selected_cells1;
     cells_diffuse_on_mask selected_cells2;
     <span class="hljs-comment">// Load the image mask as a matrix. The white part of the image is the part where diffusion will work, and the black part is where diffusion will be blocked.</span>
-    matrix mymask &lt;- file(<span class="hljs-string">"../includes/complex_mask.bmp"</span>) as_matrix({grid_size,grid_size});
+    <span class="hljs-literal">matrix</span> mymask &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/complex_mask.bmp"</span>) as_matrix({grid_size,grid_size});
     <span class="hljs-comment">// Declare a uniform diffusion matrix</span>
-    matrix&lt;float&gt; mat_diff &lt;- matrix([
+    <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; mat_diff &lt;- <span class="hljs-literal">matrix</span>([
                                     [1/9,1/9,1/9],
                                     [1/9,1/9,1/9],
                                     [1/9,1/9,1/9]]);
@@ -27,7 +27,7 @@ global {
         selected_cells1 &lt;- location as cells_avoid_mask;
         selected_cells2 &lt;- location as cells_diffuse_on_mask;
     }
-    reflex new_Value {
+    <span class="hljs-builtin">reflex</span> new_Value {
         ask selected_cells1 {
             phero &lt;- 1.0;
         }
@@ -36,34 +36,34 @@ global {
         }
     }
 
-    reflex diff {
+    <span class="hljs-builtin">reflex</span> diff {
         <span class="hljs-comment">// Declare a diffusion on the grid "cells". The value of the diffusion will be store in the new variable "phero" of the cell.</span>
-        diffuse var: phero on: cells_avoid_mask matrix: mat_diff mask: mymask avoid_mask: true;
-        diffuse var: phero on: cells_diffuse_on_mask matrix: mat_diff mask: mymask; 
+        diffuse var: phero on: cells_avoid_mask <span class="hljs-literal">matrix</span>: mat_diff mask: mymask avoid_mask: true;
+        diffuse var: phero on: cells_diffuse_on_mask <span class="hljs-literal">matrix</span>: mat_diff mask: mymask; 
     }
 }
 
 
 grid cells_avoid_mask height: grid_size width: grid_size {
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
-    float phero &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero &lt;- 0.0;
     <span class="hljs-comment">// the color of the cell is linked to the value of "phero".</span>
-    rgb color &lt;- (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0) update: (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0);
+    <span class="hljs-literal">rgb</span> color &lt;- (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0) update: (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0);
     <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
-    float grid_value update: phero * 100;
+    <span class="hljs-literal">float</span> grid_value update: phero * 100;
 } 
 
 grid cells_diffuse_on_mask height: grid_size width: grid_size {
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
-    float phero &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero &lt;- 0.0;
     <span class="hljs-comment">// the color of the cell is linked to the value of "phero".</span>
-    rgb color &lt;- (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0) update: (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0);
+    <span class="hljs-literal">rgb</span> color &lt;- (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0) update: (((mymask row_at grid_y) at grid_x) &lt; -1) ? #black : hsb(phero,1.0,1.0);
     <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
-    float grid_value update: phero * 100;
+    <span class="hljs-literal">float</span> grid_value update: phero * 100;
 } 
 
 
-experiment diffusion type: gui {
+<span class="hljs-builtin">experiment</span> diffusion type: gui {
     output {
         display a type: opengl {
             <span class="hljs-comment">// Display the grid with elevation</span>

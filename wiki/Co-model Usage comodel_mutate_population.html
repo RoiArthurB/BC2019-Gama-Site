@@ -7,33 +7,33 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">comodel_with_the_coupling</h1></header><article><div><span><p><em>Author : HUYNH Quang Nghi</em></p>
 <p>This is a simple comodel serve to demonstrate the importation and instatiation of micro-model  using the couplings  with the mutation the population of micro-model. A population can be a collection from itself and from other mircro-model</p>
 <p>Imported models :</p>
-<pre><code class="hljs">model PreyPredator
+<pre><code class="hljs"><span class="hljs-builtin">model</span> PreyPredator
  global
 {
-    geometry shape &lt;- square(100);
-    float perceipt_radius &lt;- 20.0;
-    int preyinit &lt;- 500;
-    int predatorinit &lt;- 3;
-    list&lt;agent&gt; lstPredator &lt;- list&lt;agent&gt;(predator);
-    list&lt;agent&gt; lstPrey &lt;- list&lt;agent&gt;(prey);
+    <span class="hljs-literal">geometry</span> shape &lt;- square(100);
+    <span class="hljs-literal">float</span> perceipt_radius &lt;- 20.0;
+    <span class="hljs-literal">int</span> preyinit &lt;- 500;
+    <span class="hljs-literal">int</span> predatorinit &lt;- 3;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstPredator &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt;(predator);
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstPrey &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt;(prey);
     init
     {
         create prey number: preyinit;
         create predator number: predatorinit;
-        lstPredator &lt;- list&lt;agent&gt;(predator);
-        lstPrey &lt;- list&lt;agent&gt;(prey);
+        lstPredator &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt;(predator);
+        lstPrey &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt;(prey);
     }
 
 }
 
-species generic_species skills: [moving]
+<span class="hljs-literal">species</span> generic_species skills: [<span class="hljs-builtin">moving</span>]
 {
-    float speed &lt;- 1.0;
-    point goal &lt;- <span class="hljs-literal">nil</span>;
-    bool is_chased &lt;- false;
-    reflex live_with_my_goal
+    <span class="hljs-literal">float</span> speed &lt;- 1.0;
+    <span class="hljs-literal">point</span> goal &lt;- nil;
+    <span class="hljs-literal">bool</span> is_chased &lt;- false;
+    <span class="hljs-builtin">reflex</span> live_with_my_goal
     {
-        if (goal != <span class="hljs-literal">nil</span>)
+        <span class="hljs-keyword">if</span> (goal != nil)
         {
             do wander speed: speed;
             do goto target: goal speed: speed;
@@ -46,24 +46,24 @@ species generic_species skills: [moving]
 
 }
 
-species prey parent: generic_species
+<span class="hljs-literal">species</span> prey parent: generic_species
 {
-    geometry shape &lt;- circle(0.5);
-    float speed &lt;- 0.2;
-    rgb color &lt;- # green;
-    reflex fleeing
+    <span class="hljs-literal">geometry</span> shape &lt;- circle(0.5);
+    <span class="hljs-literal">float</span> speed &lt;- 0.2;
+    <span class="hljs-literal">rgb</span> color &lt;- # green;
+    <span class="hljs-builtin">reflex</span> fleeing
     {
-        if (length((lstPredator where (each != <span class="hljs-literal">nil</span> and !dead(each) and each distance_to self &lt; perceipt_radius))) &gt; 0)
+        <span class="hljs-keyword">if</span> (length((lstPredator where (each != nil and !dead(each) and each distance_to self &lt; perceipt_radius))) &gt; 0)
         {
             speed &lt;- 1.0;
             is_chased &lt;- true;
             color &lt;- # lime;
-            if (goal = <span class="hljs-literal">nil</span>)
+            <span class="hljs-keyword">if</span> (goal = nil)
             {
-                agent a &lt;- any(((lstPrey where (each != <span class="hljs-literal">nil</span> and !dead(each) and !generic_species(each).is_chased))));
-                if (a != <span class="hljs-literal">nil</span> and !dead(a))
+                <span class="hljs-literal">agent</span> a &lt;- any(((lstPrey where (each != nil and !dead(each) and !generic_species(each).is_chased))));
+                <span class="hljs-keyword">if</span> (a != nil and !dead(a))
                 {
-                    if (flip(0.5))
+                    <span class="hljs-keyword">if</span> (flip(0.5))
                     {
                         goal &lt;- a.location;
                     } else
@@ -80,12 +80,12 @@ species prey parent: generic_species
 
         }
 
-        if (goal != <span class="hljs-literal">nil</span> and self.location distance_to goal &lt; 0.5)
+        <span class="hljs-keyword">if</span> (goal != nil and self.location distance_to goal &lt; 0.5)
         {
-            goal &lt;- <span class="hljs-literal">nil</span>;
+            goal &lt;- nil;
         }
 
-        if (length((lstPredator where (each != <span class="hljs-literal">nil</span> and !dead(each))) where (each distance_to self &lt;= perceipt_radius)) = 0)
+        <span class="hljs-keyword">if</span> (length((lstPredator where (each != nil and !dead(each))) where (each distance_to self &lt;= perceipt_radius)) = 0)
         {
             is_chased &lt;- false;
             color &lt;- # green;
@@ -101,24 +101,24 @@ species prey parent: generic_species
 
 }
 
-species predator parent: generic_species
+<span class="hljs-literal">species</span> predator parent: generic_species
 {
-    geometry shape &lt;- triangle(2);
-    rgb color &lt;- # red;
-    reflex hunting
+    <span class="hljs-literal">geometry</span> shape &lt;- triangle(2);
+    <span class="hljs-literal">rgb</span> color &lt;- # red;
+    <span class="hljs-builtin">reflex</span> hunting
     {
-        if (goal = <span class="hljs-literal">nil</span>)
+        <span class="hljs-keyword">if</span> (goal = nil)
         {
-            list tmp &lt;- (lstPrey where (!dead(each) and each.shape distance_to self.shape &lt; perceipt_radius));
-            if (length(tmp) &gt; 0)
+            <span class="hljs-literal">list</span> tmp &lt;- (lstPrey where (!dead(each) and each.shape distance_to self.shape &lt; perceipt_radius));
+            <span class="hljs-keyword">if</span> (length(tmp) &gt; 0)
             {
-                agent a &lt;- first(tmp sort (each.shape distance_to self.shape));
-                if (a = <span class="hljs-literal">nil</span>)
+                <span class="hljs-literal">agent</span> a &lt;- first(tmp sort (each.shape distance_to self.shape));
+                <span class="hljs-keyword">if</span> (a = nil)
                 {
                     a &lt;- any((lstPrey where (!dead(each))));
                 }
 
-                if (a != <span class="hljs-literal">nil</span>)
+                <span class="hljs-keyword">if</span> (a != nil)
                 {
                     speed &lt;- 2.0;
                     goal &lt;- a.location;
@@ -126,14 +126,14 @@ species predator parent: generic_species
 
             }
 
-        } else if ((self.location distance_to goal &lt; 0.5))
+        } else <span class="hljs-keyword">if</span> ((self.location distance_to goal &lt; 0.5))
         {
             ask lstPrey where (!dead(each) and each.location distance_to goal &lt; 0.5)
             {
                 do die;
             }
 
-            goal &lt;- <span class="hljs-literal">nil</span>;
+            goal &lt;- nil;
             speed &lt;- 1.0;
         }
 
@@ -147,36 +147,36 @@ species predator parent: generic_species
 
 }
 
-experiment prey_predator_exp type: gui
+<span class="hljs-builtin">experiment</span> prey_predator_exp type: gui
 {
     output
     {
         display main_display
 
         {
-            species prey;
-            species predator;
+            <span class="hljs-literal">species</span> prey;
+            <span class="hljs-literal">species</span> predator;
         }
 
     }
 
 }
 </code></pre>
-<pre><code class="hljs">model PreyPredator_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> PreyPredator_coupling
 import <span class="hljs-string">"PreyPredator.gaml"</span>
 
 global
 {   
 }
 
-experiment PreyPredator_coupling_exp parent:prey_predator_exp type: gui
+<span class="hljs-builtin">experiment</span> PreyPredator_coupling_exp parent:prey_predator_exp type: gui
 {
-geometry shape&lt;- square(100);
-    list&lt;prey&gt; getPrey{
-        return list(prey);
+<span class="hljs-literal">geometry</span> shape&lt;- square(100);
+    <span class="hljs-literal">list</span>&lt;prey&gt; getPrey{
+        return <span class="hljs-literal">list</span>(prey);
     }
-        list&lt;predator&gt; getPredator{
-        return list(predator);
+        <span class="hljs-literal">list</span>&lt;predator&gt; getPredator{
+        return <span class="hljs-literal">list</span>(predator);
     }
     
     <span class="hljs-comment">//if we redefine the output, i.e, a blank output, the displays in parent experiement dont show.</span>
@@ -189,7 +189,7 @@ geometry shape&lt;- square(100);
 
 </code></pre>
 <p>Code of the model :</p>
-<pre><code class="hljs">model comodel_with_the_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> comodel_with_the_coupling
 
 import <span class="hljs-string">"PreyPredator_coupling.gaml"</span> as myP
 
@@ -197,21 +197,21 @@ import <span class="hljs-string">"PreyPredator_coupling.gaml"</span> as myP
 global
 {
     <span class="hljs-comment">// set the shape of world as a rectangle 200 x 100</span>
-    geometry shape &lt;- rectangle(200, 100);
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(200, 100);
     init
     {
         <span class="hljs-comment">//instantiate three instant of micro-model PreyPredator</span>
         create myP.PreyPredator_coupling_exp with: [shape::square(100), preyinit::rnd(20), predatorinit::1] number: 3;
         
         <span class="hljs-comment">//explicitly save the orginal population of predator and original population of prey of each micro-model</span>
-        list&lt;agent&gt; lstpredator0 &lt;- myP.PreyPredator_coupling_exp[0].getPredator();
-        list&lt;agent&gt; lstprey0 &lt;- myP.PreyPredator_coupling_exp[0].getPrey();
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstpredator0 &lt;- myP.PreyPredator_coupling_exp[0].getPredator();
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstprey0 &lt;- myP.PreyPredator_coupling_exp[0].getPrey();
         
-        list&lt;agent&gt; lstpredator1 &lt;- myP.PreyPredator_coupling_exp[1].getPredator();
-        list&lt;agent&gt; lstprey1 &lt;- myP.PreyPredator_coupling_exp[1].getPrey();
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstpredator1 &lt;- myP.PreyPredator_coupling_exp[1].getPredator();
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstprey1 &lt;- myP.PreyPredator_coupling_exp[1].getPrey();
         
-        list&lt;agent&gt; lstpredator2 &lt;- myP.PreyPredator_coupling_exp[2].getPredator();
-        list&lt;agent&gt; lstprey2 &lt;- myP.PreyPredator_coupling_exp[2].getPrey();
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstpredator2 &lt;- myP.PreyPredator_coupling_exp[2].getPredator();
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; lstprey2 &lt;- myP.PreyPredator_coupling_exp[2].getPrey();
         
         <span class="hljs-comment">//mutate the popuplation of micro-model by assigning the list above to  the population of micro-models</span>
         (myP.PreyPredator_coupling_exp[0].simulation).lstPredator &lt;- lstpredator2;
@@ -236,7 +236,7 @@ global
 
     }
 
-    reflex simulate_micro_models
+    <span class="hljs-builtin">reflex</span> simulate_micro_models
     {
         <span class="hljs-comment">// ask all simulation do their job</span>
         ask (myP.PreyPredator_coupling_exp collect each.simulation)
@@ -248,7 +248,7 @@ global
 
 }
 
-experiment comodel_with_the_coupling_exp type: gui
+<span class="hljs-builtin">experiment</span> comodel_with_the_coupling_exp type: gui
 {
     output
     {

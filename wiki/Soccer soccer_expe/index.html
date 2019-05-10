@@ -13,18 +13,18 @@ This model is designed to show how, with the same set of rules and some predefin
 </ul>
 <p>Imported models :</p>
 <pre><code class="hljs">
-model soccerbase
+<span class="hljs-builtin">model</span> soccerbase
 
-species soccer_game {
+<span class="hljs-literal">species</span> soccer_game {
     <span class="hljs-comment">// contains the global informations of the game</span>
-    rgb back_color_team;
-    rgb front_color_team;
+    <span class="hljs-literal">rgb</span> back_color_team;
+    <span class="hljs-literal">rgb</span> front_color_team;
     
     ball_sp ball; <span class="hljs-comment">// the ball agent</span>
     goal_sp front_goal; <span class="hljs-comment">// contains the goal at the front of the field (y = 120)</span>
     goal_sp back_goal; <span class="hljs-comment">// contains the goal at the back of the field (y = 0)</span>
-    list&lt;base_team&gt; teams; <span class="hljs-comment">// contains the 2 teams</span>
-    list&lt;base_player&gt; players; <span class="hljs-comment">// contains all the players of the game</span>
+    <span class="hljs-literal">list</span>&lt;base_team&gt; teams; <span class="hljs-comment">// contains the 2 teams</span>
+    <span class="hljs-literal">list</span>&lt;base_player&gt; players; <span class="hljs-comment">// contains all the players of the game</span>
     
     base_team team_possession; <span class="hljs-comment">// the last team which possess the ball. This value is used to determine if the behavior of the team has to be defensive or offensive.</span>
     
@@ -50,53 +50,53 @@ species soccer_game {
     }
 }
 
-species base_player skills:[moving] {
+<span class="hljs-literal">species</span> base_player skills:[<span class="hljs-builtin">moving</span>] {
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
-    float recuperation_ability &lt;- 0.2; <span class="hljs-comment">// a mark from 0 to 1 to be able to catch the ball if another player has it</span>
-    float speed_without_ball;
-    float speed_with_ball;
-    point previous_pos; <span class="hljs-comment">// used to apply inertia</span>
-    bool displacement_effectued&lt;-false update:false; <span class="hljs-comment">// we can apply only one displacement by step !</span>
+    <span class="hljs-literal">float</span> recuperation_ability &lt;- 0.2; <span class="hljs-comment">// a mark from 0 to 1 to be able to catch the ball if another player has it</span>
+    <span class="hljs-literal">float</span> speed_without_ball;
+    <span class="hljs-literal">float</span> speed_with_ball;
+    <span class="hljs-literal">point</span> previous_pos; <span class="hljs-comment">// used to apply inertia</span>
+    <span class="hljs-literal">bool</span> displacement_effectued&lt;-false update:false; <span class="hljs-comment">// we can apply only one displacement by step !</span>
     
     <span class="hljs-comment">// ATTRIBUTE USEFUL TO BE READ IN THE TEAM STRATEGY FILE (READ ONLY !)</span>
     base_team team;
     soccer_game game;
-    base_team ennemy_team &lt;- <span class="hljs-literal">nil</span> update:first(game.teams where (each.position != team.position));
-    ball_sp ball &lt;- <span class="hljs-literal">nil</span> update:first(ball_sp);
-    goal_sp own_goal &lt;- <span class="hljs-literal">nil</span> update:first(goal_sp where (each.position = team.position));
-    goal_sp ennemy_goal &lt;- <span class="hljs-literal">nil</span> update:first(goal_sp where (each.position != team.position));
+    base_team ennemy_team &lt;- nil update:first(game.teams where (each.position != team.position));
+    ball_sp ball &lt;- nil update:first(ball_sp);
+    goal_sp own_goal &lt;- nil update:first(goal_sp where (each.position = team.position));
+    goal_sp ennemy_goal &lt;- nil update:first(goal_sp where (each.position != team.position));
     <span class="hljs-comment">// ratio of avancement of the ball (from the point of view of the current team)</span>
-    float ball_advancement &lt;- 0.0 update:(team.position = <span class="hljs-string">"back"</span>) ? ball.location.y / 120 : 1 - ball.location.y / 120;
+    <span class="hljs-literal">float</span> ball_advancement &lt;- 0.0 update:(team.position = <span class="hljs-string">"back"</span>) ? ball.location.y / 120 : 1 - ball.location.y / 120;
     
-    bool possess_ball;
-    point init_pos;
-    point init_pos_in_percent;
-    float distance_to_closest_ennemy_player &lt;- 100.0 update:self distance_to closest_ennemy_player;
+    <span class="hljs-literal">bool</span> possess_ball;
+    <span class="hljs-literal">point</span> init_pos;
+    <span class="hljs-literal">point</span> init_pos_in_percent;
+    <span class="hljs-literal">float</span> distance_to_closest_ennemy_player &lt;- 100.0 update:self distance_to closest_ennemy_player;
     <span class="hljs-comment">// the number of ennemy players in a range of 15 meters</span>
-    int number_of_ennemy_player_in_range &lt;- 0 update:length((game.players where (each.team != team)) where ((each intersects circle(15))=true));
-    float distance_to_ball &lt;- 100.0 update:(ball = <span class="hljs-literal">nil</span>) ? 100.0 : self distance_to ball;
-    float distance_to_goal &lt;- 100.0 update:(ennemy_goal = <span class="hljs-literal">nil</span>) ? 100.0 : self distance_to ennemy_goal;
+    <span class="hljs-literal">int</span> number_of_ennemy_player_in_range &lt;- 0 update:length((game.players where (each.team != team)) where ((each intersects circle(15))=true));
+    <span class="hljs-literal">float</span> distance_to_ball &lt;- 100.0 update:(ball = nil) ? 100.0 : self distance_to ball;
+    <span class="hljs-literal">float</span> distance_to_goal &lt;- 100.0 update:(ennemy_goal = nil) ? 100.0 : self distance_to ennemy_goal;
     <span class="hljs-comment">// the closest player of this team</span>
-    base_player closest_friend_player &lt;- <span class="hljs-literal">nil</span> update:(ball = <span class="hljs-literal">nil</span>) ? base_player(<span class="hljs-literal">nil</span>) : first( (game.players where (each.team = team and each != self)) 
+    base_player closest_friend_player &lt;- nil update:(ball = nil) ? base_player(nil) : first( (game.players where (each.team = team and each != self)) 
         where (each distance_to self = min( (game.players where (each.team = team and each != self)) collect (each distance_to self) ) ) 
     );
     <span class="hljs-comment">// the closest ennemy player</span>
-    base_player closest_ennemy_player &lt;- <span class="hljs-literal">nil</span> update:(ball = <span class="hljs-literal">nil</span>) ? base_player(<span class="hljs-literal">nil</span>) : first( (game.players where (each.team != team and each != self)) 
+    base_player closest_ennemy_player &lt;- nil update:(ball = nil) ? base_player(nil) : first( (game.players where (each.team != team and each != self)) 
         where (each distance_to self = min( (game.players where (each.team != team and each != self)) collect (each distance_to self) ) ) 
     );
     <span class="hljs-comment">// the player of this team wich has the best "position_mark"</span>
-    base_player best_position_player &lt;- <span class="hljs-literal">nil</span> update:first((team.players where (each != self)) 
+    base_player best_position_player &lt;- nil update:first((team.players where (each != self)) 
         where (each.position_mark = max((team.players where (each != self)) collect (each.position_mark)))
     );
-    float current_speed&lt;-1.0 update:(possess_ball) ? speed_with_ball : speed_without_ball;
+    <span class="hljs-literal">float</span> current_speed&lt;-1.0 update:(possess_ball) ? speed_with_ball : speed_without_ball;
     
     <span class="hljs-comment">// ATTRIBUTES WICH CAN BE CHANGED FROM THE TEAM STRAGEGY FILE</span>
-    float position_mark &lt;- 0.0 update:-distance_to_goal; <span class="hljs-comment">// a mark attributed according to the position of the player (the higher the note is, the best the position is). </span>
+    <span class="hljs-literal">float</span> position_mark &lt;- 0.0 update:-distance_to_goal; <span class="hljs-comment">// a mark attributed according to the position of the player (the higher the note is, the best the position is). </span>
     <span class="hljs-comment">// By default, this mark is equal to -distance_to_goal.</span>
-    string status &lt;- <span class="hljs-string">""</span>; <span class="hljs-comment">// the current status of the player (can be useful to build the model)</span>
-    geometry influence_area &lt;- <span class="hljs-literal">nil</span> update:circle(15); <span class="hljs-comment">// the area of interest of the player. By default, this area is a circle 15m diameter centered in the player location.</span>
+    <span class="hljs-literal">string</span> status &lt;- <span class="hljs-string">""</span>; <span class="hljs-comment">// the current status of the player (can be useful to build the model)</span>
+    <span class="hljs-literal">geometry</span> influence_area &lt;- nil update:circle(15); <span class="hljs-comment">// the area of interest of the player. By default, this area is a circle 15m diameter centered in the player location.</span>
 
     
     <span class="hljs-comment">// CONSTRUCTOR /////////////////////////////////////////////</span>
@@ -112,23 +112,23 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// ACTIONS TO CALL FROM THE STRATEGY FILE</span>
     <span class="hljs-comment">// action to run to a particular position</span>
-    action run_to(point target) {
-        if (!displacement_effectued) {
+    action run_to(<span class="hljs-literal">point</span> target) {
+        <span class="hljs-keyword">if</span> (!displacement_effectued) {
                 do goto target:target speed:current_speed;
-            if (possess_ball) {
+            <span class="hljs-keyword">if</span> (possess_ball) {
                 ball.location &lt;- location;
             }
             displacement_effectued &lt;- true;
         }
         else {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"WARNING : only ONE action of displacement is allowed each step"</span>;
+            write <span class="hljs-string">"WARNING : only ONE action of displacement is allowed each step"</span>;
         }
     }
     
     <span class="hljs-comment">// action to run to the ball</span>
     action run_to_ball {
-        point targetPos;
-        if (ball.ball_direction intersects circle(1)) {
+        <span class="hljs-literal">point</span> targetPos;
+        <span class="hljs-keyword">if</span> (ball.ball_direction intersects circle(1)) {
             targetPos &lt;- ball.location;
         }
         else {
@@ -149,8 +149,8 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// action to mark a player</span>
     action mark_player (base_player player) {
-        float rnd_area &lt;- 4.0; <span class="hljs-comment">// the player will choose a position in a square of rnd_area m.</span>
-        point pos &lt;- (team.position = <span class="hljs-string">"front"</span>) ? {player.location.x,player.location.y-rnd_area/2} : {player.location.x,player.location.y+rnd_area/2};
+        <span class="hljs-literal">float</span> rnd_area &lt;- 4.0; <span class="hljs-comment">// the player will choose a position in a square of rnd_area m.</span>
+        <span class="hljs-literal">point</span> pos &lt;- (team.position = <span class="hljs-string">"front"</span>) ? {player.location.x,player.location.y-rnd_area/2} : {player.location.x,player.location.y+rnd_area/2};
         do run_to( {pos.x-rnd_area/2+rnd(rnd_area),pos.y-rnd_area/2+rnd(rnd_area)} );
     }
     
@@ -172,11 +172,11 @@ species base_player skills:[moving] {
     }
     
     <span class="hljs-comment">// action to pass the ball to an ally</span>
-    action pass_the_ball_ahead (base_player target_player,float number_of_meter_ahead) {
+    action pass_the_ball_ahead (base_player target_player,<span class="hljs-literal">float</span> number_of_meter_ahead) {
         do loose_ball;
         ask ball {
-            float offset &lt;- ((myself.team.position = <span class="hljs-string">"back"</span>) ? number_of_meter_ahead : -number_of_meter_ahead);
-            point target_point &lt;- {target_player.location.x,target_player.location.y+offset};
+            <span class="hljs-literal">float</span> offset &lt;- ((myself.team.position = <span class="hljs-string">"back"</span>) ? number_of_meter_ahead : -number_of_meter_ahead);
+            <span class="hljs-literal">point</span> target_point &lt;- {target_player.location.x,target_player.location.y+offset};
             do shooted target_position:target_point speed_atr:target_player.distance_to_ball/15;
         }
         team.called_player &lt;- target_player;
@@ -186,22 +186,22 @@ species base_player skills:[moving] {
     <span class="hljs-comment">// try to take the ball if it is close enough</span>
     action try_to_take_ball {
         <span class="hljs-comment">// if no player has the ball</span>
-        if (!team.possess_ball and !ennemy_team.possess_ball) {
+        <span class="hljs-keyword">if</span> (!team.possess_ball and !ennemy_team.possess_ball) {
             <span class="hljs-comment">// if the player is the one called (result of a pass)</span>
-            if (team.called_player = self) {
+            <span class="hljs-keyword">if</span> (team.called_player = self) {
                 do take_ball;
             }
             <span class="hljs-comment">// if the player is not the one called (interception of the ball), probability to catch the ball inversly proportionnal with the speed of the ball</span>
             else {
-                if (flip(1/(1+2*ball.speed))) {
+                <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
                     do take_ball;
                 }
             }
         }
         <span class="hljs-comment">// the ball is possessed by the ennemy team</span>
-        else if (ennemy_team.possess_ball) {
+        else <span class="hljs-keyword">if</span> (ennemy_team.possess_ball) {
             <span class="hljs-comment">// try to catch the ball from the other player</span>
-            if flip(recuperation_ability) {
+            <span class="hljs-keyword">if</span> flip(recuperation_ability) {
                 do take_ball;
             }
         }
@@ -209,7 +209,7 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// action of taking the ball</span>
     action take_ball {
-        if (ennemy_team.possess_ball) {
+        <span class="hljs-keyword">if</span> (ennemy_team.possess_ball) {
             ask ennemy_team.player_with_ball {
                 do loose_ball;
             }
@@ -217,7 +217,7 @@ species base_player skills:[moving] {
         possess_ball &lt;- true;
         ball.speed &lt;- 0.0;
         ball.destination &lt;- ball.location;
-        team.called_player &lt;- <span class="hljs-literal">nil</span>;
+        team.called_player &lt;- nil;
         team.player_with_ball &lt;- self;
         team.possess_ball &lt;- true;
         game.team_possession &lt;- team;
@@ -226,18 +226,18 @@ species base_player skills:[moving] {
     <span class="hljs-comment">// action of loosing the ball</span>
     action loose_ball {
         possess_ball &lt;- false;
-        team.player_with_ball &lt;- <span class="hljs-literal">nil</span>;
+        team.player_with_ball &lt;- nil;
         team.possess_ball &lt;- false;
     }
     
     <span class="hljs-comment">// apply the inertia</span>
     action apply_inertia {
-        point prev_pos &lt;- location;
-        point inertia_vect &lt;- {(location.x-previous_pos.x)*0.7,(location.y-previous_pos.y)*0.7};
-        float max_inertia &lt;- current_speed;
-        if (norm(inertia_vect) &gt; max_inertia) {
-            float inertia_x &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.y*inertia_vect.y));
-            float inertia_y &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.x*inertia_vect.x));
+        <span class="hljs-literal">point</span> prev_pos &lt;- location;
+        <span class="hljs-literal">point</span> inertia_vect &lt;- {(location.x-previous_pos.x)*0.7,(location.y-previous_pos.y)*0.7};
+        <span class="hljs-literal">float</span> max_inertia &lt;- current_speed;
+        <span class="hljs-keyword">if</span> (norm(inertia_vect) &gt; max_inertia) {
+            <span class="hljs-literal">float</span> inertia_x &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.y*inertia_vect.y));
+            <span class="hljs-literal">float</span> inertia_y &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.x*inertia_vect.x));
             inertia_x &lt;- (inertia_vect.x &lt; 0) ? -inertia_x : inertia_x;
             inertia_y &lt;- (inertia_vect.y &lt; 0) ? -inertia_y : inertia_y;
             inertia_vect &lt;- {inertia_x,inertia_y};
@@ -248,9 +248,9 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// useful functions</span>
     <span class="hljs-comment">// this function returns the real x if we pass a percentage : 0 is the extreme left point, 100 is the extreme right point.</span>
-    float getXPos(float x_ratio) {
-        float result;
-        if (team.position=<span class="hljs-string">"back"</span>) {
+    <span class="hljs-literal">float</span> getXPos(<span class="hljs-literal">float</span> x_ratio) {
+        <span class="hljs-literal">float</span> result;
+        <span class="hljs-keyword">if</span> (team.position=<span class="hljs-string">"back"</span>) {
             result &lt;- 90-x_ratio*90;
         }
         else {
@@ -260,9 +260,9 @@ species base_player skills:[moving] {
     }
     
     <span class="hljs-comment">// this function returns the real y if we pass a percentage : 0 is the extreme defensive point, 100 is the extreme attack point.</span>
-    float getYPos(float y_ratio) {
-        float result;
-        if (team.position=<span class="hljs-string">"back"</span>) {
+    <span class="hljs-literal">float</span> getYPos(<span class="hljs-literal">float</span> y_ratio) {
+        <span class="hljs-literal">float</span> result;
+        <span class="hljs-keyword">if</span> (team.position=<span class="hljs-string">"back"</span>) {
             result &lt;- y_ratio*120;
         }
         else {
@@ -274,22 +274,22 @@ species base_player skills:[moving] {
     <span class="hljs-comment">///////////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// The update function, calls the adequate behavior</span>
-    reflex update when:cycle&gt;1 {
+    <span class="hljs-builtin">reflex</span> update when:cycle&gt;1 {
         do apply_inertia;
         <span class="hljs-comment">// verify if it is a non-offside position</span>
-        if ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
+        <span class="hljs-keyword">if</span> ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
             or ((team.position = <span class="hljs-string">"front"</span>) and (location.y &lt; team.offside_pos))) 
             and (!possess_ball) and (self != team.called_player)
         ) {
             <span class="hljs-comment">// offside position, go back to a correct position</span>
-            point target_pos &lt;- {location.x,(team.position = <span class="hljs-string">"back"</span>) ? location.y-current_speed:location.y+current_speed};
+            <span class="hljs-literal">point</span> target_pos &lt;- {location.x,(team.position = <span class="hljs-string">"back"</span>) ? location.y-current_speed:location.y+current_speed};
             do run_to(target_pos);
             status &lt;- <span class="hljs-string">"offside position !"</span>;
         }
-        else if ((distance_to_ball &lt; 2) and !possess_ball) {
+        else <span class="hljs-keyword">if</span> ((distance_to_ball &lt; 2) and !possess_ball) {
             do try_to_take_ball;
         }
-        else if (game.team_possession = team) {
+        else <span class="hljs-keyword">if</span> (game.team_possession = team) {
             do offensive_behavior;
         }
         else {
@@ -312,7 +312,7 @@ species base_player skills:[moving] {
     <span class="hljs-comment">// ASPECT ////////////////////////////////////////////////////////</span>
     aspect player {
         <span class="hljs-comment">// the player wich possess the ball is displayed with a square. It is displayed with a circle otherwise.</span>
-        if (possess_ball) {
+        <span class="hljs-keyword">if</span> (possess_ball) {
             draw square(2) color:(team.position = <span class="hljs-string">"back"</span>) ? game.back_color_team : game.front_color_team;
         }
         else {
@@ -323,35 +323,35 @@ species base_player skills:[moving] {
 
 
 
-species base_team {
+<span class="hljs-literal">species</span> base_team {
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
-    float offside_pos &lt;- 0.0 update: (position = <span class="hljs-string">"back"</span>) ? max((game.players where (each.team != self)) collect (each.location.y))
+    <span class="hljs-literal">float</span> offside_pos &lt;- 0.0 update: (position = <span class="hljs-string">"back"</span>) ? max((game.players where (each.team != self)) collect (each.location.y))
         : min((game.players where (each.team != self)) collect (each.location.y));
     
     <span class="hljs-comment">// ATTRIBUTES USEFUL TO BE READ IN THE TEAM STRATEGY FILE (READ ONLY !)</span>
-    string position; <span class="hljs-comment">// can be "front" or "back".</span>
-    list&lt;base_player&gt; players; <span class="hljs-comment">// all the players of the team.</span>
+    <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
+    <span class="hljs-literal">list</span>&lt;base_player&gt; players; <span class="hljs-comment">// all the players of the team.</span>
     soccer_game game;
     
     base_player closest_player_to_ball &lt;- first(players) update: first( players where (each distance_to each.ball = min (players collect (each distance_to each.ball) ) ) );
     base_player called_player;
-    bool possess_ball &lt;- false;<span class="hljs-comment">// update: ! empty ( players where (each.possess_ball=true) );</span>
-    base_player player_with_ball &lt;- <span class="hljs-literal">nil</span>;<span class="hljs-comment">// update: first(players where (each.possess_ball = true));</span>
+    <span class="hljs-literal">bool</span> possess_ball &lt;- false;<span class="hljs-comment">// update: ! empty ( players where (each.possess_ball=true) );</span>
+    base_player player_with_ball &lt;- nil;<span class="hljs-comment">// update: first(players where (each.possess_ball = true));</span>
     
     <span class="hljs-comment">// ATTRIBUTES WICH CAN BE CHANGED FROM THE TEAM STRATEGY FILE</span>
-    list&lt;point&gt; player_init_position;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position;
 }
 
-species ball_sp skills:[moving] {
+<span class="hljs-literal">species</span> ball_sp skills:[<span class="hljs-builtin">moving</span>] {
     <span class="hljs-comment">// The ball agent.</span>
-    float speed &lt;- 0.0;
-    geometry ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
-    reflex update {
+    <span class="hljs-literal">float</span> speed &lt;- 0.0;
+    <span class="hljs-literal">geometry</span> ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
+    <span class="hljs-builtin">reflex</span> update {
         speed &lt;- speed*0.95;
-        float future_speed &lt;- speed;
-        point tmpPos&lt;-location;
+        <span class="hljs-literal">float</span> future_speed &lt;- speed;
+        <span class="hljs-literal">point</span> tmpPos&lt;-location;
         loop i from:0 to:10 {
             tmpPos &lt;- {tmpPos.x+cos(heading)*speed,tmpPos.y+sin(heading)*speed};
             future_speed &lt;- future_speed*0.9;
@@ -360,20 +360,20 @@ species ball_sp skills:[moving] {
         do wander amplitude:1;
         
         <span class="hljs-comment">// anticipation of the ball position to detect a goal</span>
-        if ((location.y+sin(heading)*speed) &gt; 120) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"back team score a goal !!"</span>;
+        <span class="hljs-keyword">if</span> ((location.y+sin(heading)*speed) &gt; 120) {
+            write <span class="hljs-string">"back team score a goal !!"</span>;
             ask first(soccer_game) {
                 do reinit_phase;
             }
         }
-        if ((location.y+sin(heading)*speed) &lt; 0) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"front team score a goal !!"</span>;
+        <span class="hljs-keyword">if</span> ((location.y+sin(heading)*speed) &lt; 0) {
+            write <span class="hljs-string">"front team score a goal !!"</span>;
             ask first(soccer_game) {
                 do reinit_phase;
             }
         }
     }
-    action shooted (point target_position, float speed_atr) {
+    action shooted (<span class="hljs-literal">point</span> target_position, <span class="hljs-literal">float</span> speed_atr) {
         <span class="hljs-comment">// action called when a player shoots the ball</span>
         speed &lt;- speed_atr;
         do goto target:target_position;
@@ -384,8 +384,8 @@ species ball_sp skills:[moving] {
     }
 }
 
-species goal_sp {
-    string position; <span class="hljs-comment">// can be "front" or "back".</span>
+<span class="hljs-literal">species</span> goal_sp {
+    <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     
     init {
         create goal_keeper with:[position::position];
@@ -396,15 +396,15 @@ species goal_sp {
     }
 }
 
-species goal_keeper {
+<span class="hljs-literal">species</span> goal_keeper {
     <span class="hljs-comment">// the goal has a basic behavior : he tries to catch the ball when it is close enough, and when </span>
-    string position; <span class="hljs-comment">// can be "front" or "back".</span>
-    ball_sp ball &lt;- <span class="hljs-literal">nil</span> update:first(ball_sp);
+    <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
+    ball_sp ball &lt;- nil update:first(ball_sp);
     
-    reflex update when:cycle&gt;0 {
+    <span class="hljs-builtin">reflex</span> update when:cycle&gt;0 {
         location &lt;- {ball.location.x/90*12+(90-12)/2,location.y};
-        if (ball distance_to self &lt; 2) {
-            if (flip(1/(1+2*ball.speed))) {
+        <span class="hljs-keyword">if</span> (ball distance_to self &lt; 2) {
+            <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
                 first(soccer_game).team_possession &lt;- first(first(soccer_game).teams where (each.position = position));
                 ask ball {
                     do shooted ({30+rnd(30),60},5.0);
@@ -429,11 +429,11 @@ species goal_keeper {
 }
 </code></pre>
 <pre><code class="hljs">
-model team2strategy
+<span class="hljs-builtin">model</span> team2strategy
 
 import <span class="hljs-string">"./soccer_base.gaml"</span>
 
-species player_stupidTeam parent:base_player {
+<span class="hljs-literal">species</span> player_stupidTeam parent:base_player {
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -455,7 +455,7 @@ species player_stupidTeam parent:base_player {
     
     action offensive_behavior { 
         <span class="hljs-comment">// very basic offensive behavior : run to the ennemy goal, or shoot the ball when close enough from the ennemy goal.</span>
-        if ((possess_ball) and (distance_to_goal &lt; 30)) {
+        <span class="hljs-keyword">if</span> ((possess_ball) and (distance_to_goal &lt; 30)) {
             do shoot;
         }
         else {
@@ -465,7 +465,7 @@ species player_stupidTeam parent:base_player {
     
 }
 
-species stupidTeam parent:base_team {
+<span class="hljs-literal">species</span> stupidTeam parent:base_team {
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -481,23 +481,23 @@ species stupidTeam parent:base_team {
     <span class="hljs-comment">// initial position of the player in percentage : for each point,</span>
     <span class="hljs-comment">//    the first value corresponds to the percentage from left to right (0 for the point the most in the left side)</span>
     <span class="hljs-comment">//    the second value corresponds to the percentage from the goal position to the mid position (0 for the goal position)</span>
-    list&lt;point&gt; player_init_position &lt;- [{20,20},{50,20},{80,20},{30,50},{70,50},{50,70},{30,90},{50,90},{70,90}];
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position &lt;- [{20,20},{50,20},{80,20},{30,50},{70,50},{50,70},{30,90},{50,90},{70,90}];
 }
 
 </code></pre>
 <pre><code class="hljs">
-model soccerbase
+<span class="hljs-builtin">model</span> soccerbase
 
-species soccer_game {
+<span class="hljs-literal">species</span> soccer_game {
     <span class="hljs-comment">// contains the global informations of the game</span>
-    rgb back_color_team;
-    rgb front_color_team;
+    <span class="hljs-literal">rgb</span> back_color_team;
+    <span class="hljs-literal">rgb</span> front_color_team;
     
     ball_sp ball; <span class="hljs-comment">// the ball agent</span>
     goal_sp front_goal; <span class="hljs-comment">// contains the goal at the front of the field (y = 120)</span>
     goal_sp back_goal; <span class="hljs-comment">// contains the goal at the back of the field (y = 0)</span>
-    list&lt;base_team&gt; teams; <span class="hljs-comment">// contains the 2 teams</span>
-    list&lt;base_player&gt; players; <span class="hljs-comment">// contains all the players of the game</span>
+    <span class="hljs-literal">list</span>&lt;base_team&gt; teams; <span class="hljs-comment">// contains the 2 teams</span>
+    <span class="hljs-literal">list</span>&lt;base_player&gt; players; <span class="hljs-comment">// contains all the players of the game</span>
     
     base_team team_possession; <span class="hljs-comment">// the last team which possess the ball. This value is used to determine if the behavior of the team has to be defensive or offensive.</span>
     
@@ -523,53 +523,53 @@ species soccer_game {
     }
 }
 
-species base_player skills:[moving] {
+<span class="hljs-literal">species</span> base_player skills:[<span class="hljs-builtin">moving</span>] {
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
-    float recuperation_ability &lt;- 0.2; <span class="hljs-comment">// a mark from 0 to 1 to be able to catch the ball if another player has it</span>
-    float speed_without_ball;
-    float speed_with_ball;
-    point previous_pos; <span class="hljs-comment">// used to apply inertia</span>
-    bool displacement_effectued&lt;-false update:false; <span class="hljs-comment">// we can apply only one displacement by step !</span>
+    <span class="hljs-literal">float</span> recuperation_ability &lt;- 0.2; <span class="hljs-comment">// a mark from 0 to 1 to be able to catch the ball if another player has it</span>
+    <span class="hljs-literal">float</span> speed_without_ball;
+    <span class="hljs-literal">float</span> speed_with_ball;
+    <span class="hljs-literal">point</span> previous_pos; <span class="hljs-comment">// used to apply inertia</span>
+    <span class="hljs-literal">bool</span> displacement_effectued&lt;-false update:false; <span class="hljs-comment">// we can apply only one displacement by step !</span>
     
     <span class="hljs-comment">// ATTRIBUTE USEFUL TO BE READ IN THE TEAM STRATEGY FILE (READ ONLY !)</span>
     base_team team;
     soccer_game game;
-    base_team ennemy_team &lt;- <span class="hljs-literal">nil</span> update:first(game.teams where (each.position != team.position));
-    ball_sp ball &lt;- <span class="hljs-literal">nil</span> update:first(ball_sp);
-    goal_sp own_goal &lt;- <span class="hljs-literal">nil</span> update:first(goal_sp where (each.position = team.position));
-    goal_sp ennemy_goal &lt;- <span class="hljs-literal">nil</span> update:first(goal_sp where (each.position != team.position));
+    base_team ennemy_team &lt;- nil update:first(game.teams where (each.position != team.position));
+    ball_sp ball &lt;- nil update:first(ball_sp);
+    goal_sp own_goal &lt;- nil update:first(goal_sp where (each.position = team.position));
+    goal_sp ennemy_goal &lt;- nil update:first(goal_sp where (each.position != team.position));
     <span class="hljs-comment">// ratio of avancement of the ball (from the point of view of the current team)</span>
-    float ball_advancement &lt;- 0.0 update:(team.position = <span class="hljs-string">"back"</span>) ? ball.location.y / 120 : 1 - ball.location.y / 120;
+    <span class="hljs-literal">float</span> ball_advancement &lt;- 0.0 update:(team.position = <span class="hljs-string">"back"</span>) ? ball.location.y / 120 : 1 - ball.location.y / 120;
     
-    bool possess_ball;
-    point init_pos;
-    point init_pos_in_percent;
-    float distance_to_closest_ennemy_player &lt;- 100.0 update:self distance_to closest_ennemy_player;
+    <span class="hljs-literal">bool</span> possess_ball;
+    <span class="hljs-literal">point</span> init_pos;
+    <span class="hljs-literal">point</span> init_pos_in_percent;
+    <span class="hljs-literal">float</span> distance_to_closest_ennemy_player &lt;- 100.0 update:self distance_to closest_ennemy_player;
     <span class="hljs-comment">// the number of ennemy players in a range of 15 meters</span>
-    int number_of_ennemy_player_in_range &lt;- 0 update:length((game.players where (each.team != team)) where ((each intersects circle(15))=true));
-    float distance_to_ball &lt;- 100.0 update:(ball = <span class="hljs-literal">nil</span>) ? 100.0 : self distance_to ball;
-    float distance_to_goal &lt;- 100.0 update:(ennemy_goal = <span class="hljs-literal">nil</span>) ? 100.0 : self distance_to ennemy_goal;
+    <span class="hljs-literal">int</span> number_of_ennemy_player_in_range &lt;- 0 update:length((game.players where (each.team != team)) where ((each intersects circle(15))=true));
+    <span class="hljs-literal">float</span> distance_to_ball &lt;- 100.0 update:(ball = nil) ? 100.0 : self distance_to ball;
+    <span class="hljs-literal">float</span> distance_to_goal &lt;- 100.0 update:(ennemy_goal = nil) ? 100.0 : self distance_to ennemy_goal;
     <span class="hljs-comment">// the closest player of this team</span>
-    base_player closest_friend_player &lt;- <span class="hljs-literal">nil</span> update:(ball = <span class="hljs-literal">nil</span>) ? base_player(<span class="hljs-literal">nil</span>) : first( (game.players where (each.team = team and each != self)) 
+    base_player closest_friend_player &lt;- nil update:(ball = nil) ? base_player(nil) : first( (game.players where (each.team = team and each != self)) 
         where (each distance_to self = min( (game.players where (each.team = team and each != self)) collect (each distance_to self) ) ) 
     );
     <span class="hljs-comment">// the closest ennemy player</span>
-    base_player closest_ennemy_player &lt;- <span class="hljs-literal">nil</span> update:(ball = <span class="hljs-literal">nil</span>) ? base_player(<span class="hljs-literal">nil</span>) : first( (game.players where (each.team != team and each != self)) 
+    base_player closest_ennemy_player &lt;- nil update:(ball = nil) ? base_player(nil) : first( (game.players where (each.team != team and each != self)) 
         where (each distance_to self = min( (game.players where (each.team != team and each != self)) collect (each distance_to self) ) ) 
     );
     <span class="hljs-comment">// the player of this team wich has the best "position_mark"</span>
-    base_player best_position_player &lt;- <span class="hljs-literal">nil</span> update:first((team.players where (each != self)) 
+    base_player best_position_player &lt;- nil update:first((team.players where (each != self)) 
         where (each.position_mark = max((team.players where (each != self)) collect (each.position_mark)))
     );
-    float current_speed&lt;-1.0 update:(possess_ball) ? speed_with_ball : speed_without_ball;
+    <span class="hljs-literal">float</span> current_speed&lt;-1.0 update:(possess_ball) ? speed_with_ball : speed_without_ball;
     
     <span class="hljs-comment">// ATTRIBUTES WICH CAN BE CHANGED FROM THE TEAM STRAGEGY FILE</span>
-    float position_mark &lt;- 0.0 update:-distance_to_goal; <span class="hljs-comment">// a mark attributed according to the position of the player (the higher the note is, the best the position is). </span>
+    <span class="hljs-literal">float</span> position_mark &lt;- 0.0 update:-distance_to_goal; <span class="hljs-comment">// a mark attributed according to the position of the player (the higher the note is, the best the position is). </span>
     <span class="hljs-comment">// By default, this mark is equal to -distance_to_goal.</span>
-    string status &lt;- <span class="hljs-string">""</span>; <span class="hljs-comment">// the current status of the player (can be useful to build the model)</span>
-    geometry influence_area &lt;- <span class="hljs-literal">nil</span> update:circle(15); <span class="hljs-comment">// the area of interest of the player. By default, this area is a circle 15m diameter centered in the player location.</span>
+    <span class="hljs-literal">string</span> status &lt;- <span class="hljs-string">""</span>; <span class="hljs-comment">// the current status of the player (can be useful to build the model)</span>
+    <span class="hljs-literal">geometry</span> influence_area &lt;- nil update:circle(15); <span class="hljs-comment">// the area of interest of the player. By default, this area is a circle 15m diameter centered in the player location.</span>
 
     
     <span class="hljs-comment">// CONSTRUCTOR /////////////////////////////////////////////</span>
@@ -585,23 +585,23 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// ACTIONS TO CALL FROM THE STRATEGY FILE</span>
     <span class="hljs-comment">// action to run to a particular position</span>
-    action run_to(point target) {
-        if (!displacement_effectued) {
+    action run_to(<span class="hljs-literal">point</span> target) {
+        <span class="hljs-keyword">if</span> (!displacement_effectued) {
                 do goto target:target speed:current_speed;
-            if (possess_ball) {
+            <span class="hljs-keyword">if</span> (possess_ball) {
                 ball.location &lt;- location;
             }
             displacement_effectued &lt;- true;
         }
         else {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"WARNING : only ONE action of displacement is allowed each step"</span>;
+            write <span class="hljs-string">"WARNING : only ONE action of displacement is allowed each step"</span>;
         }
     }
     
     <span class="hljs-comment">// action to run to the ball</span>
     action run_to_ball {
-        point targetPos;
-        if (ball.ball_direction intersects circle(1)) {
+        <span class="hljs-literal">point</span> targetPos;
+        <span class="hljs-keyword">if</span> (ball.ball_direction intersects circle(1)) {
             targetPos &lt;- ball.location;
         }
         else {
@@ -622,8 +622,8 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// action to mark a player</span>
     action mark_player (base_player player) {
-        float rnd_area &lt;- 4.0; <span class="hljs-comment">// the player will choose a position in a square of rnd_area m.</span>
-        point pos &lt;- (team.position = <span class="hljs-string">"front"</span>) ? {player.location.x,player.location.y-rnd_area/2} : {player.location.x,player.location.y+rnd_area/2};
+        <span class="hljs-literal">float</span> rnd_area &lt;- 4.0; <span class="hljs-comment">// the player will choose a position in a square of rnd_area m.</span>
+        <span class="hljs-literal">point</span> pos &lt;- (team.position = <span class="hljs-string">"front"</span>) ? {player.location.x,player.location.y-rnd_area/2} : {player.location.x,player.location.y+rnd_area/2};
         do run_to( {pos.x-rnd_area/2+rnd(rnd_area),pos.y-rnd_area/2+rnd(rnd_area)} );
     }
     
@@ -645,11 +645,11 @@ species base_player skills:[moving] {
     }
     
     <span class="hljs-comment">// action to pass the ball to an ally</span>
-    action pass_the_ball_ahead (base_player target_player,float number_of_meter_ahead) {
+    action pass_the_ball_ahead (base_player target_player,<span class="hljs-literal">float</span> number_of_meter_ahead) {
         do loose_ball;
         ask ball {
-            float offset &lt;- ((myself.team.position = <span class="hljs-string">"back"</span>) ? number_of_meter_ahead : -number_of_meter_ahead);
-            point target_point &lt;- {target_player.location.x,target_player.location.y+offset};
+            <span class="hljs-literal">float</span> offset &lt;- ((myself.team.position = <span class="hljs-string">"back"</span>) ? number_of_meter_ahead : -number_of_meter_ahead);
+            <span class="hljs-literal">point</span> target_point &lt;- {target_player.location.x,target_player.location.y+offset};
             do shooted target_position:target_point speed_atr:target_player.distance_to_ball/15;
         }
         team.called_player &lt;- target_player;
@@ -659,22 +659,22 @@ species base_player skills:[moving] {
     <span class="hljs-comment">// try to take the ball if it is close enough</span>
     action try_to_take_ball {
         <span class="hljs-comment">// if no player has the ball</span>
-        if (!team.possess_ball and !ennemy_team.possess_ball) {
+        <span class="hljs-keyword">if</span> (!team.possess_ball and !ennemy_team.possess_ball) {
             <span class="hljs-comment">// if the player is the one called (result of a pass)</span>
-            if (team.called_player = self) {
+            <span class="hljs-keyword">if</span> (team.called_player = self) {
                 do take_ball;
             }
             <span class="hljs-comment">// if the player is not the one called (interception of the ball), probability to catch the ball inversly proportionnal with the speed of the ball</span>
             else {
-                if (flip(1/(1+2*ball.speed))) {
+                <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
                     do take_ball;
                 }
             }
         }
         <span class="hljs-comment">// the ball is possessed by the ennemy team</span>
-        else if (ennemy_team.possess_ball) {
+        else <span class="hljs-keyword">if</span> (ennemy_team.possess_ball) {
             <span class="hljs-comment">// try to catch the ball from the other player</span>
-            if flip(recuperation_ability) {
+            <span class="hljs-keyword">if</span> flip(recuperation_ability) {
                 do take_ball;
             }
         }
@@ -682,7 +682,7 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// action of taking the ball</span>
     action take_ball {
-        if (ennemy_team.possess_ball) {
+        <span class="hljs-keyword">if</span> (ennemy_team.possess_ball) {
             ask ennemy_team.player_with_ball {
                 do loose_ball;
             }
@@ -690,7 +690,7 @@ species base_player skills:[moving] {
         possess_ball &lt;- true;
         ball.speed &lt;- 0.0;
         ball.destination &lt;- ball.location;
-        team.called_player &lt;- <span class="hljs-literal">nil</span>;
+        team.called_player &lt;- nil;
         team.player_with_ball &lt;- self;
         team.possess_ball &lt;- true;
         game.team_possession &lt;- team;
@@ -699,18 +699,18 @@ species base_player skills:[moving] {
     <span class="hljs-comment">// action of loosing the ball</span>
     action loose_ball {
         possess_ball &lt;- false;
-        team.player_with_ball &lt;- <span class="hljs-literal">nil</span>;
+        team.player_with_ball &lt;- nil;
         team.possess_ball &lt;- false;
     }
     
     <span class="hljs-comment">// apply the inertia</span>
     action apply_inertia {
-        point prev_pos &lt;- location;
-        point inertia_vect &lt;- {(location.x-previous_pos.x)*0.7,(location.y-previous_pos.y)*0.7};
-        float max_inertia &lt;- current_speed;
-        if (norm(inertia_vect) &gt; max_inertia) {
-            float inertia_x &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.y*inertia_vect.y));
-            float inertia_y &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.x*inertia_vect.x));
+        <span class="hljs-literal">point</span> prev_pos &lt;- location;
+        <span class="hljs-literal">point</span> inertia_vect &lt;- {(location.x-previous_pos.x)*0.7,(location.y-previous_pos.y)*0.7};
+        <span class="hljs-literal">float</span> max_inertia &lt;- current_speed;
+        <span class="hljs-keyword">if</span> (norm(inertia_vect) &gt; max_inertia) {
+            <span class="hljs-literal">float</span> inertia_x &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.y*inertia_vect.y));
+            <span class="hljs-literal">float</span> inertia_y &lt;-  sqrt(abs(max_inertia*max_inertia-inertia_vect.x*inertia_vect.x));
             inertia_x &lt;- (inertia_vect.x &lt; 0) ? -inertia_x : inertia_x;
             inertia_y &lt;- (inertia_vect.y &lt; 0) ? -inertia_y : inertia_y;
             inertia_vect &lt;- {inertia_x,inertia_y};
@@ -721,9 +721,9 @@ species base_player skills:[moving] {
     
     <span class="hljs-comment">// useful functions</span>
     <span class="hljs-comment">// this function returns the real x if we pass a percentage : 0 is the extreme left point, 100 is the extreme right point.</span>
-    float getXPos(float x_ratio) {
-        float result;
-        if (team.position=<span class="hljs-string">"back"</span>) {
+    <span class="hljs-literal">float</span> getXPos(<span class="hljs-literal">float</span> x_ratio) {
+        <span class="hljs-literal">float</span> result;
+        <span class="hljs-keyword">if</span> (team.position=<span class="hljs-string">"back"</span>) {
             result &lt;- 90-x_ratio*90;
         }
         else {
@@ -733,9 +733,9 @@ species base_player skills:[moving] {
     }
     
     <span class="hljs-comment">// this function returns the real y if we pass a percentage : 0 is the extreme defensive point, 100 is the extreme attack point.</span>
-    float getYPos(float y_ratio) {
-        float result;
-        if (team.position=<span class="hljs-string">"back"</span>) {
+    <span class="hljs-literal">float</span> getYPos(<span class="hljs-literal">float</span> y_ratio) {
+        <span class="hljs-literal">float</span> result;
+        <span class="hljs-keyword">if</span> (team.position=<span class="hljs-string">"back"</span>) {
             result &lt;- y_ratio*120;
         }
         else {
@@ -747,22 +747,22 @@ species base_player skills:[moving] {
     <span class="hljs-comment">///////////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// The update function, calls the adequate behavior</span>
-    reflex update when:cycle&gt;1 {
+    <span class="hljs-builtin">reflex</span> update when:cycle&gt;1 {
         do apply_inertia;
         <span class="hljs-comment">// verify if it is a non-offside position</span>
-        if ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
+        <span class="hljs-keyword">if</span> ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
             or ((team.position = <span class="hljs-string">"front"</span>) and (location.y &lt; team.offside_pos))) 
             and (!possess_ball) and (self != team.called_player)
         ) {
             <span class="hljs-comment">// offside position, go back to a correct position</span>
-            point target_pos &lt;- {location.x,(team.position = <span class="hljs-string">"back"</span>) ? location.y-current_speed:location.y+current_speed};
+            <span class="hljs-literal">point</span> target_pos &lt;- {location.x,(team.position = <span class="hljs-string">"back"</span>) ? location.y-current_speed:location.y+current_speed};
             do run_to(target_pos);
             status &lt;- <span class="hljs-string">"offside position !"</span>;
         }
-        else if ((distance_to_ball &lt; 2) and !possess_ball) {
+        else <span class="hljs-keyword">if</span> ((distance_to_ball &lt; 2) and !possess_ball) {
             do try_to_take_ball;
         }
-        else if (game.team_possession = team) {
+        else <span class="hljs-keyword">if</span> (game.team_possession = team) {
             do offensive_behavior;
         }
         else {
@@ -785,7 +785,7 @@ species base_player skills:[moving] {
     <span class="hljs-comment">// ASPECT ////////////////////////////////////////////////////////</span>
     aspect player {
         <span class="hljs-comment">// the player wich possess the ball is displayed with a square. It is displayed with a circle otherwise.</span>
-        if (possess_ball) {
+        <span class="hljs-keyword">if</span> (possess_ball) {
             draw square(2) color:(team.position = <span class="hljs-string">"back"</span>) ? game.back_color_team : game.front_color_team;
         }
         else {
@@ -796,35 +796,35 @@ species base_player skills:[moving] {
 
 
 
-species base_team {
+<span class="hljs-literal">species</span> base_team {
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
-    float offside_pos &lt;- 0.0 update: (position = <span class="hljs-string">"back"</span>) ? max((game.players where (each.team != self)) collect (each.location.y))
+    <span class="hljs-literal">float</span> offside_pos &lt;- 0.0 update: (position = <span class="hljs-string">"back"</span>) ? max((game.players where (each.team != self)) collect (each.location.y))
         : min((game.players where (each.team != self)) collect (each.location.y));
     
     <span class="hljs-comment">// ATTRIBUTES USEFUL TO BE READ IN THE TEAM STRATEGY FILE (READ ONLY !)</span>
-    string position; <span class="hljs-comment">// can be "front" or "back".</span>
-    list&lt;base_player&gt; players; <span class="hljs-comment">// all the players of the team.</span>
+    <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
+    <span class="hljs-literal">list</span>&lt;base_player&gt; players; <span class="hljs-comment">// all the players of the team.</span>
     soccer_game game;
     
     base_player closest_player_to_ball &lt;- first(players) update: first( players where (each distance_to each.ball = min (players collect (each distance_to each.ball) ) ) );
     base_player called_player;
-    bool possess_ball &lt;- false;<span class="hljs-comment">// update: ! empty ( players where (each.possess_ball=true) );</span>
-    base_player player_with_ball &lt;- <span class="hljs-literal">nil</span>;<span class="hljs-comment">// update: first(players where (each.possess_ball = true));</span>
+    <span class="hljs-literal">bool</span> possess_ball &lt;- false;<span class="hljs-comment">// update: ! empty ( players where (each.possess_ball=true) );</span>
+    base_player player_with_ball &lt;- nil;<span class="hljs-comment">// update: first(players where (each.possess_ball = true));</span>
     
     <span class="hljs-comment">// ATTRIBUTES WICH CAN BE CHANGED FROM THE TEAM STRATEGY FILE</span>
-    list&lt;point&gt; player_init_position;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position;
 }
 
-species ball_sp skills:[moving] {
+<span class="hljs-literal">species</span> ball_sp skills:[<span class="hljs-builtin">moving</span>] {
     <span class="hljs-comment">// The ball agent.</span>
-    float speed &lt;- 0.0;
-    geometry ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
-    reflex update {
+    <span class="hljs-literal">float</span> speed &lt;- 0.0;
+    <span class="hljs-literal">geometry</span> ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
+    <span class="hljs-builtin">reflex</span> update {
         speed &lt;- speed*0.95;
-        float future_speed &lt;- speed;
-        point tmpPos&lt;-location;
+        <span class="hljs-literal">float</span> future_speed &lt;- speed;
+        <span class="hljs-literal">point</span> tmpPos&lt;-location;
         loop i from:0 to:10 {
             tmpPos &lt;- {tmpPos.x+cos(heading)*speed,tmpPos.y+sin(heading)*speed};
             future_speed &lt;- future_speed*0.9;
@@ -833,20 +833,20 @@ species ball_sp skills:[moving] {
         do wander amplitude:1;
         
         <span class="hljs-comment">// anticipation of the ball position to detect a goal</span>
-        if ((location.y+sin(heading)*speed) &gt; 120) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"back team score a goal !!"</span>;
+        <span class="hljs-keyword">if</span> ((location.y+sin(heading)*speed) &gt; 120) {
+            write <span class="hljs-string">"back team score a goal !!"</span>;
             ask first(soccer_game) {
                 do reinit_phase;
             }
         }
-        if ((location.y+sin(heading)*speed) &lt; 0) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">"front team score a goal !!"</span>;
+        <span class="hljs-keyword">if</span> ((location.y+sin(heading)*speed) &lt; 0) {
+            write <span class="hljs-string">"front team score a goal !!"</span>;
             ask first(soccer_game) {
                 do reinit_phase;
             }
         }
     }
-    action shooted (point target_position, float speed_atr) {
+    action shooted (<span class="hljs-literal">point</span> target_position, <span class="hljs-literal">float</span> speed_atr) {
         <span class="hljs-comment">// action called when a player shoots the ball</span>
         speed &lt;- speed_atr;
         do goto target:target_position;
@@ -857,8 +857,8 @@ species ball_sp skills:[moving] {
     }
 }
 
-species goal_sp {
-    string position; <span class="hljs-comment">// can be "front" or "back".</span>
+<span class="hljs-literal">species</span> goal_sp {
+    <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     
     init {
         create goal_keeper with:[position::position];
@@ -869,15 +869,15 @@ species goal_sp {
     }
 }
 
-species goal_keeper {
+<span class="hljs-literal">species</span> goal_keeper {
     <span class="hljs-comment">// the goal has a basic behavior : he tries to catch the ball when it is close enough, and when </span>
-    string position; <span class="hljs-comment">// can be "front" or "back".</span>
-    ball_sp ball &lt;- <span class="hljs-literal">nil</span> update:first(ball_sp);
+    <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
+    ball_sp ball &lt;- nil update:first(ball_sp);
     
-    reflex update when:cycle&gt;0 {
+    <span class="hljs-builtin">reflex</span> update when:cycle&gt;0 {
         location &lt;- {ball.location.x/90*12+(90-12)/2,location.y};
-        if (ball distance_to self &lt; 2) {
-            if (flip(1/(1+2*ball.speed))) {
+        <span class="hljs-keyword">if</span> (ball distance_to self &lt; 2) {
+            <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
                 first(soccer_game).team_possession &lt;- first(first(soccer_game).teams where (each.position = position));
                 ask ball {
                     do shooted ({30+rnd(30),60},5.0);
@@ -902,11 +902,11 @@ species goal_keeper {
 }
 </code></pre>
 <pre><code class="hljs">
-model team1strategy
+<span class="hljs-builtin">model</span> team1strategy
 
 import <span class="hljs-string">"./soccer_base.gaml"</span>
 
-species player_intelligentTeam parent:base_player {
+<span class="hljs-literal">species</span> player_intelligentTeam parent:base_player {
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -921,30 +921,30 @@ species player_intelligentTeam parent:base_player {
     <span class="hljs-comment">// status : the current status of the player (can be useful to build the model)</span>
     <span class="hljs-comment">// influence_area : the area of interest of the player. By default, this area is a circle 15m diameter centered in the player location.</span>
     
-    float position_mark &lt;- 0.0 update: location.y - 20*number_of_ennemy_player_in_range + self.distance_to_closest_ennemy_player;   
-    string role; <span class="hljs-comment">// a value between "defense", "mid" and "attack".</span>
-    string wing; <span class="hljs-comment">// a value between "left", "center" and "right".</span>
-    geometry influence_area &lt;- circle(15,init_pos);
+    <span class="hljs-literal">float</span> position_mark &lt;- 0.0 update: location.y - 20*number_of_ennemy_player_in_range + self.distance_to_closest_ennemy_player;   
+    <span class="hljs-literal">string</span> role; <span class="hljs-comment">// a value between "defense", "mid" and "attack".</span>
+    <span class="hljs-literal">string</span> wing; <span class="hljs-comment">// a value between "left", "center" and "right".</span>
+    <span class="hljs-literal">geometry</span> influence_area &lt;- circle(15,init_pos);
     
-    float defense_mid_pos &lt;- 30.0; <span class="hljs-comment">// the y percent chosed to separate the defense from the mid position.</span>
-    float mid_attack_pos &lt;- 60.0; <span class="hljs-comment">// the y percent chosen to separate the mid from the attack position.</span>
+    <span class="hljs-literal">float</span> defense_mid_pos &lt;- 30.0; <span class="hljs-comment">// the y percent chosed to separate the defense from the mid position.</span>
+    <span class="hljs-literal">float</span> mid_attack_pos &lt;- 60.0; <span class="hljs-comment">// the y percent chosen to separate the mid from the attack position.</span>
     
     init {
         <span class="hljs-comment">// set the role of the player (between "defense", "mid" and "attack").</span>
-        if ( init_pos_in_percent.y &lt; defense_mid_pos ) {
+        <span class="hljs-keyword">if</span> ( init_pos_in_percent.y &lt; defense_mid_pos ) {
             role &lt;- <span class="hljs-string">"defense"</span>;
         }
-        else if ( (init_pos_in_percent.y &gt; mid_attack_pos ) ) {
+        else <span class="hljs-keyword">if</span> ( (init_pos_in_percent.y &gt; mid_attack_pos ) ) {
             role &lt;- <span class="hljs-string">"attack"</span>;
         }
         else {
             role &lt;- <span class="hljs-string">"mid"</span>;
         }
         <span class="hljs-comment">// set the wing of the player (between "left", "center" and "right")</span>
-        if ( init_pos_in_percent.x &lt; 40 ) {
+        <span class="hljs-keyword">if</span> ( init_pos_in_percent.x &lt; 40 ) {
             wing &lt;- <span class="hljs-string">"left"</span>;
         }
-        else if ( init_pos_in_percent.x &gt; 60 ) {
+        else <span class="hljs-keyword">if</span> ( init_pos_in_percent.x &gt; 60 ) {
             wing &lt;- <span class="hljs-string">"right"</span>;
         }
         else {
@@ -954,21 +954,21 @@ species player_intelligentTeam parent:base_player {
     
     action update_influence_area {
         status &lt;- wing + <span class="hljs-string">" "</span> + role;
-        float y_ratio;
-        if (role = <span class="hljs-string">"defense"</span>) { <span class="hljs-comment">// defense position from 0% to 70% from the own goal, multiplied by the percentage of advancement of the ball</span>
+        <span class="hljs-literal">float</span> y_ratio;
+        <span class="hljs-keyword">if</span> (role = <span class="hljs-string">"defense"</span>) { <span class="hljs-comment">// defense position from 0% to 70% from the own goal, multiplied by the percentage of advancement of the ball</span>
             y_ratio &lt;- 0.7 * ball_advancement;
         }
-        if (role = <span class="hljs-string">"mid"</span>) { <span class="hljs-comment">// mid position from 15% to 85% from the own goal, multiplied by the percentage of advancement of the ball</span>
+        <span class="hljs-keyword">if</span> (role = <span class="hljs-string">"mid"</span>) { <span class="hljs-comment">// mid position from 15% to 85% from the own goal, multiplied by the percentage of advancement of the ball</span>
             y_ratio &lt;- 0.15 + 0.7 * ball_advancement;
         }
-        if (role = <span class="hljs-string">"attack"</span>) { <span class="hljs-comment">// attack position from 30% to 100% from the own goal, multiplied by the percentage of advancement of the ball</span>
+        <span class="hljs-keyword">if</span> (role = <span class="hljs-string">"attack"</span>) { <span class="hljs-comment">// attack position from 30% to 100% from the own goal, multiplied by the percentage of advancement of the ball</span>
             y_ratio &lt;- 0.3 + 0.7 * ball_advancement;
         }
-        float x_ratio;
-        if (wing = <span class="hljs-string">"center"</span>) {
+        <span class="hljs-literal">float</span> x_ratio;
+        <span class="hljs-keyword">if</span> (wing = <span class="hljs-string">"center"</span>) {
             x_ratio &lt;- 0.5;
         }
-        else if (wing = <span class="hljs-string">"left"</span>) {
+        else <span class="hljs-keyword">if</span> (wing = <span class="hljs-string">"left"</span>) {
             x_ratio &lt;- 0.5 - 0.3 * cos( (y_ratio-0.5)*120 ); <span class="hljs-comment">// the "side" wings are more marked if the player is in the center of the field.</span>
         }
         else {
@@ -981,13 +981,13 @@ species player_intelligentTeam parent:base_player {
         do update_influence_area;
         <span class="hljs-comment">// advanced defensive behavior</span>
         <span class="hljs-comment">// run to the ball if the player is the closest player from the ball.</span>
-        if ((self = team.closest_player_to_ball) or (self distance_to ball &lt; 5)) {
+        <span class="hljs-keyword">if</span> ((self = team.closest_player_to_ball) or (self distance_to ball &lt; 5)) {
             status &lt;- getStatus(<span class="hljs-string">"run to ball"</span>);
             do run_to_ball;
         }
         else {
             <span class="hljs-comment">// if there is an ennemy player in the influence area, mark the player.</span>
-            if ( length(self.ennemy_team.players where (each intersects influence_area)) != 0 ) {
+            <span class="hljs-keyword">if</span> ( length(self.ennemy_team.players where (each intersects influence_area)) != 0 ) {
                 base_player marked_player &lt;- first(1 among (self.ennemy_team.players where (each intersects influence_area)));
                 status &lt;- getStatus(<span class="hljs-string">"mark player "</span>+marked_player);
                 do mark_player( marked_player );
@@ -1003,14 +1003,14 @@ species player_intelligentTeam parent:base_player {
     action offensive_behavior { 
         do update_influence_area;
         <span class="hljs-comment">// advanced offensive behavior</span>
-        if (possess_ball) {
+        <span class="hljs-keyword">if</span> (possess_ball) {
             <span class="hljs-comment">// if the player has the ball and is close enough to the ennemy goal, shoot.</span>
-            if (distance_to_goal &lt; 35 and flip(1/(0.1+(self.distance_to_goal/10)^2))) {
+            <span class="hljs-keyword">if</span> (distance_to_goal &lt; 35 and flip(1/(0.1+(self.distance_to_goal/10)^2))) {
                 status &lt;- getStatus(<span class="hljs-string">"shoot the ball"</span>);
                 do shoot;
             }
             <span class="hljs-comment">// if the player has the ball and is in a safe position, run to the ennemy goal.</span>
-            else if ( (position_mark = max( team.players collect (each.position_mark) )) or (distance_to_closest_ennemy_player &gt; 2) )
+            else <span class="hljs-keyword">if</span> ( (position_mark = max( team.players collect (each.position_mark) )) or (distance_to_closest_ennemy_player &gt; 2) )
             {
                 status &lt;- getStatus(<span class="hljs-string">"run to ennemy goal"</span>);
                 do run_to_ennemy_goal;
@@ -1023,7 +1023,7 @@ species player_intelligentTeam parent:base_player {
             }
         }
         <span class="hljs-comment">// if the player has not the ball but is the called player, run to the ball.</span>
-        else if (self = team.called_player) {
+        else <span class="hljs-keyword">if</span> (self = team.called_player) {
             status &lt;- getStatus(<span class="hljs-string">"run to ball"</span>);
             do run_to_ball;
             status &lt;- <span class="hljs-string">"called player"</span>;
@@ -1035,13 +1035,13 @@ species player_intelligentTeam parent:base_player {
         }
     }
     
-    string getStatus(string str) {
+    <span class="hljs-literal">string</span> getStatus(<span class="hljs-literal">string</span> str) {
         return wing + <span class="hljs-string">" "</span> + role + <span class="hljs-string">"| action : "</span> + str;
     }
     
 }
 
-species intelligentTeam parent:base_team {
+<span class="hljs-literal">species</span> intelligentTeam parent:base_team {
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -1057,13 +1057,13 @@ species intelligentTeam parent:base_team {
     <span class="hljs-comment">// initial position of the player in percentage : for each point,</span>
     <span class="hljs-comment">//    the first value corresponds to the percentage from left to right (0 for the point the most in the left side)</span>
     <span class="hljs-comment">//    the second value corresponds to the percentage from the goal position to the mid position (0 for the goal position)</span>
-    list&lt;point&gt; player_init_position &lt;- [{20,20},{50,20},{80,20},{30,50},{70,50},{50,70},{30,90},{50,90},{70,90}];
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position &lt;- [{20,20},{50,20},{80,20},{30,50},{70,50},{50,70},{30,90},{50,90},{70,90}];
 }
 
 </code></pre>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model soccerexpe
+<span class="hljs-builtin">model</span> soccerexpe
 
 <span class="hljs-comment">// import the 2 strategies</span>
 import <span class="hljs-string">"./team1_strategy.gaml"</span>
@@ -1071,43 +1071,43 @@ import <span class="hljs-string">"./team2_strategy.gaml"</span>
 
 global {
     <span class="hljs-comment">// set the size of the environment</span>
-    geometry shape &lt;- rectangle(90#m,120#m);
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(90#m,120#m);
     
-    bool show_info &lt;- false;
+    <span class="hljs-literal">bool</span> show_info &lt;- false;
     
-    rgb back_color_team &lt;- #blue;
-    rgb front_color_team &lt;- #red;
+    <span class="hljs-literal">rgb</span> back_color_team &lt;- #blue;
+    <span class="hljs-literal">rgb</span> front_color_team &lt;- #red;
 }
 
-species info_player1 mirrors:player_intelligentTeam {
+<span class="hljs-literal">species</span> info_player1 mirrors:player_intelligentTeam {
     <span class="hljs-comment">// mirror species that shows additionnal information about the player</span>
-    point location &lt;- target.location update:target.location;
-    string status &lt;- target.status update:target.status;
-    float speed &lt;- target.speed update:target.speed;
-    geometry influence_area &lt;- target.influence_area update:target.influence_area;
+    <span class="hljs-literal">point</span> location &lt;- target.location update:target.location;
+    <span class="hljs-literal">string</span> status &lt;- target.status update:target.status;
+    <span class="hljs-literal">float</span> speed &lt;- target.speed update:target.speed;
+    <span class="hljs-literal">geometry</span> influence_area &lt;- target.influence_area update:target.influence_area;
     aspect info {
-        if (show_info) {
+        <span class="hljs-keyword">if</span> (show_info) {
             draw status color:#black;
-            draw influence_area color:rgb(200,200,255,0) border:rgb(200,200,255,255);
+            draw influence_area color:<span class="hljs-literal">rgb</span>(200,200,255,0) border:<span class="hljs-literal">rgb</span>(200,200,255,255);
         }
     }
 }
 
-species info_player2 mirrors:player_stupidTeam {
+<span class="hljs-literal">species</span> info_player2 mirrors:player_stupidTeam {
     <span class="hljs-comment">// mirror species that shows additionnal information about the player</span>
-    point location &lt;- target.location update:target.location;
-    string status &lt;- target.status update:target.status;
-    float speed &lt;- target.speed update:target.speed;
-    geometry influence_area &lt;- target.influence_area update:target.influence_area;
+    <span class="hljs-literal">point</span> location &lt;- target.location update:target.location;
+    <span class="hljs-literal">string</span> status &lt;- target.status update:target.status;
+    <span class="hljs-literal">float</span> speed &lt;- target.speed update:target.speed;
+    <span class="hljs-literal">geometry</span> influence_area &lt;- target.influence_area update:target.influence_area;
     aspect info {
-        if (show_info) {
+        <span class="hljs-keyword">if</span> (show_info) {
             draw status color:#black;
-            draw influence_area color:rgb(255,200,200,0) border:rgb(255,200,200,255);
+            draw influence_area color:<span class="hljs-literal">rgb</span>(255,200,200,0) border:<span class="hljs-literal">rgb</span>(255,200,200,255);
         }
     }
 }
 
-experiment intelligentTeam_vs_stupidTeam type:gui {
+<span class="hljs-builtin">experiment</span> intelligentTeam_vs_stupidTeam type:gui {
     init {
         <span class="hljs-comment">// instantialization of the game (contains global information about the game)</span>
         create soccer_game with:(back_color_team::back_color_team,front_color_team::front_color_team) returns:soccerGame;
@@ -1117,19 +1117,19 @@ experiment intelligentTeam_vs_stupidTeam type:gui {
         add first(intelligentTeam) to:first(soccerGame).teams;
         add first(stupidTeam) to:first(soccerGame).teams;
         <span class="hljs-comment">// create players of the team1</span>
-        list&lt;player_intelligentTeam&gt; player_list1;
+        <span class="hljs-literal">list</span>&lt;player_intelligentTeam&gt; player_list1;
         loop pos over:first(intelligentTeam).player_init_position {
             <span class="hljs-comment">// compute the "real position" of each player according to the percentage given in "player_init_position"</span>
-            point real_pos &lt;- (first(intelligentTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
+            <span class="hljs-literal">point</span> real_pos &lt;- (first(intelligentTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
             create player_intelligentTeam with:(team:first(intelligentTeam),game:first(intelligentTeam).game,location:real_pos,init_pos_in_percent:pos) returns:pl;
             add first(pl) to:player_list1;
         }
         first(intelligentTeam).players &lt;- player_list1;
         <span class="hljs-comment">// create players of the team2</span>
-        list&lt;player_stupidTeam&gt; player_list2;
+        <span class="hljs-literal">list</span>&lt;player_stupidTeam&gt; player_list2;
         loop pos over:first(stupidTeam).player_init_position {
             <span class="hljs-comment">// compute the "real position" of each player according to the percentage given in "player_init_position"</span>
-            point real_pos &lt;- (first(stupidTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
+            <span class="hljs-literal">point</span> real_pos &lt;- (first(stupidTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
             create player_stupidTeam with:(team:first(stupidTeam),game:first(stupidTeam).game,location:real_pos,init_pos_in_percent:pos) returns:pl;
             add first(pl) to:player_list2;
         }
@@ -1142,18 +1142,18 @@ experiment intelligentTeam_vs_stupidTeam type:gui {
             <span class="hljs-comment">// display the field.</span>
             image <span class="hljs-string">"../images/soccer_field2.png"</span>;
             <span class="hljs-comment">// display the species with their correct aspect</span>
-            species player_intelligentTeam aspect:player;
-            species player_stupidTeam aspect:player;
-            species ball_sp aspect:ball;
-            species goal_sp aspect:goal;
-            species goal_keeper aspect:goal_keeper;
-            species info_player1 aspect:info;
-            species info_player2 aspect:info;
+            <span class="hljs-literal">species</span> player_intelligentTeam aspect:player;
+            <span class="hljs-literal">species</span> player_stupidTeam aspect:player;
+            <span class="hljs-literal">species</span> ball_sp aspect:ball;
+            <span class="hljs-literal">species</span> goal_sp aspect:goal;
+            <span class="hljs-literal">species</span> goal_keeper aspect:goal_keeper;
+            <span class="hljs-literal">species</span> info_player1 aspect:info;
+            <span class="hljs-literal">species</span> info_player2 aspect:info;
         }
     }
 }
 
-experiment intelligentTeam_vs_intelligentTeam type:gui {
+<span class="hljs-builtin">experiment</span> intelligentTeam_vs_intelligentTeam type:gui {
     init {
         <span class="hljs-comment">// instantialization of the game (contains global information about the game)</span>
         create soccer_game with:(back_color_team::back_color_team,front_color_team::front_color_team) returns:soccerGame;
@@ -1164,19 +1164,19 @@ experiment intelligentTeam_vs_intelligentTeam type:gui {
         add first(backTeam) to:first(soccerGame).teams;
         add first(frontTeam) to:first(soccerGame).teams;
         <span class="hljs-comment">// create players of the team1</span>
-        list&lt;player_intelligentTeam&gt; player_list1;
+        <span class="hljs-literal">list</span>&lt;player_intelligentTeam&gt; player_list1;
         loop pos over:first(backTeam).player_init_position {
             <span class="hljs-comment">// compute the "real position" of each player according to the percentage given in "player_init_position"</span>
-            point real_pos &lt;- (first(backTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
+            <span class="hljs-literal">point</span> real_pos &lt;- (first(backTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
             create player_intelligentTeam with:(team:first(backTeam),game:first(backTeam).game,location:real_pos,init_pos_in_percent:pos) returns:pl;
             add first(pl) to:player_list1;
         }
         first(backTeam).players &lt;- player_list1;
         <span class="hljs-comment">// create players of the team2</span>
-        list&lt;player_intelligentTeam&gt; player_list2;
+        <span class="hljs-literal">list</span>&lt;player_intelligentTeam&gt; player_list2;
         loop pos over:first(frontTeam).player_init_position {
             <span class="hljs-comment">// compute the "real position" of each player according to the percentage given in "player_init_position"</span>
-            point real_pos &lt;- (first(frontTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
+            <span class="hljs-literal">point</span> real_pos &lt;- (first(frontTeam).position = <span class="hljs-string">"back"</span>) ? {90-pos.x/100*90,pos.y/100*60} : {pos.x/100*90,120-pos.y/100*60};
             create player_intelligentTeam with:(team:first(frontTeam),game:first(frontTeam).game,location:real_pos,init_pos_in_percent:pos) returns:pl;
             add first(pl) to:player_list2;
         }
@@ -1189,12 +1189,12 @@ experiment intelligentTeam_vs_intelligentTeam type:gui {
             <span class="hljs-comment">// display the field.</span>
             image <span class="hljs-string">"../images/soccer_field2.png"</span>;
             <span class="hljs-comment">// display the species with their correct aspect</span>
-            species player_intelligentTeam aspect:player;
-            species ball_sp aspect:ball;
-            species goal_sp aspect:goal;
-            species goal_keeper aspect:goal_keeper;
-            species info_player1 aspect:info;
-            species info_player2 aspect:info;
+            <span class="hljs-literal">species</span> player_intelligentTeam aspect:player;
+            <span class="hljs-literal">species</span> ball_sp aspect:ball;
+            <span class="hljs-literal">species</span> goal_sp aspect:goal;
+            <span class="hljs-literal">species</span> goal_keeper aspect:goal_keeper;
+            <span class="hljs-literal">species</span> info_player1 aspect:info;
+            <span class="hljs-literal">species</span> info_player2 aspect:info;
         }
     }
 }

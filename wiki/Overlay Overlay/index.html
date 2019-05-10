@@ -8,31 +8,31 @@
 <p>Model to show how to use overlay layers in a display</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model Overlay
+<span class="hljs-builtin">model</span> Overlay
 
 global
 {
     <span class="hljs-comment">//define the color for each possible type (among "water", "vegetation" and "building")</span>
-    map&lt;string,rgb&gt; color_per_type &lt;- [<span class="hljs-string">"water"</span>::#blue, <span class="hljs-string">"vegetation"</span>:: #green, <span class="hljs-string">"building"</span>:: #pink];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>,<span class="hljs-literal">rgb</span>&gt; color_per_type &lt;- [<span class="hljs-string">"water"</span>::#blue, <span class="hljs-string">"vegetation"</span>:: #green, <span class="hljs-string">"building"</span>:: #pink];
 }
 
 <span class="hljs-comment">//define a simple grid with 10 rows and 10 columns</span>
 grid cell width: 10 height: 10 {
     <span class="hljs-comment">//each cell has a random type</span>
-    string type &lt;- one_of(color_per_type.keys);
-    rgb color &lt;- color_per_type[type];
+    <span class="hljs-literal">string</span> type &lt;- one_of(color_per_type.keys);
+    <span class="hljs-literal">rgb</span> color &lt;- color_per_type[type];
 }
-experiment overlay type: gui
+<span class="hljs-builtin">experiment</span> overlay type: gui
 {
     output 
     {
-        display map 
+        display <span class="hljs-literal">map</span> 
         {
             <span class="hljs-comment">//define a new overlay layer positioned at the coordinate 5,5, with a constant size of 180 pixels per 100 pixels.</span>
             overlay <span class="hljs-string">"Overlay"</span> position: { 5, 5 } size: { 180 #px, 100 #px } background: # black transparency: 0.5 border: #black rounded: true
             {
                 <span class="hljs-comment">//for each possible type, we draw a square with the corresponding color and we write the name of the type</span>
-                float y &lt;- 30#px;
+                <span class="hljs-literal">float</span> y &lt;- 30#px;
                 loop type over: color_per_type.keys
                 {
                     draw square(10#px) at: { 20#px, y } color: color_per_type[type] border: #white;

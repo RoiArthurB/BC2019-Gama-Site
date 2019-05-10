@@ -71,8 +71,8 @@
 <p>We define two new global variables that will be used disease spreading dynamic inside the buildings.</p>
 <pre><code class="hljs">global  {
     ...
-    float beta &lt;- 0.01;
-    float h&lt;-0.1;
+    <span class="hljs-literal">float</span> beta &lt;- 0.01;
+    <span class="hljs-literal">float</span> h&lt;-0.1;
         ...
 }
 </code></pre>
@@ -87,18 +87,18 @@
 <li><strong>I_to1</strong> : float, remaining number of people infected (float number lower between 0 and 1 according to the differential equations).</li>
 </ul></li>
 </ul>
-<pre><code class="hljs">species building {
+<pre><code class="hljs"><span class="hljs-literal">species</span> building {
     ....
-    float I;
-    float S;
-    float T;
-    float t;   
-    float I_to1; 
+    <span class="hljs-literal">float</span> I;
+    <span class="hljs-literal">float</span> S;
+    <span class="hljs-literal">float</span> T;
+    <span class="hljs-literal">float</span> t;   
+    <span class="hljs-literal">float</span> I_to1; 
         ...
 }
 </code></pre>
 <p>Then, we define the differential equations that will use for the disease spreading dynamic. Note that to define a differential equation system we use the block <strong>equation</strong> + name. These equations are the classic ones used by SI mathematical models.</p>
-<pre><code class="hljs">species building {
+<pre><code class="hljs"><span class="hljs-literal">species</span> building {
     ....
     equation SI{ 
         diff(S,t) = (- beta * S * I / T) ;
@@ -109,18 +109,18 @@
 </code></pre>
 <p>At last, we define a new reflex for the building called <strong>epidemic</strong> that will be activated only when there is someone inside the building. This reflex first compute the number of people inside the building (<strong>T</strong>), then the number of not infected people (<strong>S</strong>) and finally the number of infected ones (<strong>I</strong>).</p>
 <p>If there is at least one people infected and one people not infected, the differential equations is integrated (according to the discretisation step value <strong>h</strong>) with the method Runge-Kutta 4 to compute the new value of infected people. We then sum the old value of <strong>I_to_1</strong> with the number of people newly infected (this value is a float and not an integer). Finally, we cast this value as an integer, ask the corresponding number of not infected people to become infected, and decrement this integer value to <strong>I_to1</strong>.</p>
-<pre><code class="hljs">species building {
+<pre><code class="hljs"><span class="hljs-literal">species</span> building {
     ....
-    reflex epidemic when: not empty(members){   
-        T &lt;- float(length(members));
-        list&lt;people_in_building&gt; S_members &lt;- list&lt;people_in_building&gt;(members where not (people_in_building(each).is_infected));
-                S &lt;- float(length(S_members));
+    <span class="hljs-builtin">reflex</span> epidemic when: not empty(members){   
+        T &lt;- <span class="hljs-literal">float</span>(length(members));
+        <span class="hljs-literal">list</span>&lt;people_in_building&gt; S_members &lt;- <span class="hljs-literal">list</span>&lt;people_in_building&gt;(members where not (people_in_building(each).is_infected));
+                S &lt;- <span class="hljs-literal">float</span>(length(S_members));
                 I &lt;- T-S;
-                float I0 &lt;- I;
-                if (I &gt; 0 and S &gt; 0) {
+                <span class="hljs-literal">float</span> I0 &lt;- I;
+                <span class="hljs-keyword">if</span> (I &gt; 0 and S &gt; 0) {
                    solve SI method: <span class="hljs-string">"rk4"</span> step: h;
                    I_to1 &lt;- I_to1 + (I - I0);
-                   int I_int &lt;- min([int(S),int(I_to1)]);
+                   <span class="hljs-literal">int</span> I_int &lt;- min([<span class="hljs-literal">int</span>(S),<span class="hljs-literal">int</span>(I_to1)]);
                    I_to1 &lt;- I_to1 - I_int;
                    ask(I_int among S_members){
                      is_infected &lt;- true;
@@ -131,28 +131,28 @@
 }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
-<pre><code class="hljs">model model7 
+<pre><code class="hljs"><span class="hljs-builtin">model</span> model7 
 global  {
-    int nb_people &lt;- 500;
-    float step &lt;- 1 #minutes;
-    float infection_distance &lt;- 2.0 #m;
-    float proba_infection &lt;- 0.05;
-    int nb_infected_init &lt;- 5;
-    file roads_shapefile &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
-    file buildings_shapefile &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
-    geometry shape &lt;- envelope(roads_shapefile);
-    graph road_network;
-    int current_hour update: (cycle / 60) mod 24;
-    float staying_coeff update: 10.0 ^ (1 + min([abs(current_hour - 9), abs(current_hour - 12), abs(current_hour - 18)]));
-    float beta &lt;- 0.01;
-    float h&lt;-0.1;
-    list&lt;people_in_building&gt; list_people_in_buildings update: (building accumulate each.people_inside) where (not dead(each));
-    int nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected) + (empty(list_people_in_buildings) ? 0 : list_people_in_buildings count (each.is_infected));
+    <span class="hljs-literal">int</span> nb_people &lt;- 500;
+    <span class="hljs-literal">float</span> step &lt;- 1 #minutes;
+    <span class="hljs-literal">float</span> infection_distance &lt;- 2.0 #m;
+    <span class="hljs-literal">float</span> proba_infection &lt;- 0.05;
+    <span class="hljs-literal">int</span> nb_infected_init &lt;- 5;
+    <span class="hljs-literal">file</span> roads_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-literal">file</span> buildings_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(roads_shapefile);
+    <span class="hljs-literal">graph</span> road_network;
+    <span class="hljs-literal">int</span> current_hour update: (cycle / 60) mod 24;
+    <span class="hljs-literal">float</span> staying_coeff update: 10.0 ^ (1 + min([abs(current_hour - 9), abs(current_hour - 12), abs(current_hour - 18)]));
+    <span class="hljs-literal">float</span> beta &lt;- 0.01;
+    <span class="hljs-literal">float</span> h&lt;-0.1;
+    <span class="hljs-literal">list</span>&lt;people_in_building&gt; list_people_in_buildings update: (building accumulate each.people_inside) where (not dead(each));
+    <span class="hljs-literal">int</span> nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected) + (empty(list_people_in_buildings) ? 0 : list_people_in_buildings count (each.is_infected));
     
-    int nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
-    bool is_night &lt;- true update: current_hour &lt; 7 or current_hour &gt; 20;
+    <span class="hljs-literal">int</span> nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
+    <span class="hljs-literal">bool</span> is_night &lt;- true update: current_hour &lt; 7 or current_hour &gt; 20;
     
-    float infected_rate update: nb_people_infected/nb_people;
+    <span class="hljs-literal">float</span> infected_rate update: nb_people_infected/nb_people;
     init {
         create road from: roads_shapefile;
         road_network &lt;- as_edge_graph(road);
@@ -167,27 +167,27 @@ global  {
         }
         
     }
-    reflex end_simulation when: infected_rate = 1.0 {       
+    <span class="hljs-builtin">reflex</span> end_simulation when: infected_rate = 1.0 {       
         do halt;
     }
 }
 
-species people skills:[moving]{     
-    bool is_infected &lt;- false;
-    point target;
-    int staying_counter;
+<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+    <span class="hljs-literal">bool</span> is_infected &lt;- false;
+    <span class="hljs-literal">point</span> target;
+    <span class="hljs-literal">int</span> staying_counter;
         
-    reflex move when: target != <span class="hljs-literal">nil</span>{
+    <span class="hljs-builtin">reflex</span> move when: target != nil{
         do goto target:target on: road_network;
-        if (location = target) {
+        <span class="hljs-keyword">if</span> (location = target) {
             target &lt;- any_location_in (one_of(building));
-            target &lt;- <span class="hljs-literal">nil</span>;
+            target &lt;- nil;
             staying_counter &lt;- 0;
         } 
     }
-    reflex infect when: is_infected{
+    <span class="hljs-builtin">reflex</span> infect when: is_infected{
         ask people at_distance infection_distance {
-            if flip(proba_infection) {
+            <span class="hljs-keyword">if</span> flip(proba_infection) {
                 is_infected &lt;- true;
             }
         }
@@ -200,46 +200,46 @@ species people skills:[moving]{
     }
 }
 
-species road {
-    geometry display_shape &lt;- shape + 2.0;
+<span class="hljs-literal">species</span> road {
+    <span class="hljs-literal">geometry</span> display_shape &lt;- shape + 2.0;
     aspect geom {
         draw display_shape color: #black depth: 3.0;
     }
 }
 
-species building {
-    float height &lt;- 10#m + rnd(10) #m;
-    list&lt;people_in_building&gt; people_inside -&gt; {members collect people_in_building(each)};
-    float I;
-    float S;
-    float T;
-    float t;   
-    float I_to1; 
+<span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">float</span> height &lt;- 10#m + rnd(10) #m;
+    <span class="hljs-literal">list</span>&lt;people_in_building&gt; people_inside -&gt; {members collect people_in_building(each)};
+    <span class="hljs-literal">float</span> I;
+    <span class="hljs-literal">float</span> S;
+    <span class="hljs-literal">float</span> T;
+    <span class="hljs-literal">float</span> t;   
+    <span class="hljs-literal">float</span> I_to1; 
     
     aspect geom {
-        int nbI &lt;- members count people_in_building(each).is_infected;
-        int nbT &lt;- length(members);
-        draw shape color:nbT = 0 ? #gray : (float(nbI)/nbT &gt; 0.5 ? #red : #green) depth: height;
+        <span class="hljs-literal">int</span> nbI &lt;- members count people_in_building(each).is_infected;
+        <span class="hljs-literal">int</span> nbT &lt;- length(members);
+        draw shape color:nbT = 0 ? #gray : (<span class="hljs-literal">float</span>(nbI)/nbT &gt; 0.5 ? #red : #green) depth: height;
     }
     
-    species people_in_building parent: people schedules: [] {
+    <span class="hljs-literal">species</span> people_in_building parent: people schedules: [] {
     }
     
-    reflex let_people_leave  {
+    <span class="hljs-builtin">reflex</span> let_people_leave  {
         ask members as: people_in_building{
             staying_counter &lt;- staying_counter + 1;
         }
-        list&lt;people_in_building&gt; leaving_people &lt;- list&lt;people_in_building&gt;(members where (flip(people_in_building(each).staying_counter / staying_coeff)));
-        if not (empty (leaving_people)) {
+        <span class="hljs-literal">list</span>&lt;people_in_building&gt; leaving_people &lt;- <span class="hljs-literal">list</span>&lt;people_in_building&gt;(members where (flip(people_in_building(each).staying_counter / staying_coeff)));
+        <span class="hljs-keyword">if</span> not (empty (leaving_people)) {
             release leaving_people as: people in: world returns: released_people;
             ask released_people {
                 target &lt;- any_location_in (one_of(building));
             }
         }
     }
-    reflex let_people_enter {
-        list&lt;people&gt; entering_people &lt;- people inside self where (each.target = <span class="hljs-literal">nil</span>);
-        if not (empty (entering_people)) {
+    <span class="hljs-builtin">reflex</span> let_people_enter {
+        <span class="hljs-literal">list</span>&lt;people&gt; entering_people &lt;- people inside self where (each.target = nil);
+        <span class="hljs-keyword">if</span> not (empty (entering_people)) {
             capture entering_people as: people_in_building ;
         }
     }
@@ -248,16 +248,16 @@ species building {
         diff(I,t) = (  beta * S * I / T) ;
     }
 
-    reflex epidemic when: not empty(members){   
-        T &lt;- float(length(members));
-        list&lt;people_in_building&gt; S_members &lt;- list&lt;people_in_building&gt;(members where not (people_in_building(each).is_infected));
-        S &lt;- float(length(S_members));
+    <span class="hljs-builtin">reflex</span> epidemic when: not empty(members){   
+        T &lt;- <span class="hljs-literal">float</span>(length(members));
+        <span class="hljs-literal">list</span>&lt;people_in_building&gt; S_members &lt;- <span class="hljs-literal">list</span>&lt;people_in_building&gt;(members where not (people_in_building(each).is_infected));
+        S &lt;- <span class="hljs-literal">float</span>(length(S_members));
         I &lt;- T-S;
-        float I0 &lt;- I;
-        if (I &gt; 0 and S &gt; 0) {
+        <span class="hljs-literal">float</span> I0 &lt;- I;
+        <span class="hljs-keyword">if</span> (I &gt; 0 and S &gt; 0) {
             solve SI method: <span class="hljs-string">"rk4"</span> step: h;
             I_to1 &lt;- I_to1 + (I - I0);
-            int I_int &lt;- min([int(S),int(I_to1)]);
+            <span class="hljs-literal">int</span> I_int &lt;- min([<span class="hljs-literal">int</span>(S),<span class="hljs-literal">int</span>(I_to1)]);
             I_to1 &lt;- I_to1 - I_int;
             ask(I_int among S_members){
                 is_infected &lt;- true;
@@ -266,7 +266,7 @@ species building {
     }  
 }
 
-experiment main_experiment type:gui{
+<span class="hljs-builtin">experiment</span> main_experiment type:gui{
     parameter <span class="hljs-string">"Infection distance"</span> var: infection_distance;
     parameter <span class="hljs-string">"Proba infection"</span> var: proba_infection min: 0.0 max: 1.0;
     parameter <span class="hljs-string">"Nb people infected at init"</span> var: nb_infected_init ;
@@ -276,9 +276,9 @@ experiment main_experiment type:gui{
         display map_3D type: opengl {
             light 1 color:(is_night ? 50 : 255);
             image <span class="hljs-string">"../includes/soil.jpg"</span>;
-            species road aspect:geom;
-            species people aspect:sphere3D;         
-            species building aspect:geom transparency: 0.5;
+            <span class="hljs-literal">species</span> road aspect:geom;
+            <span class="hljs-literal">species</span> people aspect:sphere3D;         
+            <span class="hljs-literal">species</span> building aspect:geom transparency: 0.5;
         }
         display chart refresh:every(10) {
             chart <span class="hljs-string">"Disease spreading"</span> type: series {

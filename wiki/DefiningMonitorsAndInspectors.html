@@ -71,7 +71,7 @@
 <li><code>refresh:</code> bool statement, optional : the new value is computed if the bool statement returns true.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="hljs">experiment my_experiment type: gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> my_experiment type: gui {
     output {
         monitor monitor_name value: cycle refresh:every(1);
     }
@@ -92,7 +92,7 @@
 <p>The optional facet <code>attribute</code> is used to filter the attributes you want to be displayed in your inspector.</p>
 <p><strong>Beware</strong> : only one agent inspector (<code>type:agent</code>) can be used for an experiment. Beside, you can add as many agent browser (<code>type:table</code>) as you want for your experiment.</p>
 <p>Example of implementation :</p>
-<pre><code class="hljs">model new
+<pre><code class="hljs"><span class="hljs-builtin">model</span> new
 
 global {
     init {
@@ -100,17 +100,17 @@ global {
     }
 }
 
-species my_species {
-    int int_attr &lt;- 6;
-    string str_attr &lt;- <span class="hljs-string">"my_value"</span>;
-    string str_attr_not_important &lt;- <span class="hljs-string">"blabla"</span>;
+<span class="hljs-literal">species</span> my_species {
+    <span class="hljs-literal">int</span> int_attr &lt;- 6;
+    <span class="hljs-literal">string</span> str_attr &lt;- <span class="hljs-string">"my_value"</span>;
+    <span class="hljs-literal">string</span> str_attr_not_important &lt;- <span class="hljs-string">"blabla"</span>;
 }
 
 grid my_grid_species width: 10 height: 10 {
-    int rnd_value &lt;- rnd(5);
+    <span class="hljs-literal">int</span> rnd_value &lt;- rnd(5);
 }
 
-experiment my_experiment type:gui {
+<span class="hljs-builtin">experiment</span> my_experiment type:gui {
     output {
         inspect name:<span class="hljs-string">"my_species_inspector"</span> value:my_species attributes:[<span class="hljs-string">"int_attr"</span>,<span class="hljs-string">"str_attr"</span>];
         inspect name:<span class="hljs-string">"my_species_browser"</span> value:my_species type:table;

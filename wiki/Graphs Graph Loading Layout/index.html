@@ -8,14 +8,14 @@
 <p>Model which shows how to load a graph from a DGS File, and change is layout.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model graphloadinglayout
+<span class="hljs-builtin">model</span> graphloadinglayout
 
 global {
-    graph the_graph ;
-    string barabasi_file &lt;- <span class="hljs-string">"../includes/ProteinSimple.dgs"</span>;
-    geometry shape &lt;- rectangle(500,500);
-    string layout_type &lt;- <span class="hljs-string">"forcedirected"</span>;
-    int layout_time &lt;- 1000;
+    <span class="hljs-literal">graph</span> the_graph ;
+    <span class="hljs-literal">string</span> barabasi_file &lt;- <span class="hljs-string">"../includes/ProteinSimple.dgs"</span>;
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(500,500);
+    <span class="hljs-literal">string</span> layout_type &lt;- <span class="hljs-string">"forcedirected"</span>;
+    <span class="hljs-literal">int</span> layout_time &lt;- 1000;
     
     <span class="hljs-comment">//The operator load_graph_from_file generates the graph from the file, and chose the vertices as agents of node_agent </span>
     <span class="hljs-comment">//species, and edges as edge_agent agents</span>
@@ -24,30 +24,30 @@ global {
     }
     
     <span class="hljs-comment">//In case the layout type is forcedirected or random, the reflex will change at each step the layout of the graph</span>
-    reflex layout_graph {
+    <span class="hljs-builtin">reflex</span> layout_graph {
         the_graph &lt;- layout(the_graph, layout_type, layout_time);
     }
 }
 
-species edge_agent {
+<span class="hljs-literal">species</span> edge_agent {
     aspect default {    
         draw shape color: #black;
     }
 }
 
-species node_agent {
+<span class="hljs-literal">species</span> node_agent {
     aspect default {    
         draw circle(2) color: #red;
     }
 }
 
-experiment loadgraph type: gui {
+<span class="hljs-builtin">experiment</span> loadgraph type: gui {
     parameter <span class="hljs-string">"Layout type"</span> var: layout_type among: [ <span class="hljs-string">"forcedirected"</span>, <span class="hljs-string">"random"</span>, <span class="hljs-string">"radialtree"</span>, <span class="hljs-string">"circle"</span>];
     parameter <span class="hljs-string">"layout time"</span> var: layout_time min: 1 max: 100000;
     output {
-        display map type: opengl{
-            species edge_agent ;
-            species node_agent ;
+        display <span class="hljs-literal">map</span> type: opengl{
+            <span class="hljs-literal">species</span> edge_agent ;
+            <span class="hljs-literal">species</span> node_agent ;
         }
     }
 }

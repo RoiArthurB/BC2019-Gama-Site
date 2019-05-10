@@ -65,8 +65,8 @@
 <h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
 <h3><a class="anchor" aria-hidden="true" id="species"></a><a href="#species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>species</h3>
 <p>We define a new species of agents: the <strong>people</strong> agents. In this model, these agents will not have a specific behavior yet. They will be just displayed. Thus, we just have to define an aspect for the agents. We want to represent the <strong>people</strong> agents by a yellow circle of radius 10m. We then use the <strong>circle</strong> value for the <strong>shape</strong> facet of the <strong>draw</strong> command, with the expected color and radius size (defined by the facet <strong>size</strong>).</p>
-<pre><code class="hljs">species people {
-    rgb color &lt;- #yellow ;
+<pre><code class="hljs"><span class="hljs-literal">species</span> people {
+    <span class="hljs-literal">rgb</span> color &lt;- #yellow ;
     
     aspect base {
         draw circle(10) color: color;
@@ -76,7 +76,7 @@
 <h3><a class="anchor" aria-hidden="true" id="parameter"></a><a href="#parameter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>parameter</h3>
 <p>We have to add a new parameter: the number of <strong>people</strong> agents created</p>
 <p>In the global section, definition of the <strong>nb_people</strong> variable:</p>
-<pre><code class="hljs">   int nb_people &lt;- 100;
+<pre><code class="hljs">   <span class="hljs-literal">int</span> nb_people &lt;- 100;
 </code></pre>
 <p>In the experiment section, definition of the parameter:</p>
 <pre><code class="hljs">   parameter <span class="hljs-string">"Number of people agents"</span> var: nb_people category: <span class="hljs-string">"People"</span> ;
@@ -86,13 +86,13 @@
 <pre><code class="hljs">global {
     ...
     init {
-        create building from: shape_file_buildings with: [type::string(read (<span class="hljs-string">"NATURE"</span>))] {
-            if type=<span class="hljs-string">"Industrial"</span> {
+        create building from: shape_file_buildings with: [type::<span class="hljs-literal">string</span>(read (<span class="hljs-string">"NATURE"</span>))] {
+            <span class="hljs-keyword">if</span> type=<span class="hljs-string">"Industrial"</span> {
                 color &lt;- #blue ;
             }
         }
         create road from: shape_file_roads ;
-        list&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
+        <span class="hljs-literal">list</span>&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
         create people number: nb_people {
             location &lt;- any_location_in (one_of (residential_buildings));
         }
@@ -103,62 +103,62 @@
 <p>We add the <strong>people</strong> agent in the defined display.</p>
 <pre><code class="hljs">   output {
       display city_display {
-         species building aspect: base ;
-         species road aspect: base ;
-         species people aspect: base ;
+         <span class="hljs-literal">species</span> building aspect: base ;
+         <span class="hljs-literal">species</span> road aspect: base ;
+         <span class="hljs-literal">species</span> people aspect: base ;
       }
    }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
-<pre><code class="hljs">model tutorial_gis_city_traffic
+<pre><code class="hljs"><span class="hljs-builtin">model</span> tutorial_gis_city_traffic
 
 global {
-    file shape_file_buildings &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
-    file shape_file_roads &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
-    file shape_file_bounds &lt;- file(<span class="hljs-string">"../includes/bounds.shp"</span>);
-    geometry shape &lt;- envelope(shape_file_bounds);
-    float step &lt;- 10 #mn;
-    int nb_people &lt;- 100;
+    <span class="hljs-literal">file</span> shape_file_buildings &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-literal">file</span> shape_file_roads &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/bounds.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
+    <span class="hljs-literal">float</span> step &lt;- 10 #mn;
+    <span class="hljs-literal">int</span> nb_people &lt;- 100;
     
     init {
-        create building from: shape_file_buildings with: [type::string(read (<span class="hljs-string">"NATURE"</span>))] {
-            if type=<span class="hljs-string">"Industrial"</span> {
+        create building from: shape_file_buildings with: [type::<span class="hljs-literal">string</span>(read (<span class="hljs-string">"NATURE"</span>))] {
+            <span class="hljs-keyword">if</span> type=<span class="hljs-string">"Industrial"</span> {
                 color &lt;- #blue ;
             }
         }
         create road from: shape_file_roads ;
-        list&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
+        <span class="hljs-literal">list</span>&lt;building&gt; residential_buildings &lt;- building where (each.type=<span class="hljs-string">"Residential"</span>);
         create people number: nb_people {
             location &lt;- any_location_in (one_of (residential_buildings));
         }
     }
 }
 
-species building {
-    string type; 
-    rgb color &lt;- #gray  ;
+<span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">string</span> type; 
+    <span class="hljs-literal">rgb</span> color &lt;- #gray  ;
     
     aspect base {
         draw shape color: color ;
     }
 }
 
-species road  {
-    rgb color &lt;- #black ;
+<span class="hljs-literal">species</span> road  {
+    <span class="hljs-literal">rgb</span> color &lt;- #black ;
     aspect base {
         draw shape color: color ;
     }
 }
 
-species people {
-    rgb color &lt;- #yellow ;
+<span class="hljs-literal">species</span> people {
+    <span class="hljs-literal">rgb</span> color &lt;- #yellow ;
     
     aspect base {
         draw circle(10) color: color;
     }
 }
 
-experiment road_traffic type: gui {
+<span class="hljs-builtin">experiment</span> road_traffic type: gui {
     parameter <span class="hljs-string">"Shapefile for the buildings:"</span> var: shape_file_buildings category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
@@ -166,9 +166,9 @@ experiment road_traffic type: gui {
     
     output {
         display city_display type:opengl {
-            species building aspect: base ;
-            species road aspect: base ;
-            species people aspect: base ;
+            <span class="hljs-literal">species</span> building aspect: base ;
+            <span class="hljs-literal">species</span> road aspect: base ;
+            <span class="hljs-literal">species</span> people aspect: base ;
         }
     }
 }

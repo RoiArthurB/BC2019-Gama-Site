@@ -8,11 +8,11 @@
 <p>Model to show how to use the different existing operators for the graph species</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model graphoperators
+<span class="hljs-builtin">model</span> graphoperators
 
 global {
-    graph&lt;geometry,geometry&gt; the_graph;
-    list&lt;list&gt; cliques;
+    <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>,<span class="hljs-literal">geometry</span>&gt; the_graph;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; cliques;
     init {
         create people number: 50;
         
@@ -20,48 +20,48 @@ global {
         the_graph &lt;- as_distance_graph(people, 20);
         
         <span class="hljs-comment">//compute the betweenness_centrality of each vertice</span>
-        map&lt;people,float&gt; bc &lt;- map&lt;people, float&gt;(betweenness_centrality(the_graph));
-        float max_centrality &lt;- max(bc.values);
-        float min_centrality &lt;- min(bc.values);
+        <span class="hljs-literal">map</span>&lt;people,<span class="hljs-literal">float</span>&gt; bc &lt;- <span class="hljs-literal">map</span>&lt;people, <span class="hljs-literal">float</span>&gt;(betweenness_centrality(the_graph));
+        <span class="hljs-literal">float</span> max_centrality &lt;- max(bc.values);
+        <span class="hljs-literal">float</span> min_centrality &lt;- min(bc.values);
         ask people {
             centrality &lt;- (bc[self] - min_centrality) / (max_centrality - min_centrality);
-            centrality_color &lt;- rgb(255, int(255 * (1 - centrality)), int(255 * (1 - centrality)));
+            centrality_color &lt;- <span class="hljs-literal">rgb</span>(255, <span class="hljs-literal">int</span>(255 * (1 - centrality)), <span class="hljs-literal">int</span>(255 * (1 - centrality)));
         }
-        <span class="hljs-statement">write</span> <span class="hljs-string">"mean vertice degree: "</span> + mean(the_graph.vertices collect (the_graph degree_of each));
-        <span class="hljs-statement">write</span> <span class="hljs-string">"nb_cycles: "</span> + nb_cycles(the_graph);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"alpha_index: "</span> + alpha_index(the_graph);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"beta_index: "</span> + beta_index(the_graph);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"gamma_index: "</span> + gamma_index(the_graph);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"connectivity_index: "</span> + connectivity_index(the_graph);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"connected_components_of: "</span> + length(connected_components_of(the_graph));
+        write <span class="hljs-string">"mean vertice degree: "</span> + mean(the_graph.vertices collect (the_graph degree_of each));
+        write <span class="hljs-string">"nb_cycles: "</span> + nb_cycles(the_graph);
+        write <span class="hljs-string">"alpha_index: "</span> + alpha_index(the_graph);
+        write <span class="hljs-string">"beta_index: "</span> + beta_index(the_graph);
+        write <span class="hljs-string">"gamma_index: "</span> + gamma_index(the_graph);
+        write <span class="hljs-string">"connectivity_index: "</span> + connectivity_index(the_graph);
+        write <span class="hljs-string">"connected_components_of: "</span> + length(connected_components_of(the_graph));
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">"connected_components_of: "</span> + length(connected_components_of(the_graph));
+        write <span class="hljs-string">"connected_components_of: "</span> + length(connected_components_of(the_graph));
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">"maximal_cliques_of:"</span> + (maximal_cliques_of(the_graph) collect (length(each)));
-        <span class="hljs-statement">write</span> <span class="hljs-string">"biggest_cliques_of:"</span> + (biggest_cliques_of(the_graph) collect (length(each)));
+        write <span class="hljs-string">"maximal_cliques_of:"</span> + (maximal_cliques_of(the_graph) collect (length(each)));
+        write <span class="hljs-string">"biggest_cliques_of:"</span> + (biggest_cliques_of(the_graph) collect (length(each)));
     }
 }
 
-species people {
-    float centrality;
-    rgb centrality_color;
+<span class="hljs-literal">species</span> people {
+    <span class="hljs-literal">float</span> centrality;
+    <span class="hljs-literal">rgb</span> centrality_color;
     aspect centrality{
         draw circle(1) color: centrality_color;
         
     }
 }
 
-experiment graphoperators type: gui {
+<span class="hljs-builtin">experiment</span> graphoperators type: gui {
     
     output {
         
-        display map background:#lightgray{
+        display <span class="hljs-literal">map</span> background:#lightgray{
             graphics <span class="hljs-string">"edges"</span> {
                 loop edge over: the_graph.edges {
                     draw edge color: #black;
                 }
             }
-            species people aspect: centrality;
+            <span class="hljs-literal">species</span> people aspect: centrality;
         }
     }
 }

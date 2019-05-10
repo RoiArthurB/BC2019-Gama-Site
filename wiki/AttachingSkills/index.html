@@ -63,11 +63,11 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="skills"></a><a href="#skills" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Skills</h2>
 <p>A declaration of skill is done by filling the <code>skills</code> facet in the species definition:</p>
-<pre><code class="hljs">species my_species skills: [skill1,skill2] {
+<pre><code class="hljs"><span class="hljs-literal">species</span> my_species skills: [skill1,skill2] {
 }
 </code></pre>
 <p>A very useful and common skill is the <code>moving</code> skill.</p>
-<pre><code class="hljs">species my_species skills: [moving] {
+<pre><code class="hljs"><span class="hljs-literal">species</span> my_species skills: [<span class="hljs-builtin">moving</span>] {
 }
 </code></pre>
 <p>Once your species has the moving skill, it earns automatically the following attributes: <code>speed</code>, <code>heading</code>, <code>destination</code> and the following actions: <code>move</code>, <code>goto</code>, <code>follow</code>, <code>wander</code> and <code>wander_3D</code>.</p>
@@ -133,23 +133,23 @@ Species_green agents are moving randomly with a certain speed and a certain head
 Species_red agents wait for a species_green agent to be in a certain range of distance. Once it is the case, the agent move toward the species_green agent. A line link the red_species agent and its target.</p>
 <p><img src="../resources/images/manipulateBasicSpecies/green_and_red_species.png" alt="images/green_and_red_species.png"></p>
 <p>Here is an example of implementation:</p>
-<pre><code class="hljs">model green_and_red_species
+<pre><code class="hljs"><span class="hljs-builtin">model</span> green_and_red_species
 
 global{
-    float distance_to_intercept &lt;- 10.0;
-    int number_of_green_species &lt;- 50;
-    int number_of_red_species &lt;- 50;
+    <span class="hljs-literal">float</span> distance_to_intercept &lt;- 10.0;
+    <span class="hljs-literal">int</span> number_of_green_species &lt;- 50;
+    <span class="hljs-literal">int</span> number_of_red_species &lt;- 50;
     init {
         create speciesA number:number_of_green_species;
         create speciesB number:number_of_red_species;
     }
 }
 
-species speciesA skills:[moving] {
+<span class="hljs-literal">species</span> speciesA skills:[<span class="hljs-builtin">moving</span>] {
     init {
         speed &lt;- 1.0;
     }
-    reflex move {
+    <span class="hljs-builtin">reflex</span> move {
         do wander amplitude:90;
     }
     aspect default {
@@ -157,35 +157,35 @@ species speciesA skills:[moving] {
     }
 }
 
-species speciesB skills:[moving] {
+<span class="hljs-literal">species</span> speciesB skills:[<span class="hljs-builtin">moving</span>] {
     speciesA target;
     init {
         speed &lt;- 0.0;
         heading &lt;- 90;
     }
-    reflex search_target when:target=<span class="hljs-literal">nil</span> {
+    <span class="hljs-builtin">reflex</span> search_target when:target=nil {
         ask speciesA at_distance(distance_to_intercept) {
             myself.target &lt;- self;
         }
     }
-    reflex follow when:target!=<span class="hljs-literal">nil</span> {
+    <span class="hljs-builtin">reflex</span> follow when:target!=nil {
         speed &lt;- 0.8;
         do goto target:target;
     }
     aspect default {
         draw circle(1) color:#red;
-        if (target!=<span class="hljs-literal">nil</span>) {
+        <span class="hljs-keyword">if</span> (target!=nil) {
             draw polyline([self.location,target.location]) color:#black;
         }
     }
 }
 
-experiment my_experiment type:gui
+<span class="hljs-builtin">experiment</span> my_experiment type:gui
 {
     output{
         display myDisplay {
-            species speciesA aspect:default;
-            species speciesB aspect:default;
+            <span class="hljs-literal">species</span> speciesA aspect:default;
+            <span class="hljs-literal">species</span> speciesB aspect:default;
         }
     }
 }

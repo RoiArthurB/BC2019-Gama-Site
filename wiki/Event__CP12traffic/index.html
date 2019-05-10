@@ -25,7 +25,7 @@ Library used: <a href="http://www.jbox2d.org/">http://www.jbox2d.org/</a></p>
 public class PhysicsSkill extends Skill{
         @setter(<span class="hljs-string">"physical_world"</span>)
         public void setWorldAgent(final IAgent _agent, final IAgent _world){
-                if(_world == null)
+                <span class="hljs-keyword">if</span>(_world == null)
                         return;
                         
                 PhysicalWorldAgent pwa = (PhysicalWorldAgent)_world;

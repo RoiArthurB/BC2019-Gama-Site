@@ -8,25 +8,25 @@
 <p>This model shows how to create a diffusion matrix by using the 4 parameters variation, proportion, radius and min-value. Manipulate the parameters to see in real time the result. The number displayed in each cells are the ratio of the initial signal diffused at the end of a step.</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Kernel matrix generation/my_display-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model kernelmatrixgeneration
+<span class="hljs-builtin">model</span> kernelmatrixgeneration
 
 global {
     <span class="hljs-comment">// parameters</span>
-    float variation &lt;- 0.0;
-    float proportion &lt;- 1.0;
-    int radius &lt;- 1;
-    float min_value &lt;- 0.0;
-    int cycle_length &lt;- 1;
+    <span class="hljs-literal">float</span> variation &lt;- 0.0;
+    <span class="hljs-literal">float</span> proportion &lt;- 1.0;
+    <span class="hljs-literal">int</span> radius &lt;- 1;
+    <span class="hljs-literal">float</span> min_value &lt;- 0.0;
+    <span class="hljs-literal">int</span> cycle_length &lt;- 1;
     
     <span class="hljs-comment">// global variables</span>
-    int cell_max_size &lt;- 51;
-    int x_min &lt;- cell_max_size;
-    int x_max &lt;- 0;
-    int y_min &lt;- cell_max_size;
-    int y_max &lt;- 0;
+    <span class="hljs-literal">int</span> cell_max_size &lt;- 51;
+    <span class="hljs-literal">int</span> x_min &lt;- cell_max_size;
+    <span class="hljs-literal">int</span> x_max &lt;- 0;
+    <span class="hljs-literal">int</span> y_min &lt;- cell_max_size;
+    <span class="hljs-literal">int</span> y_max &lt;- 0;
     
-    float world_size &lt;- 100.0;
-    geometry shape &lt;- cube(world_size);
+    <span class="hljs-literal">float</span> world_size &lt;- 100.0;
+    <span class="hljs-literal">geometry</span> shape &lt;- cube(world_size);
     
     buffer_cells selected_cells;
     
@@ -37,7 +37,7 @@ global {
         minimum_cycle_duration &lt;- 200#ms;
     }
     
-    reflex update {
+    <span class="hljs-builtin">reflex</span> update {
         x_min &lt;- cell_max_size;
         x_max &lt;- 0;
         y_min &lt;- cell_max_size;
@@ -48,17 +48,17 @@ global {
         }
         ask buffer_cells {
             <span class="hljs-comment">// find the boundaries of the diffusion</span>
-            if (value != 0.0) {
-                if (grid_x &gt; x_max) {
+            <span class="hljs-keyword">if</span> (value != 0.0) {
+                <span class="hljs-keyword">if</span> (grid_x &gt; x_max) {
                     x_max &lt;- grid_x;
                 }
-                if (grid_x &lt; x_min) {
+                <span class="hljs-keyword">if</span> (grid_x &lt; x_min) {
                     x_min &lt;- grid_x;
                 }
-                if (grid_y &gt; y_max) {
+                <span class="hljs-keyword">if</span> (grid_y &gt; y_max) {
                     y_max &lt;- grid_y;
                 }
-                if (grid_y &lt; y_min) {
+                <span class="hljs-keyword">if</span> (grid_y &lt; y_min) {
                     y_min &lt;- grid_y;
                 }
             }
@@ -66,7 +66,7 @@ global {
         <span class="hljs-comment">// re-initialize the value of the buffer grid to 0, and the value of the central cell to 1.</span>
         ask buffer_cells {
             value &lt;- 0.0;
-            if (self = selected_cells) {
+            <span class="hljs-keyword">if</span> (self = selected_cells) {
                 value &lt;- 1.0;
             }
         }
@@ -78,31 +78,31 @@ global {
 <span class="hljs-comment">// the buffer grid will be used to compute the diffusion at each step.</span>
 grid buffer_cells height:cell_max_size width:cell_max_size {
     <span class="hljs-comment">// the diffused variable</span>
-    float value &lt;- 0.0;
+    <span class="hljs-literal">float</span> value &lt;- 0.0;
 }
 
 <span class="hljs-comment">// this grid is the copy of the buffer grid at the end of each step. Indeed, we have to display the grid once the diffusion has been done.</span>
 grid cells height:cell_max_size width:cell_max_size {
     <span class="hljs-comment">// the diffused variable</span>
-    float value &lt;- 0.0;
+    <span class="hljs-literal">float</span> value &lt;- 0.0;
     
     aspect base {
         <span class="hljs-comment">// we only display the cells wich contains a non null value</span>
-        if (grid_x &lt;= x_max and grid_x &gt;= x_min and grid_y &lt;= y_max and grid_y &gt;= y_min)
+        <span class="hljs-keyword">if</span> (grid_x &lt;= x_max and grid_x &gt;= x_min and grid_y &lt;= y_max and grid_y &gt;= y_min)
         {
             <span class="hljs-comment">// compute dynamically the size of the current cell.</span>
-            float size_cell &lt;- world_size/(x_max-x_min+1);
+            <span class="hljs-literal">float</span> size_cell &lt;- world_size/(x_max-x_min+1);
             <span class="hljs-comment">// compute dynamically the position of the current cell.</span>
-            point pos &lt;- {(grid_x-x_min+1)*size_cell-0.5*size_cell,(grid_y-y_min+1)*size_cell-0.5*size_cell};
+            <span class="hljs-literal">point</span> pos &lt;- {(grid_x-x_min+1)*size_cell-0.5*size_cell,(grid_y-y_min+1)*size_cell-0.5*size_cell};
             <span class="hljs-comment">// display each cell as a square. The color is linked to the value of the diffused variable.</span>
             draw square(size_cell) color:hsb(value,1.0,1.0) border:#black at:pos;
             <span class="hljs-comment">// display the ratio in each square.</span>
-            draw string(value) at: pos + {-size_cell/3,0} color: °black font: font(<span class="hljs-string">"Helvetica"</span>, size_cell * #zoom * 2/3, #bold) perspective:true;
+            draw <span class="hljs-literal">string</span>(value) at: pos + {-size_cell/3,0} color: °black font: font(<span class="hljs-string">"Helvetica"</span>, size_cell * #zoom * 2/3, #bold) perspective:true;
         }
     }
 }
 
-experiment my_experiment type:gui {
+<span class="hljs-builtin">experiment</span> my_experiment type:gui {
     parameter <span class="hljs-string">"proportion"</span> var:proportion;
     parameter <span class="hljs-string">"variation"</span> var:variation;
     parameter <span class="hljs-string">"min_value"</span> var:min_value;
@@ -110,7 +110,7 @@ experiment my_experiment type:gui {
     parameter <span class="hljs-string">"cycle_length"</span> var:cycle_length;
     output {
         display my_display {
-            species cells aspect:base;
+            <span class="hljs-literal">species</span> cells aspect:base;
         }
     }
 }

@@ -8,11 +8,11 @@
 <p>Model which shows how to use the user commands in order to create agents in the display. The user has two possibilities : create one agent, or create a number of agents, with the possibility to change their shape and a pink color. The user also has the possibility to change the color and the shapes of the agents.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model usercommand
+<span class="hljs-builtin">model</span> usercommand
 
 global {
     <span class="hljs-comment">//Number of agent to initialise</span>
-    int nbAgent &lt;- 1;
+    <span class="hljs-literal">int</span> nbAgent &lt;- 1;
     
     init {
         <span class="hljs-comment">//Create the agent</span>
@@ -30,16 +30,16 @@ global {
     }
     <span class="hljs-comment">//User command to create a given number of agents according</span>
     user_command <span class="hljs-string">"Create agents"</span> {
-         map input_values &lt;- user_input([<span class="hljs-string">"Number"</span> :: nbAgent, <span class="hljs-string">"shape"</span> :: <span class="hljs-string">"circle"</span>]);
-         create cell number: int(input_values at <span class="hljs-string">"Number"</span>) with: [color:: °pink, is_square:: string(input_values at <span class="hljs-string">"shape"</span>) = <span class="hljs-string">"square"</span>];
+         <span class="hljs-literal">map</span> input_values &lt;- user_input([<span class="hljs-string">"Number"</span> :: nbAgent, <span class="hljs-string">"shape"</span> :: <span class="hljs-string">"circle"</span>]);
+         create cell number: <span class="hljs-literal">int</span>(input_values at <span class="hljs-string">"Number"</span>) with: [color:: °pink, is_square:: <span class="hljs-literal">string</span>(input_values at <span class="hljs-string">"shape"</span>) = <span class="hljs-string">"square"</span>];
     }
     
 }
 
 <span class="hljs-comment">//Species that will be used</span>
-species cell {
-    rgb color;  
-    bool is_square &lt;- false; 
+<span class="hljs-literal">species</span> cell {
+    <span class="hljs-literal">rgb</span> color;  
+    <span class="hljs-literal">bool</span> is_square &lt;- false; 
     
     <span class="hljs-comment">//These commands will be displayed in the cells layer, after right clicking on a agent</span>
     user_command <span class="hljs-string">"change color"</span>action: change_color;
@@ -61,10 +61,10 @@ species cell {
 }
 
 
-experiment Displays type: gui {
+<span class="hljs-builtin">experiment</span> Displays type: gui {
     output {
-        display map { 
-            species cell;
+        display <span class="hljs-literal">map</span> { 
+            <span class="hljs-literal">species</span> cell;
         }
     }
 }

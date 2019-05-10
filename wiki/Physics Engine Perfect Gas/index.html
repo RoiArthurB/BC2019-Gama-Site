@@ -7,24 +7,24 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Balls without gravity</h1></header><article><div><span><p><em>Author : Arnaud Grignard</em></p>
 <p>This is a model that shows how the physics engine work without gravity. Balls can collide each other and can't go further than the wall and the ground agents.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model Perfect_Gas
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Perfect_Gas
 
  
  
 global {
     <span class="hljs-comment">//Bounds of the environment</span>
-    int width_of_environment parameter: <span class="hljs-string">'Dimensions'</span> init:200 ; 
-    int height_of_environment parameter: <span class="hljs-string">'Dimensions'</span> init:200  ; 
+    <span class="hljs-literal">int</span> width_of_environment parameter: 'Dimensions' init:200 ; 
+    <span class="hljs-literal">int</span> height_of_environment parameter: 'Dimensions' init:200  ; 
     
     <span class="hljs-comment">//Range, Speed ans Size of the agents</span>
-    int range_of_agents parameter: <span class="hljs-string">'Range of Agents'</span> min: 1 &lt;- 25 ;
-    float speed_of_agents parameter: <span class="hljs-string">'Speed of Agents'</span> min: 0.1  &lt;- 2.0 ; 
-    int size_of_agents &lt;- 10;
+    <span class="hljs-literal">int</span> range_of_agents parameter: 'Range of Agents' min: 1 &lt;- 25 ;
+    <span class="hljs-literal">float</span> speed_of_agents parameter: 'Speed of Agents' min: 0.1  &lt;- 2.0 ; 
+    <span class="hljs-literal">int</span> size_of_agents &lt;- 10;
     
     
-    float size_of_the_wall &lt;- 10.0;
-    int offset&lt;-10;
-    geometry shape &lt;- rectangle(width_of_environment, height_of_environment);
+    <span class="hljs-literal">float</span> size_of_the_wall &lt;- 10.0;
+    <span class="hljs-literal">int</span> offset&lt;-10;
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(width_of_environment, height_of_environment);
 
     <span class="hljs-comment">//Physic engines that will compute the forces</span>
     physic_world world2;
@@ -55,7 +55,7 @@ global {
         <span class="hljs-comment">//down wall</span>
         create wall{
             location &lt;- {width_of_environment/2,height_of_environment,0};
-            height &lt;- float(width_of_environment);
+            height &lt;- <span class="hljs-literal">float</span>(width_of_environment);
             shape &lt;- rectangle(width_of_environment,2);
             collisionBound &lt;-  [<span class="hljs-string">"shape"</span>::<span class="hljs-string">"floor"</span>,<span class="hljs-string">"x"</span>::width_of_environment/2, <span class="hljs-string">"y"</span>:: size_of_the_wall, <span class="hljs-string">"z"</span>::height];
             mass &lt;-0.0;
@@ -63,7 +63,7 @@ global {
         <span class="hljs-comment">//upper wall</span>
         create wall{
             location &lt;- {width_of_environment/2,0,0};
-            height &lt;- float(width_of_environment);
+            height &lt;- <span class="hljs-literal">float</span>(width_of_environment);
             shape &lt;- rectangle(width_of_environment,2);
             collisionBound &lt;-  [<span class="hljs-string">"shape"</span>::<span class="hljs-string">"floor"</span>,<span class="hljs-string">"x"</span>::width_of_environment/2, <span class="hljs-string">"y"</span>:: size_of_the_wall, <span class="hljs-string">"z"</span>::height];
             mass &lt;-0.0;
@@ -71,7 +71,7 @@ global {
         <span class="hljs-comment">//left wall</span>
         create wall{
             location &lt;- {0.0,height_of_environment/2,0.0};
-            height &lt;- float(width_of_environment);
+            height &lt;- <span class="hljs-literal">float</span>(width_of_environment);
             shape &lt;- rectangle(2,height_of_environment);
             collisionBound &lt;-  [<span class="hljs-string">"shape"</span>::<span class="hljs-string">"floor"</span>,<span class="hljs-string">"x"</span>::size_of_the_wall, <span class="hljs-string">"y"</span>:: height_of_environment/2, <span class="hljs-string">"z"</span>::height];
             mass &lt;-0.0;         
@@ -79,7 +79,7 @@ global {
         <span class="hljs-comment">//right wall</span>
         create wall{
             location &lt;- {width_of_environment,height_of_environment/2,0};
-            height &lt;- float(width_of_environment);
+            height &lt;- <span class="hljs-literal">float</span>(width_of_environment);
             shape &lt;- rectangle(2,height_of_environment);
             collisionBound &lt;-  [<span class="hljs-string">"shape"</span>::<span class="hljs-string">"floor"</span>,<span class="hljs-string">"x"</span>::size_of_the_wall, <span class="hljs-string">"y"</span>:: height_of_environment/2, <span class="hljs-string">"z"</span>::height];
             mass &lt;-0.0;
@@ -93,58 +93,58 @@ global {
         }
         
         <span class="hljs-comment">//Add the agents to compute their forces</span>
-        ask world2 {agents &lt;-  (ball as list) + (ground as list) + (wall as list);}
+        ask world2 {agents &lt;-  (ball as <span class="hljs-literal">list</span>) + (ground as <span class="hljs-literal">list</span>) + (wall as <span class="hljs-literal">list</span>);}
         
     }
     
     <span class="hljs-comment">//Reflex to compute the forces at each step</span>
-    reflex computeForces  {
+    <span class="hljs-builtin">reflex</span> computeForces  {
         ask world2 {do compute_forces step: 1;}
     } 
             
 } 
 <span class="hljs-comment">//Species to represent the physic engine, derivated from the Physical3DWorld built-in species</span>
-species physic_world parent: physical_world ;
+<span class="hljs-literal">species</span> physic_world parent: physical_world ;
  
 <span class="hljs-comment">//Species to represent the ground using the physical3D skill</span>
-species ground skills: [physics]{
+<span class="hljs-literal">species</span> ground skills: [<span class="hljs-builtin">physics</span>]{
     aspect default {
         draw shape color: #black empty:true;
     }
 }
 
 <span class="hljs-comment">//Species to represent the wall using the physical3D skill</span>
-species wall skills: [physics]{
-    rgb color;
-    float height;
+<span class="hljs-literal">species</span> wall skills: [<span class="hljs-builtin">physics</span>]{
+    <span class="hljs-literal">rgb</span> color;
+    <span class="hljs-literal">float</span> height;
     aspect default {
         draw shape color: #black depth:height empty:true;
     }
 }
     
 <span class="hljs-comment">//Species to represent the ball using the physical3D skill</span>
-species ball skills: [physics] {  
-    rgb color;
-    int radius;
-    int size  &lt;- size_of_agents;
-    int range  &lt;- range_of_agents; 
-    float speed  &lt;- speed_of_agents;  
-    int heading &lt;- rnd(359);
+<span class="hljs-literal">species</span> ball skills: [<span class="hljs-builtin">physics</span>] {  
+    <span class="hljs-literal">rgb</span> color;
+    <span class="hljs-literal">int</span> radius;
+    <span class="hljs-literal">int</span> size  &lt;- size_of_agents;
+    <span class="hljs-literal">int</span> range  &lt;- range_of_agents; 
+    <span class="hljs-literal">float</span> speed  &lt;- speed_of_agents;  
+    <span class="hljs-literal">int</span> heading &lt;- rnd(359);
 
     aspect sphere{
-        draw sphere(radius) color: rgb(135,201,255) ;
+        draw sphere(radius) color: <span class="hljs-literal">rgb</span>(135,201,255) ;
     }   
 }
 
-experiment perfect_gas type: gui {
+<span class="hljs-builtin">experiment</span> perfect_gas type: gui {
     init{
         minimum_cycle_duration &lt;-0.001;
     }
     output {
-        display Cube type:opengl background:rgb(20,79,127) draw_env:false{
-            species ground transparency:0.5;
-            species wall transparency:0.5;
-            species ball aspect:sphere;         
+        display Cube type:opengl background:<span class="hljs-literal">rgb</span>(20,79,127) draw_env:false{
+            <span class="hljs-literal">species</span> ground transparency:0.5;
+            <span class="hljs-literal">species</span> wall transparency:0.5;
+            <span class="hljs-literal">species</span> ball aspect:sphere;         
         }
     }
 }

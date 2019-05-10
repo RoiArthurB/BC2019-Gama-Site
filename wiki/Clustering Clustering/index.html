@@ -8,44 +8,44 @@
 <p>A model to show how to use clustering operators and two methods of clustering (K Means and DBScan) with the goal of regrouping agents in clusters</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model clustering
+<span class="hljs-builtin">model</span> clustering
 
 global {
     <span class="hljs-comment">//the number of groups to create (kmeans)</span>
-    int k &lt;- 4;
+    <span class="hljs-literal">int</span> k &lt;- 4;
     
     <span class="hljs-comment">//the maximum radius of the neighborhood (DBscan)</span>
-    float eps &lt;- 10.0; 
+    <span class="hljs-literal">float</span> eps &lt;- 10.0; 
     
     <span class="hljs-comment">//the minimum number of elements needed for a cluster (DBscan)</span>
-    int minPoints &lt;- 3;
+    <span class="hljs-literal">int</span> minPoints &lt;- 3;
     
     init {
         <span class="hljs-comment">//create dummy agents</span>
         create dummy number: 100;
     }
     
-    reflex cluster_building {
+    <span class="hljs-builtin">reflex</span> cluster_building {
         <span class="hljs-comment">//create a list of list containing for each dummy agent a list composed of its x and y values</span>
-        list&lt;list&gt; instances &lt;- dummy collect ([each.location.x, each.location.y]);
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; instances &lt;- dummy collect ([each.location.x, each.location.y]);
         
         <span class="hljs-comment">//from the previous list, create groups with the eps and minPoints parameters and the DBSCAN algorithm (https://en.wikipedia.org/wiki/DBSCAN)</span>
-        list&lt;list&lt;int&gt;&gt; clusters_dbscan &lt;- list&lt;list&lt;int&gt;&gt;(dbscan(instances, eps,minPoints));
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt;&gt; clusters_dbscan &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt;&gt;(dbscan(instances, eps,minPoints));
         
         <span class="hljs-comment">//We give a random color to each group (i.e. to each dummy agents of the group)</span>
        loop cluster over: clusters_dbscan {
-            rgb col &lt;- rnd_color(255);
+            <span class="hljs-literal">rgb</span> col &lt;- rnd_color(255);
             loop i over: cluster {
                 ask dummy[i] {color_dbscan &lt;- col;}
             }
         }
         
         <span class="hljs-comment">//from the previous list, create k groups  with the Kmeans algorithm (https://en.wikipedia.org/wiki/K-means_clustering)</span>
-        list&lt;list&lt;int&gt;&gt; clusters_kmeans &lt;- list&lt;list&lt;int&gt;&gt;(kmeans(instances, k));
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt;&gt; clusters_kmeans &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt;&gt;(kmeans(instances, k));
         
         <span class="hljs-comment">//We give a random color to each group (i.e. to each dummy agents of the group)</span>
         loop cluster over: clusters_kmeans {
-            rgb col &lt;- rnd_color(255);
+            <span class="hljs-literal">rgb</span> col &lt;- rnd_color(255);
             loop i over: cluster {
                 ask dummy[i] {color_kmeans &lt;- col;}
             }
@@ -54,9 +54,9 @@ global {
     
 }
 
-species dummy {
-    rgb color_dbscan &lt;- #grey;
-    rgb color_kmeans &lt;- #grey;
+<span class="hljs-literal">species</span> dummy {
+    <span class="hljs-literal">rgb</span> color_dbscan &lt;- #grey;
+    <span class="hljs-literal">rgb</span> color_kmeans &lt;- #grey;
     aspect dbscan_aspect {
         draw circle(2) color: color_dbscan;
     }
@@ -65,16 +65,16 @@ species dummy {
     }
 }
 
-experiment clustering type: gui {
+<span class="hljs-builtin">experiment</span> clustering type: gui {
     parameter <span class="hljs-string">"Number of clusters to split the data into"</span> var: k category: <span class="hljs-string">"KMEANS"</span>;
     parameter <span class="hljs-string">"Maximum radius of the neighborhood to be considered"</span> var: eps category: <span class="hljs-string">"DBSCAN"</span>;
     parameter <span class="hljs-string">"Minimum number of points needed for a cluster "</span> var: minPoints category: <span class="hljs-string">"DBSCAN"</span>;
     output {
         display map_dbscan{
-            species dummy aspect: dbscan_aspect;
+            <span class="hljs-literal">species</span> dummy aspect: dbscan_aspect;
         }
         display map_kmeans{
-            species dummy aspect: kmeans_aspect;
+            <span class="hljs-literal">species</span> dummy aspect: kmeans_aspect;
         }
     }
 }

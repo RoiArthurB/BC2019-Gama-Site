@@ -9,21 +9,21 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">  
 
-model graph3D
+<span class="hljs-builtin">model</span> graph3D
 
 global {
-    int number_of_agents parameter: <span class="hljs-string">'Number of Agents'</span> min: 1 &lt;- 200 category: <span class="hljs-string">'Initialization'</span>;
-    int width_and_height_of_environment parameter: <span class="hljs-string">'Dimensions'</span> min: 100 &lt;- 500 category: <span class="hljs-string">'Initialization'</span>;
+    <span class="hljs-literal">int</span> number_of_agents parameter: 'Number of Agents' min: 1 &lt;- 200 category: 'Initialization';
+    <span class="hljs-literal">int</span> width_and_height_of_environment parameter: 'Dimensions' min: 100 &lt;- 500 category: 'Initialization';
     
     <span class="hljs-comment">//Distance to know if a sphere is adjacent or not with an other</span>
-    int distance parameter: <span class="hljs-string">'distance '</span> min: 1 &lt;- 100;
+    <span class="hljs-literal">int</span> distance parameter: 'distance ' min: 1 &lt;- 100;
     
     
-    int degreeMax &lt;- 1;
-    geometry shape &lt;- cube(width_and_height_of_environment);
+    <span class="hljs-literal">int</span> degreeMax &lt;- 1;
+    <span class="hljs-literal">geometry</span> shape &lt;- cube(width_and_height_of_environment);
     
     
-    graph my_graph;
+    <span class="hljs-literal">graph</span> my_graph;
     init {
         
         <span class="hljs-comment">//creation of the node agent ie the spheres with a random location in the environment</span>
@@ -38,7 +38,7 @@ global {
         }
     }
     
-    reflex updateDegreeMax {
+    <span class="hljs-builtin">reflex</span> updateDegreeMax {
         do degreeMax_computation;
     }
 
@@ -46,7 +46,7 @@ global {
         my_graph &lt;- node_agent as_distance_graph(distance);
         degreeMax &lt;- 1;
         ask node_agent {
-            if ((my_graph) degree_of (self) &gt; degreeMax) {
+            <span class="hljs-keyword">if</span> ((my_graph) degree_of (self) &gt; degreeMax) {
                 degreeMax &lt;- (my_graph) degree_of (self);
             }
         }
@@ -54,12 +54,12 @@ global {
 }
 
 
-species node_agent skills: [moving3D] {
-    int degree;
-    float radius;
-    rgb color ;
-    float speed &lt;- 5.0;
-    reflex move {
+<span class="hljs-literal">species</span> node_agent skills: [<span class="hljs-builtin">moving3D</span>] {
+    <span class="hljs-literal">int</span> degree;
+    <span class="hljs-literal">float</span> radius;
+    <span class="hljs-literal">rgb</span> color ;
+    <span class="hljs-literal">float</span> speed &lt;- 5.0;
+    <span class="hljs-builtin">reflex</span> move {
         <span class="hljs-comment">//make the agent move randomly</span>
         do wander;
         <span class="hljs-comment">//compute the degree of the agent</span>
@@ -68,7 +68,7 @@ species node_agent skills: [moving3D] {
     
     
     action compute_degree {
-        degree &lt;- my_graph = <span class="hljs-literal">nil</span> ? 0 : (my_graph) degree_of (self);
+        degree &lt;- my_graph = nil ? 0 : (my_graph) degree_of (self);
         radius &lt;- ((((degree + 1) ^ 1.4) / (degreeMax))) * 5;
         color &lt;- hsb(0.66,degree / (degreeMax + 1), 0.5);
     }
@@ -83,17 +83,17 @@ species node_agent skills: [moving3D] {
 
 }
 
-experiment Display type: gui {
+<span class="hljs-builtin">experiment</span> Display type: gui {
     output {
         display WanderingSphere type: opengl { 
-            species node_agent aspect: dynamic;
+            <span class="hljs-literal">species</span> node_agent aspect: dynamic;
             graphics <span class="hljs-string">"edges"</span> {
                 <span class="hljs-comment">//Creation of the edges of adjacence</span>
-                if (my_graph != <span class="hljs-literal">nil</span>) {
+                <span class="hljs-keyword">if</span> (my_graph != nil) {
                     loop eg over: my_graph.edges {
-                        geometry edge_geom &lt;- geometry(eg);
-                        float val &lt;- 255 * edge_geom.perimeter / distance; 
-                        draw line(edge_geom.points, 0.5)  color: rgb(val,val,val);
+                        <span class="hljs-literal">geometry</span> edge_geom &lt;- <span class="hljs-literal">geometry</span>(eg);
+                        <span class="hljs-literal">float</span> val &lt;- 255 * edge_geom.perimeter / distance; 
+                        draw line(edge_geom.points, 0.5)  color: <span class="hljs-literal">rgb</span>(val,val,val);
                     }
                 }
                 
@@ -103,15 +103,15 @@ experiment Display type: gui {
 }
 
 
-experiment SimpleDisplay type: gui {
+<span class="hljs-builtin">experiment</span> SimpleDisplay type: gui {
     output {
         display WanderingSphere type: opengl { 
-            species node_agent aspect: base;
+            <span class="hljs-literal">species</span> node_agent aspect: base;
             graphics <span class="hljs-string">"edges"</span> {
-                if (my_graph != <span class="hljs-literal">nil</span>) {
+                <span class="hljs-keyword">if</span> (my_graph != nil) {
                     loop eg over: my_graph.edges {
-                        geometry edge_geom &lt;- geometry(eg);
-                        float val &lt;- 255 * edge_geom.perimeter / distance; 
+                        <span class="hljs-literal">geometry</span> edge_geom &lt;- <span class="hljs-literal">geometry</span>(eg);
+                        <span class="hljs-literal">float</span> val &lt;- 255 * edge_geom.perimeter / distance; 
                         draw line(edge_geom.points) color:°black;
                     }
                 }

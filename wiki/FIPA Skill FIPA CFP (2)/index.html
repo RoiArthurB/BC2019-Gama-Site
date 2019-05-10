@@ -17,14 +17,14 @@ Participant3 replies with an inform_done message.
 Participant4 replies with an inform_result message.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model cfp_cfp_2
+<span class="hljs-builtin">model</span> cfp_cfp_2
 
 global {
-    int nbOfParticipants &lt;- 5;
+    <span class="hljs-literal">int</span> nbOfParticipants &lt;- 5;
     participant refuser;
-    list&lt;participant&gt; proposers;
+    <span class="hljs-literal">list</span>&lt;participant&gt; proposers;
     participant reject_proposal_participant;
-    list&lt;participant&gt; accept_proposal_participants ;
+    <span class="hljs-literal">list</span>&lt;participant&gt; accept_proposal_participants ;
     participant failure_participant;
     participant inform_done_participant;
     participant inform_result_participant;
@@ -48,101 +48,101 @@ global {
         inform_done_participant &lt;- accept_proposal_participants[1];
         inform_result_participant &lt;- accept_proposal_participants[2];
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'Please step the simulation to observe the outcome in the console'</span>;
+        write 'Please step the simulation to observe the outcome in the console';
     }
 }
 
-species initiator skills: [fipa] {
+<span class="hljs-literal">species</span> initiator skills: [<span class="hljs-builtin">fipa</span>] {
     
-    reflex send_cfp_to_participants when: (time = 1) {
+    <span class="hljs-builtin">reflex</span> send_cfp_to_participants when: (time = 1) {
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' sends a cfp message to all participants'</span>;
-        do start_conversation with: [ to :: list(participant), protocol :: <span class="hljs-string">'fipa-contract-net'</span>, performative :: <span class="hljs-string">'cfp'</span>, contents :: [<span class="hljs-string">'Go swimming'</span>] ];
+        write '(Time ' + time + '): ' + name + ' sends a cfp message to all participants';
+        do start_conversation with: [ to :: <span class="hljs-literal">list</span>(participant), protocol :: '<span class="hljs-builtin">fipa</span>-contract-net', performative :: 'cfp', contents :: ['Go swimming'] ];
     }
     
-    reflex receive_refuse_messages when: !empty(refuses) {
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives refuse messages'</span>;
+    <span class="hljs-builtin">reflex</span> receive_refuse_messages when: !empty(refuses) {
+        write '(Time ' + time + '): ' + name + ' receives refuse messages';
         
         loop r over: refuses {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' receives a refuse message from '</span> + agent(r.sender).name + <span class="hljs-string">' with content '</span> + r.contents ;
+            write '\t' + name + ' receives a refuse message from ' + <span class="hljs-literal">agent</span>(r.sender).name + ' with content ' + r.contents ;
         }
     }
     
-    reflex receive_propose_messages when: !empty(proposes) {
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives propose messages'</span>;
+    <span class="hljs-builtin">reflex</span> receive_propose_messages when: !empty(proposes) {
+        write '(Time ' + time + '): ' + name + ' receives propose messages';
         
         loop p over: proposes {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' receives a propose message from '</span> + agent(p.sender).name + <span class="hljs-string">' with content '</span> + p.contents ;
+            write '\t' + name + ' receives a propose message from ' + <span class="hljs-literal">agent</span>(p.sender).name + ' with content ' + p.contents ;
             
-            if (p.sender = reject_proposal_participant) {
-                <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends a reject_proposal message to '</span> + p.sender;
-                do reject_proposal with: [ <span class="hljs-facet">message</span> :: p, contents :: [<span class="hljs-string">'Not interested in your proposal'</span>] ];
+            <span class="hljs-keyword">if</span> (p.sender = reject_proposal_participant) {
+                write '\t' + name + ' sends a reject_proposal message to ' + p.sender;
+                do reject_proposal with: [ message :: p, contents :: ['Not interested in your proposal'] ];
             } else {
-                <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends a accept_proposal message to '</span> + p.sender;
-                do accept_proposal with: [ <span class="hljs-facet">message</span> :: p, contents :: [<span class="hljs-string">'Interesting proposal. Go do it'</span>] ];
+                write '\t' + name + ' sends a accept_proposal message to ' + p.sender;
+                do accept_proposal with: [ message :: p, contents :: ['Interesting proposal. Go do it'] ];
             }
         }
     }
     
-    reflex receive_failure_messages when: !empty(failures) {
-        <span class="hljs-facet">message</span> f &lt;- failures[0];
-        <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' receives a failure message from '</span> + agent(f.sender).name + <span class="hljs-string">' with content '</span> + f.contents ;
+    <span class="hljs-builtin">reflex</span> receive_failure_messages when: !empty(failures) {
+        message f &lt;- failures[0];
+        write '\t' + name + ' receives a failure message from ' + <span class="hljs-literal">agent</span>(f.sender).name + ' with content ' + f.contents ;
     }
     
-    reflex receive_inform_messages when: !empty(informs) {
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives inform messages'</span>;
+    <span class="hljs-builtin">reflex</span> receive_inform_messages when: !empty(informs) {
+        write '(Time ' + time + '): ' + name + ' receives inform messages';
         
         loop i over: informs {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' receives a inform message from '</span> + agent(i.sender).name + <span class="hljs-string">' with content '</span> + i.contents ;
+            write '\t' + name + ' receives a inform message from ' + <span class="hljs-literal">agent</span>(i.sender).name + ' with content ' + i.contents ;
         }
     }
 }
 
-species participant skills: [fipa] {
+<span class="hljs-literal">species</span> participant skills: [<span class="hljs-builtin">fipa</span>] {
     
-    reflex receive_cfp_from_initiator when: !empty(cfps) {
+    <span class="hljs-builtin">reflex</span> receive_cfp_from_initiator when: !empty(cfps) {
         
-        <span class="hljs-facet">message</span> proposalFromInitiator &lt;- cfps[0];
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives a cfp message from '</span> + agent(proposalFromInitiator.sender).name + <span class="hljs-string">' with content '</span> + proposalFromInitiator.contents;
+        message proposalFromInitiator &lt;- cfps[0];
+        write '(Time ' + time + '): ' + name + ' receives a cfp message from ' + <span class="hljs-literal">agent</span>(proposalFromInitiator.sender).name + ' with content ' + proposalFromInitiator.contents;
         
-        if (self = refuser) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends a refuse message to '</span> + agent(proposalFromInitiator.sender).name;
-            do refuse with: [ <span class="hljs-facet">message</span> :: proposalFromInitiator, contents :: [<span class="hljs-string">'I am busy today'</span>] ];
+        <span class="hljs-keyword">if</span> (self = refuser) {
+            write '\t' + name + ' sends a refuse message to ' + <span class="hljs-literal">agent</span>(proposalFromInitiator.sender).name;
+            do refuse with: [ message :: proposalFromInitiator, contents :: ['I am busy today'] ];
         }
         
-        if (self in proposers) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends a propose message to '</span> + agent(proposalFromInitiator.sender).name;
-            do propose with: [ <span class="hljs-facet">message</span> :: proposalFromInitiator, contents :: [<span class="hljs-string">'Ok. That sound interesting'</span>] ];
+        <span class="hljs-keyword">if</span> (self in proposers) {
+            write '\t' + name + ' sends a propose message to ' + <span class="hljs-literal">agent</span>(proposalFromInitiator.sender).name;
+            do propose with: [ message :: proposalFromInitiator, contents :: ['Ok. That sound interesting'] ];
         }
     }
     
-    reflex receive_reject_proposals when: !empty(reject_proposals) {
-        <span class="hljs-facet">message</span> r &lt;- reject_proposals[0];
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives a reject_proposal message from '</span> + agent(r.sender).name + <span class="hljs-string">' with content '</span> + r.contents;
+    <span class="hljs-builtin">reflex</span> receive_reject_proposals when: !empty(reject_proposals) {
+        message r &lt;- reject_proposals[0];
+        write '(Time ' + time + '): ' + name + ' receives a reject_proposal message from ' + <span class="hljs-literal">agent</span>(r.sender).name + ' with content ' + r.contents;
     }
     
-    reflex receive_accept_proposals when: !empty(accept_proposals) {
-        <span class="hljs-facet">message</span> a &lt;- accept_proposals[0];
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives a accept_proposal message from '</span> + agent(a.sender).name + <span class="hljs-string">' with content '</span> + a.contents;
+    <span class="hljs-builtin">reflex</span> receive_accept_proposals when: !empty(accept_proposals) {
+        message a &lt;- accept_proposals[0];
+        write '(Time ' + time + '): ' + name + ' receives a accept_proposal message from ' + <span class="hljs-literal">agent</span>(a.sender).name + ' with content ' + a.contents;
         
-        if (self = failure_participant) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends a failure message to '</span> + agent(a.sender).name;
-            do failure with: [ <span class="hljs-facet">message</span> :: a, contents :: [<span class="hljs-string">'Failure'</span>] ];
+        <span class="hljs-keyword">if</span> (self = failure_participant) {
+            write '\t' + name + ' sends a failure message to ' + <span class="hljs-literal">agent</span>(a.sender).name;
+            do failure with: [ message :: a, contents :: ['Failure'] ];
         }
         
-        if (self = inform_done_participant) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends an inform_done message to '</span> + agent(a.sender).name;
-            do inform with: [ <span class="hljs-facet">message</span> :: a, contents :: [<span class="hljs-string">'Inform done'</span>] ];
+        <span class="hljs-keyword">if</span> (self = inform_done_participant) {
+            write '\t' + name + ' sends an inform_done message to ' + <span class="hljs-literal">agent</span>(a.sender).name;
+            do inform with: [ message :: a, contents :: ['Inform done'] ];
         }
         
-        if (self = inform_result_participant) {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' sends an inform_result message to '</span> + agent(a.sender).name;
-            do inform with: [ <span class="hljs-facet">message</span> :: a, contents :: [<span class="hljs-string">'Inform result'</span>] ];
+        <span class="hljs-keyword">if</span> (self = inform_result_participant) {
+            write '\t' + name + ' sends an inform_result message to ' + <span class="hljs-literal">agent</span>(a.sender).name;
+            do inform with: [ message :: a, contents :: ['Inform result'] ];
         }
     }
 }
 
-experiment test type: gui {
+<span class="hljs-builtin">experiment</span> test type: gui {
     output {
         
     }

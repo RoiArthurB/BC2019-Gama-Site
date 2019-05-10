@@ -9,12 +9,12 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">
 
-model user_control
+<span class="hljs-builtin">model</span> user_control
 
 global {
 
-    int nbAgent &lt;- 10;
-    bool advanced_user_control &lt;- false;
+    <span class="hljs-literal">int</span> nbAgent &lt;- 10;
+    <span class="hljs-literal">bool</span> advanced_user_control &lt;- false;
     init {
         create cell number: nbAgent {
             color &lt;-°green;
@@ -23,14 +23,14 @@ global {
     }
 }
 
-species cell {
-    rgb color;  
+<span class="hljs-literal">species</span> cell {
+    <span class="hljs-literal">rgb</span> color;  
     aspect default {
         draw circle(1) color: color;
     }
 }
 
-species user control:user_only {
+<span class="hljs-literal">species</span> user control:<span class="hljs-builtin">user_only</span> {
    user_panel <span class="hljs-string">"Default"</span> initial: true {
       transition to: <span class="hljs-string">"Basic Control"</span> when: every (10) and !advanced_user_control;
       transition to: <span class="hljs-string">"Advanced Control"</span> when: every(10) and advanced_user_control;
@@ -51,13 +51,13 @@ species user control:user_only {
    }
    user_panel <span class="hljs-string">"Advanced Control"</span> {
       user_command <span class="hljs-string">"Kill cells"</span> color: #red continue: true{
-        user_input <span class="hljs-string">"Number"</span> returns: number type: int &lt;- 10;
-        ask (number among list(cell)){
+        user_input <span class="hljs-string">"Number"</span> returns: number type: <span class="hljs-literal">int</span> &lt;- 10;
+        ask (number among <span class="hljs-literal">list</span>(cell)){
            do die;
         }
       }
       user_command <span class="hljs-string">"Create cells"</span> color: #green {
-        user_input <span class="hljs-string">"Number"</span> returns: number type: int &lt;- 10;
+        user_input <span class="hljs-string">"Number"</span> returns: number type: <span class="hljs-literal">int</span> &lt;- 10;
         create cell number: number ;
       } 
       transition to: <span class="hljs-string">"Default"</span> when: true;        
@@ -65,11 +65,11 @@ species user control:user_only {
 }
 
 
-experiment Displays type: gui {
+<span class="hljs-builtin">experiment</span> Displays type: gui {
     parameter <span class="hljs-string">"advanced user control"</span> var: advanced_user_control &lt;- false;
     output { 
-        display map { 
-            species cell;
+        display <span class="hljs-literal">map</span> { 
+            <span class="hljs-literal">species</span> cell;
         }
     }
 }

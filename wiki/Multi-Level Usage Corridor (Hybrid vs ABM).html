@@ -8,39 +8,39 @@
 <p>This model shows how to use multi-level architecture. Two corridors are presented : one which can capture the pedestrians going through it and computing for them the time before releasing them at the end of the corridor, and an other doing nothing, letting the pedestrians moving by themselves in the corridor.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model pedestrian_corridor_Hybrid_vs_ABM
+<span class="hljs-builtin">model</span> pedestrian_corridor_Hybrid_vs_ABM
 
 global 
 {
     
     <span class="hljs-comment">//Parameters of the environment</span>
-    int environment_width &lt;- 200 const: true;
-    int environment_height &lt;- 200 const: true;
-    geometry shape &lt;- rectangle(environment_width, environment_height); 
+    <span class="hljs-literal">int</span> environment_width &lt;- 200 const: true;
+    <span class="hljs-literal">int</span> environment_height &lt;- 200 const: true;
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(environment_width, environment_height); 
     
     
     <span class="hljs-comment">//Parameters of the pedestrian agents</span>
-    rgb pedestrian_green &lt;- #green;
+    <span class="hljs-literal">rgb</span> pedestrian_green &lt;- #green;
     
-    float pedestrian_size &lt;- 1.0;
-    geometry pedestrian_shape &lt;- circle (pedestrian_size) ;
-    float pedestrian_speed &lt;- 2.0;
+    <span class="hljs-literal">float</span> pedestrian_size &lt;- 1.0;
+    <span class="hljs-literal">geometry</span> pedestrian_shape &lt;- circle (pedestrian_size) ;
+    <span class="hljs-literal">float</span> pedestrian_speed &lt;- 2.0;
  
     <span class="hljs-comment">//Parameters of the corridors</span>
-    rgb corridor_color &lt;- rgb (<span class="hljs-string">'blue'</span>);
-    int corridor_width &lt;- 160 depends_on: [environment_width];
-    int corridor_height &lt;- (int(environment_height * 0.05));
+    <span class="hljs-literal">rgb</span> corridor_color &lt;- <span class="hljs-literal">rgb</span> ('blue');
+    <span class="hljs-literal">int</span> corridor_width &lt;- 160 depends_on: [environment_width];
+    <span class="hljs-literal">int</span> corridor_height &lt;- (<span class="hljs-literal">int</span>(environment_height * 0.05));
 
-    point corridor_location_0 &lt;- {environment_width / 2, environment_height / 4};
-    geometry corridor_shape_0 &lt;- ( (rectangle ({corridor_width, corridor_height})) at_location corridor_location_0) ;
+    <span class="hljs-literal">point</span> corridor_location_0 &lt;- {environment_width / 2, environment_height / 4};
+    <span class="hljs-literal">geometry</span> corridor_shape_0 &lt;- ( (rectangle ({corridor_width, corridor_height})) at_location corridor_location_0) ;
 
-    point corridor_location_1 &lt;- {environment_width / 2, environment_height * 0.75};
-    geometry corridor_shape_1 &lt;- ( (rectangle ({corridor_width, corridor_height})) at_location corridor_location_1) ;
+    <span class="hljs-literal">point</span> corridor_location_1 &lt;- {environment_width / 2, environment_height * 0.75};
+    <span class="hljs-literal">geometry</span> corridor_shape_1 &lt;- ( (rectangle ({corridor_width, corridor_height})) at_location corridor_location_1) ;
 
     <span class="hljs-comment">//Parameters of pedestrian generation</span>
-    int new_pedestian_generate_frequency &lt;- 8;
-    point pedestrian_source_0 &lt;- {0, corridor_location_0.y} ;
-    point pedestrian_source_1 &lt;- {0, corridor_location_1.y} ;
+    <span class="hljs-literal">int</span> new_pedestian_generate_frequency &lt;- 8;
+    <span class="hljs-literal">point</span> pedestrian_source_0 &lt;- {0, corridor_location_0.y} ;
+    <span class="hljs-literal">point</span> pedestrian_source_1 &lt;- {0, corridor_location_1.y} ;
      
      
      
@@ -60,7 +60,7 @@ global
     }
 
     <span class="hljs-comment">//Generation of pedestrians according to the frequency of generation : one for each corridor</span>
-    reflex generate_pedestrians when: ( (cycle mod new_pedestian_generate_frequency) = 0 ) 
+    <span class="hljs-builtin">reflex</span> generate_pedestrians when: ( (cycle mod new_pedestian_generate_frequency) = 0 ) 
     { 
         create pedestrian number: 2 returns: new_pedestrians;
         
@@ -78,26 +78,26 @@ global
 
 
 <span class="hljs-comment">//Species for the pedestrians which can move</span>
-species pedestrian skills: [moving] {
-    geometry shape &lt;- circle(pedestrian_size);
-    rgb color;
+<span class="hljs-literal">species</span> pedestrian skills: [<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-literal">geometry</span> shape &lt;- circle(pedestrian_size);
+    <span class="hljs-literal">rgb</span> color;
     corridor last_corridor;
-    point target_location;
-    float speed &lt;- pedestrian_speed;
+    <span class="hljs-literal">point</span> target_location;
+    <span class="hljs-literal">float</span> speed &lt;- pedestrian_speed;
     
     <span class="hljs-comment">//Initialisation of the target location according to its generation location</span>
-    action init_location (point loc) {
+    action init_location (<span class="hljs-literal">point</span> loc) {
         location &lt;- loc;
         target_location &lt;- {environment_width, location.y};
         heading &lt;- self towards (target_location);
     }
 
     <span class="hljs-comment">//Reflex to move the agent to its target location and make it die once it reached its target</span>
-    reflex move_left 
+    <span class="hljs-builtin">reflex</span> move_left 
     {
         do move heading: (self) towards (target_location); 
         
-        if ( (target_location.x - location.x) &lt;= speed ) 
+        <span class="hljs-keyword">if</span> ( (target_location.x - location.x) &lt;= speed ) 
         {
             do die;
         }
@@ -110,23 +110,23 @@ species pedestrian skills: [moving] {
 }
 
 <span class="hljs-comment">//Species for the corridor which can capture pedestrians</span>
-species corridor  {
-    bool capture_pedestrians;
+<span class="hljs-literal">species</span> corridor  {
+    <span class="hljs-literal">bool</span> capture_pedestrians;
     
     
-    action init_corridor (geometry corridor_shape, bool is_hybrid) 
+    action init_corridor (<span class="hljs-literal">geometry</span> corridor_shape, <span class="hljs-literal">bool</span> is_hybrid) 
     {
         shape &lt;- corridor_shape;
         capture_pedestrians &lt;- is_hybrid;
     }
 
-    float max_speed &lt;- pedestrian_speed;
-    float macro_length min: 0.0 &lt;- float(corridor_width); <span class="hljs-comment">// the length of macro_patch</span>
+    <span class="hljs-literal">float</span> max_speed &lt;- pedestrian_speed;
+    <span class="hljs-literal">float</span> macro_length min: 0.0 &lt;- <span class="hljs-literal">float</span>(corridor_width); <span class="hljs-comment">// the length of macro_patch</span>
     
     <span class="hljs-comment">//Species to model the pedestrian captured by the corridor</span>
-    species captured_pedestrian parent: pedestrian schedules: [] 
+    <span class="hljs-literal">species</span> captured_pedestrian parent: pedestrian schedules: [] 
     {
-        float released_time;  
+        <span class="hljs-literal">float</span> released_time;  
         
         aspect default { }
     }
@@ -136,20 +136,20 @@ species corridor  {
         create corridor_info_drawer number: 1 with: [target :: self];
     }
     <span class="hljs-comment">//Reflex to capture the pedestrians overlapping the corridor ie entering the corridor </span>
-    reflex aggregate when: capture_pedestrians 
+    <span class="hljs-builtin">reflex</span> aggregate when: capture_pedestrians 
     {
-        list&lt;pedestrian&gt; tobe_captured_pedestrians &lt;- (pedestrian overlapping shape) where ( (each.last_corridor != self) and ((each.location).x &lt; (self.location).x) ) ; 
+        <span class="hljs-literal">list</span>&lt;pedestrian&gt; tobe_captured_pedestrians &lt;- (pedestrian overlapping shape) where ( (each.last_corridor != self) and ((each.location).x &lt; (self.location).x) ) ; 
         
-        if !(empty (tobe_captured_pedestrians)) 
+        <span class="hljs-keyword">if</span> !(empty (tobe_captured_pedestrians)) 
         {
             capture tobe_captured_pedestrians as: captured_pedestrian returns: cps { 
                 last_corridor &lt;- myself;
             }
-            if !(empty (cps)) 
+            <span class="hljs-keyword">if</span> !(empty (cps)) 
             {
                     <span class="hljs-comment">//Computation of the time when the pedestrians captured will be released according to the speed</span>
                     <span class="hljs-comment">// and the time they should make to pass the corridor if they move by themselves</span>
-                    float group_outgoing_time &lt;- time + (corridor_width / (pedestrian_speed) ); 
+                    <span class="hljs-literal">float</span> group_outgoing_time &lt;- time + (corridor_width / (pedestrian_speed) ); 
                     loop cp over: cps 
                     {
                             cp.released_time &lt;- group_outgoing_time;
@@ -160,11 +160,11 @@ species corridor  {
     }
     
     <span class="hljs-comment">//Reflex to release the pedestrians when we consider they were enough time inside the corridor </span>
-    reflex disaggregate  
+    <span class="hljs-builtin">reflex</span> disaggregate  
     {
-        list tobe_released_pedestrians &lt;- members where (time &gt;= (captured_pedestrian (each)).released_time);
+        <span class="hljs-literal">list</span> tobe_released_pedestrians &lt;- members where (time &gt;= (captured_pedestrian (each)).released_time);
         
-        if !(empty (tobe_released_pedestrians)) 
+        <span class="hljs-keyword">if</span> !(empty (tobe_released_pedestrians)) 
         {
             
             release tobe_released_pedestrians as: pedestrian in: world returns: released_pedestrians;
@@ -183,33 +183,33 @@ species corridor  {
     }
 }
  
-species corridor_info_drawer 
+<span class="hljs-literal">species</span> corridor_info_drawer 
 {
     corridor target;
     
     aspect base 
     {
-        if target.capture_pedestrians 
+        <span class="hljs-keyword">if</span> target.capture_pedestrians 
         {
-            draw <span class="hljs-string">'Hybrid model (coupling: ABM and Mathematical Model)'</span> color: #blue size: 7 at: {(target.location).x - 90, (target.location).y - 10};
-            draw  <span class="hljs-string">'Aggregated agents: '</span> + string(length(target.members)) color: #black size: 7 at: {(target.location).x - 30, (target.location).y + 2};
+            draw 'Hybrid <span class="hljs-builtin">model</span> (coupling: ABM and Mathematical Model)' color: #blue size: 7 at: {(target.location).x - 90, (target.location).y - 10};
+            draw  'Aggregated agents: ' + <span class="hljs-literal">string</span>(length(target.members)) color: #black size: 7 at: {(target.location).x - 30, (target.location).y + 2};
         } 
         else 
         {
-            draw <span class="hljs-string">'Agent-Based Model (ABM)'</span> color: #blue size: 7 at: {(target.location).x - 40, (target.location).y - 10};
+            draw 'Agent-Based Model (ABM)' color: #blue size: 7 at: {(target.location).x - 40, (target.location).y - 10};
         }
     }
 }
 
-experiment default_experiment type: gui 
+<span class="hljs-builtin">experiment</span> default_experiment type: gui 
 {
     output 
     {
         display default_display 
         {
-            species pedestrian;
-            species corridor transparency: 0.8;
-            species corridor_info_drawer aspect: base;
+            <span class="hljs-literal">species</span> pedestrian;
+            <span class="hljs-literal">species</span> corridor transparency: 0.8;
+            <span class="hljs-literal">species</span> corridor_info_drawer aspect: base;
         }
     }
 }

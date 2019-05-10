@@ -69,8 +69,8 @@
 <h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
 <h3><a class="anchor" aria-hidden="true" id="building"></a><a href="#building" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>building</h3>
 <p>First, we add a new variable for buildings (<strong>height</strong>) of type float from 10m to 20m. Then we modify the aspect in order to specify a depth for the geometry (using the <strong>depth</strong> facet).</p>
-<pre><code class="hljs">species building {
-    float height &lt;- 10#m + rnd(10) #m;
+<pre><code class="hljs"><span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">float</span> height &lt;- 10#m + rnd(10) #m;
     aspect geom {
         draw shape color: #gray depth: height;
     }
@@ -78,8 +78,8 @@
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="road"></a><a href="#road" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>road</h3>
 <p>Concerning the road,  we add a new variable (<strong>display_shape</strong>) of type geometry that correspond to the shape of the road with a buffer of 2 meters. Then we modify the aspect in order to display this geometry instead of the shape of the agent. In order to avoid &quot;z-fighting&quot; problems, we add a depth to the geometry (of 3 meters).</p>
-<pre><code class="hljs">species road {
-    geometry display_shape &lt;- shape + 2.0;
+<pre><code class="hljs"><span class="hljs-literal">species</span> road {
+    <span class="hljs-literal">geometry</span> display_shape &lt;- shape + 2.0;
     aspect geom {
         draw display_shape color: #black depth: 3.0;
     }
@@ -89,13 +89,13 @@
 <p>We define a new global variable called <strong>is_night</strong> of type <em>bool</em> to indicate if it is night or not. This variable will be update at each simulation step and will be <em>true</em> if the <strong>current_hour</strong> is lower than 7h or higher than 20h.</p>
 <pre><code class="hljs">global{
     ...
-        bool is_night &lt;- true update: current_hour &lt; 7 or current_hour &gt; 20;
+        <span class="hljs-literal">bool</span> is_night &lt;- true update: current_hour &lt; 7 or current_hour &gt; 20;
        ...
 }
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="people"></a><a href="#people" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>people</h3>
 <p>We define a new aspect for the people agent called <strong>sphere3D</strong>. This aspect draw people agent as a 3m sphere. In order to avoid to cut the sphere in half, we translate the centroid of the drawn sphere to 3m along the z axis.</p>
-<pre><code class="hljs">species people skills:[moving]{     
+<pre><code class="hljs"><span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
     ...
     aspect sphere3D{
         draw sphere(3) at: {location.x,location.y,location.z + 3} color:is_infected ? #red : #green;
@@ -108,41 +108,41 @@
 The statement <code>light</code> allows us to declare a light. We can change up to 7 lights, called through the facet &quot;id&quot;. The default light is a white light, directional, with the id=1. You can set the intensity of the light through the facet &quot;color&quot; (you can pass a color, or an integer between 0 and 255). To have a nice effect night / day, we will set the intensity of the light to 50 during the night, and 255 for the day. To learn more about light, please read this <a href="ManipulateLight">page</a>.</p>
 <p>Then, we add a new layer that consists in an image (soil.jpg) by using the <strong>image</strong> statement.
 In order to see the people inside the building, we add transparency to the building (0.5). The transparency of a layer is a float value between 0 (solid) and 1 (totally transparent). In order to be able to manage this transparency aspect, opengl has to draw the people agents before the building, thus we modify the order of drawing of the different layers (people agents before building agents). At last, we modify the aspect of the people agents by the new one: <strong>sphere3D</strong>.</p>
-<pre><code class="hljs">experiment main_experiment type:gui{
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> main_experiment type:gui{
     ...
     output {
         ...
         display map_3D type: opengl {
             light 1 color:(is_night ? 50 : 255);
             image <span class="hljs-string">"../includes/soil.jpg"</span>;
-            species road aspect:geom;
-            species people aspect:sphere3D;         
-            species building aspect:geom transparency: 0.5;
+            <span class="hljs-literal">species</span> road aspect:geom;
+            <span class="hljs-literal">species</span> people aspect:sphere3D;         
+            <span class="hljs-literal">species</span> building aspect:geom transparency: 0.5;
         }
         ...
     }
 }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
-<pre><code class="hljs">model model5 
+<pre><code class="hljs"><span class="hljs-builtin">model</span> model5 
  
 global {
-    int nb_people &lt;- 500;
-    float step &lt;- 1 #minutes;
-    float infection_distance &lt;- 2.0 #m;
-    float proba_infection &lt;- 0.05;
-    int nb_infected_init &lt;- 5;
-    file roads_shapefile &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
-    file buildings_shapefile &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
-    geometry shape &lt;- envelope(roads_shapefile);
-    graph road_network;
-    int current_hour update: (cycle / 60) mod 24;
-    float staying_coeff update: 10.0 ^ (1 + min([abs(current_hour - 9), abs(current_hour - 12), abs(current_hour - 18)]));
-    int nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
-    int nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
-    bool is_night &lt;- true update: current_hour &lt; 7 or current_hour &gt; 20;
+    <span class="hljs-literal">int</span> nb_people &lt;- 500;
+    <span class="hljs-literal">float</span> step &lt;- 1 #minutes;
+    <span class="hljs-literal">float</span> infection_distance &lt;- 2.0 #m;
+    <span class="hljs-literal">float</span> proba_infection &lt;- 0.05;
+    <span class="hljs-literal">int</span> nb_infected_init &lt;- 5;
+    <span class="hljs-literal">file</span> roads_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-literal">file</span> buildings_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(roads_shapefile);
+    <span class="hljs-literal">graph</span> road_network;
+    <span class="hljs-literal">int</span> current_hour update: (cycle / 60) mod 24;
+    <span class="hljs-literal">float</span> staying_coeff update: 10.0 ^ (1 + min([abs(current_hour - 9), abs(current_hour - 12), abs(current_hour - 18)]));
+    <span class="hljs-literal">int</span> nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
+    <span class="hljs-literal">int</span> nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
+    <span class="hljs-literal">bool</span> is_night &lt;- true update: current_hour &lt; 7 or current_hour &gt; 20;
     
-    float infected_rate update: nb_people_infected/length(people);
+    <span class="hljs-literal">float</span> infected_rate update: nb_people_infected/length(people);
     init {
         create road from: roads_shapefile;
         road_network &lt;- as_edge_graph(road);
@@ -156,32 +156,32 @@ global {
             is_infected &lt;- true;
         }
     }
-    reflex end_simulation when: infected_rate = 1.0 {
+    <span class="hljs-builtin">reflex</span> end_simulation when: infected_rate = 1.0 {
         do halt;
     }
 }
 
-species people skills:[moving]{     
-    bool is_infected &lt;- false;
-    point target;
-    int staying_counter;
-    reflex stay when: target = <span class="hljs-literal">nil</span> {
+<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+    <span class="hljs-literal">bool</span> is_infected &lt;- false;
+    <span class="hljs-literal">point</span> target;
+    <span class="hljs-literal">int</span> staying_counter;
+    <span class="hljs-builtin">reflex</span> stay when: target = nil {
         staying_counter &lt;- staying_counter + 1;
-        if flip(staying_counter / staying_coeff) {
+        <span class="hljs-keyword">if</span> flip(staying_counter / staying_coeff) {
             target &lt;- any_location_in (one_of(building));
         }
     }
         
-    reflex move when: target != <span class="hljs-literal">nil</span>{
+    <span class="hljs-builtin">reflex</span> move when: target != nil{
         do goto target:target on: road_network;
-        if (location = target) {
-            target &lt;- <span class="hljs-literal">nil</span>;
+        <span class="hljs-keyword">if</span> (location = target) {
+            target &lt;- nil;
             staying_counter &lt;- 0;
         } 
     }
-    reflex infect when: is_infected{
+    <span class="hljs-builtin">reflex</span> infect when: is_infected{
         ask people at_distance infection_distance {
-            if flip(proba_infection) {
+            <span class="hljs-keyword">if</span> flip(proba_infection) {
                 is_infected &lt;- true;
             }
         }
@@ -194,21 +194,21 @@ species people skills:[moving]{
     }
 }
 
-species road {
-    geometry display_shape &lt;- shape + 2.0;
+<span class="hljs-literal">species</span> road {
+    <span class="hljs-literal">geometry</span> display_shape &lt;- shape + 2.0;
     aspect geom {
         draw display_shape color: #black depth: 3.0;
     }
 }
 
-species building {
-    float height &lt;- 10#m + rnd(10) #m;
+<span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">float</span> height &lt;- 10#m + rnd(10) #m;
     aspect geom {
         draw shape color: #gray depth: height;
     }
 }
 
-experiment main_experiment type:gui{
+<span class="hljs-builtin">experiment</span> main_experiment type:gui{
     parameter <span class="hljs-string">"Infection distance"</span> var: infection_distance;
     parameter <span class="hljs-string">"Proba infection"</span> var: proba_infection min: 0.0 max: 1.0;
     parameter <span class="hljs-string">"Nb people infected at init"</span> var: nb_infected_init ;
@@ -218,9 +218,9 @@ experiment main_experiment type:gui{
         display map_3D type: opengl {
             light 1 color:(is_night ? 50 : 255);
             image <span class="hljs-string">"../includes/soil.jpg"</span>;
-            species road aspect:geom;
-            species people aspect:sphere3D;         
-            species building aspect:geom transparency: 0.5;
+            <span class="hljs-literal">species</span> road aspect:geom;
+            <span class="hljs-literal">species</span> people aspect:sphere3D;         
+            <span class="hljs-literal">species</span> building aspect:geom transparency: 0.5;
         }
         display chart refresh:every(10) {
             chart <span class="hljs-string">"Disease spreading"</span> type: series {

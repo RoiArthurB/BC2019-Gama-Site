@@ -14,19 +14,19 @@
 <li>to allow any agent to be serialized</li>
 </ul>
 <p>Example of use of the two operators:</p>
-<pre><code class="hljs">experiment toto {
-    list&lt;string&gt; history &lt;- [];
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> toto {
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; history &lt;- [];
 
-    reflex store when: (cycle &lt; 6){
+    <span class="hljs-builtin">reflex</span> store when: (cycle &lt; 6){
         add serializeSimulation(cycle) to: history;
     }
     
-    reflex restore when: (cycle = 6){
-        int i &lt;- unSerializeSimulation(string(history[0]));
+    <span class="hljs-builtin">reflex</span> restore when: (cycle = 6){
+        <span class="hljs-literal">int</span> i &lt;- unSerializeSimulation(<span class="hljs-literal">string</span>(history[0]));
     } 
     
-    reflex store22 when: cycle=2{
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Sauvegarde de la simulation "</span> + saveSimulation(<span class="hljs-string">"file.xml"</span>);
+    <span class="hljs-builtin">reflex</span> store22 when: cycle=2{
+        write <span class="hljs-string">"Sauvegarde de la simulation "</span> + saveSimulation(<span class="hljs-string">"file.xml"</span>);
     }
 }
 </code></pre>

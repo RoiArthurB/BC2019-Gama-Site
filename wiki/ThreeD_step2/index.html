@@ -70,10 +70,10 @@
 <h4><a class="anchor" aria-hidden="true" id="global-variable"></a><a href="#global-variable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Global variable</h4>
 <p>We use a new global variable called _environmentSize_that to define the size of our 3D environment.
 In the global section we define the new variable</p>
-<pre><code class="hljs">int environmentSize &lt;-100;
+<pre><code class="hljs"><span class="hljs-literal">int</span> environmentSize &lt;-100;
 </code></pre>
 <p>Then we redefine the shape of the world (by default the shape of the world is a 100x100 square) as cube that will have the size defined by the <em>environment_size</em> variable. To do so we change the shape of the world in the <strong>global</strong> section:</p>
-<pre><code class="hljs">geometry shape &lt;- cube(environmentSize);    
+<pre><code class="hljs"><span class="hljs-literal">geometry</span> shape &lt;- cube(environmentSize);    
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="model-initialization"></a><a href="#model-initialization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model initialization</h4>
 <p>When we create the <strong>cells</strong> agent we want to place them randomly in the 3D environement. To do so we set the location with a random value for <em>x</em>, <em>y</em> and <em>z</em> between 0 and <em>environmentSize</em>.</p>
@@ -84,12 +84,12 @@ In the global section we define the new variable</p>
 <h3><a class="anchor" aria-hidden="true" id="moving3d-skills"></a><a href="#moving3d-skills" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Moving3D skills</h3>
 <p>In the previous example, we only created <strong>cells</strong> agent that did not have any behavior. In this step we want to make move the <strong>cells</strong> agent. To do so we add a <strong>moving3D</strong> skills to the cells.</p>
 <p>More information on built-in skills proposed by Gama can be found <a href="BuiltInSkills">here</a></p>
-<pre><code class="hljs">species cells skills:[moving3D]{
+<pre><code class="hljs"><span class="hljs-literal">species</span> cells skills:[<span class="hljs-builtin">moving3D</span>]{
 ...     
 }
 </code></pre>
 <p>Then we define a new reflex for the species <strong>cells</strong> that consists in calling the action <em>move</em> bundled in <strong>moving3D</strong> skills.</p>
-<pre><code class="hljs">reflex move{
+<pre><code class="hljs"><span class="hljs-builtin">reflex</span> move{
   do move;
 }                       
 </code></pre>
@@ -110,18 +110,18 @@ In the global section we define the new variable</p>
     graphics <span class="hljs-string">"env"</span>{
       draw cube(environmentSize) color: #black empty:true;  
     }
-    species cells;  
+    <span class="hljs-literal">species</span> cells;  
   }
 }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
 <p>The GIT version of the model can be found here [Model 02.gaml](<a href="https://github.com/gama-platform/gama/tree/master/msi.gama.models/models/Tutorials/3D/models/Model">https://github.com/gama-platform/gama/tree/master/msi.gama.models/models/Tutorials/3D/models/Model</a> 02.gaml)</p>
-<pre><code class="hljs">model Tuto3D   
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Tuto3D   
 
 global {
-  int nb_cells &lt;-100;
-  int environmentSize &lt;-100;
-  geometry shape &lt;- cube(environmentSize);  
+  <span class="hljs-literal">int</span> nb_cells &lt;-100;
+  <span class="hljs-literal">int</span> environmentSize &lt;-100;
+  <span class="hljs-literal">geometry</span> shape &lt;- cube(environmentSize);  
   init { 
     create cells number: nb_cells { 
       location &lt;- {rnd(environmentSize), rnd(environmentSize), rnd(environmentSize)};       
@@ -129,9 +129,9 @@ global {
   }  
 } 
   
-species cells skills:[moving3D]{  
+<span class="hljs-literal">species</span> cells skills:[<span class="hljs-builtin">moving3D</span>]{  
     
-  reflex move{
+  <span class="hljs-builtin">reflex</span> move{
     do move;
   }                     
   aspect default {
@@ -139,14 +139,14 @@ species cells skills:[moving3D]{
   }
 }
 
-experiment Tuto3D  type: gui {
+<span class="hljs-builtin">experiment</span> Tuto3D  type: gui {
   parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span> ;
   output {
     display View1 type:opengl{
       graphics <span class="hljs-string">"env"</span>{
         draw cube(environmentSize) color: #black empty:true;    
       }
-      species cells;
+      <span class="hljs-literal">species</span> cells;
     }
   }
 }

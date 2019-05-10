@@ -9,21 +9,21 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">
 
-model obj_drawing   
+<span class="hljs-builtin">model</span> obj_drawing   
 
 global {
-    geometry shape &lt;- square(40);
+    <span class="hljs-literal">geometry</span> shape &lt;- square(40);
 
     init { 
         create object number: 30;
     }  
 } 
 
-species object skills: [moving]{
-    rgb color &lt;- rgb(rnd(255),rnd(255),rnd(255));
-    int size &lt;- rnd(10) + 1;
-    int rot &lt;- 1000 + rnd(1000);
-    reflex m when: every(100) {
+<span class="hljs-literal">species</span> object skills: [<span class="hljs-builtin">moving</span>]{
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(rnd(255),rnd(255),rnd(255));
+    <span class="hljs-literal">int</span> size &lt;- rnd(10) + 1;
+    <span class="hljs-literal">int</span> rot &lt;- 1000 + rnd(1000);
+    <span class="hljs-builtin">reflex</span> m when: every(100) {
         do wander amplitude: 30 speed: 0.001;
     }
     aspect obj {
@@ -31,10 +31,10 @@ species object skills: [moving]{
     }
 }   
 
-experiment Display  type: gui {
+<span class="hljs-builtin">experiment</span> Display  type: gui {
     output {
         display ComplexObject type: opengl background:°orange{
-            species object aspect:obj;              
+            <span class="hljs-literal">species</span> object aspect:obj;              
         }
     }
 }

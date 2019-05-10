@@ -8,19 +8,19 @@
 <p>This is a model that shows how the physics engine work by displaying two species (a floor and balls). Ball agents use the skill physical3D. The ball agents fall on a floor and fall from the floor to the void.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model FallingHelloWorld
+<span class="hljs-builtin">model</span> FallingHelloWorld
 
 
 
 global {
-    int environment_size &lt;- 500; 
+    <span class="hljs-literal">int</span> environment_size &lt;- 500; 
  
      
-    int number_of_ball parameter: <span class="hljs-string">'Number of ball'</span> min:1 &lt;- 100  category: <span class="hljs-string">'Model'</span>; 
-    int ball_radius parameter: <span class="hljs-string">'Ball radius'</span> min:1 &lt;- 25  category: <span class="hljs-string">'Model'</span>; 
+    <span class="hljs-literal">int</span> number_of_ball parameter: 'Number of ball' min:1 &lt;- 100  category: 'Model'; 
+    <span class="hljs-literal">int</span> ball_radius parameter: 'Ball radius' min:1 &lt;- 25  category: 'Model'; 
     
-    file imageRaster &lt;- file(<span class="hljs-string">'./../images/wood-floor.jpg'</span>) ;
-    geometry shape &lt;- square(environment_size);
+    <span class="hljs-literal">file</span> imageRaster &lt;- <span class="hljs-literal">file</span>('./../images/wood-floor.jpg') ;
+    <span class="hljs-literal">geometry</span> shape &lt;- square(environment_size);
     
     
     <span class="hljs-comment">//Physic World used to simulate gravity and compute forces</span>
@@ -30,7 +30,7 @@ global {
     init {
         create ball number: number_of_ball{
             location &lt;-  {rnd(environment_size),rnd(environment_size),rnd(environment_size)};
-            radius &lt;-float(rnd(ball_radius)+1);
+            radius &lt;-<span class="hljs-literal">float</span>(rnd(ball_radius)+1);
             <span class="hljs-comment">//Bounds to compute the collision for the ball agents</span>
             collisionBound &lt;-  [<span class="hljs-string">"shape"</span>::<span class="hljs-string">"sphere"</span>,<span class="hljs-string">"radius"</span>::radius];
             mass &lt;-1.0;
@@ -46,44 +46,44 @@ global {
         create physic_world{
           world2 &lt;- self;
           <span class="hljs-comment">//Add to the agents that will be used to compute the forces.</span>
-          ask world2 {agents &lt;-  (ball as list) + (ground as list);}
+          ask world2 {agents &lt;-  (ball as <span class="hljs-literal">list</span>) + (ground as <span class="hljs-literal">list</span>);}
           <span class="hljs-comment">//Boolean to set gravity  </span>
           world2.gravity &lt;- true;
         }
     }
     
     <span class="hljs-comment">//Reflex to compute the forces at each step</span>
-    reflex computeForces  {
+    <span class="hljs-builtin">reflex</span> computeForces  {
       ask world2 {do compute_forces step: 1;}
     }           
 } 
 
 
-species physic_world parent: physical_world ;
+<span class="hljs-literal">species</span> physic_world parent: physical_world ;
 
-species ground skills: [physics]{       
+<span class="hljs-literal">species</span> ground skills: [<span class="hljs-builtin">physics</span>]{       
     aspect image{
         draw imageRaster size: environment_size;
     }
 }
  
-species ball skills: [physics] {  
-    rgb color &lt;- rgb (217,229,143); 
-    float radius;
+<span class="hljs-literal">species</span> ball skills: [<span class="hljs-builtin">physics</span>] {  
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span> (217,229,143); 
+    <span class="hljs-literal">float</span> radius;
 
     aspect sphere{
         draw sphere(radius) color: color ;
     }   
 }
-experiment Falling_Hello_world type: gui {
+<span class="hljs-builtin">experiment</span> Falling_Hello_world type: gui {
     init{
         minimum_cycle_duration &lt;-0.001;
     }
     
     output {        
-        display Rain  type: opengl background:rgb(0,58,64) draw_env:false{
-            species ground aspect:image;
-            species ball aspect:sphere;         
+        display Rain  type: opengl background:<span class="hljs-literal">rgb</span>(0,58,64) draw_env:false{
+            <span class="hljs-literal">species</span> ground aspect:image;
+            <span class="hljs-literal">species</span> ball aspect:sphere;         
         }
     }
 }

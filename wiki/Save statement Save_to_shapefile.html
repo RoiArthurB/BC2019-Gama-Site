@@ -8,11 +8,11 @@
 <p>This is a model that shows how to save agents inside a Shapefile to reuse it later or to keep it.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model Savetoshapefile
+<span class="hljs-builtin">model</span> Savetoshapefile
 
 global {
     init {
-        geometry free_space &lt;- copy(shape);
+        <span class="hljs-literal">geometry</span> free_space &lt;- copy(shape);
         
         <span class="hljs-comment">//creation of the building agents that will be saved</span>
         create building number: 50 {
@@ -26,16 +26,16 @@ global {
 }
 
 <span class="hljs-comment">//species that represent the building agents that will be saved</span>
-species building {
-    string type &lt;- flip(0.8) ? <span class="hljs-string">"residential"</span> : <span class="hljs-string">"industrial"</span>;
+<span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">string</span> type &lt;- flip(0.8) ? <span class="hljs-string">"residential"</span> : <span class="hljs-string">"industrial"</span>;
     aspect default {
         draw shape color: type = <span class="hljs-string">"residential"</span> ? #gray : #pink;
     }
 }
-experiment main type: gui {
+<span class="hljs-builtin">experiment</span> main type: gui {
     output {
-        display map {
-            species building;
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> building;
         }
     }
 }

@@ -88,13 +88,13 @@
 <h2><a class="anchor" aria-hidden="true" id="equation"></a><a href="#equation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>equation</code></h2>
 <h3><a class="anchor" aria-hidden="true" id="defining-an-ode-system"></a><a href="#defining-an-ode-system" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining an ODE system</h3>
 <p>Defining a new ODE system needs to define a new <code>equation</code> block in a species. As example, the following <code>eqSI</code> system describes the evolution of a population with 2 compartments (S and I) and the flow from S to I compartment:</p>
-<pre><code class="hljs">species userSI {
-    float t ;
-    float I ; 
-    float S ; 
-    int N ;
-    float beta&lt;-0.4 ;
-    float h ;
+<pre><code class="hljs"><span class="hljs-literal">species</span> userSI {
+    <span class="hljs-literal">float</span> t ;
+    <span class="hljs-literal">float</span> I ; 
+    <span class="hljs-literal">float</span> S ; 
+    <span class="hljs-literal">int</span> N ;
+    <span class="hljs-literal">float</span> beta&lt;-0.4 ;
+    <span class="hljs-literal">float</span> h ;
     
     equation eqSI {
         diff(S,t) = -beta * S * I / N ;
@@ -116,21 +116,21 @@
 <h3><a class="anchor" aria-hidden="true" id="split-a-system-into-several-agents"></a><a href="#split-a-system-into-several-agents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Split a system into several agents</h3>
 <p>An equation system can be split into several species and each part of the system are synchronized using the <code>simultaneously</code> facet of <code>equation</code>. The system split into several agents can be integrated using a single call to the <code>solve</code> statement. Notice that all the <code>equation</code> definition must have the same name.</p>
 <p>For example the SI system presented above can be defined in two different species <code>S_agt</code> (containing the equation defining the evolution of the S value) and <code>I_agt</code> (containing the equation defining the evolution of the I value). These two equations are linked using the <code>simultaneously</code> facet of the <code>equation</code> statement. This facet expects a set of agents. The integration is called only once in a simulation step, e.g. in the <code>S_agt</code> agent.</p>
-<pre><code class="hljs">species S_agt {
-    float t ;       
-    float Ssize ;
+<pre><code class="hljs"><span class="hljs-literal">species</span> S_agt {
+    <span class="hljs-literal">float</span> t ;       
+    <span class="hljs-literal">float</span> Ssize ;
     
     equation evol simultaneously: [ I_agt ] {
         diff(Ssize, t) = (- sum(I_agt accumulate [each.beta * each.Isize]) * self.Ssize / N);
     }
     
-    reflex solving {solve evol method : rk4 step : hKR4 ;}  
+    <span class="hljs-builtin">reflex</span> solving {solve evol method : rk4 step : hKR4 ;}  
 }
 
-species I_agt {
-    float t ;
-    float Isize ; <span class="hljs-comment">// number of infected </span>
-    float beta ;
+<span class="hljs-literal">species</span> I_agt {
+    <span class="hljs-literal">float</span> t ;
+    <span class="hljs-literal">float</span> Isize ; <span class="hljs-comment">// number of infected </span>
+    <span class="hljs-literal">float</span> beta ;
 
     equation evol simultaneously : [ S_agt ] {
         diff(Isize, t) = (beta * first(S_agt).Ssize * Isize / N);
@@ -139,20 +139,20 @@ species I_agt {
 </code></pre>
 <p>The interest is that the modeler can create several agents for each compartment, which different values. For example in the SI model, the modeler can choose to create 1 agent <code>S_agt</code> and 2 agents <code>I_agt</code>. The <code>beta</code> attribute will have different values in the two agents, in order to represent 2 different strains.</p>
 <pre><code class="hljs">global {
-    int number_S &lt;- 495 ; <span class="hljs-comment">// The number of susceptible</span>
-    int number_I &lt;- 5   ; <span class="hljs-comment">// The number of infected</span>
-    int nb_I &lt;- 2;
-    float gbeta  &lt;- 0.3  ; <span class="hljs-comment">// The parameter Beta</span>
+    <span class="hljs-literal">int</span> number_S &lt;- 495 ; <span class="hljs-comment">// The number of susceptible</span>
+    <span class="hljs-literal">int</span> number_I &lt;- 5   ; <span class="hljs-comment">// The number of infected</span>
+    <span class="hljs-literal">int</span> nb_I &lt;- 2;
+    <span class="hljs-literal">float</span> gbeta  &lt;- 0.3  ; <span class="hljs-comment">// The parameter Beta</span>
     
-    int N &lt;- number_S + nb_I * number_I ;
-    float hKR4 &lt;- 0.1 ;
+    <span class="hljs-literal">int</span> N &lt;- number_S + nb_I * number_I ;
+    <span class="hljs-literal">float</span> hKR4 &lt;- 0.1 ;
 
     init {
         create S_agt {
-            Ssize &lt;- float(number_S) ;
+            Ssize &lt;- <span class="hljs-literal">float</span>(number_S) ;
         }
         create I_agt number: nb_I {
-            Isize &lt;- float(number_I) ;
+            Isize &lt;- <span class="hljs-literal">float</span>(number_I) ;
             self.beta &lt;- myself.gbeta + rnd(0.5) ;
         }
     }
@@ -169,7 +169,7 @@ species I_agt {
 <p><img src="../resources/images/multiParadigmModeling/SI-split-results.png" alt="SI-split-results.png"></p>
 <h2><a class="anchor" aria-hidden="true" id="solve-an-equation"></a><a href="#solve-an-equation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>solve</code> an equation</h2>
 <p>The <code>solve</code> statement has been added in order to integrate numerically the equation system. It should be add into a reflex. At each simulation step, a step of the integration is executed, the length of the integration step is defined in the <code>step</code> facet. The <code>solve</code> statement will update the variables used in the equation system. The chosen integration method (defined in <code>method</code>) is Runge-Kutta 4 (which is very often a good choice of integration method in terms of accuracy).</p>
-<pre><code class="hljs">reflex solving {
+<pre><code class="hljs"><span class="hljs-builtin">reflex</span> solving {
     solve eqSI method:rk4 step:h;
 }
 </code></pre>

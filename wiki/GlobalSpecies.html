@@ -80,9 +80,9 @@ In the global species you can define the attributes, actions and behaviors that 
 <p>Directly in the <code>global</code> scope, you have to declare all your global attributes (can be seen as &quot;static members&quot; in Java or C++). To declare them, proceed exactly as for declaring basic variables. Those attributes are accessible wherever you want inside the species scope.</p>
 <h2><a class="anchor" aria-hidden="true" id="environment-size"></a><a href="#environment-size" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Environment size</h2>
 <p>In the global context, you have to define a size and a shape for your environment. In fact, an attribute already exists for the global species: it's called shape, and its type is a geometry. By default, shape is equal to a 100m*100m square. You can change the geometry of the shape by affecting another value:</p>
-<pre><code class="hljs">geometry shape &lt;- circle(50#mm);
-geometry shape &lt;- rectangle(10#m,20#m);
-geometry shape &lt;- polygon([{1°m,2°m},{3°m,50°cm},{3.4°m,60°dm}]);
+<pre><code class="hljs"><span class="hljs-literal">geometry</span> shape &lt;- circle(50#mm);
+<span class="hljs-literal">geometry</span> shape &lt;- rectangle(10#m,20#m);
+<span class="hljs-literal">geometry</span> shape &lt;- polygon([{1°m,2°m},{3°m,50°cm},{3.4°m,60°dm}]);
 </code></pre>
 <p>nb: there are just examples. Try to avoid mixing dimensions! If no dimensions are specify, it'll be meter by default.</p>
 <h2><a class="anchor" aria-hidden="true" id="built-in-attributes"></a><a href="#built-in-attributes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Built-in attributes</h2>
@@ -104,7 +104,7 @@ geometry shape &lt;- polygon([{1°m,2°m},{3°m,50°cm},{3.4°m,60°dm}]);
 <p>To learn more about time, please read the <a href="ManipulateDates">recipe about dates</a>.</p>
 <pre><code class="hljs">global {
 ...
-    float step &lt;- 10°h;
+    <span class="hljs-literal">float</span> step &lt;- 10°h;
 ...
 }
 </code></pre>
@@ -114,7 +114,7 @@ geometry shape &lt;- polygon([{1°m,2°m},{3°m,50°cm},{3.4°m,60°dm}]);
 </ul>
 <pre><code class="hljs">global {
 ...
-    int nb_minutes function: { int(time / 60)};
+    <span class="hljs-literal">int</span> nb_minutes function: { <span class="hljs-literal">int</span>(time / 60)};
 ...
 }
 </code></pre>
@@ -157,7 +157,7 @@ geometry shape &lt;- polygon([{1°m,2°m},{3°m,50°cm},{3.4°m,60°dm}]);
 </ul>
 <pre><code class="hljs">global {
      ...
-     reflex halting when: empty (agents) {
+     <span class="hljs-builtin">reflex</span> halting when: empty (agents) {
             do halt;
      }
 }
@@ -168,7 +168,7 @@ geometry shape &lt;- polygon([{1°m,2°m},{3°m,50°cm},{3.4°m,60°dm}]);
 </ul>
 <pre><code class="hljs">global {
      ...
-     reflex toto when: time = 100 {
+     <span class="hljs-builtin">reflex</span> toto when: time = 100 {
             do pause;
      }
 }

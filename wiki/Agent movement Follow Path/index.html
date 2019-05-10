@@ -7,10 +7,10 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Movement of an agent on different paths</h1></header><article><div><span><p>_Author : _</p>
 <p>Model showing the movement of an agent following three different paths : one defined by its vertices, an other defined thanks to all the roads species, and finally a path defined by a graph with weights (graph created thanks to an other species)</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model path_and_follow
+<pre><code class="hljs"><span class="hljs-builtin">model</span> path_and_follow
 
 global{
-    graph the_graph;
+    <span class="hljs-literal">graph</span> the_graph;
     init{
             <span class="hljs-comment">//It is possible to define a road by defining its shape, being a line. The line need to be created by passing the location of the vertices</span>
        create road {
@@ -30,7 +30,7 @@ global{
             shape &lt;- line([{75,35},{85,40},{80,60}]);
        }
        <span class="hljs-comment">//It is possible to define a weights map by linking the road and their weights (the road will be the key of the weight)</span>
-       map&lt;road_of_graph,float&gt; weight_map &lt;- road_of_graph as_map (each::each.shape.perimeter * 10);
+       <span class="hljs-literal">map</span>&lt;road_of_graph,<span class="hljs-literal">float</span>&gt; weight_map &lt;- road_of_graph as_map (each::each.shape.perimeter * 10);
        
        <span class="hljs-comment">//A graph can be defined by using a list or all the agents of a species and it is possible to use a map of weights with each key </span>
        <span class="hljs-comment">// of the map being a road to link the road and its weight</span>
@@ -44,32 +44,32 @@ global{
     }  
 }
 
-species myCircle skills:[moving]{
+<span class="hljs-literal">species</span> myCircle skills:[<span class="hljs-builtin">moving</span>]{
     <span class="hljs-comment">//The different ways to declare a path : declaring all the lines of the path using their vertices</span>
     <span class="hljs-comment">//                            using a list of agents representing the lines of the path</span>
     <span class="hljs-comment">//                            using the graph as a path</span>
     
     
-    path path_to_follow1 &lt;- path([{0,0},{10,10},{0,20},{20,30},{20,40},{0,50}]);    
-    path path_to_follow2 &lt;- path(list(road));   
-    path path_to_follow3 &lt;- list(road_of_graph) as_path the_graph;  
+    <span class="hljs-literal">path</span> path_to_follow1 &lt;- <span class="hljs-literal">path</span>([{0,0},{10,10},{0,20},{20,30},{20,40},{0,50}]);    
+    <span class="hljs-literal">path</span> path_to_follow2 &lt;- <span class="hljs-literal">path</span>(<span class="hljs-literal">list</span>(road));   
+    <span class="hljs-literal">path</span> path_to_follow3 &lt;- <span class="hljs-literal">list</span>(road_of_graph) as_path the_graph;  
     
     <span class="hljs-comment">//These two variables will change when the cycle will be higher than 100 and 200</span>
-    path path_following&lt;- path_to_follow1;
-    rgb color &lt;- #green;
+    <span class="hljs-literal">path</span> path_following&lt;- path_to_follow1;
+    <span class="hljs-literal">rgb</span> color &lt;- #green;
     
-    reflex myfollow{ 
+    <span class="hljs-builtin">reflex</span> myfollow{ 
         <span class="hljs-comment">//The operator follow make the agent move from the starting vertice of the starting edge of a path to the last vertice of the last edge of the path</span>
         <span class="hljs-comment">// but following the edges of the concerned path</span>
-        do follow path: path_following; 
-        if(cycle&gt;200)
+        do follow <span class="hljs-literal">path</span>: path_following; 
+        <span class="hljs-keyword">if</span>(cycle&gt;200)
         {
             path_following&lt;- path_to_follow3;   
             color&lt;-#pink;
         }
         else
         {
-            if(cycle&gt;100)
+            <span class="hljs-keyword">if</span>(cycle&gt;100)
             {
                 path_following&lt;- path_to_follow2;   
                 color&lt;-#blue;
@@ -87,25 +87,25 @@ species myCircle skills:[moving]{
     } 
 }
 
-species road {
+<span class="hljs-literal">species</span> road {
     aspect base {
       draw shape color:#blue ;  
       
     } 
 }
 
-species road_of_graph {
+<span class="hljs-literal">species</span> road_of_graph {
     aspect base {
       draw shape color:#red ;   
       
     } 
 }
 
-experiment main type: gui {
-    float minimum_cycle_duration &lt;- 0.10;
+<span class="hljs-builtin">experiment</span> main type: gui {
+    <span class="hljs-literal">float</span> minimum_cycle_duration &lt;- 0.10;
     output {
         display myView { 
-            species myCircle aspect:base; 
+            <span class="hljs-literal">species</span> myCircle aspect:base; 
         }
     }
 }

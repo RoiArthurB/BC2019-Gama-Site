@@ -8,13 +8,13 @@
 <p>Model which shows how to create a graph using agents of a species as vertices. Two kinds of generations are presented : one where the distance taken into account to link two vertices by an edge, an other where the intersections of two vertices joins these vertices by an edge.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model graphbuilding
+<span class="hljs-builtin">model</span> graphbuilding
 
 global {
-    graph&lt;geometry, geometry&gt; the_graph ;
-    string graph_builing_type &lt;- <span class="hljs-string">"distance"</span>;
-    float distance &lt;- 20.0;
-    float tolerance &lt;- 0.0;
+    <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt; the_graph ;
+    <span class="hljs-literal">string</span> graph_builing_type &lt;- <span class="hljs-string">"distance"</span>;
+    <span class="hljs-literal">float</span> distance &lt;- 20.0;
+    <span class="hljs-literal">float</span> tolerance &lt;- 0.0;
     init {
         create dummy_agent number: 30; 
         switch graph_builing_type {
@@ -25,26 +25,26 @@ global {
                 the_graph &lt;- as_intersection_graph(dummy_agent, tolerance); 
             }   
         }
-        <span class="hljs-statement">write</span> <span class="hljs-string">"nb vertices: "</span> + length(the_graph.vertices);
-        <span class="hljs-statement">write</span> <span class="hljs-string">"nb edges: "</span> + length(the_graph.edges);
+        write <span class="hljs-string">"nb vertices: "</span> + length(the_graph.vertices);
+        write <span class="hljs-string">"nb edges: "</span> + length(the_graph.edges);
     }
     
 }
 
-species dummy_agent {
-    geometry shape &lt;- square (5);
+<span class="hljs-literal">species</span> dummy_agent {
+    <span class="hljs-literal">geometry</span> shape &lt;- square (5);
     aspect default {    
         draw shape color: #red;
     }
 }
 
-experiment loadgraph type: gui {
+<span class="hljs-builtin">experiment</span> loadgraph type: gui {
     parameter <span class="hljs-string">"Method to build the graph"</span> var: graph_builing_type among: [ <span class="hljs-string">"distance"</span>, <span class="hljs-string">"intersection"</span>];
     parameter <span class="hljs-string">"Tolerance"</span> var: tolerance min: 0.0 max: 2.0 category: <span class="hljs-string">"Intersection"</span>;
     parameter <span class="hljs-string">"Distance"</span> var: distance min: 1.0 max: 50.0 category: <span class="hljs-string">"Distance"</span>;
     output {
-        display map {
-            species dummy_agent ;
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> dummy_agent ;
             graphics <span class="hljs-string">"the graph"</span> {
                 loop edge over: the_graph.edges {
                     draw edge color: #blue;

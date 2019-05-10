@@ -8,32 +8,32 @@
 <p>Model presenting a 3D display with all the primitive shapes existing in GAMA in 2D and 3D, with or without textures.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model shape   
+<span class="hljs-builtin">model</span> shape   
 
 global {
     
-    file gamaRaster &lt;- file(<span class="hljs-string">'../images/Gama.png'</span>);
+    <span class="hljs-literal">file</span> gamaRaster &lt;- <span class="hljs-literal">file</span>('../images/Gama.png');
     
-    int size &lt;- 10;
-    list&lt;geometry&gt; geometries2D &lt;-[point([0,0]),line ([{0,0},{size,size}]),polyline([{0,0},{size/2,size/2},{0,size}]),circle(size),square(size),rectangle(size,size*1.5),triangle(size),hexagon(size)];
-    list&lt;geometry&gt; texturedGeometries2D &lt;-[point([0,0]),line ([{0,0},{size,size}]),polyline([{0,0},{size/2,size/2},{0,size}]),circle(size),square(size),rectangle(size,size*1.5),triangle(size),hexagon(size)]; 
-    list&lt;geometry&gt; geometries3D &lt;-[sphere(size/2),plan ([{0,0},{size,size}],size),polyplan([{0,0},{size/2,size/2},{0,size}],size),cylinder(size,size),cube(size),box(size,size*1.5,size*0.5),pyramid(size),polyhedron([{-1*size/2,0.5*size/2}, {-0.5*size/2,1*size/2}, {0.5*size/2,1*size/2}, {1*size/2,0.5*size/2},{1*size/2,-0.5*size/2},{0.5*size/2,-1*size/2},{-0.5*size/2,-1*size/2},{-1*size/2,-0.5*size/2}],size)];
-    list&lt;geometry&gt; texturedGeometries &lt;-[sphere(size/2),plan ([{0,0},{size,size}],size),polyplan([{0,0},{size/2,size/2},{0,size}],size),cylinder(size,size),cube(size),box(size,size*1.5,size*0.5),pyramid(size),polyhedron([{-1*size/2,0.5*size/2}, {-0.5*size/2,1*size/2}, {0.5*size/2,1*size/2}, {1*size/2,0.5*size/2},{1*size/2,-0.5*size/2},{0.5*size/2,-1*size/2},{-0.5*size/2,-1*size/2},{-1*size/2,-0.5*size/2}],size)];
+    <span class="hljs-literal">int</span> size &lt;- 10;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; geometries2D &lt;-[<span class="hljs-literal">point</span>([0,0]),line ([{0,0},{size,size}]),polyline([{0,0},{size/2,size/2},{0,size}]),circle(size),square(size),rectangle(size,size*1.5),triangle(size),hexagon(size)];
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; texturedGeometries2D &lt;-[<span class="hljs-literal">point</span>([0,0]),line ([{0,0},{size,size}]),polyline([{0,0},{size/2,size/2},{0,size}]),circle(size),square(size),rectangle(size,size*1.5),triangle(size),hexagon(size)]; 
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; geometries3D &lt;-[sphere(size/2),plan ([{0,0},{size,size}],size),polyplan([{0,0},{size/2,size/2},{0,size}],size),cylinder(size,size),cube(size),box(size,size*1.5,size*0.5),pyramid(size),polyhedron([{-1*size/2,0.5*size/2}, {-0.5*size/2,1*size/2}, {0.5*size/2,1*size/2}, {1*size/2,0.5*size/2},{1*size/2,-0.5*size/2},{0.5*size/2,-1*size/2},{-0.5*size/2,-1*size/2},{-1*size/2,-0.5*size/2}],size)];
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; texturedGeometries &lt;-[sphere(size/2),plan ([{0,0},{size,size}],size),polyplan([{0,0},{size/2,size/2},{0,size}],size),cylinder(size,size),cube(size),box(size,size*1.5,size*0.5),pyramid(size),polyhedron([{-1*size/2,0.5*size/2}, {-0.5*size/2,1*size/2}, {0.5*size/2,1*size/2}, {1*size/2,0.5*size/2},{1*size/2,-0.5*size/2},{0.5*size/2,-1*size/2},{-0.5*size/2,-1*size/2},{-1*size/2,-0.5*size/2}],size)];
     
    
     
-    geometry shape &lt;- rectangle(length(geometries3D)*size*2,size*6);
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(length(geometries3D)*size*2,size*6);
 
     init { 
         
-        int curGeom2D &lt;-0;
+        <span class="hljs-literal">int</span> curGeom2D &lt;-0;
         create Geometry2D number: length(geometries2D){ 
             location &lt;- {size+curGeom2D*size*2, 0, 0};  
             myGeometry &lt;- geometries2D[curGeom2D];
             curGeom2D &lt;- curGeom2D+1;
         }
         
-        int curTextGeom2D &lt;-0;
+        <span class="hljs-literal">int</span> curTextGeom2D &lt;-0;
         create TexturedGeometry2D number: length(texturedGeometries2D){ 
             location &lt;- {size+curTextGeom2D*size*2, size*2, 0}; 
             myGeometry &lt;- texturedGeometries2D[curTextGeom2D];
@@ -41,14 +41,14 @@ global {
             curTextGeom2D &lt;- curTextGeom2D+1;       
         }
         
-        int curGeom3D &lt;-0;
+        <span class="hljs-literal">int</span> curGeom3D &lt;-0;
         create Geometry3D number: length(geometries3D){ 
             location &lt;- {size+curGeom3D*size*2, size*4.0, 0};   
             myGeometry &lt;- geometries3D[curGeom3D];
             curGeom3D &lt;- curGeom3D+1;
         } 
         
-        int curTextGeom &lt;-0;
+        <span class="hljs-literal">int</span> curTextGeom &lt;-0;
         create TexturedGeometry3D number: length(texturedGeometries){ 
             location &lt;- {size+curTextGeom*size*2, size*6.0, 0}; 
             myGeometry &lt;- texturedGeometries[curTextGeom];
@@ -58,51 +58,51 @@ global {
     }  
 } 
  
-species Geometry2D{  
+<span class="hljs-literal">species</span> Geometry2D{  
 
-    geometry myGeometry;
+    <span class="hljs-literal">geometry</span> myGeometry;
     
     aspect default {
         draw myGeometry color:°orange at:location border:#red;
     }
 } 
 
-species TexturedGeometry2D{  
+<span class="hljs-literal">species</span> TexturedGeometry2D{  
 
-    geometry myGeometry;
-    file myTexture;
+    <span class="hljs-literal">geometry</span> myGeometry;
+    <span class="hljs-literal">file</span> myTexture;
     
     aspect default {
-        draw myGeometry texture:myTexture.path at:location border:#red;
+        draw myGeometry texture:myTexture.<span class="hljs-literal">path</span> at:location border:#red;
     }
 } 
     
-species Geometry3D{  
+<span class="hljs-literal">species</span> Geometry3D{  
 
-    geometry myGeometry;
+    <span class="hljs-literal">geometry</span> myGeometry;
 
     aspect default {
         draw myGeometry color:°orange at:location border:#red;
     }
 }
 
-species TexturedGeometry3D{  
+<span class="hljs-literal">species</span> TexturedGeometry3D{  
 
-    geometry myGeometry;
-    file myTexture;
+    <span class="hljs-literal">geometry</span> myGeometry;
+    <span class="hljs-literal">file</span> myTexture;
 
     aspect default {
-        draw myGeometry texture:myTexture.path at:location border:#red;
+        draw myGeometry texture:myTexture.<span class="hljs-literal">path</span> at:location border:#red;
     }
 }
 
-experiment Display  type: gui {
+<span class="hljs-builtin">experiment</span> Display  type: gui {
     output {
-        display View1 type:opengl  background:rgb(10,40,55) {
-            species Geometry2D aspect:default;
-            species TexturedGeometry2D aspect:default;
-            species Geometry3D aspect:default;
-            species TexturedGeometry3D aspect:default;
+        display View1 type:opengl  background:<span class="hljs-literal">rgb</span>(10,40,55) {
+            <span class="hljs-literal">species</span> Geometry2D aspect:default;
+            <span class="hljs-literal">species</span> TexturedGeometry2D aspect:default;
+            <span class="hljs-literal">species</span> Geometry3D aspect:default;
+            <span class="hljs-literal">species</span> TexturedGeometry3D aspect:default;
         }
 
     }

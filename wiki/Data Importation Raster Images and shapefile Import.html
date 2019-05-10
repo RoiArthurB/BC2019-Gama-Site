@@ -8,67 +8,67 @@
 <p>Model which imports data from a raster file and two shapefiles to initilalize a grid and two species. The roaster file initialize a grid attribute for the cells and the shapefiles a river species just with the same shape, and the managementUnit species with a link between the columns of the shapefile and the attributes of the species.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model RasterAndShapefiles
+<span class="hljs-builtin">model</span> RasterAndShapefiles
 
 
  
 global {
     <span class="hljs-comment">// Constants</span>
-    int heightImg const: true &lt;- 5587;
-    int widthImg const: true &lt;- 6201;   
-    file boundsMNT const: true &lt;- file(<span class="hljs-string">"../images/mnt/boundsMNT.shp"</span>); 
+    <span class="hljs-literal">int</span> heightImg const: true &lt;- 5587;
+    <span class="hljs-literal">int</span> widthImg const: true &lt;- 6201;   
+    <span class="hljs-literal">file</span> boundsMNT const: true &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../images/mnt/boundsMNT.shp"</span>); 
     
     
 <span class="hljs-comment">// The environment bounds are defined using the hand-made boundsMNT shapefile.</span>
 <span class="hljs-comment">// This shapefile has been created as a georeferenced bounding box of the MNT raster image, using information of the .pgw file</span>
-    geometry shape &lt;- envelope(boundsMNT);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(boundsMNT);
     
     <span class="hljs-comment">// Global variables related to the MNT</span>
-    file mntImageRaster &lt;- image_file(<span class="hljs-string">'../images/mnt/testAG.jpg'</span>) ;
-    int factorDiscret  &lt;- 10;
+    <span class="hljs-literal">file</span> mntImageRaster &lt;- image_file('../images/mnt/testAG.jpg') ;
+    <span class="hljs-literal">int</span> factorDiscret  &lt;- 10;
     
     <span class="hljs-comment">// Global variables  related to the Management units    </span>
-    file ManagementUnitShape &lt;- file(<span class="hljs-string">'../images/ug/UGSelect.shp'</span>);
+    <span class="hljs-literal">file</span> ManagementUnitShape &lt;- <span class="hljs-literal">file</span>('../images/ug/UGSelect.shp');
     
     <span class="hljs-comment">// Global variables  related to the water network</span>
-    file waterShape &lt;- file(<span class="hljs-string">'../images/reseauHydro/reseauEau.shp'</span>);
+    <span class="hljs-literal">file</span> waterShape &lt;- <span class="hljs-literal">file</span>('../images/reseauHydro/reseauEau.shp');
 
     <span class="hljs-comment">// Global variables  related to izard agents</span>
-    int nbIzard &lt;- 25 ;
-    file izardShape &lt;-file(<span class="hljs-string">'../images/icons/izard.gif'</span>) ;
+    <span class="hljs-literal">int</span> nbIzard &lt;- 25 ;
+    <span class="hljs-literal">file</span> izardShape &lt;-<span class="hljs-literal">file</span>('../images/icons/izard.gif') ;
         
     <span class="hljs-comment">// Initialization of grid and creation of the izard agents.</span>
     <span class="hljs-comment">// Creation of managmentUnit and rivers agents from the corresponding shapefile</span>
     init {
         create managementUnit from: ManagementUnitShape 
-                with: [MUcode::int(read(<span class="hljs-string">'Code_UG'</span>)), MULabel::string(read(<span class="hljs-string">'Libelle_UG'</span>)), pgeSAGE::string(read(<span class="hljs-string">'PGE_SAGE'</span>))] ;
+                with: [MUcode::<span class="hljs-literal">int</span>(read('Code_UG')), MULabel::<span class="hljs-literal">string</span>(read('Libelle_UG')), pgeSAGE::<span class="hljs-literal">string</span>(read('PGE_SAGE'))] ;
                 
         create river from: waterShape;
                 
-        matrix&lt;int&gt; mapColor &lt;- matrix&lt;int&gt;(mntImageRaster as_matrix {widthImg/factorDiscret,heightImg/factorDiscret}) ;
+        <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">int</span>&gt; mapColor &lt;- <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">int</span>&gt;(mntImageRaster as_matrix {widthImg/factorDiscret,heightImg/factorDiscret}) ;
         ask cell {      
-            color &lt;- rgb( mapColor at {grid_x,grid_y} );
+            color &lt;- <span class="hljs-literal">rgb</span>( mapColor at {grid_x,grid_y} );
         }
         create izard number: nbIzard;           
     }
 }
 
-species river {
+<span class="hljs-literal">species</span> river {
     aspect default{
         draw shape color: #blue;
     }   
 }
 
-species managementUnit{
-    int MUcode;
-    string MULabel;
-    string pgeSAGE;
+<span class="hljs-literal">species</span> managementUnit{
+    <span class="hljs-literal">int</span> MUcode;
+    <span class="hljs-literal">string</span> MULabel;
+    <span class="hljs-literal">string</span> pgeSAGE;
     
     aspect default{
         draw shape;
     }
 }   
-species izard { 
+<span class="hljs-literal">species</span> izard { 
     init{
         location &lt;- (shuffle(cell) first_with ((each.color != #white) and (empty(izard inside each)))).location ;
     }   
@@ -86,7 +86,7 @@ grid cell width: widthImg/factorDiscret height: heightImg/factorDiscret;
 
 
 
-experiment main type: gui {
+<span class="hljs-builtin">experiment</span> main type: gui {
     
     <span class="hljs-comment">// We display:</span>
     <span class="hljs-comment">// - the original MNT image as background</span>
@@ -98,11 +98,11 @@ experiment main type: gui {
     <span class="hljs-comment">// For cosmetic need, we can choose to not display the grid. </span>
     output {
         display HowToImportVectorial {
-            image <span class="hljs-string">'Background'</span> file: mntImageRaster.path;       
+            image 'Background' <span class="hljs-literal">file</span>: mntImageRaster.<span class="hljs-literal">path</span>;       
             grid cell;
-            species managementUnit transparency: 0.5;
-            species river ;
-            species izard aspect: image;  
+            <span class="hljs-literal">species</span> managementUnit transparency: 0.5;
+            <span class="hljs-literal">species</span> river ;
+            <span class="hljs-literal">species</span> izard aspect: image;  
         }
     }
 }

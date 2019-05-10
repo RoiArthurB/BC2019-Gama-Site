@@ -19,7 +19,7 @@
 <li><p>A conversation is automatically ended in case of GamaRuntimeException raised. Hence this conversation ends.</p></li>
 </ul>
 <p>Code of the model :</p>
-<pre><code class="hljs">model fipa_request_4
+<pre><code class="hljs"><span class="hljs-builtin">model</span> fipa_request_4
 
 global {
     Participant p;
@@ -30,44 +30,44 @@ global {
         
         p &lt;- ps at 0;
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'Step the simulation to observe the outcome in the console'</span>;
+        write 'Step the simulation to observe the outcome in the console';
     }
 }
 
-species Initiator skills: [fipa] {
-    reflex print_debug_infor {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' with conversations: '</span> + (string(conversations)) + <span class="hljs-string">'; messages: '</span> + (string(mailbox));
+<span class="hljs-literal">species</span> Initiator skills: [<span class="hljs-builtin">fipa</span>] {
+    <span class="hljs-builtin">reflex</span> print_debug_infor {
+        write name + ' with conversations: ' + (<span class="hljs-literal">string</span>(conversations)) + '; messages: ' + (<span class="hljs-literal">string</span>(mailbox));
     }
     
-    reflex send_request when: (time = 1) {
-        <span class="hljs-statement">write</span> <span class="hljs-string">'send message'</span>;
-        do start_conversation with: [ to :: [p], protocol :: <span class="hljs-string">'fipa-request'</span>, performative :: <span class="hljs-string">'request'</span>, contents :: [<span class="hljs-string">'go sleeping'</span>] ];
+    <span class="hljs-builtin">reflex</span> send_request when: (time = 1) {
+        write 'send message';
+        do start_conversation with: [ to :: [p], protocol :: '<span class="hljs-builtin">fipa</span>-request', performative :: 'request', contents :: ['go sleeping'] ];
     }
     
-    reflex read_refuse_message when: !(empty(refuses)) {
-        <span class="hljs-statement">write</span> <span class="hljs-string">'read refuse messages'</span>;
+    <span class="hljs-builtin">reflex</span> read_refuse_message when: !(empty(refuses)) {
+        write 'read refuse messages';
         loop r over: refuses {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'refuse message with content: '</span> + string(r.contents);
+            write 'refuse message with content: ' + <span class="hljs-literal">string</span>(r.contents);
         }
     }
 }
 
-species Participant skills: [fipa] {
-    reflex print_debug_infor {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' with conversations: '</span> + (string(conversations)) + <span class="hljs-string">'; messages: '</span> + (string(mailbox));
+<span class="hljs-literal">species</span> Participant skills: [<span class="hljs-builtin">fipa</span>] {
+    <span class="hljs-builtin">reflex</span> print_debug_infor {
+        write name + ' with conversations: ' + (<span class="hljs-literal">string</span>(conversations)) + '; messages: ' + (<span class="hljs-literal">string</span>(mailbox));
     }
 
-    reflex reply_messages when: (!empty(mailbox)) {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' sends an inform message'</span>;
+    <span class="hljs-builtin">reflex</span> reply_messages when: (!empty(mailbox)) {
+        write name + ' sends an inform message';
         
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'A GamaRuntimeException is raised to inform that the message\'s performative doesn\'t respect the \'request\' interaction protocol\' specification'</span>;
-        do inform with: [ <span class="hljs-facet">message</span> :: (mailbox at 0), contents :: [<span class="hljs-string">'I don\'t want'</span>] ]; <span class="hljs-comment">// Attention: note that GAMA will raise an exception because an 'inform' message is not appropriate here.</span>
+        write 'A GamaRuntimeException is raised to inform that the message\'s performative doesn\'t respect the \'request\' interaction protocol\' specification';
+        do inform with: [ message :: (mailbox at 0), contents :: ['I don\'t want'] ]; <span class="hljs-comment">// Attention: note that GAMA will raise an exception because an 'inform' message is not appropriate here.</span>
     }
 }
 
 
-experiment test_request_interaction_protocol type: gui {}
+<span class="hljs-builtin">experiment</span> test_request_interaction_protocol type: gui {}
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {

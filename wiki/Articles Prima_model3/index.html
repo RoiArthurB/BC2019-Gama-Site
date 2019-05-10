@@ -7,17 +7,17 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Prima 3</h1></header><article><div><span><p>_Author : _</p>
 <p>This model shows how to create agent and make them move randomly in the world.Some agents are infected, and others can gain the infection if they are in a certain range. The people are now placed in buildings at the initial state. Those buildings are created thanks toa shapefile. Roads are also created thanks to an other shapefile. A graph is now created fromthe road agents, and the people move from their location to a targent on the graph.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model model3 
+<pre><code class="hljs"><span class="hljs-builtin">model</span> model3 
  
 global {
     <span class="hljs-comment">//Shapefile for the roads</span>
-    file roads_shapefile &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-literal">file</span> roads_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
     <span class="hljs-comment">//Shapefile for the buildings</span>
-    file buildings_shapefile &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-literal">file</span> buildings_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
     <span class="hljs-comment">//The bounds of the world are the same as the bounds of the roads shapefile</span>
-    geometry shape &lt;- envelope(roads_shapefile);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(roads_shapefile);
     <span class="hljs-comment">//We need now a graph on which people will move</span>
-    graph road_network;
+    <span class="hljs-literal">graph</span> road_network;
     init {
         <span class="hljs-comment">//Create the roads using the shapefiles</span>
         create roads from: roads_shapefile;
@@ -33,22 +33,22 @@ global {
     }
 }
 <span class="hljs-comment">//Species people that will move from a location to a target</span>
-species people skills:[moving]{     
-    float speed &lt;- 5.0 + rnd(5);
-    bool is_infected &lt;- flip(0.01);
-    point target;
+<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+    <span class="hljs-literal">float</span> speed &lt;- 5.0 + rnd(5);
+    <span class="hljs-literal">bool</span> is_infected &lt;- flip(0.01);
+    <span class="hljs-literal">point</span> target;
     <span class="hljs-comment">//Reflex to make the agent move to a target</span>
-    reflex move {
+    <span class="hljs-builtin">reflex</span> move {
         do goto target:target on: road_network;
         <span class="hljs-comment">//Each time the agent is at the target's location, chose an other target</span>
-        if (location = target) {
+        <span class="hljs-keyword">if</span> (location = target) {
             target &lt;- any_location_in(one_of(buildings));
         }
     }
     <span class="hljs-comment">//check if the agent is infected if it is not infected already and if there are infected people nearby</span>
-    reflex infect when: is_infected{
+    <span class="hljs-builtin">reflex</span> infect when: is_infected{
         ask people at_distance 10 {
-            if flip(0.01) {
+            <span class="hljs-keyword">if</span> flip(0.01) {
                 is_infected &lt;- true;
             }
         }
@@ -58,24 +58,24 @@ species people skills:[moving]{
     }
 }
 
-species roads {
+<span class="hljs-literal">species</span> roads {
     aspect geom {
         draw shape color: #black;
     }
 }
 
-species buildings {
+<span class="hljs-literal">species</span> buildings {
     aspect geom {
         draw shape color: #gray;
     }
 }
 
-experiment main_experiment type:gui{
+<span class="hljs-builtin">experiment</span> main_experiment type:gui{
     output {
-        display map {
-            species roads aspect:geom;
-            species buildings aspect:geom;
-            species people aspect:circle;           
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> roads aspect:geom;
+            <span class="hljs-literal">species</span> buildings aspect:geom;
+            <span class="hljs-literal">species</span> people aspect:circle;           
         }
     }
 }

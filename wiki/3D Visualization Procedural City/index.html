@@ -8,17 +8,17 @@
 <p>Model with a 3D Display representing buildings with a random size. The model proposes two experiments : the first one represents the buildings with 3D shapes with textures, the second one without textures but the color of the buildings depends on the rotation of a ball-shaped light</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model procedural_city   
+<span class="hljs-builtin">model</span> procedural_city   
 
 global {
-    int number_of_building parameter: <span class="hljs-string">'Number of Agents'</span> min: 1 &lt;- 300 category: <span class="hljs-string">'Initialization'</span>;
-    int width_and_height_of_environment parameter: <span class="hljs-string">'Dimensions'</span> min: 10 &lt;- 500 category: <span class="hljs-string">'Initialization'</span>;
+    <span class="hljs-literal">int</span> number_of_building parameter: 'Number of Agents' min: 1 &lt;- 300 category: 'Initialization';
+    <span class="hljs-literal">int</span> width_and_height_of_environment parameter: 'Dimensions' min: 10 &lt;- 500 category: 'Initialization';
     
-    geometry shape &lt;- square(width_and_height_of_environment);
+    <span class="hljs-literal">geometry</span> shape &lt;- square(width_and_height_of_environment);
         
-    file roof_texture &lt;- file(<span class="hljs-string">'../images/building_texture/roof_top.png'</span>) ;      
-    list textures &lt;- [file(<span class="hljs-string">'../images/building_texture/texture1.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture2.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture3.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture4.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture5.jpg'</span>),
-    file(<span class="hljs-string">'../images/building_texture/texture6.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture7.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture8.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture9.jpg'</span>),file(<span class="hljs-string">'../images/building_texture/texture10.jpg'</span>)];
+    <span class="hljs-literal">file</span> roof_texture &lt;- <span class="hljs-literal">file</span>('../images/building_texture/roof_top.png') ;      
+    <span class="hljs-literal">list</span> textures &lt;- [<span class="hljs-literal">file</span>('../images/building_texture/texture1.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture2.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture3.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture4.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture5.jpg'),
+    <span class="hljs-literal">file</span>('../images/building_texture/texture6.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture7.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture8.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture9.jpg'),<span class="hljs-literal">file</span>('../images/building_texture/texture10.jpg')];
 
     init { 
       create Building number:number_of_building{
@@ -31,14 +31,14 @@ global {
 
 } 
 
-species Building{
-    float width;
-    float height;
-    float depth;
-    int angle;          
-    file texture;
+<span class="hljs-literal">species</span> Building{
+    <span class="hljs-literal">float</span> width;
+    <span class="hljs-literal">float</span> height;
+    <span class="hljs-literal">float</span> depth;
+    <span class="hljs-literal">int</span> angle;          
+    <span class="hljs-literal">file</span> texture;
     
-    reflex shuffle{
+    <span class="hljs-builtin">reflex</span> shuffle{
          width &lt;- (rnd(100)/100)*(rnd(100)/100)*(rnd(100)/100)*50+10;
          depth &lt;-   (rnd(100)/100)*(rnd(100)/100)*(rnd(100)/100*width)*10+10;
         shape &lt;- box(width, width, depth) rotated_by rnd(360);
@@ -49,23 +49,23 @@ species Building{
     }
     
     aspect textured {
-        draw shape texture:[roof_texture.path,texture.path] ;
+        draw shape texture:[roof_texture.<span class="hljs-literal">path</span>,texture.<span class="hljs-literal">path</span>] ;
     }
 }   
 
 
-experiment DisplayTextured  type: gui {
+<span class="hljs-builtin">experiment</span> DisplayTextured  type: gui {
     output {
-      display City type:opengl background:rgb(10,40,55){
-            species Building aspect:textured;                           
+      display City type:opengl background:<span class="hljs-literal">rgb</span>(10,40,55){
+            <span class="hljs-literal">species</span> Building aspect:textured;                           
         }
     }
 }
-experiment DisplayWithDynamicDiffuseLight  type: gui {
+<span class="hljs-builtin">experiment</span> DisplayWithDynamicDiffuseLight  type: gui {
     output {
-      display City type:opengl background:rgb(10,40,55){
-            light 1 type:point color:hsb((time mod 255) /255,1.0 ,0.5) position:{world.shape.width*0.5+ world.shape.width*1.5*sin(time*2),world.shape.width*0.5,world.shape.width*cos(time*2)} draw_light:true update:true;
-            species Building aspect:base;                                   
+      display City type:opengl background:<span class="hljs-literal">rgb</span>(10,40,55){
+            light 1 type:<span class="hljs-literal">point</span> color:hsb((time mod 255) /255,1.0 ,0.5) position:{world.shape.width*0.5+ world.shape.width*1.5*sin(time*2),world.shape.width*0.5,world.shape.width*cos(time*2)} draw_light:true update:true;
+            <span class="hljs-literal">species</span> Building aspect:base;                                   
         }
     }
 }

@@ -69,15 +69,15 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="create-a-simulation"></a><a href="#create-a-simulation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create a simulation</h2>
 <p>Let's remind you that in GAMA, everything is an <strong>agent</strong>. We already saw that the <strong>&quot;world&quot; agent</strong> is the <strong>agent of the model</strong>. The model is thus a <strong>species</strong>, called modelName_model :</p>
-<pre><code class="hljs">model toto <span class="hljs-comment">// &lt;- the name of the species is "toto_model"</span>
+<pre><code class="hljs"><span class="hljs-builtin">model</span> toto <span class="hljs-comment">// &lt;- the name of the species is "toto_model"</span>
 </code></pre>
 <p>New highlight of the day : an <strong>Experiment</strong> is also an agent ! It's a special agent which will instantiate automatically an agent from the model species. You can then perfectly create agents (<em>model</em> agents) from your experiment, using the statement <code>create</code> :</p>
-<pre><code class="hljs">model multi_simulations <span class="hljs-comment">// the "world" is an instance of the "multi_simulations_model"</span>
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations <span class="hljs-comment">// the "world" is an instance of the "multi_simulations_model"</span>
 
 global {
 }
 
-experiment my_experiment type:gui  {
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
     init {
         create multi_simulations_model;
     }
@@ -89,13 +89,13 @@ experiment my_experiment type:gui  {
 create simulation;
 </code></pre>
 <p>As it was the case for creating regular species, you can specify the parameters of your agent during the creation through the facet <code>with:</code> :</p>
-<pre><code class="hljs">model multi_simulations
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
 global {
-    rgb bgd_color;
+    <span class="hljs-literal">rgb</span> bgd_color;
 }
 
-experiment my_experiment type:gui  {
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
     parameter name:<span class="hljs-string">"background color:"</span> var:bgd_color init:#blue;
     init {
         create simulation with:[bgd_color::#red];
@@ -108,18 +108,18 @@ experiment my_experiment type:gui  {
 <h2><a class="anchor" aria-hidden="true" id="manipulate-simulations"></a><a href="#manipulate-simulations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Manipulate simulations</h2>
 <p>When you think the simulations as agents, it gives you a lot of new possibilities. You can for example create a reflex from your experiment, asking to create simulations <strong>during the experiment execution</strong> !</p>
 <p>The following short model for example will create a new simulation at each 10 cycles :</p>
-<pre><code class="hljs">model multi_simulations
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
 global {
     init {
-        <span class="hljs-statement">write</span> <span class="hljs-string">"new simulation created ! Its name is "</span>+name;
+        write <span class="hljs-string">"new simulation created ! Its name is "</span>+name;
     }
 }
 
-experiment my_experiment type:gui  {
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
     init {
     }
-    reflex when:(mod(cycle,10)=0 and cycle!=0) {
+    <span class="hljs-builtin">reflex</span> when:(mod(cycle,10)=0 and cycle!=0) {
         create simulation;
     }
     output {
@@ -128,20 +128,20 @@ experiment my_experiment type:gui  {
 </code></pre>
 <p>You may ask, what is the purpose of such a thing ? Well, with such a short model, it is not very interesting, for sure. But you can imagine running a simulation, and if the simulation reaches a certain state, it can be closed, and another simulation can be run instead with different parameters (a simulation can be closed by doing a &quot;do die&quot; on itself). You can also imagine to run two simulations, and to communicate from one to an other through the experiment, as it is shown in this easy model, where agents can move from one simulation to another :</p>
 <p><img src="../resources/images/exploringModel/change_world.png" alt="resources/images/exploringModel/change_world.png"></p>
-<pre><code class="hljs">model smallWorld
+<pre><code class="hljs"><span class="hljs-builtin">model</span> smallWorld
 
 global {
-    int grid_size &lt;- 10;
-    bool modelleft &lt;- true;
-    int id&lt;- 0;
-    int nb_agents &lt;- 50;
+    <span class="hljs-literal">int</span> grid_size &lt;- 10;
+    <span class="hljs-literal">bool</span> modelleft &lt;- true;
+    <span class="hljs-literal">int</span> id&lt;- 0;
+    <span class="hljs-literal">int</span> nb_agents &lt;- 50;
     
     init {
         create people number: nb_agents {
             my_cell &lt;- one_of(cell);
             location &lt;- my_cell.location;
         }
-        if (modelleft) {
+        <span class="hljs-keyword">if</span> (modelleft) {
             ask cell where (each.grid_x = (grid_size - 1))  {
                 color &lt;- #red;  
             }
@@ -152,26 +152,26 @@ global {
         }
     }
     
-    action changeWorld(rgb color, point loc) {
+    action changeWorld(<span class="hljs-literal">rgb</span> color, <span class="hljs-literal">point</span> loc) {
         create people with:[color::color, location::loc] {
             my_cell &lt;- cell(location);
         }
     }
 }
 
-species people {
-    rgb color &lt;- rnd_color(255);
+<span class="hljs-literal">species</span> people {
+    <span class="hljs-literal">rgb</span> color &lt;- rnd_color(255);
     cell my_cell;
 
-    reflex move {
-        if (modelleft and my_cell.color = #red) {
+    <span class="hljs-builtin">reflex</span> move {
+        <span class="hljs-keyword">if</span> (modelleft and my_cell.color = #red) {
             ask smallWorld_model[1] {
                 do changeWorld(myself.color, {100 - myself.location.x,myself.location.y});
             }
             do die;
         } else {
-            list&lt;cell&gt; free_cells &lt;- list&lt;cell&gt; (my_cell.neighbors) where empty(people inside each);
-            if not empty(free_cells) {
+            <span class="hljs-literal">list</span>&lt;cell&gt; free_cells &lt;- <span class="hljs-literal">list</span>&lt;cell&gt; (my_cell.neighbors) where empty(people inside each);
+            <span class="hljs-keyword">if</span> not empty(free_cells) {
                 my_cell &lt;- one_of(free_cells);
                 location &lt;- my_cell.location;
             }
@@ -185,15 +185,15 @@ species people {
 
 grid cell width: grid_size height: grid_size;
 
-experiment fromWorldToWorld type: gui {
+<span class="hljs-builtin">experiment</span> fromWorldToWorld type: gui {
     init {
          create simulation with:[grid_size::20, modelleft::false, id::1, nb_agents::0];
     }
     
     output {
-        display map {
+        display <span class="hljs-literal">map</span> {
             grid cell lines: #black;
-            species people;
+            <span class="hljs-literal">species</span> people;
         }
     }
 }
@@ -224,7 +224,7 @@ experiment fromWorldToWorld type: gui {
 (3) the attribute value can be changed again in the <code>init</code> scope.</p>
 <h3><a class="anchor" aria-hidden="true" id="run-several-simulations-with-the-same-random-numbers"></a><a href="#run-several-simulations-with-the-same-random-numbers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run several simulations with the same random numbers</h3>
 <p>The following code shows how to run several simulations with a specific seed, determined from the experiment agent :</p>
-<pre><code class="hljs">model multi_simulations
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
 global {
     init {
@@ -232,8 +232,8 @@ global {
     }
 }
 
-species my_species skills:[moving] {
-    reflex update {
+<span class="hljs-literal">species</span> my_species skills:[<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-builtin">reflex</span> update {
         do wander;
     }
     aspect base {
@@ -241,16 +241,16 @@ species my_species skills:[moving] {
     }
 }
 
-experiment my_experiment type:gui  {
-    float seedValue &lt;- 10.0;
-    float seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+    <span class="hljs-literal">float</span> seedValue &lt;- 10.0;
+    <span class="hljs-literal">float</span> seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
         <span class="hljs-comment">// create a second simulation with the same seed as the main simulation</span>
         create simulation with:[seed::seedValue];
     }
     output {
         display my_display {
-            species my_species aspect:base;
+            <span class="hljs-literal">species</span> my_species aspect:base;
         }
     }
 }
@@ -258,18 +258,18 @@ experiment my_experiment type:gui  {
 <p>When you run this simulation, their execution is exactly similar.</p>
 <p><img src="../resources/images/exploringModel/same_simulation_one_agent.png" alt="resources/images/exploringModel/same_simulation_one_agent.png"></p>
 <p>Let's try now to add a new species in this model, and to add a parameter to the simulation for the number of agents created for this species.</p>
-<pre><code class="hljs">model multi_simulations
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
 global {
-    int number_of_speciesB &lt;- 1;
+    <span class="hljs-literal">int</span> number_of_speciesB &lt;- 1;
     init {
         create my_speciesA;
         create my_speciesB number:number_of_speciesB;
     }
 }
 
-species my_speciesA skills:[moving] {
-    reflex update {
+<span class="hljs-literal">species</span> my_speciesA skills:[<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-builtin">reflex</span> update {
         do wander;
     }
     aspect base {
@@ -277,8 +277,8 @@ species my_speciesA skills:[moving] {
     }
 }
 
-species my_speciesB skills:[moving] {
-    reflex update {
+<span class="hljs-literal">species</span> my_speciesB skills:[<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-builtin">reflex</span> update {
         do wander;
     }
     aspect base {
@@ -286,16 +286,16 @@ species my_speciesB skills:[moving] {
     }
 }
 
-experiment my_experiment type:gui  {
-    float seedValue &lt;- 10.0;
-    float seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+    <span class="hljs-literal">float</span> seedValue &lt;- 10.0;
+    <span class="hljs-literal">float</span> seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
         create simulation with:[seed::seedValue,number_of_speciesB::2];
     }
     output {
         display my_display {
-            species my_speciesA aspect:base;
-            species my_speciesB aspect:base;
+            <span class="hljs-literal">species</span> my_speciesA aspect:base;
+            <span class="hljs-literal">species</span> my_speciesB aspect:base;
         }
     }
 }
@@ -304,23 +304,23 @@ experiment my_experiment type:gui  {
 <p><img src="../resources/images/exploringModel/same_simulation_2_species.png" alt="resources/images/exploringModel/same_simulation_2_species.png"></p>
 <p>Even if the first step seems ok (the greed agent and one of the two red agent is initialized with the same location), the simulation differs completly. You should have expected to have the same behavior for the greed agent in both of the simulation, but it is not the case. The explaination of this behavior is that a random number generator has generated more random numbers in the second simulation than in the first one.</p>
 <p>If you don't understand, here is a short example that may help you to understand better :</p>
-<pre><code class="hljs">model multi_simulations
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
 global {
-    int iteration_number &lt;- 1;
-    reflex update {
-        float value;
+    <span class="hljs-literal">int</span> iteration_number &lt;- 1;
+    <span class="hljs-builtin">reflex</span> update {
+        <span class="hljs-literal">float</span> value;
         loop times:iteration_number {
             value&lt;-rnd(10.0);
-            <span class="hljs-statement">write</span> value;
+            write value;
         }
-        <span class="hljs-statement">write</span> <span class="hljs-string">"cycle "</span>+cycle+<span class="hljs-string">" in experiment "</span>+name+<span class="hljs-string">" : "</span>+value;
+        write <span class="hljs-string">"cycle "</span>+cycle+<span class="hljs-string">" in experiment "</span>+name+<span class="hljs-string">" : "</span>+value;
     }
 }
 
-experiment my_experiment type:gui  {
-    float seedValue &lt;- 10.0;
-    float seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+    <span class="hljs-literal">float</span> seedValue &lt;- 10.0;
+    <span class="hljs-literal">float</span> seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
         create simulation with:[seed::seedValue,iteration_number::2];
     }
@@ -330,25 +330,25 @@ experiment my_experiment type:gui  {
 </code></pre>
 <p>The output will be something like that :</p>
 <pre><code class="hljs">7.67003069780383
-cycle 0 in experiment multi_simulations_model0 : 7.67003069780383
+cycle 0 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 7.67003069780383
 7.67003069780383
 0.22889843360303863
-cycle 0 in experiment multi_simulations_model1 : 0.22889843360303863
+cycle 0 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 0.22889843360303863
 0.22889843360303863
-cycle 1 in experiment multi_simulations_model0 : 0.22889843360303863
+cycle 1 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 0.22889843360303863
 4.5220913306263855
 0.8363180333035425
-cycle 1 in experiment multi_simulations_model1 : 0.8363180333035425
+cycle 1 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 0.8363180333035425
 4.5220913306263855
-cycle 2 in experiment multi_simulations_model0 : 4.5220913306263855
+cycle 2 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 4.5220913306263855
 5.460148568140819
 4.158355846617511
-cycle 2 in experiment multi_simulations_model1 : 4.158355846617511
+cycle 2 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 4.158355846617511
 0.8363180333035425
-cycle 3 in experiment multi_simulations_model0 : 0.8363180333035425
+cycle 3 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 0.8363180333035425
 1.886091659169562
 4.371253083874633
-cycle 3 in experiment multi_simulations_model1 : 4.371253083874633
+cycle 3 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 4.371253083874633
 </code></pre>
 <p>Which means :</p>
 <table>
@@ -373,7 +373,7 @@ cycle 3 in experiment multi_simulations_model1 : 4.371253083874633
 <li>java</li>
 </ul>
 <p>The following model shows how to run 4 simulations with the same seed but with some different RNG :</p>
-<pre><code class="hljs">model multi_simulations
+<pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
 global {
     init {
@@ -381,8 +381,8 @@ global {
     }
 }
 
-species my_species skills:[moving] {
-    reflex update {
+<span class="hljs-literal">species</span> my_species skills:[<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-builtin">reflex</span> update {
         do wander;
     }
     aspect base {
@@ -390,15 +390,15 @@ species my_species skills:[moving] {
     }
 }
 
-experiment my_experiment type:gui  {
-    float seed &lt;- 10.0;
+<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+    <span class="hljs-literal">float</span> seed &lt;- 10.0;
     init {
         create simulation with:[rng::<span class="hljs-string">"cellular"</span>,seed::10.0];
         create simulation with:[rng::<span class="hljs-string">"java"</span>,seed::10.0];
     }
     output {
         display my_display {
-            species my_species aspect:base;
+            <span class="hljs-literal">species</span> my_species aspect:base;
             graphics <span class="hljs-string">"my_graphic"</span> {
                 draw rectangle(35,10) at:{0,0} color:#lightgrey;
                 draw rng at:{3,3} font:font(<span class="hljs-string">"Helvetica"</span>, 20 , #plain) color:#black;

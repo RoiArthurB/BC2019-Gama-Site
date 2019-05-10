@@ -8,18 +8,18 @@
 <p>This model shows how to build a graph on which people agents will move with GIS Shapefile, but also to generate an other graph representing the friendship between the people agents, people agents trying to be closer spatially to each other</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model multigraph
+<span class="hljs-builtin">model</span> multigraph
 
 global {
-    file shape_file_in &lt;- file(<span class="hljs-string">'../includes/road.shp'</span>) ;
-    file shape_file_bounds &lt;- file(<span class="hljs-string">'../includes/bounds.shp'</span>) ;
-    geometry shape &lt;- envelope(shape_file_bounds);
+    <span class="hljs-literal">file</span> shape_file_in &lt;- <span class="hljs-literal">file</span>('../includes/road.shp') ;
+    <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>('../includes/bounds.shp') ;
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
     
     <span class="hljs-comment">//spatial graph representing the road network</span>
-    graph road_graph; 
+    <span class="hljs-literal">graph</span> road_graph; 
     
     <span class="hljs-comment">//social graph (not spatial) representing the frienship links between people</span>
-    graph friendship_graph &lt;- graph([]);
+    <span class="hljs-literal">graph</span> friendship_graph &lt;- <span class="hljs-literal">graph</span>([]);
     
     init {
         create road from: shape_file_in;
@@ -35,7 +35,7 @@ global {
         <span class="hljs-comment">//creation of 50 friendship link between people agents</span>
         loop times: 50 {
             people p1 &lt;- one_of(people);
-            people p2 &lt;- one_of(list(people) - p1);
+            people p2 &lt;- one_of(<span class="hljs-literal">list</span>(people) - p1);
             create friendship_link  {
                 add edge (p1, p2, self) to: friendship_graph;
                 shape &lt;- link(p1,p2);
@@ -44,23 +44,23 @@ global {
     }
 }
 
-species people skills: [moving]{
-    point location &lt;- any_location_in(one_of(road));
+<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>]{
+    <span class="hljs-literal">point</span> location &lt;- any_location_in(one_of(road));
     people target_people &lt;- one_of(people);
-    point target &lt;- target_people.location;
-    float size &lt;- 3.0;
+    <span class="hljs-literal">point</span> target &lt;- target_people.location;
+    <span class="hljs-literal">float</span> size &lt;- 3.0;
     
     <span class="hljs-comment">//action that make recompute the size of the agents as the distance between it and its target people in the friendship graph (the farthest, the biggest)</span>
     action updateSize {
-        path friendship_path &lt;- path_between(friendship_graph,self,target_people);
-        if (friendship_path != <span class="hljs-literal">nil</span>) {
-            size &lt;-max([2,length( friendship_path.edges)]) as float;
+        <span class="hljs-literal">path</span> friendship_path &lt;- path_between(friendship_graph,self,target_people);
+        <span class="hljs-keyword">if</span> (friendship_path != nil) {
+            size &lt;-max([2,length( friendship_path.edges)]) as <span class="hljs-literal">float</span>;
         }
     }
     
     <span class="hljs-comment">//the agent moves toward its target, when reaching it, it chooses another target as the location of one of the people agent</span>
-    reflex movement {
-        if (location distance_to target &lt; 5.0) {
+    <span class="hljs-builtin">reflex</span> movement {
+        <span class="hljs-keyword">if</span> (location distance_to target &lt; 5.0) {
             target_people &lt;- one_of(people);
             target &lt;- target_people.location;
             do updateSize;
@@ -72,26 +72,26 @@ species people skills: [moving]{
     }   
 }
     
-species friendship_link {
+<span class="hljs-literal">species</span> friendship_link {
     
     aspect default {
         draw shape color: #blue;
     }
 }
     
-species road  {
+<span class="hljs-literal">species</span> road  {
     aspect default {
         draw shape color:#black ;
     }
 } 
 
 
-experiment multigraph type: gui {
+<span class="hljs-builtin">experiment</span> multigraph type: gui {
     output {
         display friendship type: opengl{
-            species road ;
-            species friendship_link ;
-            species people;
+            <span class="hljs-literal">species</span> road ;
+            <span class="hljs-literal">species</span> friendship_link ;
+            <span class="hljs-literal">species</span> people;
         }
     }
 }

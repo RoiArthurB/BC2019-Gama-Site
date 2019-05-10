@@ -8,7 +8,7 @@
 <p>Model to represent how the agents move from one point to a target agent on a grid of cells with obstacles, following the shortest path and coloring in magenta the cells intersecting the path of an agent</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model Grid
+<span class="hljs-builtin">model</span> Grid
 
 global {
     init {    
@@ -23,41 +23,41 @@ global {
 }
 
 grid cell width: 50 height: 50 neighbors: 4 {
-    bool is_obstacle &lt;- flip(0.2);
-    rgb color &lt;- is_obstacle ? #black : #white;
+    <span class="hljs-literal">bool</span> is_obstacle &lt;- flip(0.2);
+    <span class="hljs-literal">rgb</span> color &lt;- is_obstacle ? #black : #white;
 } 
      
-species goal {
+<span class="hljs-literal">species</span> goal {
     aspect default { 
         draw circle(0.5) color: #red;
     }
 }  
     
       
-species people skills: [moving] {
+<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
     goal target;
-    float speed &lt;- float(3);
+    <span class="hljs-literal">float</span> speed &lt;- <span class="hljs-literal">float</span>(3);
     
     aspect default {
         draw circle(0.5) color: #green;
     }
     
-    reflex move when: location != target{
+    <span class="hljs-builtin">reflex</span> move when: location != target{
         <span class="hljs-comment">//Neighs contains all the neighbors cells that are reachable by the agent plus the cell where it's located</span>
-        list&lt;cell&gt; neighs &lt;- (cell(location) neighbors_at speed) + cell(location); 
+        <span class="hljs-literal">list</span>&lt;cell&gt; neighs &lt;- (cell(location) neighbors_at speed) + cell(location); 
         
         <span class="hljs-comment">//We restrain the movements of the agents only at the grid of cells that are not obstacle using the on facet of the goto operator and we return the path</span>
         <span class="hljs-comment">//followed by the agent</span>
         <span class="hljs-comment">//the recompute_path is used to precise that we do not need to recompute the shortest path at each movement (gain of computation time): the obtsacles on the grid never change.</span>
-        path followed_path &lt;- self goto (on:(cell where not each.is_obstacle), target:target, speed:speed, return_path:true, recompute_path: false);
+        <span class="hljs-literal">path</span> followed_path &lt;- self goto (on:(cell where not each.is_obstacle), target:target, speed:speed, return_path:true, recompute_path: false);
         
         <span class="hljs-comment">//As a side note, it is also possible to use the path_between operator and follow action with a grid</span>
         <span class="hljs-comment">//Add a my_path attribute of type path to the people species</span>
         <span class="hljs-comment">//if my_path = nil {my_path &lt;- path_between((cell where not each.is_obstacle), location, target);}</span>
         <span class="hljs-comment">//path followed_path &lt;- self follow (path: my_path,  return_path:true);</span>
         
-        if (followed_path != <span class="hljs-literal">nil</span>) and not empty(followed_path.segments) {
-            geometry path_geom &lt;- geometry(followed_path.segments);
+        <span class="hljs-keyword">if</span> (followed_path != nil) and not empty(followed_path.segments) {
+            <span class="hljs-literal">geometry</span> path_geom &lt;- <span class="hljs-literal">geometry</span>(followed_path.segments);
             
             <span class="hljs-comment">//The cells intersecting the path followed by the agent are colored in magenta</span>
             ask (neighs where (each.shape intersects path_geom)) { color &lt;- #magenta;}
@@ -65,12 +65,12 @@ species people skills: [moving] {
     }
 }
 
-experiment goto_grid type: gui {
+<span class="hljs-builtin">experiment</span> goto_grid type: gui {
     output {
         display objects_display {
             grid cell lines: #black;
-            species goal aspect: default ;
-            species people aspect: default ;
+            <span class="hljs-literal">species</span> goal aspect: default ;
+            <span class="hljs-literal">species</span> people aspect: default ;
         }
     }
 }

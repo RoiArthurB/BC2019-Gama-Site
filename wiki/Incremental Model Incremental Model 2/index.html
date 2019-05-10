@@ -7,19 +7,19 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Charts</h1></header><article><div><span><p>Second part of the tutorial : Incremental Model</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model SI_city
+<span class="hljs-builtin">model</span> SI_city
 
 global{
-    int nb_people &lt;- 500;
-    float step &lt;- 1 #minutes;
-    geometry shape&lt;-envelope(square(500 #m));
-    float infection_distance &lt;- 2.0 #m;
-    float proba_infection &lt;- 0.05;
-    int nb_infected_init &lt;- 5;
-    int current_hour update: (cycle / 60) mod 24;
-    int nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
-    int nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
-    float infected_rate update: nb_people_infected/length(people);
+    <span class="hljs-literal">int</span> nb_people &lt;- 500;
+    <span class="hljs-literal">float</span> step &lt;- 1 #minutes;
+    <span class="hljs-literal">geometry</span> shape&lt;-envelope(square(500 #m));
+    <span class="hljs-literal">float</span> infection_distance &lt;- 2.0 #m;
+    <span class="hljs-literal">float</span> proba_infection &lt;- 0.05;
+    <span class="hljs-literal">int</span> nb_infected_init &lt;- 5;
+    <span class="hljs-literal">int</span> current_hour update: (cycle / 60) mod 24;
+    <span class="hljs-literal">int</span> nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
+    <span class="hljs-literal">int</span> nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
+    <span class="hljs-literal">float</span> infected_rate update: nb_people_infected/length(people);
     
     init{
         create people number:nb_people {
@@ -29,19 +29,19 @@ global{
             is_infected &lt;- true;
         }
     }
-    reflex end_simulation when: infected_rate = 1.0 {
+    <span class="hljs-builtin">reflex</span> end_simulation when: infected_rate = 1.0 {
         do halt;
     }
 }
 
-species people skills:[moving]{     
-    bool is_infected &lt;- false;
-    reflex move{
+<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+    <span class="hljs-literal">bool</span> is_infected &lt;- false;
+    <span class="hljs-builtin">reflex</span> move{
         do wander;
     }
-    reflex infect when: is_infected{
+    <span class="hljs-builtin">reflex</span> infect when: is_infected{
         ask people at_distance infection_distance {
-            if flip(proba_infection) {
+            <span class="hljs-keyword">if</span> flip(proba_infection) {
                 is_infected &lt;- true;
             }
         }
@@ -51,15 +51,15 @@ species people skills:[moving]{
     }
 }
 
-experiment main_experiment type:gui{
+<span class="hljs-builtin">experiment</span> main_experiment type:gui{
     parameter <span class="hljs-string">"Infection distance"</span> var: infection_distance;
     parameter <span class="hljs-string">"Proba infection"</span> var: proba_infection min: 0.0 max: 1.0;
     parameter <span class="hljs-string">"Nb people infected at init"</span> var: nb_infected_init ;
     output {
         monitor <span class="hljs-string">"Current hour"</span> value: current_hour;
         monitor <span class="hljs-string">"Infected people rate"</span> value: infected_rate;
-        display map {
-            species people aspect:circle;           
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> people aspect:circle;           
         }
         display chart refresh: every(10) {
             chart <span class="hljs-string">"Disease spreading"</span> type: series {

@@ -7,49 +7,49 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">FIPA Contract Net</h1></header><article><div><span><p>This model demonstrates a use-case of the FIPA Contract Net interaction protocol. One initiator sends a 'cfp' message to other participants. All participants reply with a 'refuse' messages which end the interaction protocol.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model cfp_cfp_1
+<span class="hljs-builtin">model</span> cfp_cfp_1
 
 global {
-    int nbOfParticipants &lt;- 5;
+    <span class="hljs-literal">int</span> nbOfParticipants &lt;- 5;
     
     init {
         create initiator;
         create participant number: nbOfParticipants;
 
-        <span class="hljs-statement">write</span> <span class="hljs-string">'Please step the simulation to observe the outcome in the console'</span>;
+        write 'Please step the simulation to observe the outcome in the console';
     }
 }
 
-species initiator skills: [fipa] { 
+<span class="hljs-literal">species</span> initiator skills: [<span class="hljs-builtin">fipa</span>] { 
     
-    reflex send_cfp_to_participants when: (time = 1) {
+    <span class="hljs-builtin">reflex</span> send_cfp_to_participants when: (time = 1) {
         <span class="hljs-comment">//list&lt;participant&gt; participants &lt;- list(participant);</span>
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' sends a cfp message to all participants'</span>;
-        do start_conversation (to: list(participant), protocol: <span class="hljs-string">'fipa-contract-net'</span>, performative: <span class="hljs-string">'cfp'</span>, contents: [<span class="hljs-string">'Go swimming'</span>]);
+        write '(Time ' + time + '): ' + name + ' sends a cfp message to all participants';
+        do start_conversation (to: <span class="hljs-literal">list</span>(participant), protocol: '<span class="hljs-builtin">fipa</span>-contract-net', performative: 'cfp', contents: ['Go swimming']);
     }
     
-    reflex receive_refuse_messages when: !empty(refuses) {
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives refuse messages'</span>;
+    <span class="hljs-builtin">reflex</span> receive_refuse_messages when: !empty(refuses) {
+        write '(Time ' + time + '): ' + name + ' receives refuse messages';
         
         loop r over: refuses {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'\t'</span> + name + <span class="hljs-string">' receives a refuse message from '</span> + r.sender + <span class="hljs-string">' with content '</span> + r.contents ;
+            write '\t' + name + ' receives a refuse message from ' + r.sender + ' with content ' + r.contents ;
         }
     }
 }
 
-species participant skills: [fipa] {
+<span class="hljs-literal">species</span> participant skills: [<span class="hljs-builtin">fipa</span>] {
     
-    reflex receive_cfp_from_initiator when: !empty(cfps) {
+    <span class="hljs-builtin">reflex</span> receive_cfp_from_initiator when: !empty(cfps) {
         
-        <span class="hljs-facet">message</span> proposalFromInitiator &lt;- cfps[0];
-        <span class="hljs-statement">write</span> <span class="hljs-string">'(Time '</span> + time + <span class="hljs-string">'): '</span> + name + <span class="hljs-string">' receives a cfp message from '</span> + agent(proposalFromInitiator.sender).name + <span class="hljs-string">' and replies with a refuse message'</span>;
-        do refuse (<span class="hljs-facet">message</span>: proposalFromInitiator, contents: [<span class="hljs-string">'I am busy today'</span>] );
+        message proposalFromInitiator &lt;- cfps[0];
+        write '(Time ' + time + '): ' + name + ' receives a cfp message from ' + <span class="hljs-literal">agent</span>(proposalFromInitiator.sender).name + ' and replies with a refuse message';
+        do refuse (message: proposalFromInitiator, contents: ['I am busy today'] );
         
     }
 }
 
-experiment test type: gui { 
+<span class="hljs-builtin">experiment</span> test type: gui { 
     output {
         
     }

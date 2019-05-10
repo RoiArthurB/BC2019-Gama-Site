@@ -8,40 +8,40 @@
 <p>Model which shows how to create agents by importing data of a DXF file</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model DXFAgents 
+<span class="hljs-builtin">model</span> DXFAgents 
 
 global {
-    file house_file &lt;- file(<span class="hljs-string">"../includes/house.dxf"</span>);
+    <span class="hljs-literal">file</span> house_file &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/house.dxf"</span>);
     
     <span class="hljs-comment">//compute the environment size from the dxf file envelope</span>
-    geometry shape &lt;- envelope(house_file);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(house_file);
     
     init {
         <span class="hljs-comment">//create house_element agents from the dxf file and initialized the layer attribute of the agents from the the file</span>
-        create house_element from: house_file with: [layer::string(get(<span class="hljs-string">"layer"</span>))];
-                create house_element from: house_file with: [layer::string(get(<span class="hljs-string">"layer"</span>))];
-                        create house_element from: house_file with: [layer::string(get(<span class="hljs-string">"layer"</span>))];
+        create house_element from: house_file with: [layer::<span class="hljs-literal">string</span>(get(<span class="hljs-string">"layer"</span>))];
+                create house_element from: house_file with: [layer::<span class="hljs-literal">string</span>(get(<span class="hljs-string">"layer"</span>))];
+                        create house_element from: house_file with: [layer::<span class="hljs-literal">string</span>(get(<span class="hljs-string">"layer"</span>))];
         <span class="hljs-comment">//define a random color for each layer</span>
-        map layers &lt;- list(house_element) group_by each.layer;
+        <span class="hljs-literal">map</span> layers &lt;- <span class="hljs-literal">list</span>(house_element) group_by each.layer;
         loop la over: layers.keys {
-            rgb col &lt;- rnd_color(255);
+            <span class="hljs-literal">rgb</span> col &lt;- rnd_color(255);
             ask layers[la] {color &lt;- col;}
         }
     }
 }
 
-species house_element {
-    string layer;
-    rgb color;
+<span class="hljs-literal">species</span> house_element {
+    <span class="hljs-literal">string</span> layer;
+    <span class="hljs-literal">rgb</span> color;
     aspect default {
         draw shape color: color;
     }
 } 
 
-experiment DXFAgents type: gui {
+<span class="hljs-builtin">experiment</span> DXFAgents type: gui {
     output {
-        display map {
-            species house_element;
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> house_element;
         }
         
         display <span class="hljs-string">"As_Image"</span> {

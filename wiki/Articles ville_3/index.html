@@ -7,23 +7,23 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Ville 3</h1></header><article><div><span><p>_Author : _</p>
 <p>Creation of buildings and roads thanks to a shape file. The color of the building depends on the type of the building, while the color of a house depend on its income. People among the world will try to find the best building according to the mean income of their neighbors and their own income.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model ville
+<pre><code class="hljs"><span class="hljs-builtin">model</span> ville
 
 global {
-    file shape_file_batiments &lt;- file(<span class="hljs-string">"../includes/batiments.shp"</span>);
-    file shape_file_routes &lt;- file(<span class="hljs-string">"../includes/routes.shp"</span>);
-    geometry shape &lt;- envelope(shape_file_routes);
+    <span class="hljs-literal">file</span> shape_file_batiments &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/batiments.shp"</span>);
+    <span class="hljs-literal">file</span> shape_file_routes &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/routes.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_routes);
     init 
     {
         create route from: shape_file_routes;
-        create batiment from: shape_file_batiments with: [type:: string(read(<span class="hljs-string">"NATURE"</span>))];
+        create batiment from: shape_file_batiments with: [type:: <span class="hljs-literal">string</span>(read(<span class="hljs-string">"NATURE"</span>))];
         create foyer number: 500;
     }
 }
 
-species foyer {
-    float revenu &lt;- gauss(1500, 500);
-    bool est_satisfait update: calculer_satisfaction();
+<span class="hljs-literal">species</span> foyer {
+    <span class="hljs-literal">float</span> revenu &lt;- gauss(1500, 500);
+    <span class="hljs-literal">bool</span> est_satisfait update: calculer_satisfaction();
     batiment habitation;
     batiment lieu_travail;
     init {
@@ -31,9 +31,9 @@ species foyer {
         habitation &lt;- choisir_batiment(); 
         do emmenager;
     }
-    bool calculer_satisfaction {
-        list&lt;foyer&gt; voisins &lt;- foyer at_distance 50.0;
-        float revenu_moyen &lt;- mean(voisins collect (each.revenu));
+    <span class="hljs-literal">bool</span> calculer_satisfaction {
+        <span class="hljs-literal">list</span>&lt;foyer&gt; voisins &lt;- foyer at_distance 50.0;
+        <span class="hljs-literal">float</span> revenu_moyen &lt;- mean(voisins collect (each.revenu));
         return empty(voisins) or (revenu_moyen &gt; (revenu * 0.7) and revenu_moyen &lt; (revenu / 0.7));
     }
     action emmenager {
@@ -46,36 +46,36 @@ species foyer {
     batiment choisir_batiment {
         return one_of(batiment where (each.capacite &gt;0));
     }
-    reflex demenagement when: !est_satisfait {
+    <span class="hljs-builtin">reflex</span> demenagement when: !est_satisfait {
         do demenager;
         habitation &lt;- choisir_batiment();
         do emmenager;
     }
     aspect revenu {
-        int val &lt;- int(255 * (revenu / 3000));
-        draw circle(5) color: rgb(255 - val, val, 0);
+        <span class="hljs-literal">int</span> val &lt;- <span class="hljs-literal">int</span>(255 * (revenu / 3000));
+        draw circle(5) color: <span class="hljs-literal">rgb</span>(255 - val, val, 0);
     }
 }
-species batiment {
-    string type;
-    int capacite &lt;- type = <span class="hljs-string">"Industrial"</span> ? 0 : int(shape.area / 70.0);
+<span class="hljs-literal">species</span> batiment {
+    <span class="hljs-literal">string</span> type;
+    <span class="hljs-literal">int</span> capacite &lt;- type = <span class="hljs-string">"Industrial"</span> ? 0 : <span class="hljs-literal">int</span>(shape.area / 70.0);
     aspect geometrie {
         draw shape color: type = <span class="hljs-string">"Industrial"</span> ? #pink : #gray;
     }
 
 }
-species route {
+<span class="hljs-literal">species</span> route {
     aspect geometrie {
         draw shape color: #black;
     }
 
 }
-experiment ville type: gui {
+<span class="hljs-builtin">experiment</span> ville type: gui {
     output {
         display carte_principale {
-            species batiment aspect: geometrie;
-            species route aspect: geometrie;
-            species foyer aspect: revenu;
+            <span class="hljs-literal">species</span> batiment aspect: geometrie;
+            <span class="hljs-literal">species</span> route aspect: geometrie;
+            <span class="hljs-literal">species</span> foyer aspect: revenu;
         }
     }
 }

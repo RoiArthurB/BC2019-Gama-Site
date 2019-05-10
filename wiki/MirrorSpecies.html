@@ -63,24 +63,24 @@ Mirror species can be used in different situations but the one we describe here 
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="declaration"></a><a href="#declaration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaration</h2>
 <p>A mirror species can be defined using the <code>mirrors</code> keyword as following:</p>
-<pre><code class="hljs">species B mirrors: A{
+<pre><code class="hljs"><span class="hljs-literal">species</span> B mirrors: A{
 }
 </code></pre>
 <p>In this case the species B mirrors the species A.</p>
 <p>By default the location of the species B will be random but in many cases, once want to place the mirror agent at the same location of the reference species. This can be achieve by simply adding the following lines in the mirror species :</p>
-<pre><code class="hljs">species B mirrors: A{
-    point location &lt;- target.location update: target.location;
+<pre><code class="hljs"><span class="hljs-literal">species</span> B mirrors: A{
+    <span class="hljs-literal">point</span> location &lt;- target.location update: target.location;
 }
 </code></pre>
 <p><strong><code>target</code></strong> is a built-in attribute of a mirror species. It refers to the instance of the species tracked.</p>
 <p>In the same spirit any attribute of a reference species can be reach using the same syntax. For instance if the species A has an attribute called <code>attribute1</code> of type <code>int</code> is is possible to get this attribute from the mirror species B using the following syntax:</p>
-<pre><code class="hljs">int value &lt;- target.attribute1;
+<pre><code class="hljs"><span class="hljs-literal">int</span> value &lt;- target.attribute1;
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
 <p>To practice a bit with the mirror notion, we will now build a simple model displaying a species A (aspect: white circle) moving randomly, and another species B (aspect: blue sphere) with the species A location on x and y, with an upper value for the z axis.</p>
 <p><img src="../resources/images/definingAdvancedSpecies/mirror_model.png" alt="images/mirror_model.png"></p>
 <p>Here is an example of implementation for this model:</p>
-<pre><code class="hljs">model Mirror
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Mirror
 
 global {
   init{
@@ -88,26 +88,26 @@ global {
   }
 }
 
-species A skills:[moving]{
-    reflex update{
+<span class="hljs-literal">species</span> A skills:[<span class="hljs-builtin">moving</span>]{
+    <span class="hljs-builtin">reflex</span> update{
         do wander;
     }
     aspect base{
         draw circle(1) color: #white;
     }
 }
-species B mirrors: A{
-    point location &lt;- target.location update: point(target.location.x,target.location.y,target.location.z+5);
+<span class="hljs-literal">species</span> B mirrors: A{
+    <span class="hljs-literal">point</span> location &lt;- target.location update: <span class="hljs-literal">point</span>(target.location.x,target.location.y,target.location.z+5);
     aspect base {
         draw sphere(2) color: #blue;
     }
 }
 
-experiment mirroExp type: gui {
+<span class="hljs-builtin">experiment</span> mirroExp type: gui {
     output {
         display superposedView type: opengl{ 
-          species A aspect: base;
-          species B aspect: base transparency:0.5;
+          <span class="hljs-literal">species</span> A aspect: base;
+          <span class="hljs-literal">species</span> B aspect: base transparency:0.5;
         }
     }
 }

@@ -8,40 +8,40 @@
 <p>model based on the one proposed by (Raimbault et al., 2014): At each simulation step the nb_plots_to_build empty plots with the highest constructability are built The constructability is computed from 3 criteria: the density of construction in the neighborhood, the distance to a road, the distance to the city center (using the road network).</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model raster3
+<span class="hljs-builtin">model</span> raster3
 
 
 global
 { 
     <span class="hljs-comment">//File for the ascii grid</span>
-    file asc_grid &lt;- grid_file(<span class="hljs-string">"../includes/cantho_1999_v6.asc"</span>);
+    <span class="hljs-literal">file</span> asc_grid &lt;- grid_file(<span class="hljs-string">"../includes/cantho_1999_v6.asc"</span>);
     <span class="hljs-comment">//Shapefile for the road</span>
-    file road_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/roads15_3.shp"</span>);
+    <span class="hljs-literal">file</span> road_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/roads15_3.shp"</span>);
     <span class="hljs-comment">//Shapefile for the city</span>
-    file city_center_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/city center.shp"</span>);
+    <span class="hljs-literal">file</span> city_center_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/city center.shp"</span>);
     <span class="hljs-comment">//Shape of the environment</span>
-    geometry shape &lt;- envelope(asc_grid);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(asc_grid);
     <span class="hljs-comment">//Graph of the roads</span>
-    graph roads_network;
+    <span class="hljs-literal">graph</span> roads_network;
     
     <span class="hljs-comment">// Dynamic list of the cells to consider at each cycle</span>
-    list&lt;plot&gt; empty_plots &lt;- plot where (each.grid_value = 0.0) update: shuffle(plot where (each.grid_value = 0.0));
+    <span class="hljs-literal">list</span>&lt;plot&gt; empty_plots &lt;- plot where (each.grid_value = 0.0) update: shuffle(plot where (each.grid_value = 0.0));
     
-    list&lt;rgb&gt; plot_colors &lt;- [ 
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; plot_colors &lt;- [ 
         #lightgray, <span class="hljs-comment">//empty</span>
         #orange, <span class="hljs-comment">// 1 built</span>
         #blue <span class="hljs-comment">// 2 River-lake</span>
     ];
     <span class="hljs-comment">//Radius of density</span>
-    int density_radius &lt;- 4;
+    <span class="hljs-literal">int</span> density_radius &lt;- 4;
     <span class="hljs-comment">//Weight of density</span>
-    float weight_density &lt;- 0.05;
+    <span class="hljs-literal">float</span> weight_density &lt;- 0.05;
     <span class="hljs-comment">//Weight of the road distance</span>
-    float weight_road_dist &lt;- 0.5;
+    <span class="hljs-literal">float</span> weight_road_dist &lt;- 0.5;
     <span class="hljs-comment">//Weight of the city center distance</span>
-    float weight_cc_dist &lt;- 0.3;
+    <span class="hljs-literal">float</span> weight_cc_dist &lt;- 0.3;
     <span class="hljs-comment">//Number of plot allowing to build a building</span>
-    int nb_plots_to_build &lt;- 195;
+    <span class="hljs-literal">int</span> nb_plots_to_build &lt;- 195;
 
     init
     {
@@ -66,9 +66,9 @@ global
     <span class="hljs-comment">//Action to normalize the distance</span>
     action normalize_distances {
         <span class="hljs-comment">//Maximum distance from the road of all the plots</span>
-        float max_road_dist &lt;- empty_plots max_of each.dist_route;
+        <span class="hljs-literal">float</span> max_road_dist &lt;- empty_plots max_of each.dist_route;
         <span class="hljs-comment">//Maximum distance from the city center for all the plots</span>
-        float max_cc_dist &lt;- empty_plots max_of each.dist_cv;
+        <span class="hljs-literal">float</span> max_cc_dist &lt;- empty_plots max_of each.dist_cv;
         <span class="hljs-comment">//Normalization of  each empty plot according to the maximal value of each attribute</span>
         ask empty_plots {
             dist_cv &lt;- 1 - dist_cv / max_cc_dist;
@@ -78,12 +78,12 @@ global
     
     
     <span class="hljs-comment">//Reflex representing the global dynamic of the model</span>
-    reflex dynamique_globale when: weight_density != 0 or weight_road_dist != 0 or weight_cc_dist != 0 {
+    <span class="hljs-builtin">reflex</span> dynamique_globale when: weight_density != 0 or weight_road_dist != 0 or weight_cc_dist != 0 {
         <span class="hljs-comment">//Ask to each empty plot to compute its constructability</span>
         ask empty_plots {
             constructability &lt;- compute_constructability();
         }
-        list&lt;plot&gt; ordered_plots &lt;- empty_plots sort_by (each.constructability);
+        <span class="hljs-literal">list</span>&lt;plot&gt; ordered_plots &lt;- empty_plots sort_by (each.constructability);
         ordered_plots &lt;- nb_plots_to_build last ordered_plots;
         <span class="hljs-comment">//Build on each empty plot having the highest constructability</span>
         ask ordered_plots
@@ -93,18 +93,18 @@ global
     }   
 }
 <span class="hljs-comment">//Species representing the city center</span>
-species city_center {
+<span class="hljs-literal">species</span> city_center {
     aspect default {
         draw circle(300) color: #cyan;
     }   
 }
 <span class="hljs-comment">//Species representing the roads</span>
-species roads
+<span class="hljs-literal">species</span> roads
 {
-    float dist_cv;
+    <span class="hljs-literal">float</span> dist_cv;
     <span class="hljs-comment">//Action to compute the city center distance for the road</span>
     action compute_cc_dist {
-        using topology(roads_network)
+        using <span class="hljs-literal">topology</span>(roads_network)
         {
             dist_cv &lt;- self distance_to first(city_center);
         }
@@ -114,21 +114,21 @@ species roads
     }
 }
 <span class="hljs-comment">//Grid species to represent the different building plots</span>
-grid plot file: asc_grid use_individual_shapes: false use_regular_agents: false neighbors: 4
+grid plot <span class="hljs-literal">file</span>: asc_grid use_individual_shapes: false use_regular_agents: false neighbors: 4
 {
-    rgb color &lt;- grid_value = -1 ? #white : plot_colors[int(grid_value)];
+    <span class="hljs-literal">rgb</span> color &lt;- grid_value = -1 ? #white : plot_colors[<span class="hljs-literal">int</span>(grid_value)];
     <span class="hljs-comment">//Distance from the road</span>
-    float dist_route &lt;- 0.0;
+    <span class="hljs-literal">float</span> dist_route &lt;- 0.0;
     <span class="hljs-comment">//Distance from the city center</span>
-    float dist_cv &lt;- 0.0;
+    <span class="hljs-literal">float</span> dist_cv &lt;- 0.0;
     <span class="hljs-comment">//Constructability of the plot</span>
-    float constructability;
+    <span class="hljs-literal">float</span> constructability;
     
     <span class="hljs-comment">//Action to compute all the distances for the cell</span>
     action compute_distances
     {
         roads route_pp &lt;- roads closest_to self;
-        dist_route &lt;- (self distance_to route_pp) using topology(world);
+        dist_route &lt;- (self distance_to route_pp) using <span class="hljs-literal">topology</span>(world);
         dist_cv &lt;- dist_route + route_pp.dist_cv;
     }
     <span class="hljs-comment">//Action to build on the cell</span>
@@ -138,25 +138,25 @@ grid plot file: asc_grid use_individual_shapes: false use_regular_agents: false 
         color &lt;- plot_colors[1];
     }
     <span class="hljs-comment">//Action to compute the constructability of the plot cell</span>
-    float compute_constructability
+    <span class="hljs-literal">float</span> compute_constructability
     {
         <span class="hljs-comment">//Get all the neighbors plots</span>
-        list&lt;plot&gt; voisins &lt;- (self neighbors_at density_radius);
+        <span class="hljs-literal">list</span>&lt;plot&gt; voisins &lt;- (self neighbors_at density_radius);
         <span class="hljs-comment">//Compute the density of all the neighbors plots</span>
-        float densite &lt;- (voisins count (each.grid_value = 1.0)) / length(voisins);
+        <span class="hljs-literal">float</span> densite &lt;- (voisins count (each.grid_value = 1.0)) / length(voisins);
         return (densite * weight_density + dist_route * weight_road_dist + dist_cv * weight_cc_dist) / (weight_density + weight_road_dist + weight_cc_dist);
     }           
 }
 
-experiment raster type: gui {
+<span class="hljs-builtin">experiment</span> raster type: gui {
     parameter <span class="hljs-string">"Weight of the density criteria"</span> var: weight_density;
     parameter <span class="hljs-string">"Weight of the distance to roads criteria"</span> var: weight_road_dist;
     parameter <span class="hljs-string">"Weight of the distance to city center criteria"</span> var: weight_cc_dist;
     output {
-        display map type: opengl {
+        display <span class="hljs-literal">map</span> type: opengl {
             grid plot;
-            species roads;
-            species city_center;
+            <span class="hljs-literal">species</span> roads;
+            <span class="hljs-literal">species</span> city_center;
         }
     }
 }

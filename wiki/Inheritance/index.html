@@ -63,19 +63,19 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="mother-species-child-species"></a><a href="#mother-species-child-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Mother species / child species</h2>
 <p>To make a species inherit from a mother species, you have to add the facet <code>parent</code>, and specify the mother species.</p>
-<pre><code class="hljs">species mother_species {
+<pre><code class="hljs"><span class="hljs-literal">species</span> mother_species {
 }
 
-species child_species parent:mother_species {
+<span class="hljs-literal">species</span> child_species parent:mother_species {
 }
 </code></pre>
 <p>Thus, all the attributes, actions and reflex of the mother species are inherited to the child species.</p>
-<pre><code class="hljs">species mother_species {
-    int attribute_A;
+<pre><code class="hljs"><span class="hljs-literal">species</span> mother_species {
+    <span class="hljs-literal">int</span> attribute_A;
     action action_A {}
 }
 
-species child_species parent:mother_species {
+<span class="hljs-literal">species</span> child_species parent:mother_species {
     init {
         attribute_A &lt;- 5;
         do action_A;
@@ -83,14 +83,14 @@ species child_species parent:mother_species {
 }
 </code></pre>
 <p>If the mother species has a particular skill, its children will inherit all the attributes and actions.</p>
-<pre><code class="hljs">species mother_species skills:[moving] {
+<pre><code class="hljs"><span class="hljs-literal">species</span> mother_species skills:[<span class="hljs-builtin">moving</span>] {
 }
 
-species child_species parent:mother_species {
+<span class="hljs-literal">species</span> child_species parent:mother_species {
     init {
         speed &lt;- 2.0;
     }
-    reflex update {
+    <span class="hljs-builtin">reflex</span> update {
         do wander;
     }
 }
@@ -101,11 +101,11 @@ species child_species parent:mother_species {
 <pre><code class="hljs">action virtual_action virtual:true;
 </code></pre>
 <p>When you declare an action as virtual in a species, this species becomes abstract, which means you cannot instantiate agent from it. All the children of this species has to implement this virtual action.</p>
-<pre><code class="hljs">species virtual_mother_species {
+<pre><code class="hljs"><span class="hljs-literal">species</span> virtual_mother_species {
     action my_action virtual:true;
 }
 
-species child_species parent:virtual_mother_species {
+<span class="hljs-literal">species</span> child_species parent:virtual_mother_species {
     action my_action {
         <span class="hljs-comment">// some statements</span>
     }
@@ -119,14 +119,14 @@ species child_species parent:virtual_mother_species {
         create child number:2;
         create mother number:1;
     }
-    reflex update {
-        <span class="hljs-statement">write</span> length(mother); <span class="hljs-comment">// will write 1 and not 3</span>
+    <span class="hljs-builtin">reflex</span> update {
+        write length(mother); <span class="hljs-comment">// will write 1 and not 3</span>
     }
 }
 
-species mother {}
+<span class="hljs-literal">species</span> mother {}
 
-species child parent:mother {}
+<span class="hljs-literal">species</span> child parent:mother {}
 </code></pre>
 <p>We reminds you that &quot;subspecies&quot; is a built-in attribute of the agent. Using this attribute, you can easily get all the subspecies agents of the mother species by writing the following gaml function :</p>
 <pre><code class="hljs">global
@@ -135,17 +135,17 @@ species child parent:mother {}
         create child number:2;
         create mother number:1;
     }
-    reflex update {
-        <span class="hljs-statement">write</span> length(get_all_instances(mother)); <span class="hljs-comment">// will write 3 (1+2)</span>
+    <span class="hljs-builtin">reflex</span> update {
+        write length(get_all_instances(mother)); <span class="hljs-comment">// will write 3 (1+2)</span>
     }
-    list&lt;agent&gt; get_all_instances(species&lt;agent&gt; spec) {
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; get_all_instances(<span class="hljs-literal">species</span>&lt;<span class="hljs-literal">agent</span>&gt; spec) {
         return spec.population +  spec.subspecies accumulate (get_all_instances(each));
     }
 }
 
-species mother {}
+<span class="hljs-literal">species</span> mother {}
 
-species child parent:mother {}
+<span class="hljs-literal">species</span> child parent:mother {}
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/BC2019-Gama-Site/wiki/AttachingSkills"><span class="arrow-prev">← </span><span>Attaching Skills</span></a><a class="docs-next button" href="/BC2019-Gama-Site/wiki/GridSpecies"><span>Grid Species</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#index">Index</a></li><li><a href="#mother-species-child-species">Mother species / child species</a></li><li><a href="#virtual-action">Virtual action</a></li><li><a href="#get-all-the-subspecies-from-a-species">Get all the subspecies from a species</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {

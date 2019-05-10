@@ -8,65 +8,65 @@
 <p>This model shows how get the shortest path from one point to another on a graph. The experiment proposes two displays : one to show the shortest path, an other to show the first k shortest paths.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model ShortestPath
+<span class="hljs-builtin">model</span> ShortestPath
 
 global {
-    file shape_file_in &lt;- file(<span class="hljs-string">'../includes/road.shp'</span>) ;
-    file shape_file_bounds &lt;- file(<span class="hljs-string">'../includes/bounds.shp'</span>) ;
-    geometry shape &lt;- envelope(shape_file_bounds);
-    graph road_graph; 
-    point source;
-    point target;
-    path shortest_path;
-    list&lt;path&gt; k_shortest_paths;
-    int k &lt;- 3; 
-    list&lt;rgb&gt; colors &lt;- [#red,#green,#blue,#pink,#cyan,#magenta,#yellow];
-    bool save_shortest_paths &lt;- false;
-    bool load_shortest_paths &lt;- false;
-    string shortest_paths_file &lt;- <span class="hljs-string">"../includes/shortest_paths.csv"</span>;
+    <span class="hljs-literal">file</span> shape_file_in &lt;- <span class="hljs-literal">file</span>('../includes/road.shp') ;
+    <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>('../includes/bounds.shp') ;
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
+    <span class="hljs-literal">graph</span> road_graph; 
+    <span class="hljs-literal">point</span> source;
+    <span class="hljs-literal">point</span> target;
+    <span class="hljs-literal">path</span> shortest_path;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">path</span>&gt; k_shortest_paths;
+    <span class="hljs-literal">int</span> k &lt;- 3; 
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; colors &lt;- [#red,#green,#blue,#pink,#cyan,#magenta,#yellow];
+    <span class="hljs-literal">bool</span> save_shortest_paths &lt;- false;
+    <span class="hljs-literal">bool</span> load_shortest_paths &lt;- false;
+    <span class="hljs-literal">string</span> shortest_paths_file &lt;- <span class="hljs-string">"../includes/shortest_paths.csv"</span>;
     
     init {
         create road from: shape_file_in;
         road_graph &lt;- as_edge_graph(road);
         
         <span class="hljs-comment">//computes all the shortest paths, puts them in a matrix, then saves the matrix in a file</span>
-        if save_shortest_paths {
-            matrix ssp &lt;- all_pairs_shortest_path(road_graph);
-            <span class="hljs-statement">write</span> <span class="hljs-string">"Matrix of all shortest paths: "</span> + ssp;
+        <span class="hljs-keyword">if</span> save_shortest_paths {
+            <span class="hljs-literal">matrix</span> ssp &lt;- all_pairs_shortest_path(road_graph);
+            write <span class="hljs-string">"Matrix of all shortest paths: "</span> + ssp;
             save ssp type:<span class="hljs-string">"text"</span> to:shortest_paths_file;
             
         <span class="hljs-comment">//loads the file of the shortest paths as a matrix and uses it to initialize all the shortest paths of the graph</span>
-        } else if load_shortest_paths {
-            road_graph &lt;- road_graph load_shortest_paths matrix(file(shortest_paths_file));
+        } else <span class="hljs-keyword">if</span> load_shortest_paths {
+            road_graph &lt;- road_graph load_shortest_paths <span class="hljs-literal">matrix</span>(<span class="hljs-literal">file</span>(shortest_paths_file));
         }
     }
     
-    reflex compute_shortest_paths {
-        source &lt;- point(one_of(road_graph.vertices));
-        target &lt;- point(one_of(road_graph.vertices));
-        if (source != target) {
+    <span class="hljs-builtin">reflex</span> compute_shortest_paths {
+        source &lt;- <span class="hljs-literal">point</span>(one_of(road_graph.vertices));
+        target &lt;- <span class="hljs-literal">point</span>(one_of(road_graph.vertices));
+        <span class="hljs-keyword">if</span> (source != target) {
             shortest_path &lt;- path_between (road_graph, source,target);
-            k_shortest_paths &lt;- list&lt;path&gt;(paths_between(road_graph,source::target,k)); 
+            k_shortest_paths &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">path</span>&gt;(paths_between(road_graph,source::target,k)); 
         }
     }
 }
 
-species road  {
+<span class="hljs-literal">species</span> road  {
     aspect base {
         draw shape color: #black ;
     } 
 }
 
-experiment ShortestPath type: gui {
+<span class="hljs-builtin">experiment</span> ShortestPath type: gui {
     parameter <span class="hljs-string">"number of shortest paths (k)"</span> var: k min: 1 max: 7;
     parameter <span class="hljs-string">"Computed all the shortest paths and save the results"</span> var: save_shortest_paths;
     parameter <span class="hljs-string">"Load the shortest paths from the file"</span> var: load_shortest_paths;
     
     output {
         display map_shortest_path {
-            species road aspect: base;
+            <span class="hljs-literal">species</span> road aspect: base;
             graphics <span class="hljs-string">"shortest path"</span> {
-                if (shortest_path != <span class="hljs-literal">nil</span>) {
+                <span class="hljs-keyword">if</span> (shortest_path != nil) {
                     draw circle(5) at: source color: #green;
                     draw circle(5) at: target color: #cyan;
                     draw (shortest_path.shape + 2.0) color: #magenta;
@@ -74,9 +74,9 @@ experiment ShortestPath type: gui {
             }
         }
         display map_k_shortest_paths {
-            species road aspect: base;
+            <span class="hljs-literal">species</span> road aspect: base;
             graphics <span class="hljs-string">"k shortest paths"</span> {
-                if (shortest_path != <span class="hljs-literal">nil</span>) {
+                <span class="hljs-keyword">if</span> (shortest_path != nil) {
                     draw circle(5) at: source color: #green;
                     draw circle(5) at: target color: #cyan;
                     loop i from: 0 to: length(k_shortest_paths) - 1{

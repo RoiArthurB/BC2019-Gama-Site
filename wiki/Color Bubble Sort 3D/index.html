@@ -8,18 +8,18 @@
 <p>A model to show how to create color by using the rgb operator, the color depending on the position of cube in the xyz space. The cubes are randomly mixed to finally be sorted according to the color of each vertix of the whole big cube, using the bubble sort algorithm (<a href="https://en.wikipedia.org/wiki/Bubble_sort">https://en.wikipedia.org/wiki/Bubble_sort</a>).</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model bubblesort3D
+<span class="hljs-builtin">model</span> bubblesort3D
 
 
 global {
 
 <span class="hljs-comment">//Number of cubes by faces of the whole big cube</span>
-int nb_cells&lt;-15;
+<span class="hljs-literal">int</span> nb_cells&lt;-15;
 
-geometry shape &lt;- cube(nb_cells) ;
+<span class="hljs-literal">geometry</span> shape &lt;- cube(nb_cells) ;
 
 
-bool change &lt;- true;
+<span class="hljs-literal">bool</span> change &lt;- true;
 
 init {
     <span class="hljs-comment">//We create nb_cells^3 cubes and we define their color depending on their position in XYZ</span>
@@ -30,12 +30,12 @@ init {
                 location &lt;-{i mod nb_cells,j mod nb_cells, k mod nb_cells};
                 
                 <span class="hljs-comment">//The canal RGB limit color to 255 by canal</span>
-                red &lt;- float((i mod nb_cells)* int(255 / nb_cells));
-                green &lt;- float((j mod nb_cells) * int(255 / nb_cells));
-                blue &lt;- float((k mod nb_cells) * int(255 / nb_cells));
+                red &lt;- <span class="hljs-literal">float</span>((i mod nb_cells)* <span class="hljs-literal">int</span>(255 / nb_cells));
+                green &lt;- <span class="hljs-literal">float</span>((j mod nb_cells) * <span class="hljs-literal">int</span>(255 / nb_cells));
+                blue &lt;- <span class="hljs-literal">float</span>((k mod nb_cells) * <span class="hljs-literal">int</span>(255 / nb_cells));
                 
                 <span class="hljs-comment">//We create the color according to the value of the red, green and blue canals</span>
-                color &lt;- rgb(red,green,blue);
+                color &lt;- <span class="hljs-literal">rgb</span>(red,green,blue);
               } 
             }   
         }
@@ -45,8 +45,8 @@ init {
     loop times: 10000 {
             ask one_of(cells) {
                 cells one_cells &lt;- one_of(cells);
-                if (self != one_cells) {
-                    point loc &lt;- copy(location);
+                <span class="hljs-keyword">if</span> (self != one_cells) {
+                    <span class="hljs-literal">point</span> loc &lt;- copy(location);
                     location &lt;- one_cells.location;
                     one_cells.location &lt;- loc;
                 }
@@ -58,8 +58,8 @@ init {
 }
 
 <span class="hljs-comment">//Reflex to finish the execution of the model when nothing has changed during the cycle</span>
-reflex end {
-    if (not change) {
+<span class="hljs-builtin">reflex</span> end {
+    <span class="hljs-keyword">if</span> (not change) {
         do pause;   
     } 
     change &lt;- false;
@@ -67,13 +67,13 @@ reflex end {
 }
 
 
-species cells{
+<span class="hljs-literal">species</span> cells{
 
-    rgb color;
-    float red;
-    float green;
-    float blue;
-    list&lt;cells&gt; neigbhours update: cells at_distance (1.1);
+    <span class="hljs-literal">rgb</span> color;
+    <span class="hljs-literal">float</span> red;
+    <span class="hljs-literal">float</span> green;
+    <span class="hljs-literal">float</span> blue;
+    <span class="hljs-literal">list</span>&lt;cells&gt; neigbhours update: cells at_distance (1.1);
     
     <span class="hljs-comment">//Update of the neighbors cubes at each cycle of the simulation according to their location</span>
     cells upper_cell_y update: neigbhours first_with (shape.location.y &gt; each.shape.location.y);
@@ -81,22 +81,22 @@ species cells{
     cells upper_cell_z update: neigbhours first_with (shape.location.z &gt; each.shape.location.z);
     
     <span class="hljs-comment">//We permute the cube agent with its neighbor if its intensity is greater according to the canal related to its axis (z for canal blue, y for green and x for red)</span>
-    reflex swap_z when: upper_cell_z != <span class="hljs-literal">nil</span> and blue &lt; upper_cell_z.blue{ 
-        point tmp1Loc &lt;-location;
+    <span class="hljs-builtin">reflex</span> swap_z when: upper_cell_z != nil and blue &lt; upper_cell_z.blue{ 
+        <span class="hljs-literal">point</span> tmp1Loc &lt;-location;
         location &lt;- upper_cell_z.location;  
         upper_cell_z.location&lt;-tmp1Loc;     
         change &lt;- true; 
     }
     
-    reflex swap_y when: upper_cell_y != <span class="hljs-literal">nil</span> and green &lt; upper_cell_y.green{ 
-        point tmp1Loc &lt;-location;
+    <span class="hljs-builtin">reflex</span> swap_y when: upper_cell_y != nil and green &lt; upper_cell_y.green{ 
+        <span class="hljs-literal">point</span> tmp1Loc &lt;-location;
         location &lt;- upper_cell_y.location;  
         upper_cell_y.location&lt;-tmp1Loc;     
         change &lt;- true; 
     }
     
-    reflex swap_x when: upper_cell_x != <span class="hljs-literal">nil</span> and red &lt; upper_cell_x.red{ 
-        point tmp1Loc &lt;-location;
+    <span class="hljs-builtin">reflex</span> swap_x when: upper_cell_x != nil and red &lt; upper_cell_x.red{ 
+        <span class="hljs-literal">point</span> tmp1Loc &lt;-location;
         location &lt;- upper_cell_x.location;  
         upper_cell_x.location&lt;-tmp1Loc;     
         change &lt;- true; 
@@ -108,10 +108,10 @@ species cells{
 }
 
 
-experiment Display type: gui {
+<span class="hljs-builtin">experiment</span> Display type: gui {
     output {
         display View1 type:opengl draw_env:false{
-            species cells transparency:0.1;
+            <span class="hljs-literal">species</span> cells transparency:0.1;
             graphics <span class="hljs-string">"di"</span>{
              draw <span class="hljs-string">"black(0,0,0)"</span> at:{0,0,0} color:°black perspective:false;
              draw <span class="hljs-string">"red(1,0,0)"</span> at:{world.shape.width,0,0} color:°red perspective:false;

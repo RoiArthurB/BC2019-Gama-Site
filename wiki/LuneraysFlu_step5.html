@@ -69,7 +69,7 @@
 <h3><a class="anchor" aria-hidden="true" id="species"></a><a href="#species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>species</h3>
 <p>We define a new aspect for the road species called <em>geom3D</em> that draw the road agent that as a black tube of 2m radius built from its geometry. Note that it is possible to get the list of points composing a geometry by using the <em>points</em> variable of the geometry.</p>
 <p><img src="../resources/images/tutorials/roads_display.tiff" alt="images/roads_display.tiff"></p>
-<pre><code class="hljs">species road {
+<pre><code class="hljs"><span class="hljs-literal">species</span> road {
     <span class="hljs-comment">//....</span>
     aspect geom3D {
         draw line(shape.points, 2.0) color: #black;
@@ -78,7 +78,7 @@
 </code></pre>
 <p>Concerning the building species, we define an aspect called <em>geom3D</em> that draws the shape of the building with a depth of 20 meters and with using a texture &quot;texture.jpg&quot; for the face and a texture for the roof &quot;roof_top.png&quot;.</p>
 <p><img src="../resources/images/tutorials/buildings_display.tiff" alt="images/buildings_display.tiff"></p>
-<pre><code class="hljs">species building {
+<pre><code class="hljs"><span class="hljs-literal">species</span> building {
     <span class="hljs-comment">//....</span>
     aspect geom3D {
         draw shape depth: 20 #m border: #black texture:[<span class="hljs-string">"../includes/roof_top.png"</span>,<span class="hljs-string">"../includes/texture.jpg"</span>];
@@ -87,10 +87,10 @@
 </code></pre>
 <p>At last, we define a new aspect called <em>geom3D</em> for the people species that displays the agent only if it is on a road (target != nil). In this aspect, we use an obj file that contains a 3D object. The use of the <em>obj_file</em> operator allows to apply an initial rotation to an obj file. In our case, we add a rotation of -90° along the x axis. We specify with the <em>size</em> facet that we want to draw the 3D object inside a bounding box of 5m. As the location of the 3D object is its centroid and as we want to draw the 3D object on the top of the ground, we use the <em>at</em> facet to put an offset along the z axis. We use also the rotate facet to change the orientation of the 3D object according to the heading of the agent. At last, we choose to draw the 3D object in green if the agent is not infected; in red otherwise.</p>
 <p><img src="../resources/images/tutorials/people_display.tiff" alt="images/people_display.tiff"></p>
-<pre><code class="hljs">species people skills:[moving]{     
+<pre><code class="hljs"><span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
     <span class="hljs-comment">//....</span>
     aspect geom3D {
-        if target != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">if</span> target != nil {
             draw obj_file(<span class="hljs-string">"../includes/people.obj"</span>, 90::{-1,0,0}) size: 5
             at: location + {0,0,7} rotate: heading - 90 color: is_infected ? #red : #green;
         }
@@ -99,35 +99,35 @@
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="output"></a><a href="#output" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>output</h3>
 <p>We define a new display called <em>view3D</em> of type <em>opengl</em> with an <em>ambient_light</em> of 80. Inside this display, we first draw a background image representing the satellite image of the Luneray. Note that GAMA is able to manage world files to georeferenced images. In our case, as a pgw file exists in the includes folder, the satellite image will be well localized in the display. After drawing the background image, we display first the building species with their geom3D aspect, then the road species with their geom3D aspect and finally the people species with their geom3D aspect. Only the people agents will be redrawn at each simulation step.</p>
-<pre><code class="hljs">experiment main_experiment type: gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> main_experiment type: gui {
     output {
     <span class="hljs-comment">// monitor and other displays   </span>
         display view3D type: opengl ambient_light: 80 {
             image <span class="hljs-string">"../includes/luneray.png"</span> refresh:false; 
-            species building aspect:geom3D refresh: false;
-            species road aspect: geom3D refresh: false;
-            species people aspect: geom3D ; 
+            <span class="hljs-literal">species</span> building aspect:geom3D refresh: false;
+            <span class="hljs-literal">species</span> road aspect: geom3D refresh: false;
+            <span class="hljs-literal">species</span> people aspect: geom3D ; 
         }
     }
 }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
 <pre><code class="hljs">
-model model4
+<span class="hljs-builtin">model</span> model4
 
 global {
-    int nb_people &lt;- 2147;
-    int nb_infected_init &lt;- 5;
-    float step &lt;- 5 #mn;
-    file roads_shapefile &lt;- file(<span class="hljs-string">"../includes/roads.shp"</span>);
-    file buildings_shapefile &lt;- file(<span class="hljs-string">"../includes/buildings.shp"</span>);
-    geometry shape &lt;- envelope(roads_shapefile);    
-    graph road_network;
+    <span class="hljs-literal">int</span> nb_people &lt;- 2147;
+    <span class="hljs-literal">int</span> nb_infected_init &lt;- 5;
+    <span class="hljs-literal">float</span> step &lt;- 5 #mn;
+    <span class="hljs-literal">file</span> roads_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/roads.shp"</span>);
+    <span class="hljs-literal">file</span> buildings_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/buildings.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(roads_shapefile);    
+    <span class="hljs-literal">graph</span> road_network;
     
     
-    int nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
-    int nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
-    float infected_rate update: nb_people_infected/nb_people;
+    <span class="hljs-literal">int</span> nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
+    <span class="hljs-literal">int</span> nb_people_not_infected &lt;- nb_people - nb_infected_init update: nb_people - nb_people_infected;
+    <span class="hljs-literal">float</span> infected_rate update: nb_people_infected/nb_people;
     
     
     init{
@@ -143,27 +143,27 @@ global {
     }
 }
 
-species people skills:[moving]{     
-    float speed &lt;- (2 + rnd(3)) #km/#h;
-    bool is_infected &lt;- false;
-    point target;
+<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+    <span class="hljs-literal">float</span> speed &lt;- (2 + rnd(3)) #km/#h;
+    <span class="hljs-literal">bool</span> is_infected &lt;- false;
+    <span class="hljs-literal">point</span> target;
     
-    reflex stay when: target = <span class="hljs-literal">nil</span> {
-        if flip(0.05) {
+    <span class="hljs-builtin">reflex</span> stay when: target = nil {
+        <span class="hljs-keyword">if</span> flip(0.05) {
             target &lt;- any_location_in (one_of(building));
         }
     }
         
-    reflex move when: target != <span class="hljs-literal">nil</span>{
+    <span class="hljs-builtin">reflex</span> move when: target != nil{
         do goto target:target on: road_network;
-        if (location = target) {
-            target &lt;- <span class="hljs-literal">nil</span>;
+        <span class="hljs-keyword">if</span> (location = target) {
+            target &lt;- nil;
         } 
     }
 
-    reflex infect when: is_infected{
+    <span class="hljs-builtin">reflex</span> infect when: is_infected{
         ask people at_distance 10 #m {
-            if flip(0.05) {
+            <span class="hljs-keyword">if</span> flip(0.05) {
                 is_infected &lt;- true;
             }
         }
@@ -174,7 +174,7 @@ species people skills:[moving]{
     }
     
     aspect geom3D {
-        if target != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">if</span> target != nil {
             draw obj_file(<span class="hljs-string">"../includes/people.obj"</span>, 90::{-1,0,0}) size: 5
             at: location + {0,0,7} rotate: heading - 90 color: is_infected ? #red : #green;
         }
@@ -182,7 +182,7 @@ species people skills:[moving]{
     
 }
 
-species road {
+<span class="hljs-literal">species</span> road {
     aspect geom {
         draw shape color: #black;
     }
@@ -191,7 +191,7 @@ species road {
     }
 }
 
-species building {
+<span class="hljs-literal">species</span> building {
     aspect geom {
         draw shape color: #gray;
     }
@@ -200,16 +200,16 @@ species building {
     }
 }
 
-experiment main type: gui {
+<span class="hljs-builtin">experiment</span> main type: gui {
     parameter <span class="hljs-string">"Nb people infected at init"</span> var: nb_infected_init min: 1 max: 2147;
 
     output {
         monitor <span class="hljs-string">"Infected people rate"</span> value: infected_rate;
         
-        display map {
-            species road aspect:geom;
-            species building aspect:geom;
-            species people aspect:circle;           
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> road aspect:geom;
+            <span class="hljs-literal">species</span> building aspect:geom;
+            <span class="hljs-literal">species</span> people aspect:circle;           
         }
         
         
@@ -222,9 +222,9 @@ experiment main type: gui {
         }
         display view3D type: opengl ambient_light: 80 {
             image <span class="hljs-string">"../includes/luneray.png"</span> refresh:false; 
-            species building aspect:geom3D refresh: false;
-            species road aspect: geom3D refresh: false;
-            species people aspect: geom3D ; 
+            <span class="hljs-literal">species</span> building aspect:geom3D refresh: false;
+            <span class="hljs-literal">species</span> road aspect: geom3D refresh: false;
+            <span class="hljs-literal">species</span> people aspect: geom3D ; 
         }
     }
 }

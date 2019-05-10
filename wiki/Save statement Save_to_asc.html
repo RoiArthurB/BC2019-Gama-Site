@@ -8,7 +8,7 @@
 <p>This is a model that shows how to save a grid inside a ASCII File to reuse it later or to keep it.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model SavetoAsc
+<span class="hljs-builtin">model</span> SavetoAsc
 
 global {
     init {  
@@ -19,13 +19,13 @@ global {
 
 <span class="hljs-comment">//Grid that will be saved in the ASC File</span>
 grid cell width: 50 height: 50 {
-    float grid_value &lt;- self distance_to world.location;
-    rgb color &lt;- rgb(255 * (1 - grid_value / 50), 0,0);
+    <span class="hljs-literal">float</span> grid_value &lt;- self distance_to world.location;
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(255 * (1 - grid_value / 50), 0,0);
 }
 
-experiment main type: gui {
+<span class="hljs-builtin">experiment</span> main type: gui {
     output {
-        display map {
+        display <span class="hljs-literal">map</span> {
             grid cell lines: #black;
         }
     }

@@ -69,7 +69,7 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="displays-and-layers"></a><a href="#displays-and-layers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Displays and layers</h2>
 <p>A display is the graphical output of your simulation. You can define several displays related with what you want to represent from your model execution. To define a display, use the keyword <code>display</code> inside the <code>output</code> scope, and specify a name (<code>name</code> facet).</p>
-<pre><code class="hljs">experiment my_experiment type: gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> my_experiment type: gui {
     output {
         display <span class="hljs-string">"display1"</span> {
         }
@@ -106,7 +106,7 @@
 <p>In one 2D display, you will have several types of layers, giving what you want to display in your model. You have a large number of layers available. You already know some of them, such as <code>species</code>, <code>agents</code>, <code>grid</code>, but other specific layers such as <code>image</code> (to display image) and <code>graphics</code> (to freely draw shapes/geometries/texts without having to define a species) are also available</p>
 <p>Each layer will be displayed in the same order as you declare them. The last declared layer will be above the others.</p>
 <p>Thus, the following code:</p>
-<pre><code class="hljs">experiment expe type:gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> expe type:gui {
     output {
         display my_display {
             graphics <span class="hljs-string">"layer1"</span> {
@@ -125,7 +125,7 @@
 <p>Will have this output:</p>
 <p><img src="../resources/images/definingGUIExperiment/layers_order.png" alt="images/layers_order.png"></p>
 <p>Most of the layers have the <code>transparency</code> facet in order to see the layers which are under.</p>
-<pre><code class="hljs">experiment expe type:gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> expe type:gui {
     output {
         display my_display {
             graphics <span class="hljs-string">"layer1"</span> {
@@ -142,7 +142,7 @@
 <p>To specify a position and a size for your layer, you can use the <code>position</code> and the <code>size</code> facets.
 The <code>position</code> facet is used with a point type, between {0,0} and {1,1}, which corresponds to the position of the upper left corner of your layer in percentage. Then, if you choose the point {0.5,0.5}, the upper left corner of your layer will be in the center of your display. By default, this value is {0,0}.
 The <code>size</code> facet is used with a point type, between {0,0} and {1,1} also. It corresponds to the size occupied by the layer in percentage. By default, this value is {1,1}.</p>
-<pre><code class="hljs">experiment expe type:gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> expe type:gui {
     output {
         display my_display {
             graphics <span class="hljs-string">"layer1"</span> position:{0,0} size:{0.5,0.8} {

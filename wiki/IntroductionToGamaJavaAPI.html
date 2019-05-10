@@ -59,12 +59,12 @@
 <ul>
 <li>get the current agent with: <code>scope.getAgentScope()</code></li>
 </ul>
-<pre><code class="hljs">IAgent agent = scope.getAgentScope();
+<pre><code class="hljs">IAgent <span class="hljs-literal">agent</span> = scope.getAgentScope();
 </code></pre>
 <ul>
 <li>evaluate an expression in the current scope:</li>
 </ul>
-<pre><code class="hljs">String mes = Cast.asString(scope, <span class="hljs-facet">message</span>.value(scope));
+<pre><code class="hljs">String mes = Cast.asString(scope, message.value(scope));
 </code></pre>
 <ul>
 <li>know whether the scope has been interrupted:</li>

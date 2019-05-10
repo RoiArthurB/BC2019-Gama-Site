@@ -56,17 +56,17 @@
             });
         </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Implementing light</h1></header><article><div><span><p>When using opengl display, GAMA provides you the possibility to manipulate one or several lights, making your display more realistic.
 Most of the following screenshots will be taken with the following short example gaml :</p>
-<pre><code class="hljs">model test_light
+<pre><code class="hljs"><span class="hljs-builtin">model</span> test_light
 
 grid cells {
     aspect base {
         draw square(1) at:{grid_x,grid_y} color:#white;
     }
 }
-experiment my_experiment type:gui{
+<span class="hljs-builtin">experiment</span> my_experiment type:gui{
     output {
         display my_display type:opengl background:#darkblue {
-            species cells aspect:base;
+            <span class="hljs-literal">species</span> cells aspect:base;
             graphics <span class="hljs-string">"my_layer"</span> {
                 draw square(100) color:#white at:{50,50};
                 draw cube(5) color:#lightgrey at:{50,30};
@@ -143,7 +143,7 @@ This specular light is not implemented yet in gama, only the two others are.</p>
 <p>In your opengl display, you can create up to 8 lights, giving them the properties you want.</p>
 <h3><a class="anchor" aria-hidden="true" id="ambient-light-1"></a><a href="#ambient-light-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ambient light</h3>
 <p>In order to keep it simple, the ambient light can be set directly when you are declaring your display, through the facet <code>ambient_light</code>. You will have one only ambient light.</p>
-<pre><code class="hljs">experiment my_experiment type:gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> my_experiment type:gui {
     output {
         display <span class="hljs-string">"my_display"</span> type:opengl ambient_light:100 {
         }
@@ -153,7 +153,7 @@ This specular light is not implemented yet in gama, only the two others are.</p>
 <p><em>Note for developers</em> : Note that this ambient light is set to the GL_LIGHT0. This GL_LIGHT0 only contains an ambient light, and no either diffuse nor specular light.</p>
 <h3><a class="anchor" aria-hidden="true" id="diffuse-light-1"></a><a href="#diffuse-light-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Diffuse light</h3>
 <p>In order to add lights, or modifying the existing lights, you can use the statement <code>light</code>, inside your <code>display</code> scope :</p>
-<pre><code class="hljs">experiment my_experiment type:gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> my_experiment type:gui {
     output {
         display <span class="hljs-string">"my_display"</span> type:opengl {
             light id:0;
@@ -168,25 +168,25 @@ An other very important facet is the <code>type</code> facet. This facet accepts
 <h4><a class="anchor" aria-hidden="true" id="declaring-direction-light"></a><a href="#declaring-direction-light" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaring direction light</h4>
 <p>A direction light, as explained in the first part, is a light without any position. Instead of the facet <code>position</code>, you will use the facet <code>direction</code>, giving a 3D vector.</p>
 <p>Example of implementation :</p>
-<pre><code class="hljs">light id:1 type:direction direction:{1,1,1} color:rgb(255,0,0);
+<pre><code class="hljs">light id:1 type:direction direction:{1,1,1} color:<span class="hljs-literal">rgb</span>(255,0,0);
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="declaring-point-light"></a><a href="#declaring-point-light" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaring point light</h4>
 <p>A point light will need a facet <code>position</code>, in order to give the position of the light source.</p>
 <p>Example of implementation of a basic point light :</p>
-<pre><code class="hljs">light id:1 type:point position:{10,20,10} color:rgb(255,0,0);
+<pre><code class="hljs">light id:1 type:<span class="hljs-literal">point</span> position:{10,20,10} color:<span class="hljs-literal">rgb</span>(255,0,0);
 </code></pre>
 <p>You can add, if you want, a custom attenuation of the light, through the facets <code>linear_attenuation</code> or <code>quadratic_attenuation</code>.</p>
 <p>Example of implementation of a point light with attenuation :</p>
-<pre><code class="hljs">light id:1 type:point position:{10,20,10} color:rgb(255,0,0) linear_attenuation:0.1;
+<pre><code class="hljs">light id:1 type:<span class="hljs-literal">point</span> position:{10,20,10} color:<span class="hljs-literal">rgb</span>(255,0,0) linear_attenuation:0.1;
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="declaring-spot-light"></a><a href="#declaring-spot-light" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaring spot light</h4>
 <p>A spot light will need the facet <code>position</code> (a spot light is a positionnal light) and the facet <code>direction</code>. A spot light will also need a special facet <code>spot_angle</code> to determine the angle of the spot (by default, this value is set to 45 degree).</p>
 <p>Example of implementation of a basic spot light :</p>
-<pre><code class="hljs">light id:1 type:spot position:{0,0,10} direction:{1,1,1} color:rgb(255,0,0) spot_angle:20;
+<pre><code class="hljs">light id:1 type:spot position:{0,0,10} direction:{1,1,1} color:<span class="hljs-literal">rgb</span>(255,0,0) spot_angle:20;
 </code></pre>
 <p>Same as for point light, you can specify an attenuation for a spot light.</p>
 <p>Example of implementation of a spot light with attenuation :</p>
-<pre><code class="hljs">light id:1 type:spot position:{0,0,10} direction:{1,1,1} color:rgb(255,0,0) spot_angle:20;
+<pre><code class="hljs">light id:1 type:spot position:{0,0,10} direction:{1,1,1} color:<span class="hljs-literal">rgb</span>(255,0,0) spot_angle:20;
 </code></pre>
 <p>Note that when you are working with lights, you can display your lights through the facet <code>draw light</code> to help you implementing your model. The three types of lights are displayed differently :</p>
 <ul>

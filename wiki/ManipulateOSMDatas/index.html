@@ -81,37 +81,37 @@ Several software are possible to use, but we will focus on <a href="http://www.q
 <p>Choose &quot;shapefile&quot; as format, choose a save path and click ok.</p>
 <p><img src="../resources/images/recipes/manipulate_OSM_file_12.png" alt="images/manipulate_OSM_file_12.png"></p>
 <p>Copy passed all the .shp created in the include folder of your GAMA project. You are now ready to write the model.</p>
-<pre><code class="hljs">model HowToUseOpenStreetMap
+<pre><code class="hljs"><span class="hljs-builtin">model</span> HowToUseOpenStreetMap
 
 global {
     <span class="hljs-comment">// Global variables related to the Management units </span>
-    file shapeFile &lt;- file(<span class="hljs-string">'../includes/new_york.shp'</span>); 
+    <span class="hljs-literal">file</span> shapeFile &lt;- <span class="hljs-literal">file</span>('../includes/new_york.shp'); 
     
     <span class="hljs-comment">//definition of the environment size from the shapefile. </span>
     <span class="hljs-comment">//Note that is possible to define it from several files by using: geometry shape &lt;- envelope(envelope(file1) + envelope(file2) + ...);</span>
-    geometry shape &lt;- envelope(shapeFile);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shapeFile);
     
     init {
         <span class="hljs-comment">//Creation of elementOfNewYork agents from the shapefile (and reading some of the shapefile attributes)</span>
         create elementOfNewYork from: shapeFile 
-            with: [elementId::int(read(<span class="hljs-string">'id'</span>)), elementHeight::int(read(<span class="hljs-string">'height'</span>)), elementColor::string(read(<span class="hljs-string">'attrForGama'</span>))] ;
+            with: [elementId::<span class="hljs-literal">int</span>(read('id')), elementHeight::<span class="hljs-literal">int</span>(read('height')), elementColor::<span class="hljs-literal">string</span>(read('attrForGama'))] ;
     }
 }
     
-species elementOfNewYork{
-    int elementId;
-    int elementHeight;
-    string elementColor;
+<span class="hljs-literal">species</span> elementOfNewYork{
+    <span class="hljs-literal">int</span> elementId;
+    <span class="hljs-literal">int</span> elementHeight;
+    <span class="hljs-literal">string</span> elementColor;
     
     aspect basic{
         draw shape color: (elementColor = <span class="hljs-string">"blue"</span>) ? #blue : ( (elementColor = <span class="hljs-string">"red"</span>) ? #red : #yellow ) depth: elementHeight;
     }
 }   
 
-experiment main type: gui {     
+<span class="hljs-builtin">experiment</span> main type: gui {     
     output {
         display HowToUseOpenStreetMap type:opengl {
-            species elementOfNewYork aspect: basic; 
+            <span class="hljs-literal">species</span> elementOfNewYork aspect: basic; 
         }
     }
 }

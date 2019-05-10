@@ -9,28 +9,28 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">  
  
-model RoadTrafficSimple 
+<span class="hljs-builtin">model</span> RoadTrafficSimple 
   
 global {  
-    file shape_file_roads  &lt;- file(<span class="hljs-string">"../includes/RoadCircleLanes.shp"</span>) ;
-    file shape_file_bounds &lt;- file(<span class="hljs-string">"../includes/BoundsLaneRoad.shp"</span>) ;
-    geometry shape &lt;- envelope(shape_file_bounds);
+    <span class="hljs-literal">file</span> shape_file_roads  &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/RoadCircleLanes.shp"</span>) ;
+    <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/BoundsLaneRoad.shp"</span>) ;
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
     
-    graph the_graph;  
-    list roadsList of: road ; 
+    <span class="hljs-literal">graph</span> the_graph;  
+    <span class="hljs-literal">list</span> roadsList of: road ; 
         
     
     init {  
-        create road from: shape_file_roads with: [nbLanes::int(read(<span class="hljs-string">"lanes"</span>))] {
+        create road from: shape_file_roads with: [nbLanes::<span class="hljs-literal">int</span>(read(<span class="hljs-string">"lanes"</span>))] {
             geom_visu &lt;- shape + nbLanes;
         }
         the_graph &lt;- as_edge_graph(road);
     }   
     
-    reflex createPeople when: cycle mod 20 = 0 and cycle &lt; 400{
-        roadsList &lt;- (road as list);  
+    <span class="hljs-builtin">reflex</span> createPeople when: cycle mod 20 = 0 and cycle &lt; 400{
+        roadsList &lt;- (road as <span class="hljs-literal">list</span>);  
         create people number: 1 { 
-            speed &lt;-  (2.0 + 2 * length(people as list)) ;
+            speed &lt;-  (2.0 + 2 * length(people as <span class="hljs-literal">list</span>)) ;
             currentRoad &lt;- first (roadsList);
             source &lt;- first((currentRoad.shape).points);
             location &lt;- source; 
@@ -38,32 +38,32 @@ global {
             living_space &lt;- 10.0;
             tolerance &lt;- 0.1;
             lanes_attribute &lt;- <span class="hljs-string">"nbLanes"</span>;
-            obstacle_species &lt;- [species(self)]; 
+            obstacle_species &lt;- [<span class="hljs-literal">species</span>(self)]; 
         }  
     }   
 } 
     
-species road  { 
-    int nbLanes; 
-    geometry geom_visu;
+<span class="hljs-literal">species</span> road  { 
+    <span class="hljs-literal">int</span> nbLanes; 
+    <span class="hljs-literal">geometry</span> geom_visu;
     aspect base {    
         draw geom_visu color: #black ;
     } 
 }
 
-species people skills: [driving]{ 
-    float speed; 
-    rgb color &lt;- rgb(rnd(255),rnd(255),rnd(255)) ; 
-    point target &lt;- <span class="hljs-literal">nil</span> ; 
-    point source &lt;- <span class="hljs-literal">nil</span>;
-    road currentRoad &lt;- <span class="hljs-literal">nil</span>;
-    reflex move when: target != <span class="hljs-literal">nil</span> {
+<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">driving</span>]{ 
+    <span class="hljs-literal">float</span> speed; 
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(rnd(255),rnd(255),rnd(255)) ; 
+    <span class="hljs-literal">point</span> target &lt;- nil ; 
+    <span class="hljs-literal">point</span> source &lt;- nil;
+    road currentRoad &lt;- nil;
+    <span class="hljs-builtin">reflex</span> move when: target != nil {
         do goto_driving target: target on: the_graph speed: speed ; 
         switch target { 
             match location {
                 currentRoad &lt;- (roadsList select (each != currentRoad)) with_min_of (each distance_to self);
                 source &lt;- location;
-                list&lt;point&gt; rls &lt;- (currentRoad.shape).points;
+                <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; rls &lt;- (currentRoad.shape).points;
                 target &lt;- first (rls) = source ? last(rls):first(rls);
             }
         }
@@ -74,14 +74,14 @@ species people skills: [driving]{
     }
 }
 
-experiment Simple type: gui {
+<span class="hljs-builtin">experiment</span> Simple type: gui {
     parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
     
     output {
         display city_display {
-            species road aspect: base ;
-            species people aspect: base;
+            <span class="hljs-literal">species</span> road aspect: base ;
+            <span class="hljs-literal">species</span> people aspect: base;
         }
     }
 }

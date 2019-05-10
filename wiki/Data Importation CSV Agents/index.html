@@ -8,7 +8,7 @@
 <p>Model which shows how to create agents by importing data of a CSV file. The model read the CSV File and create an agent Iris for each line of the CSV, linking its attributes to columns of the CSV File.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model CSVfileloading
+<span class="hljs-builtin">model</span> CSVfileloading
 
 global {
     
@@ -16,22 +16,22 @@ global {
         <span class="hljs-comment">//create iris agents from the CSV file (use of the header of the CSV file), the attributes of the agents are initialized from the CSV files: </span>
         <span class="hljs-comment">//we set the header facet to true to directly read the values corresponding to the right column. If the header was set to false, we could use the index of the columns to initialize the agent attributes</span>
         create iris from:csv_file( <span class="hljs-string">"../includes/iris.csv"</span>,true) with:
-            [sepal_length::float(get(<span class="hljs-string">"sepallength"</span>)), 
-                sepal_width::float(get(<span class="hljs-string">"sepalwidth"</span>)), 
-                petal_length::float(get(<span class="hljs-string">"petallength"</span>)),
-                petal_width::float(get(<span class="hljs-string">"petalwidth"</span>)), 
-                type::string(get(<span class="hljs-string">"type"</span>))
+            [sepal_length::<span class="hljs-literal">float</span>(get(<span class="hljs-string">"sepallength"</span>)), 
+                sepal_width::<span class="hljs-literal">float</span>(get(<span class="hljs-string">"sepalwidth"</span>)), 
+                petal_length::<span class="hljs-literal">float</span>(get(<span class="hljs-string">"petallength"</span>)),
+                petal_width::<span class="hljs-literal">float</span>(get(<span class="hljs-string">"petalwidth"</span>)), 
+                type::<span class="hljs-literal">string</span>(get(<span class="hljs-string">"type"</span>))
             ];  
     }
 }
 
-species iris {
-    float sepal_length;
-    float sepal_width;
-    float petal_length;
-    float petal_width;
-    string type;
-    rgb color ;
+<span class="hljs-literal">species</span> iris {
+    <span class="hljs-literal">float</span> sepal_length;
+    <span class="hljs-literal">float</span> sepal_width;
+    <span class="hljs-literal">float</span> petal_length;
+    <span class="hljs-literal">float</span> petal_width;
+    <span class="hljs-literal">string</span> type;
+    <span class="hljs-literal">rgb</span> color ;
     
     init {
         color &lt;- type =<span class="hljs-string">"Iris-setosa"</span> ? #blue : ((type =<span class="hljs-string">"Iris-virginica"</span>) ? #red: #yellow);
@@ -42,10 +42,10 @@ species iris {
     }
 }
 
-experiment main type: gui{
+<span class="hljs-builtin">experiment</span> main type: gui{
     output {
-        display map {
-            species iris;
+        display <span class="hljs-literal">map</span> {
+            <span class="hljs-literal">species</span> iris;
         }
     }
     

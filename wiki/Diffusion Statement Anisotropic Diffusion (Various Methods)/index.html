@@ -8,15 +8,15 @@
 <p>This model is used to show two different computation methods to use diffusion : with the dot product method and with the convolution method. The cell at the center of the grid emit a pheromon at each step, which is spread through the grid thanks to the diffusion mechanism, using a particular matrix of diffusion.</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Anisotropic Diffusion (Various Methods)/convol-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Anisotropic Diffusion (Various Methods)/dot-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model diffusion_computation_method
+<span class="hljs-builtin">model</span> diffusion_computation_method
 
 global{
-    int size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
-    geometry shape &lt;- envelope(square(size) * 10);
+    <span class="hljs-literal">int</span> size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(size) * 10);
     cells_dot selected_cells_dot;
     cells_convol selected_cells_convol;
     <span class="hljs-comment">// Declare the anisotropic matrix (diffuse to the left-upper direction)</span>
-    matrix&lt;float&gt; mat_diff &lt;- matrix([
+    <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; mat_diff &lt;- <span class="hljs-literal">matrix</span>([
                                     [2/9,2/9,1/9],
                                     [2/9,1/9,0.0],
                                     [1/9,0.0,0.0]]);
@@ -26,7 +26,7 @@ global{
         selected_cells_dot &lt;- location as cells_dot;
         selected_cells_convol &lt;- location as cells_convol;
     }
-    reflex new_Value {
+    <span class="hljs-builtin">reflex</span> new_Value {
         ask(selected_cells_dot){
             phero &lt;- 1.0;
         }
@@ -35,35 +35,35 @@ global{
         }       
     }
 
-    reflex diff {
+    <span class="hljs-builtin">reflex</span> diff {
         <span class="hljs-comment">// Declare a diffusion on the grid "cells_dot" (with a dot product computation) and on "cells_convol" (with a convol computation). </span>
         <span class="hljs-comment">// The value of the diffusion will be store in the new variable "phero" of the cell.</span>
-        diffuse var: phero on: cells_dot matrix: mat_diff method: <span class="hljs-string">"dot_product"</span>;    
-        diffuse var: phero on: cells_convol matrix: mat_diff method: <span class="hljs-string">"convolution"</span>;         
+        diffuse var: phero on: cells_dot <span class="hljs-literal">matrix</span>: mat_diff method: <span class="hljs-string">"dot_product"</span>;    
+        diffuse var: phero on: cells_convol <span class="hljs-literal">matrix</span>: mat_diff method: <span class="hljs-string">"convolution"</span>;         
     }
 }
 
 
 grid cells_dot height: size width: size {
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
-    float phero  &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is linked to the value of "phero".</span>
-    rgb color &lt;- hsb(phero,1.0,1.0) update: hsb(phero,1.0,1.0);
+    <span class="hljs-literal">rgb</span> color &lt;- hsb(phero,1.0,1.0) update: hsb(phero,1.0,1.0);
     <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
-    float grid_value update: phero * 100;
+    <span class="hljs-literal">float</span> grid_value update: phero * 100;
 } 
 
 grid cells_convol height: size width: size {
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
-    float phero  &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is linked to the value of "phero".</span>
-    rgb color &lt;- hsb(phero,1.0,1.0) update: hsb(phero,1.0,1.0);
+    <span class="hljs-literal">rgb</span> color &lt;- hsb(phero,1.0,1.0) update: hsb(phero,1.0,1.0);
     <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
-    float grid_value update: phero * 100;
+    <span class="hljs-literal">float</span> grid_value update: phero * 100;
 } 
 
 
-experiment diffusion type: gui {
+<span class="hljs-builtin">experiment</span> diffusion type: gui {
     output {
         display dot type: opengl {
             <span class="hljs-comment">// Display the grid with elevation</span>

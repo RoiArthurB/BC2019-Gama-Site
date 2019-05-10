@@ -78,14 +78,14 @@
 <p>This simple model consists in creating &quot;cognitive&quot; agent whose goal is to extinguish a fire. In a first approximation we consider only one static water area and fire area. The aim is not to have a realistic model but to illustrate how to give a &quot;cognitive&quot; behavior to an agent using the BDI architecture.</p>
 <p>First let's create a BDI agent using the key control <strong>simple_bdi</strong> (A description of all existing control architectures is available <a href="BuiltInArchitectures">here</a>.)</p>
 <h3><a class="anchor" aria-hidden="true" id="species-helicopter-creation"></a><a href="#species-helicopter-creation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Species Helicopter creation</h3>
-<pre><code class="hljs">species helicopter skills:[moving] control: simple_bdi{
+<pre><code class="hljs"><span class="hljs-literal">species</span> helicopter skills:[<span class="hljs-builtin">moving</span>] control: <span class="hljs-builtin">simple_bdi</span>{
 ...
 }
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="attributes"></a><a href="#attributes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Attributes</h4>
 <p>The species <code>helicopter</code> needs 2 attributes to represent the water value and its speed.</p>
-<pre><code class="hljs">float waterValue;
-float speed &lt;- 10.0;
+<pre><code class="hljs"><span class="hljs-literal">float</span> waterValue;
+<span class="hljs-literal">float</span> speed &lt;- 10.0;
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="predicates"></a><a href="#predicates" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Predicates</h4>
 <p>The predicate are the structure that are used to define a belief, a desire or an intention.
@@ -107,11 +107,11 @@ probabilistic_choice &lt;- false;
 <h4><a class="anchor" aria-hidden="true" id="perception"></a><a href="#perception" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Perception</h4>
 <p>At each iteration, the helicopter has two perceptions to do. The first one is about itself. The helicopter needs to perceive if it has water or not. If it has water, it adds the belief corresponding belief and removes the belief that it does not have water. And if it does not have water, that is the contrary.</p>
 <pre><code class="hljs">perceive target:self{
-    if(waterValue&gt;0){
+    <span class="hljs-keyword">if</span>(waterValue&gt;0){
         do add_belief(water_predicate);
         do remove_belief(no_water_predicate);
     }
-    if(waterValue&lt;=0){
+    <span class="hljs-keyword">if</span>(waterValue&lt;=0){
         do add_belief(no_water_predicate);
         do remove_belief(water_predicate);
     }
@@ -141,14 +141,14 @@ rule belief: no_water_predicate new_desire: water_predicate;
 <h5><a class="anchor" aria-hidden="true" id="stopfire"></a><a href="#stopfire" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>stopFire</h5>
 <p>This plan is executed when the agent has the intention to extinguish a fire.</p>
 <pre><code class="hljs">plan stopFire intention: new_predicate(<span class="hljs-string">"fireLocation"</span>) {
-    point target_fire &lt;- point(get_current_intention().values[<span class="hljs-string">"location_value"</span>] );
-    if(waterValue&gt;0){
-        if (self distance_to target_fire &lt;= 1) {
+    <span class="hljs-literal">point</span> target_fire &lt;- <span class="hljs-literal">point</span>(get_current_intention().values[<span class="hljs-string">"location_value"</span>] );
+    <span class="hljs-keyword">if</span>(waterValue&gt;0){
+        <span class="hljs-keyword">if</span> (self distance_to target_fire &lt;= 1) {
             fireArea current_fire &lt;- fireArea first_with (each.location = target_fire);
-            if (current_fire != <span class="hljs-literal">nil</span>) {
+            <span class="hljs-keyword">if</span> (current_fire != nil) {
                  waterValue &lt;- waterValue - 1.0;
                  current_fire.size &lt;-  current_fire.size - 1;
-                 if ( current_fire.size &lt;= 0) {
+                 <span class="hljs-keyword">if</span> ( current_fire.size &lt;= 0) {
                     ask  current_fire {do die;}
                     do remove_belief(get_current_intention());
                     do remove_intention(get_current_intention(), true);
@@ -173,7 +173,7 @@ rule belief: no_water_predicate new_desire: water_predicate;
 <pre><code class="hljs">plan gotoTakeWater intention: water_predicate {
         waterArea wa &lt;- first(waterArea);
         do goto target: wa);
-        if (self distance_to wa &lt;= 1) {
+        <span class="hljs-keyword">if</span> (self distance_to wa &lt;= 1) {
             waterValue &lt;- waterValue + 2.0;
     }
 }
@@ -186,8 +186,8 @@ rule belief: no_water_predicate new_desire: water_predicate;
 }
 </code></pre>
 <h5><a class="anchor" aria-hidden="true" id="firearea-species"></a><a href="#firearea-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>FireArea Species</h5>
-<pre><code class="hljs">species fireArea{
-        float size &lt;-1.0;   
+<pre><code class="hljs"><span class="hljs-literal">species</span> fireArea{
+        <span class="hljs-literal">float</span> size &lt;-1.0;   
 
         aspect base {
           draw circle(size) color: #red;
@@ -195,8 +195,8 @@ rule belief: no_water_predicate new_desire: water_predicate;
 }
 </code></pre>
 <h5><a class="anchor" aria-hidden="true" id="waterarea-species"></a><a href="#waterarea-species" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WaterArea Species</h5>
-<pre><code class="hljs">species waterArea{
-    float size &lt;-10.0;
+<pre><code class="hljs"><span class="hljs-literal">species</span> waterArea{
+    <span class="hljs-literal">float</span> size &lt;-10.0;
 
     aspect base {
       draw circle(size) color: #blue;       

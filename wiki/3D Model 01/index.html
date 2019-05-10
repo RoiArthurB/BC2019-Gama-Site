@@ -10,10 +10,10 @@
 <p>First part of the tutorial : Tuto3D</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model Tuto3D
+<span class="hljs-builtin">model</span> Tuto3D
 
 global {
-  int nb_cells &lt;-100;   
+  <span class="hljs-literal">int</span> nb_cells &lt;-100;   
   init { 
     create cells number: nb_cells { 
       location &lt;- {rnd(100), rnd(100), rnd(100)};       
@@ -21,17 +21,17 @@ global {
   }  
 } 
   
-species cells{                      
+<span class="hljs-literal">species</span> cells{                      
   aspect default {
     draw sphere(1) color:#blue;   
   }
 }
 
-experiment Tuto3D  type: gui {
+<span class="hljs-builtin">experiment</span> Tuto3D  type: gui {
   parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span> ;  
   output {
     display View1 type:opengl {
-      species cells;
+      <span class="hljs-literal">species</span> cells;
     }
   }
 }

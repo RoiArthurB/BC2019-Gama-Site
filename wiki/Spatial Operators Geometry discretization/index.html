@@ -8,15 +8,15 @@
 <p>A model which shows how to use the different convert topologies operators : to_square, to_rectangle, points_on, triangulate, voronoi.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model discretization
+<span class="hljs-builtin">model</span> discretization
 
 global 
 {
     <span class="hljs-comment">//Geometry that will be used for each display : a circle</span>
-    geometry init_geom &lt;- circle (35);
+    <span class="hljs-literal">geometry</span> init_geom &lt;- circle (35);
 }
 
-experiment main type: gui {
+<span class="hljs-builtin">experiment</span> main type: gui {
     output {
         <span class="hljs-comment">//Display that will show a circle converted in squares</span>
         display decretization_squares {

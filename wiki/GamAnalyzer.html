@@ -103,7 +103,7 @@ Add the dependencies in ummisco.gama.feature.dependencies</p>
   display_mode &lt;-<span class="hljs-string">"simglobal"</span>;
   clustering_mode &lt;-<span class="hljs-string">"none"</span>;
   draw shape color: #red;
-  int curColor &lt;-0;
+  <span class="hljs-literal">int</span> curColor &lt;-0;
   loop geom over: allSimShape{
     draw geom color:SequentialColors[curColor] at:{location.x,location.y,curColor*10};
     curColor &lt;- curColor+1;
@@ -124,7 +124,7 @@ Add the dependencies in ummisco.gama.feature.dependencies</p>
   display_mode &lt;-<span class="hljs-string">"simglobal"</span>;
   clustering_mode &lt;-<span class="hljs-string">"dbscan"</span>;
   draw shape color: #red;
-  int curColor &lt;-0;
+  <span class="hljs-literal">int</span> curColor &lt;-0;
   loop geom over: allSimShape{
     draw geom color:SequentialColors[curColor] at:{location.x,location.y,curColor*10};
     curColor &lt;- curColor+1;

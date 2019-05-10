@@ -11,7 +11,7 @@ On receiving the 'query' message, the Participant agent replies with two consecu
 (2) an 'inform' message informing the Initiation agent of Participant agent's name.</p>
 <p>After the Initiator agent read the 'inform' message from the Participant agent, the conversation ends.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model fipa_query_1
+<pre><code class="hljs"><span class="hljs-builtin">model</span> fipa_query_1
 
 global {
     Participant p;
@@ -22,37 +22,37 @@ global {
         
          p &lt;- ps at 0;
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'Step the simulation to observe the outcome in the console'</span>;
+        write 'Step the simulation to observe the outcome in the console';
     }
 }
 
-species Initiator skills: [fipa] {
-    reflex send_query_message when: (time = 1) {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' sends query message'</span>;
-        do start_conversation with: [ to :: [p], protocol :: <span class="hljs-string">'fipa-query'</span>, performative :: <span class="hljs-string">'query'</span>, contents :: [<span class="hljs-string">'your name?'</span>] ];
+<span class="hljs-literal">species</span> Initiator skills: [<span class="hljs-builtin">fipa</span>] {
+    <span class="hljs-builtin">reflex</span> send_query_message when: (time = 1) {
+        write name + ' sends query message';
+        do start_conversation with: [ to :: [p], protocol :: '<span class="hljs-builtin">fipa</span>-query', performative :: 'query', contents :: ['your name?'] ];
     }
     
-    reflex read_inform_message when: !(empty(informs)) {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' reads inform messages'</span>;
+    <span class="hljs-builtin">reflex</span> read_inform_message when: !(empty(informs)) {
+        write name + ' reads inform messages';
         loop i over: informs {
-            <span class="hljs-statement">write</span> <span class="hljs-string">'inform message with content: '</span> + (string(i.contents));
+            write 'inform message with content: ' + (<span class="hljs-literal">string</span>(i.contents));
         }
     }
 }
 
-species Participant skills: [fipa] {
+<span class="hljs-literal">species</span> Participant skills: [<span class="hljs-builtin">fipa</span>] {
 
-    reflex reply_query_messages when: !(empty(queries)) {
-        <span class="hljs-facet">message</span> queryFromInitiator &lt;- queries at 0;
+    <span class="hljs-builtin">reflex</span> reply_query_messages when: !(empty(queries)) {
+        message queryFromInitiator &lt;- queries at 0;
         
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' reads a query message with content : '</span> + (string(queryFromInitiator.contents));
+        write name + ' reads a query message with content : ' + (<span class="hljs-literal">string</span>(queryFromInitiator.contents));
         
-        do agree with: [ <span class="hljs-facet">message</span> :: queryFromInitiator, contents :: [<span class="hljs-string">'OK, I will answer you'</span>] ];        
-        do inform with: [ <span class="hljs-facet">message</span> :: queryFromInitiator, contents :: [ <span class="hljs-string">'My name is '</span> + name ] ];
+        do agree with: [ message :: queryFromInitiator, contents :: ['OK, I will answer you'] ];        
+        do inform with: [ message :: queryFromInitiator, contents :: [ 'My name is ' + name ] ];
     }
 }
 
-experiment test_query_interaction_protocol type: gui {}
+<span class="hljs-builtin">experiment</span> test_query_interaction_protocol type: gui {}
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {

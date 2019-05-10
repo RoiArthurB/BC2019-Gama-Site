@@ -256,7 +256,7 @@ Follow the <a href="http://pandoc.org/installing.html">Pandoc installation instr
 <li><code>equals</code> contains the expected results of expression in value.</li>
 </ul>
 <p>This will become in the documentation:</p>
-<pre><code class="hljs">list var3 &lt;- [1::2, 3::4, 5::6] inter [2,4];    <span class="hljs-comment">// var3 equals [2,4]</span>
+<pre><code class="hljs"><span class="hljs-literal">list</span> var3 &lt;- [1::2, 3::4, 5::6] inter [2,4];    <span class="hljs-comment">// var3 equals [2,4]</span>
 </code></pre>
 <p>When no variable is given in the annotation, an automatic name is generated. The type of the variable is determined thanks to the return type of the operator with these parameters.</p>
 <p>This example can also generate a unit test model. In this case, the value in the variable will be compared to the <code>equals</code> part.</p>

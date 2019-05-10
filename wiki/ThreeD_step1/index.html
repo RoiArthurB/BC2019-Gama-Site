@@ -67,7 +67,7 @@
 <p><img src="../resources/images/tutorials/3D_model_LQ.png" alt="images/3D_model_LQ.png"></p>
 <h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
 <p>In this model we define one species of agent: the <strong>cells</strong> agents. The agents will be just displayed as a blue sphere of radius 1.</p>
-<pre><code class="hljs">species cells{                      
+<pre><code class="hljs"><span class="hljs-literal">species</span> cells{                      
   aspect default {
     draw sphere(1) color:#blue;   
   }
@@ -77,7 +77,7 @@
 <h4><a class="anchor" aria-hidden="true" id="global-variable"></a><a href="#global-variable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Global variable</h4>
 <p>Definition of a global variable <strong>nb_cells</strong> of type <em>int</em> representing the number of <strong>cells</strong> agents.</p>
 <pre><code class="hljs">global {
-   int nb_cells &lt;-100;
+   <span class="hljs-literal">int</span> nb_cells &lt;-100;
 }
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="model-initialization"></a><a href="#model-initialization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model initialization</h4>
@@ -88,12 +88,12 @@
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="experiment"></a><a href="#experiment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Experiment</h3>
 <p>In our model, we define a basic gui experiment called <em>Tuto3D</em> :</p>
-<pre><code class="hljs">experiment Tuto3D type: gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> Tuto3D type: gui {
 }
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="input"></a><a href="#input" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Input</h4>
 <p>Definition of a parameter from the the global variable <em>nb_cells</em> :</p>
-<pre><code class="hljs">experiment Tuto3D type: gui {
+<pre><code class="hljs"><span class="hljs-builtin">experiment</span> Tuto3D type: gui {
    parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span>;  
 }
 </code></pre>
@@ -101,16 +101,16 @@
 <p>In our model, we define a display to draw the <strong>cells</strong> agents in a 3D environment.</p>
 <pre><code class="hljs">output {
   display View1 type:opengl {
-    species cells;
+    <span class="hljs-literal">species</span> cells;
   }
 }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
 <p>This model is available in the model library (under Tutorials &gt; 3D) and the GIT version of the model can be found here [Model 01.gaml](<a href="https://github.com/gama-platform/gama/tree/master/msi.gama.models/models/Tutorials/3D/models/Model">https://github.com/gama-platform/gama/tree/master/msi.gama.models/models/Tutorials/3D/models/Model</a> 01.gaml)</p>
-<pre><code class="hljs">model Tuto3D
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Tuto3D
 
 global {
-  int nb_cells &lt;-100;   
+  <span class="hljs-literal">int</span> nb_cells &lt;-100;   
   init { 
     create cells number: nb_cells { 
       location &lt;- {rnd(100), rnd(100), rnd(100)};       
@@ -118,17 +118,17 @@ global {
   }  
 } 
   
-species cells{                      
+<span class="hljs-literal">species</span> cells{                      
   aspect default {
     draw sphere(1) color:#blue;   
   }
 }
 
-experiment Tuto3D  type: gui {
+<span class="hljs-builtin">experiment</span> Tuto3D  type: gui {
   parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span> ;  
   output {
     display View1 type:opengl {
-      species cells;
+      <span class="hljs-literal">species</span> cells;
     }
   }
 }

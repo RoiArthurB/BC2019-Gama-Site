@@ -8,40 +8,40 @@
 <p>This model is used to show how we can diffuse several variables in the same grid. At the cycle 0, 3 different pheromons are emited in 3 of the 4 corners of the cuve (each one associated to a color). Thanks to the diffusion mechanism, all the 3 colors will blend each other. The process is accelerated by using the facet &quot;cycle_length&quot;. The &quot;avoid_mask&quot; facet is used in order to have a constant sum of pheromon.</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Blend color in a cuve (Multiple Signals)/a-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model cycle_length
+<span class="hljs-builtin">model</span> cycle_length
 
 global {
-    int size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
-    int cycle_length &lt;- 5;
-    geometry shape &lt;- envelope(square(size));
-    list&lt;cells&gt; top_left_cells;
-    list&lt;cells&gt; top_right_cells;
-    list&lt;cells&gt; bot_left_cells;
+    <span class="hljs-literal">int</span> size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
+    <span class="hljs-literal">int</span> cycle_length &lt;- 5;
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(size));
+    <span class="hljs-literal">list</span>&lt;cells&gt; top_left_cells;
+    <span class="hljs-literal">list</span>&lt;cells&gt; top_right_cells;
+    <span class="hljs-literal">list</span>&lt;cells&gt; bot_left_cells;
     <span class="hljs-comment">// Declare the uniform matrix</span>
-    matrix&lt;float&gt; mat_diff &lt;- matrix([
+    <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; mat_diff &lt;- <span class="hljs-literal">matrix</span>([
                                     [1/9,1/9,1/9],
                                     [1/9,1/9,1/9],
                                     [1/9,1/9,1/9]]);
 
     <span class="hljs-comment">// Initialize the emiter cells</span>
     init {
-        top_left_cells &lt;- list&lt;cells&gt;(cells where (each.grid_x &lt; location.x
+        top_left_cells &lt;- <span class="hljs-literal">list</span>&lt;cells&gt;(cells where (each.grid_x &lt; location.x
             and each.grid_x &gt; cycle_length
             and each.grid_y &lt; location.y
             and each.grid_y &gt; cycle_length
         ));
-        top_right_cells &lt;- list&lt;cells&gt;(cells where (each.grid_x &lt; size-cycle_length
+        top_right_cells &lt;- <span class="hljs-literal">list</span>&lt;cells&gt;(cells where (each.grid_x &lt; size-cycle_length
             and each.grid_x &gt; location.x
             and each.grid_y &lt; location.y
             and each.grid_y &gt; cycle_length
         ));
-        bot_left_cells &lt;- list&lt;cells&gt;(cells where (each.grid_x &lt; location.x
+        bot_left_cells &lt;- <span class="hljs-literal">list</span>&lt;cells&gt;(cells where (each.grid_x &lt; location.x
             and each.grid_x &gt; cycle_length
             and each.grid_y &lt; size-cycle_length
             and each.grid_y &gt; location.y
         ));
     }
-    reflex init_value when:cycle=0 {
+    <span class="hljs-builtin">reflex</span> init_value when:cycle=0 {
         ask(top_left_cells){
             phero1 &lt;- 1.0;
         }
@@ -53,28 +53,28 @@ global {
         }   
     }
 
-    reflex diff {
+    <span class="hljs-builtin">reflex</span> diff {
         <span class="hljs-comment">// Declare a diffusion on the grid "cells" for each one of the pheromons. </span>
         <span class="hljs-comment">// In order to not loosing phero value, we apply a hand made mask (with the operator "where") and we turn the "avoid_mask" facet to true.</span>
-        list cells_where_diffuse &lt;- cells where (each.grid_x &lt; size-cycle_length and each.grid_x &gt; cycle_length and each.grid_y &lt; size-cycle_length and each.grid_y &gt; cycle_length);
-        diffuse var: phero1 on: cells_where_diffuse matrix: mat_diff avoid_mask: true method:dot_product cycle_length:cycle_length;
-        diffuse var: phero2 on: cells_where_diffuse matrix: mat_diff avoid_mask: true method:dot_product cycle_length:cycle_length;
-        diffuse var: phero3 on: cells_where_diffuse matrix: mat_diff avoid_mask: true method:dot_product cycle_length:cycle_length;
+        <span class="hljs-literal">list</span> cells_where_diffuse &lt;- cells where (each.grid_x &lt; size-cycle_length and each.grid_x &gt; cycle_length and each.grid_y &lt; size-cycle_length and each.grid_y &gt; cycle_length);
+        diffuse var: phero1 on: cells_where_diffuse <span class="hljs-literal">matrix</span>: mat_diff avoid_mask: true method:dot_product cycle_length:cycle_length;
+        diffuse var: phero2 on: cells_where_diffuse <span class="hljs-literal">matrix</span>: mat_diff avoid_mask: true method:dot_product cycle_length:cycle_length;
+        diffuse var: phero3 on: cells_where_diffuse <span class="hljs-literal">matrix</span>: mat_diff avoid_mask: true method:dot_product cycle_length:cycle_length;
     }
 }
 
 
 grid cells height: size width: size {
     <span class="hljs-comment">// "phero1", "phero2", "phero3" are the variables storing the value of the diffusion</span>
-    float phero1  &lt;- 0.0;
-    float phero2  &lt;- 0.0;
-    float phero3  &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero1  &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero2  &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero3  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is construct using the 3 pheromons.</span>
-    rgb color &lt;- rgb(phero1*256,phero2*256,phero3*256) update: rgb(phero1*256,phero2*256,phero3*256);
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(phero1*256,phero2*256,phero3*256) update: <span class="hljs-literal">rgb</span>(phero1*256,phero2*256,phero3*256);
 } 
 
 
-experiment diffusion type: gui {
+<span class="hljs-builtin">experiment</span> diffusion type: gui {
     output {
         display a type: opengl {
             <span class="hljs-comment">// Display the grid with elevation</span>

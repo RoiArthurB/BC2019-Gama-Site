@@ -9,16 +9,16 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">
 @no_warning
-model handMadeGraph
+<span class="hljs-builtin">model</span> handMadeGraph
 
 global {
-    graph&lt;geometry, geometry&gt; the_graph1 ;
-    graph&lt;geometry, geometry&gt; the_graph2;
+    <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt; the_graph1 ;
+    <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt; the_graph2;
     
     init {
         the_graph1 &lt;- as_edge_graph([edge({10,5}, {20,3}), edge({10,5}, {30,30}),edge({30,30}, {80,35}),edge({80,35}, {40,60}),edge({80,35}, {10,5}), node ({50,50})]); 
         
-        the_graph2 &lt;- graph&lt;geometry, geometry&gt;([]);
+        the_graph2 &lt;- <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt;([]);
         <span class="hljs-comment">//first way to add nodes and edges</span>
         the_graph2 &lt;&lt; node({50,50}) ;
         the_graph2 &lt;&lt; edge({10,10},{90,50});
@@ -30,19 +30,19 @@ global {
     
 }
 
-species edge_agent {
+<span class="hljs-literal">species</span> edge_agent {
     aspect default {    
         draw shape color: #black;
     }
 }
 
-species node_agent {
+<span class="hljs-literal">species</span> node_agent {
     aspect default {    
         draw circle(1) color: #red;
     }
 }
 
-experiment create_graph type: gui {
+<span class="hljs-builtin">experiment</span> create_graph type: gui {
     
     output {
         display graph1 type: opengl{
@@ -51,7 +51,7 @@ experiment create_graph type: gui {
                     draw e color: °blue; 
                 }
                 loop n over: the_graph1.vertices {
-                    draw circle(2) at: point(n) color: °blue; 
+                    draw circle(2) at: <span class="hljs-literal">point</span>(n) color: °blue; 
                 }
             }
         }
@@ -61,7 +61,7 @@ experiment create_graph type: gui {
                     draw e color: °red; 
                 }
                 loop n over: the_graph2.vertices {
-                    draw circle(2) at: point(n) color: °red; 
+                    draw circle(2) at: <span class="hljs-literal">point</span>(n) color: °red; 
                 }
             }
         }

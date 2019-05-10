@@ -144,11 +144,11 @@ public SingleStatementExample(final IDescription desc) {
 <li>the <strong>method privateExecuteIn</strong>: this method is executed each time the statement is called in the model.</li>
 </ul>
 <pre><code class="hljs">protected Object privateExecuteIn(IScope scope) throws GamaRuntimeException { 
-    IAgent agent = stack.getAgentScope();
+    IAgent <span class="hljs-literal">agent</span> = stack.getAgentScope();
     String nameStr = null;
-    if ( agent != null &amp;&amp; !agent.dead() ) {
+    <span class="hljs-keyword">if</span> ( <span class="hljs-literal">agent</span> != null &amp;&amp; !<span class="hljs-literal">agent</span>.dead() ) {
         nameStr = Cast.asString(stack, name.value(stack));
-        if ( nameStr == null ) {
+        <span class="hljs-keyword">if</span> ( nameStr == null ) {
             nameStr = <span class="hljs-string">"nil"</span>;
         }
         GuiUtils.informConsole(nameStr);

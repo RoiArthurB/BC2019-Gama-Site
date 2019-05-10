@@ -9,41 +9,41 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">
 
-model ColorBrewer
+<span class="hljs-builtin">model</span> ColorBrewer
 
 
 global {
 
 <span class="hljs-comment">//number of colors</span>
-int nb_classes&lt;-14 min:5 max: 15;
+<span class="hljs-literal">int</span> nb_classes&lt;-14 min:5 max: 15;
 
-int square_size &lt;- 10;
+<span class="hljs-literal">int</span> square_size &lt;- 10;
 
 <span class="hljs-comment">//list of palettes that have at least nb_classes</span>
-list&lt;string&gt; palettes &lt;- brewer_palettes(nb_classes);
+<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; palettes &lt;- brewer_palettes(nb_classes);
 
 <span class="hljs-comment">//the current sequential palette from the list of all available sequential Palettes</span>
-string sequentialPalette &lt;- <span class="hljs-string">"YlOrRd"</span> among:[<span class="hljs-string">"YlOrRd"</span>,<span class="hljs-string">"Grays"</span>,<span class="hljs-string">"PuBu"</span>,<span class="hljs-string">"BuPu"</span>,<span class="hljs-string">"YlOrBr"</span>,<span class="hljs-string">"Greens"</span>,<span class="hljs-string">"BuGn"</span>,<span class="hljs-string">"GnBu"</span>,<span class="hljs-string">"PuRd"</span>,<span class="hljs-string">"Purples"</span>,<span class="hljs-string">"Blues"</span>,<span class="hljs-string">"Oranges"</span>,<span class="hljs-string">"OrRd"</span>,<span class="hljs-string">"Reds"</span>,<span class="hljs-string">"YlGn"</span>,<span class="hljs-string">"YlGnBu"</span>];
+<span class="hljs-literal">string</span> sequentialPalette &lt;- <span class="hljs-string">"YlOrRd"</span> among:[<span class="hljs-string">"YlOrRd"</span>,<span class="hljs-string">"Grays"</span>,<span class="hljs-string">"PuBu"</span>,<span class="hljs-string">"BuPu"</span>,<span class="hljs-string">"YlOrBr"</span>,<span class="hljs-string">"Greens"</span>,<span class="hljs-string">"BuGn"</span>,<span class="hljs-string">"GnBu"</span>,<span class="hljs-string">"PuRd"</span>,<span class="hljs-string">"Purples"</span>,<span class="hljs-string">"Blues"</span>,<span class="hljs-string">"Oranges"</span>,<span class="hljs-string">"OrRd"</span>,<span class="hljs-string">"Reds"</span>,<span class="hljs-string">"YlGn"</span>,<span class="hljs-string">"YlGnBu"</span>];
 
 <span class="hljs-comment">//the current diverging palette from the list of all available diverging Palettes</span>
-string divergingPalette &lt;- <span class="hljs-string">"BrBG"</span> among:[<span class="hljs-string">"PRGn"</span>,<span class="hljs-string">"PuOr"</span>,<span class="hljs-string">"RdGy"</span>,<span class="hljs-string">"Spectral"</span>,<span class="hljs-string">"RdYlGn"</span>,<span class="hljs-string">"RdBu"</span>,<span class="hljs-string">"RdYlBu"</span>,<span class="hljs-string">"PiYG"</span>,<span class="hljs-string">"BrBG"</span>];
+<span class="hljs-literal">string</span> divergingPalette &lt;- <span class="hljs-string">"BrBG"</span> among:[<span class="hljs-string">"PRGn"</span>,<span class="hljs-string">"PuOr"</span>,<span class="hljs-string">"RdGy"</span>,<span class="hljs-string">"Spectral"</span>,<span class="hljs-string">"RdYlGn"</span>,<span class="hljs-string">"RdBu"</span>,<span class="hljs-string">"RdYlBu"</span>,<span class="hljs-string">"PiYG"</span>,<span class="hljs-string">"BrBG"</span>];
 
 <span class="hljs-comment">//the current qualitative palette from the list of all available qualitative Palettes</span>
-string qualitativePalette &lt;- <span class="hljs-string">"Pastel1"</span> among:[<span class="hljs-string">"Accents"</span>,<span class="hljs-string">"Paired"</span>,<span class="hljs-string">"Set3"</span>,<span class="hljs-string">"Set2"</span>,<span class="hljs-string">"Set1"</span>,<span class="hljs-string">"Dark2"</span>,<span class="hljs-string">"Pastel2"</span>,<span class="hljs-string">"Pastel1"</span>];
+<span class="hljs-literal">string</span> qualitativePalette &lt;- <span class="hljs-string">"Pastel1"</span> among:[<span class="hljs-string">"Accents"</span>,<span class="hljs-string">"Paired"</span>,<span class="hljs-string">"Set3"</span>,<span class="hljs-string">"Set2"</span>,<span class="hljs-string">"Set1"</span>,<span class="hljs-string">"Dark2"</span>,<span class="hljs-string">"Pastel2"</span>,<span class="hljs-string">"Pastel1"</span>];
 
 <span class="hljs-comment">//build the lists of colors from the palettes</span>
-list&lt;rgb&gt; SequentialColors&lt;-list&lt;rgb&gt;(brewer_colors(sequentialPalette));
-list&lt;rgb&gt; DivergingColors&lt;-list&lt;rgb&gt;(brewer_colors(divergingPalette));
-list&lt;rgb&gt; QualitativeColors&lt;-list&lt;rgb&gt;(brewer_colors(qualitativePalette));
+<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; SequentialColors&lt;-<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt;(brewer_colors(sequentialPalette));
+<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; DivergingColors&lt;-<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt;(brewer_colors(divergingPalette));
+<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; QualitativeColors&lt;-<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt;(brewer_colors(qualitativePalette));
 
 
     init {
         <span class="hljs-comment">//if the palettes is not empty</span>
-        if (not empty(palettes)) {
+        <span class="hljs-keyword">if</span> (not empty(palettes)) {
             <span class="hljs-comment">//for each palette</span>
             loop i from: 0 to: length(palettes) - 1 {
                 <span class="hljs-comment">//define a  list of nb_classes colors from the current palette</span>
-                list&lt;rgb&gt; colors&lt;-list&lt;rgb&gt;(brewer_colors(palettes[i],nb_classes));
+                <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; colors&lt;-<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt;(brewer_colors(palettes[i],nb_classes));
                 
                 <span class="hljs-comment">//define the colors of the corresponding cells</span>
                 ask cell where (each.grid_y = i){
@@ -58,7 +58,7 @@ grid cell width:nb_classes height: max([1,length(palettes)]) ;
 
 
 <span class="hljs-comment">//in this experiment, we do not use the cell agents, but we directlty draw the different palettes of colors</span>
-experiment BrewerPalette type: gui {
+<span class="hljs-builtin">experiment</span> BrewerPalette type: gui {
     parameter <span class="hljs-string">"Sequential Palettes"</span> var:sequentialPalette category:<span class="hljs-string">"Brewer"</span>;
     parameter <span class="hljs-string">"Diverging Palettes"</span> var:divergingPalette category:<span class="hljs-string">"Brewer"</span>;
     parameter <span class="hljs-string">"Qualitatives Palettes"</span> var:qualitativePalette category:<span class="hljs-string">"Brewer"</span>;
@@ -86,7 +86,7 @@ experiment BrewerPalette type: gui {
 }
 
 <span class="hljs-comment">//in this experiment, we display the cell agents with the  different aspects</span>
-experiment BrewerColoredAgent type: gui {
+<span class="hljs-builtin">experiment</span> BrewerColoredAgent type: gui {
     parameter <span class="hljs-string">"Number of data classes"</span> var:nb_classes category:<span class="hljs-string">"Brewer"</span>;
     output {
         display View1 {

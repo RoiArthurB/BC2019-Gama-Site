@@ -8,10 +8,10 @@
 <p>This model shows how to create a database and a table in SQLite using GAMA</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model SQLite_selectNUpdate
+<span class="hljs-builtin">model</span> SQLite_selectNUpdate
   
 global {
-    map PARAMS &lt;- [<span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'sqlite'</span>,<span class="hljs-string">'database'</span>::<span class="hljs-string">'../../includes/spatialite.db'</span>];
+    <span class="hljs-literal">map</span> PARAMS &lt;- ['dbtype'::'sqlite','database'::'../../includes/spatialite.db'];
 
     init {
         create dummy ;
@@ -22,7 +22,7 @@ global {
             do  executeUpdate params: PARAMS 
                     updateComm: <span class="hljs-string">"DROP TABLE buildings; "</span> ;
   
-            <span class="hljs-statement">write</span> <span class="hljs-string">"dropped tables!"</span>;
+            write <span class="hljs-string">"dropped tables!"</span>;
             do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"CREATE TABLE bounds "</span> +
                    <span class="hljs-string">"(id INTEGER PRIMARY KEY, "</span> +
                    <span class="hljs-string">" geom BLOB NOT NULL); "</span>  ;
@@ -36,9 +36,9 @@ global {
     }
 }  
 
-species dummy skills: [SQLSKILL] { } 
+<span class="hljs-literal">species</span> dummy skills: [<span class="hljs-builtin">SQLSKILL</span>] { } 
 
-experiment default_expr type:gui {
+<span class="hljs-builtin">experiment</span> default_expr type:gui {
 
 }     
 </code></pre>

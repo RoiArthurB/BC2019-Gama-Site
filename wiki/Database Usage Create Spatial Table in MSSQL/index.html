@@ -7,30 +7,30 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">CreateBuildingTableMSSQL</h1></header><article><div><span><p><em>Author : Truong Minh Thai</em></p>
 <p>This model shows how to create a database and a table in MSSQL using GAMA</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model CreateBuildingTable_MSSQL
+<pre><code class="hljs"><span class="hljs-builtin">model</span> CreateBuildingTable_MSSQL
 
 
 global
 {
-    map&lt;string, string&gt; PARAMS &lt;- [<span class="hljs-string">'host'</span>::<span class="hljs-string">'127.0.0.1'</span>, <span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'sqlserver'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">''</span>, <span class="hljs-string">'port'</span>::<span class="hljs-string">'1433'</span>, <span class="hljs-string">'user'</span>::<span class="hljs-string">'sa'</span>, <span class="hljs-string">'passwd'</span>::<span class="hljs-string">'tmt'</span>];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; PARAMS &lt;- ['host'::'127.0.0.1', 'dbtype'::'sqlserver', 'database'::'', 'port'::'1433', 'user'::'sa', 'passwd'::'tmt'];
     init
     {
         create dummy;
         ask dummy
         {
-            if (self testConnection [params::PARAMS])
+            <span class="hljs-keyword">if</span> (self testConnection [params::PARAMS])
             {
                 do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"CREATE DATABASE spatial_DB"</span>;
-                <span class="hljs-statement">write</span> <span class="hljs-string">"spatial_BD database was created "</span>;
+                write <span class="hljs-string">"spatial_BD database was created "</span>;
                 remove  <span class="hljs-string">"database"</span> from: PARAMS;
                 put <span class="hljs-string">"spatial_DB"</span> key: <span class="hljs-string">"database"</span> in: PARAMS;
                 do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"CREATE TABLE bounds"</span> + <span class="hljs-string">"( "</span> + <span class="hljs-string">" geom GEOMETRY "</span> + <span class="hljs-string">")"</span>;
-                <span class="hljs-statement">write</span> <span class="hljs-string">"bounds table was created "</span>;
+                write <span class="hljs-string">"bounds table was created "</span>;
                 do executeUpdate params: PARAMS updateComm: <span class="hljs-string">"CREATE TABLE buildings "</span> + <span class="hljs-string">"( "</span> + <span class="hljs-string">" name VARCHAR(255), "</span> + <span class="hljs-string">" type VARCHAR(255), "</span> + <span class="hljs-string">" geom GEOMETRY "</span> + <span class="hljs-string">")"</span>;
-                <span class="hljs-statement">write</span> <span class="hljs-string">"buildings table was created "</span>;
+                write <span class="hljs-string">"buildings table was created "</span>;
             } else
             {
-                <span class="hljs-statement">write</span> <span class="hljs-string">"Connection to MySQL can not be established "</span>;
+                write <span class="hljs-string">"Connection to MySQL can not be established "</span>;
             }
 
         }
@@ -39,11 +39,11 @@ global
 
 }
 
-species dummy skills: [SQLSKILL]
+<span class="hljs-literal">species</span> dummy skills: [<span class="hljs-builtin">SQLSKILL</span>]
 {
 }
 
-experiment default_expr type: gui
+<span class="hljs-builtin">experiment</span> default_expr type: gui
 {
 }
 </code></pre>

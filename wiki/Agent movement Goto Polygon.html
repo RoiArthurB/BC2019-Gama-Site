@@ -8,20 +8,20 @@
 <p>Model to show how to create a graph using a polygon shapefile by skeletonizing it, and creating roads using the skeleton. All of the agents will use this graph to go to the same targeted location.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model polygon
+<span class="hljs-builtin">model</span> polygon
 global {
     <span class="hljs-comment">//Import of the shapefile containing the different polygons</span>
-    file shape_file_in &lt;- file(<span class="hljs-string">'../includes/gis/squareHole.shp'</span>) ;
-    graph the_graph;
+    <span class="hljs-literal">file</span> shape_file_in &lt;- <span class="hljs-literal">file</span>('../includes/gis/squareHole.shp') ;
+    <span class="hljs-literal">graph</span> the_graph;
     
-    geometry shape &lt;- envelope(shape_file_in);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_in);
     
     init {    
         create object from: shape_file_in ;
         object the_object &lt;- first(object);
         
         <span class="hljs-comment">//triangulation of the object to get the different triangles of the polygons</span>
-        list&lt;geometry&gt; triangles &lt;- list(triangulate(the_object));
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; triangles &lt;- <span class="hljs-literal">list</span>(triangulate(the_object));
         
         loop trig over: triangles {
             create triangle_obj {
@@ -30,10 +30,10 @@ global {
         }
         
         <span class="hljs-comment">//creation of a list of skeleton from the object </span>
-        list&lt;geometry&gt; skeletons &lt;- list(skeletonize(the_object));
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; skeletons &lt;- <span class="hljs-literal">list</span>(skeletonize(the_object));
         
         <span class="hljs-comment">//Split of the skeletons list according to their intersection points</span>
-        list&lt;geometry&gt; skeletons_split  &lt;- split_lines(skeletons);
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">geometry</span>&gt; skeletons_split  &lt;- split_lines(skeletons);
         loop sk over: skeletons_split {
             create skeleton {
                 shape &lt;- sk;
@@ -54,36 +54,36 @@ global {
     }
 }
 
-species object  {
+<span class="hljs-literal">species</span> object  {
     aspect default {
         draw shape color: #gray ;
     }
 }
 
-species triangle_obj  {
-    rgb color &lt;- rgb(150 +rnd(100),150 + rnd(100),150 + rnd(100));
+<span class="hljs-literal">species</span> triangle_obj  {
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(150 +rnd(100),150 + rnd(100),150 + rnd(100));
     aspect default {
         draw shape color: color ; 
     }
 }
 
-species skeleton  {
+<span class="hljs-literal">species</span> skeleton  {
     aspect default {
         draw shape + 0.2 color: #red ;
     }
 }
     
-species goal {
+<span class="hljs-literal">species</span> goal {
     aspect default {
         draw circle(3) color:#red;
     }
 }
 
-species people skills: [moving] {
+<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
     goal target;
-    path my_path; 
+    <span class="hljs-literal">path</span> my_path; 
     
-    reflex goto {
+    <span class="hljs-builtin">reflex</span> goto {
         do goto on:the_graph target:target speed:1;
     }
     aspect default {
@@ -91,14 +91,14 @@ species people skills: [moving] {
     }
 }
 
-experiment goto_polygon type: gui {
+<span class="hljs-builtin">experiment</span> goto_polygon type: gui {
     output {
         display objects_display {
-            species object aspect: default ;
-            species triangle_obj aspect: default ;
-            species skeleton aspect: default ;
-            species people aspect: default ;
-            species goal aspect: default ;
+            <span class="hljs-literal">species</span> object aspect: default ;
+            <span class="hljs-literal">species</span> triangle_obj aspect: default ;
+            <span class="hljs-literal">species</span> skeleton aspect: default ;
+            <span class="hljs-literal">species</span> people aspect: default ;
+            <span class="hljs-literal">species</span> goal aspect: default ;
         }
     }
 }

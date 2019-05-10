@@ -8,33 +8,33 @@
 <p>This simple example shows how to use the <em>init</em> callback action to build a simulation with some parameters, without declaring them as parameters</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model InitAction
+<span class="hljs-builtin">model</span> InitAction
 
 global {
-    int agent_number &lt;- 100;
-    rgb agent_color &lt;- #red;
+    <span class="hljs-literal">int</span> agent_number &lt;- 100;
+    <span class="hljs-literal">rgb</span> agent_color &lt;- #red;
     
     init {
         create my_agents number: agent_number;
     }
 }
 
-species my_agents {
+<span class="hljs-literal">species</span> my_agents {
     aspect default {
         draw square(5) color: agent_color;
     }
 }
 
-experiment InitAction type: gui {
+<span class="hljs-builtin">experiment</span> InitAction type: gui {
     
     action _init_ {
-        map&lt;string, int&gt; params &lt;- user_input([<span class="hljs-string">"Number of agents"</span>::100, <span class="hljs-string">"Color"</span>::#red, <span class="hljs-string">"2D"</span>::true]);
-        create InitAction_model with: [agent_number::params[<span class="hljs-string">"Number of agents"</span>], agent_color::rgb(params[<span class="hljs-string">"Color"</span>])];
+        <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">int</span>&gt; params &lt;- user_input([<span class="hljs-string">"Number of agents"</span>::100, <span class="hljs-string">"Color"</span>::#red, <span class="hljs-string">"2D"</span>::true]);
+        create InitAction_model with: [agent_number::params[<span class="hljs-string">"Number of agents"</span>], agent_color::<span class="hljs-literal">rgb</span>(params[<span class="hljs-string">"Color"</span>])];
     }
     
     output {
         display Simple {
-            species my_agents;
+            <span class="hljs-literal">species</span> my_agents;
         }
     }
     

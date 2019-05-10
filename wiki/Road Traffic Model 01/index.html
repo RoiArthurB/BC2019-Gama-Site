@@ -7,13 +7,13 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Loading of GIS data (buildings and roads)</h1></header><article><div><span><p>first part of the tutorial: Road Traffic</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model tutorial_gis_city_traffic
+<span class="hljs-builtin">model</span> tutorial_gis_city_traffic
 
 global {
-    file buildings_shapefile &lt;- file(<span class="hljs-string">"../includes/building.shp"</span>);
-    file roads_shapefile &lt;- file(<span class="hljs-string">"../includes/road.shp"</span>);
-    geometry shape &lt;- envelope(envelope(buildings_shapefile) + envelope(roads_shapefile));
-    float step &lt;- 10 #mn;
+    <span class="hljs-literal">file</span> buildings_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
+    <span class="hljs-literal">file</span> roads_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(envelope(buildings_shapefile) + envelope(roads_shapefile));
+    <span class="hljs-literal">float</span> step &lt;- 10 #mn;
     
     init {
         create building from: buildings_shapefile ;
@@ -21,28 +21,28 @@ global {
     }
 }
 
-species building {
-    string type; 
-    rgb color &lt;- #gray  ;
+<span class="hljs-literal">species</span> building {
+    <span class="hljs-literal">string</span> type; 
+    <span class="hljs-literal">rgb</span> color &lt;- #gray  ;
     
     aspect base {
         draw shape color: color ;
     }
 }
 
-species road  {
-    rgb color &lt;- #red ;
+<span class="hljs-literal">species</span> road  {
+    <span class="hljs-literal">rgb</span> color &lt;- #red ;
     aspect base {
         draw shape color: color ;
     }
 }
 
-experiment road_traffic type: gui {
+<span class="hljs-builtin">experiment</span> road_traffic type: gui {
         
     output {
         display city_display type:opengl {
-            species building aspect: base ;
-            species road aspect: base ;
+            <span class="hljs-literal">species</span> building aspect: base ;
+            <span class="hljs-literal">species</span> road aspect: base ;
         }
     }
 }

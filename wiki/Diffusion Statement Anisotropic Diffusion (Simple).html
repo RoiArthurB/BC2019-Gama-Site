@@ -8,28 +8,28 @@
 <p>This model is used to show how to construct an anisotropic diffusion through a grid. The cell at the center of the grid emit a pheromon at each step, which is spread through the grid thanks to the diffusion mechanism, using a particular matrix of diffusion.</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Diffusion Statement/Diffusion Statement Anisotropic Diffusion (Simple)/a-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model anisotropic_diffusion
+<span class="hljs-builtin">model</span> anisotropic_diffusion
 
 global {
-    int size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
-    geometry shape &lt;- envelope(square(size) * 10);
+    <span class="hljs-literal">int</span> size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(size) * 10);
     cells selected_cells;
     
     <span class="hljs-comment">// Declare the anisotropic matrix (diffuse to the left-upper direction)</span>
-    matrix&lt;float&gt; mat_diff &lt;- matrix([
+    <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; mat_diff &lt;- <span class="hljs-literal">matrix</span>([
                                     [4/9,2/9,0/9],
                                     [2/9,1/9,0.0],
                                     [0/9,0.0,0.0]]);
     
-    reflex diff { 
-        diffuse var: phero on: cells matrix:mat_diff;
+    <span class="hljs-builtin">reflex</span> diff { 
+        diffuse var: phero on: cells <span class="hljs-literal">matrix</span>:mat_diff;
     }
 
     <span class="hljs-comment">// Initialize the emiter cell as the cell at the center of the word</span>
     init {
         selected_cells &lt;- location as cells;
     }
-    reflex new_Value {
+    <span class="hljs-builtin">reflex</span> new_Value {
         ask selected_cells {
             phero &lt;- 1.0;
         }
@@ -39,15 +39,15 @@ global {
 
 grid cells height: size width: size {
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
-    float phero  &lt;- 0.0;
+    <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// the color of the cell is linked to the value of "phero".</span>
-    rgb color &lt;- hsb(phero,1.0,1.0) update: hsb(phero,1.0,1.0);
+    <span class="hljs-literal">rgb</span> color &lt;- hsb(phero,1.0,1.0) update: hsb(phero,1.0,1.0);
     <span class="hljs-comment">// Update the "grid_value", which will be used for the elevation of the cell</span>
-    float grid_value update: phero * 100;
+    <span class="hljs-literal">float</span> grid_value update: phero * 100;
 } 
 
 
-experiment diffusion type: gui {
+<span class="hljs-builtin">experiment</span> diffusion type: gui {
     output {
         display a type: opengl {
             <span class="hljs-comment">// Display the grid with elevation</span>

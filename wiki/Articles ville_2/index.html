@@ -8,50 +8,50 @@
 <p>Creation of buildings and roads thanks to a shape file. The color of the building depends on the type of the building, while the color of a house depend on its income.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model ville
+<span class="hljs-builtin">model</span> ville
 
 global {
-    file shape_file_batiments &lt;- file(<span class="hljs-string">"../includes/batiments.shp"</span>);
-    file shape_file_routes &lt;- file(<span class="hljs-string">"../includes/routes.shp"</span>);
-    geometry shape &lt;- envelope(shape_file_routes);
+    <span class="hljs-literal">file</span> shape_file_batiments &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/batiments.shp"</span>);
+    <span class="hljs-literal">file</span> shape_file_routes &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/routes.shp"</span>);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_routes);
     init {
         create route from: shape_file_routes;
-        create batiment from: shape_file_batiments with: [type:: string(read(<span class="hljs-string">"NATURE"</span>))];
+        create batiment from: shape_file_batiments with: [type:: <span class="hljs-literal">string</span>(read(<span class="hljs-string">"NATURE"</span>))];
         create foyer number: 500;
     }
 }
 
-species batiment {
-    string type;
-    int capacite &lt;- type = <span class="hljs-string">"Industrial"</span> ? 0 : int(shape.area / 60.0);
+<span class="hljs-literal">species</span> batiment {
+    <span class="hljs-literal">string</span> type;
+    <span class="hljs-literal">int</span> capacite &lt;- type = <span class="hljs-string">"Industrial"</span> ? 0 : <span class="hljs-literal">int</span>(shape.area / 60.0);
     aspect geometrie {
         draw shape color: type = <span class="hljs-string">"Industrial"</span> ? #pink : #gray;
     }
 }
 
-species route {
+<span class="hljs-literal">species</span> route {
     aspect geometrie {
         draw shape color: #black;
     }
 }
 
-species foyer {
-    float revenu &lt;- gauss(1500, 500);
+<span class="hljs-literal">species</span> foyer {
+    <span class="hljs-literal">float</span> revenu &lt;- gauss(1500, 500);
     batiment habitation;
     batiment lieu_travail;
     
     aspect revenu {
-        int val &lt;- int(255 * (revenu / 3000));
-        draw circle(5) color: rgb(255 - val, val, 0);
+        <span class="hljs-literal">int</span> val &lt;- <span class="hljs-literal">int</span>(255 * (revenu / 3000));
+        draw circle(5) color: <span class="hljs-literal">rgb</span>(255 - val, val, 0);
     }
 }
 
-experiment ville type: gui {
+<span class="hljs-builtin">experiment</span> ville type: gui {
     output {
         display carte_principale {
-            species batiment aspect: geometrie;
-            species route aspect: geometrie;
-            species foyer aspect: revenu;
+            <span class="hljs-literal">species</span> batiment aspect: geometrie;
+            <span class="hljs-literal">species</span> route aspect: geometrie;
+            <span class="hljs-literal">species</span> foyer aspect: revenu;
         }
     }
 }

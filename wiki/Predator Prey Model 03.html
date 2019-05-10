@@ -9,43 +9,43 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Behavior of the prey agent</h1></header><article><div><span><p>Third part of the tutorial : Predator Prey</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model prey_predator
+<span class="hljs-builtin">model</span> prey_predator
 
 global {
-    int nb_preys_init &lt;- 200;
-    float prey_max_energy &lt;- 1.0;
-    float prey_max_transfert &lt;- 0.1;
-    float prey_energy_consum &lt;- 0.05;
+    <span class="hljs-literal">int</span> nb_preys_init &lt;- 200;
+    <span class="hljs-literal">float</span> prey_max_energy &lt;- 1.0;
+    <span class="hljs-literal">float</span> prey_max_transfert &lt;- 0.1;
+    <span class="hljs-literal">float</span> prey_energy_consum &lt;- 0.05;
     
     init {
         create prey number: nb_preys_init ;
     }
 }
 
-species prey {
-    float size &lt;- 1.0 ;
-    rgb color &lt;- #blue;
-    float max_energy &lt;- prey_max_energy ;
-    float max_transfert &lt;- prey_max_transfert ;
-    float energy_consum &lt;- prey_energy_consum ;
+<span class="hljs-literal">species</span> prey {
+    <span class="hljs-literal">float</span> size &lt;- 1.0 ;
+    <span class="hljs-literal">rgb</span> color &lt;- #blue;
+    <span class="hljs-literal">float</span> max_energy &lt;- prey_max_energy ;
+    <span class="hljs-literal">float</span> max_transfert &lt;- prey_max_transfert ;
+    <span class="hljs-literal">float</span> energy_consum &lt;- prey_energy_consum ;
         
     vegetation_cell myCell &lt;- one_of (vegetation_cell) ; 
-    float energy &lt;- (rnd(1000) / 1000) * max_energy  update: energy - energy_consum max: max_energy ;
+    <span class="hljs-literal">float</span> energy &lt;- (rnd(1000) / 1000) * max_energy  update: energy - energy_consum max: max_energy ;
         
     init { 
         location &lt;- myCell.location;
     }
         
-    reflex basic_move { 
+    <span class="hljs-builtin">reflex</span> basic_move { 
         myCell &lt;- one_of (myCell.neighbors) ;
         location &lt;- myCell.location ;
     }
-    reflex eat when: myCell.food &gt; 0 { 
-        float energy_transfert &lt;- min([max_transfert, myCell.food]) ;
+    <span class="hljs-builtin">reflex</span> eat when: myCell.food &gt; 0 { 
+        <span class="hljs-literal">float</span> energy_transfert &lt;- min([max_transfert, myCell.food]) ;
         myCell.food &lt;- myCell.food - energy_transfert ;
         energy &lt;- energy + energy_transfert ;
     }
-    reflex die when: energy &lt;= 0 {
+    <span class="hljs-builtin">reflex</span> die when: energy &lt;= 0 {
         do die ;
     }
 
@@ -55,14 +55,14 @@ species prey {
 }
 
 grid vegetation_cell width: 50 height: 50 neighbors: 4 {
-    float maxFood &lt;- 1.0 ;
-    float foodProd &lt;- (rnd(1000) / 1000) * 0.01 ;
-    float food &lt;- (rnd(1000) / 1000) max: maxFood update: food + foodProd ;
-    rgb color &lt;- rgb(int(255 * (1 - food)), 255, int(255 * (1 - food))) update: rgb(int(255 * (1 - food)), 255, int(255 *(1 - food))) ;
-    list&lt;vegetation_cell&gt; neighbors  &lt;- (self neighbors_at 2);
+    <span class="hljs-literal">float</span> maxFood &lt;- 1.0 ;
+    <span class="hljs-literal">float</span> foodProd &lt;- (rnd(1000) / 1000) * 0.01 ;
+    <span class="hljs-literal">float</span> food &lt;- (rnd(1000) / 1000) max: maxFood update: food + foodProd ;
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(<span class="hljs-literal">int</span>(255 * (1 - food)), 255, <span class="hljs-literal">int</span>(255 * (1 - food))) update: <span class="hljs-literal">rgb</span>(<span class="hljs-literal">int</span>(255 * (1 - food)), 255, <span class="hljs-literal">int</span>(255 *(1 - food))) ;
+    <span class="hljs-literal">list</span>&lt;vegetation_cell&gt; neighbors  &lt;- (self neighbors_at 2);
 }
 
-experiment prey_predator type: gui {
+<span class="hljs-builtin">experiment</span> prey_predator type: gui {
     parameter <span class="hljs-string">"Initial number of preys: "</span> var: nb_preys_init min: 1 max: 1000 category: <span class="hljs-string">"Prey"</span> ;
     parameter <span class="hljs-string">"Prey max energy: "</span> var: prey_max_energy category: <span class="hljs-string">"Prey"</span> ;
     parameter <span class="hljs-string">"Prey max transfert: "</span> var: prey_max_transfert  category: <span class="hljs-string">"Prey"</span> ;
@@ -70,7 +70,7 @@ experiment prey_predator type: gui {
     output {
         display main_display {
             grid vegetation_cell lines: #black ;
-            species prey aspect: base ;
+            <span class="hljs-literal">species</span> prey aspect: base ;
         }
     }
 }

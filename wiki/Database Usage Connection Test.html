@@ -7,33 +7,33 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">SQLConnection</h1></header><article><div><span><p><em>Author : thaitruongminh</em></p>
 <p>How to create a connection to a database in GAMA</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model test_connection
+<pre><code class="hljs"><span class="hljs-builtin">model</span> test_connection
 
 global {
-    map&lt;string, string&gt; SQLSERVER &lt;- [<span class="hljs-string">'host'</span>::<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'sqlserver'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">''</span>, <span class="hljs-string">'port'</span>::<span class="hljs-string">'1433'</span>, <span class="hljs-string">'user'</span>::<span class="hljs-string">'sa'</span>, <span class="hljs-string">'passwd'</span>::<span class="hljs-string">'tmt'</span>];
-    map&lt;string, string&gt; MySQL &lt;- [<span class="hljs-string">'host'</span>::<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'MySQL'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">''</span>, <span class="hljs-string">'port'</span>::<span class="hljs-string">'8889'</span>, <span class="hljs-string">'user'</span>::<span class="hljs-string">'root'</span>, <span class="hljs-string">'passwd'</span>::<span class="hljs-string">'root'</span>];
-    map&lt;string, string&gt; ORACLE &lt;- [<span class="hljs-string">'host'</span>::<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'Oracle'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">''</span>, <span class="hljs-string">'port'</span>::<span class="hljs-string">'1433'</span>, <span class="hljs-string">'user'</span>::<span class="hljs-string">'sa'</span>, <span class="hljs-string">'passwd'</span>::<span class="hljs-string">'tmt'</span>];
-    map&lt;string, string&gt; POSTGRES &lt;- [<span class="hljs-string">'host'</span>::<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'Postgres'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">'bgaudou'</span>, <span class="hljs-string">'port'</span>::<span class="hljs-string">'5432'</span>, <span class="hljs-string">'user'</span>::<span class="hljs-string">'bgaudou'</span>, <span class="hljs-string">'passwd'</span>::<span class="hljs-string">''</span>];
-    map&lt;string, string&gt; SQLITE &lt;- [<span class="hljs-string">'dbtype'</span>::<span class="hljs-string">'sqlite'</span>, <span class="hljs-string">'database'</span>::<span class="hljs-string">'../../includes/meteo.db'</span>];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; SQLSERVER &lt;- ['host'::'localhost', 'dbtype'::'sqlserver', 'database'::'', 'port'::'1433', 'user'::'sa', 'passwd'::'tmt'];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; MySQL &lt;- ['host'::'localhost', 'dbtype'::'MySQL', 'database'::'', 'port'::'8889', 'user'::'root', 'passwd'::'root'];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; ORACLE &lt;- ['host'::'localhost', 'dbtype'::'Oracle', 'database'::'', 'port'::'1433', 'user'::'sa', 'passwd'::'tmt'];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; POSTGRES &lt;- ['host'::'localhost', 'dbtype'::'Postgres', 'database'::'bgaudou', 'port'::'5432', 'user'::'bgaudou', 'passwd'::''];
+    <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; SQLITE &lt;- ['dbtype'::'sqlite', 'database'::'../../includes/meteo.db'];
     init {
         create DB_connection_tester;
     }
 
 }
 
-species DB_connection_tester skills: [SQLSKILL] {
+<span class="hljs-literal">species</span> DB_connection_tester skills: [<span class="hljs-builtin">SQLSKILL</span>] {
     init {
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Current Time "</span> + self timeStamp [];
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Connection to SQLSERVER is "</span> + self testConnection [params::SQLSERVER];
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Connection to MySQL is "</span> + self testConnection [params::MySQL];
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Connection to SQLITE is "</span> + self testConnection [params::SQLITE];
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Connection to ORACLE is "</span> + self testConnection [params::ORACLE];
-        <span class="hljs-statement">write</span> <span class="hljs-string">"Connection to POSTGRESQL is "</span> + self testConnection [params::POSTGRES];
+        write <span class="hljs-string">"Current Time "</span> + self timeStamp [];
+        write <span class="hljs-string">"Connection to SQLSERVER is "</span> + self testConnection [params::SQLSERVER];
+        write <span class="hljs-string">"Connection to MySQL is "</span> + self testConnection [params::MySQL];
+        write <span class="hljs-string">"Connection to SQLITE is "</span> + self testConnection [params::SQLITE];
+        write <span class="hljs-string">"Connection to ORACLE is "</span> + self testConnection [params::ORACLE];
+        write <span class="hljs-string">"Connection to POSTGRESQL is "</span> + self testConnection [params::POSTGRES];
     }
 
 }
 
-experiment default_expr type: gui {
+<span class="hljs-builtin">experiment</span> default_expr type: gui {
 }  
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>

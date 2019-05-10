@@ -80,22 +80,22 @@
 <p>The above parameters view is generated from the following code:</p>
 <pre><code class="hljs">global
 {
-    int i;
-    float f;
-    string s;
-    list l;
-    matrix m;
-    pair p;
-    rgb c;
+    <span class="hljs-literal">int</span> i;
+    <span class="hljs-literal">float</span> f;
+    <span class="hljs-literal">string</span> s;
+    <span class="hljs-literal">list</span> l;
+    <span class="hljs-literal">matrix</span> m;
+    <span class="hljs-literal">pair</span> p;
+    <span class="hljs-literal">rgb</span> c;
 }
 
-experiment maths type: gui {
+<span class="hljs-builtin">experiment</span> maths type: gui {
     parameter <span class="hljs-string">"my_integer"</span> var: i &lt;- 0 category:<span class="hljs-string">"Simple types"</span>;
     parameter <span class="hljs-string">"my_float"</span> var: f &lt;- 0.0 category:<span class="hljs-string">"Simple types"</span>;
     parameter <span class="hljs-string">"my_string"</span> var: s &lt;- <span class="hljs-string">""</span> category:<span class="hljs-string">"Simple types"</span>;
 
     parameter <span class="hljs-string">"my_list"</span> var: l &lt;- [] category:<span class="hljs-string">"Complex types"</span>;
-    parameter <span class="hljs-string">"my_matrix"</span> var: m &lt;- matrix([[1,2],[3,4]]) category:<span class="hljs-string">"Complex types"</span>;
+    parameter <span class="hljs-string">"my_matrix"</span> var: m &lt;- <span class="hljs-literal">matrix</span>([[1,2],[3,4]]) category:<span class="hljs-string">"Complex types"</span>;
     parameter <span class="hljs-string">"my_pair"</span> var: p &lt;- 3::5 category:<span class="hljs-string">"Complex types"</span>;
     parameter <span class="hljs-string">"my_color"</span> var: c &lt;- #green category:<span class="hljs-string">"Complex types"</span>;
 

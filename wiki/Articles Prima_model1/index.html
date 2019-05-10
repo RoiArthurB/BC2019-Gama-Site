@@ -8,10 +8,10 @@
 <p>This model shows how to create agent and make them move randomly in the world. Some agents are infected, and others can gain the infection if they are in a certain range.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model SI_city
+<span class="hljs-builtin">model</span> SI_city
 
 global{
-    geometry shape&lt;-envelope(square(500));
+    <span class="hljs-literal">geometry</span> shape&lt;-envelope(square(500));
     
     <span class="hljs-comment">//Creation of the people agents</span>
     init{
@@ -19,17 +19,17 @@ global{
     }
 }
 <span class="hljs-comment">//People species with agents moving and can be infected</span>
-species people skills:[moving]{     
-    float speed &lt;- 5.0 + rnd(5);
-    bool is_infected &lt;- flip(0.01);
+<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+    <span class="hljs-literal">float</span> speed &lt;- 5.0 + rnd(5);
+    <span class="hljs-literal">bool</span> is_infected &lt;- flip(0.01);
     <span class="hljs-comment">//Make the agent wander at each step with a certain speed.</span>
-    reflex move{
+    <span class="hljs-builtin">reflex</span> move{
         do wander;
     }
     <span class="hljs-comment">//Infect the agent if it is not already infected, and according to the infected people in a range</span>
-    reflex infect when: is_infected{
+    <span class="hljs-builtin">reflex</span> infect when: is_infected{
         ask people at_distance 10 {
-            if flip(0.01) {
+            <span class="hljs-keyword">if</span> flip(0.01) {
                 is_infected &lt;- true;
             }
         }
@@ -39,10 +39,10 @@ species people skills:[moving]{
     }
 }
 
-experiment main_experiment type:gui{
+<span class="hljs-builtin">experiment</span> main_experiment type:gui{
     output {
-        display map  {
-            species people aspect:circle;           
+        display <span class="hljs-literal">map</span>  {
+            <span class="hljs-literal">species</span> people aspect:circle;           
         }
     }
 }

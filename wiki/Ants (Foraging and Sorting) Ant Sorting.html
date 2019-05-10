@@ -8,16 +8,16 @@
 <p>This model is loosely based on the behavior of ants sorting different elements in their nest. A of mobile agents - the ants - is placed on a grid. The grid itself contains cells of different colors. Each step, the agents move randomly. If they enter a colored cell, they pick this color if its density in the neighborhood is less than <em>number_of_objects_around</em>. If they have picked a color, they drop it on a black cell if they have encountered at least <em>number_of_objects_in_history</em> cells with the same color.\n After a while, colors begin to be aggregated.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model ant_sort
+<span class="hljs-builtin">model</span> ant_sort
 
 global  {
     <span class="hljs-comment">// Parameters </span>
-    int number_of_different_colors &lt;- 5 max: 9 ;
-    int density_percent &lt;- 30 min: 0 max: 99 ;
-    int number_of_objects_in_history &lt;- 3 min: 0 ;
-    int number_of_objects_around  &lt;- 5 min: 0 max: 8;
-    int width_and_height_of_grid &lt;- 128 max: 400 min: 10 ;  
-    int ants &lt;- 20 min: 1 ;
+    <span class="hljs-literal">int</span> number_of_different_colors &lt;- 5 max: 9 ;
+    <span class="hljs-literal">int</span> density_percent &lt;- 30 min: 0 max: 99 ;
+    <span class="hljs-literal">int</span> number_of_objects_in_history &lt;- 3 min: 0 ;
+    <span class="hljs-literal">int</span> number_of_objects_around  &lt;- 5 min: 0 max: 8;
+    <span class="hljs-literal">int</span> width_and_height_of_grid &lt;- 128 max: 400 min: 10 ;  
+    <span class="hljs-literal">int</span> ants &lt;- 20 min: 1 ;
     
     <span class="hljs-comment">//Action to kill all the ants</span>
     action kill_all {
@@ -29,11 +29,11 @@ global  {
         create ant number: ants;
     }
 
-    rgb black &lt;- #black  ;  
-    list&lt;rgb&gt; colors const: true &lt;- [#yellow,#red, #orange, #blue, #green,#cyan, #gray,#pink,#magenta] ;
+    <span class="hljs-literal">rgb</span> black &lt;- #black  ;  
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; colors const: true &lt;- [#yellow,#red, #orange, #blue, #green,#cyan, #gray,#pink,#magenta] ;
     <span class="hljs-comment">//Action to write the description of the model</span>
     action description {
-        <span class="hljs-statement">write</span> <span class="hljs-string">"\n Description. \n This model is loosely based on the behavior of ants sorting different elements in their nest. \n A of mobile agents - the ants - is placed on a grid. The grid itself contains cells of different colors. Each step, the agents move randomly. If they enter a colored cell, they pick this color if its density in the neighborhood is less than *number_of_objects_around*. If they have picked a color, they drop it on a black cell if they have encountered at least *number_of_objects_in_history* cells with the same color.\n After a while, colors begin to be aggregated. "</span> ;   
+        write <span class="hljs-string">"\n Description. \n This model is loosely based on the behavior of ants sorting different elements in their nest. \n A of mobile agents - the ants - is placed on a grid. The grid itself contains cells of different colors. Each step, the agents move randomly. If they enter a colored cell, they pick this color if its density in the neighborhood is less than *number_of_objects_around*. If they have picked a color, they drop it on a black cell if they have encountered at least *number_of_objects_in_history* cells with the same color.\n After a while, colors begin to be aggregated. "</span> ;   
     }  
     init { 
         do description ;
@@ -41,12 +41,12 @@ global  {
     } 
 }
 <span class="hljs-comment">//Species ant that will move and follow a final state machine</span>
-species ant skills: [ moving ] control: fsm { 
-    rgb color &lt;- #white ; 
+<span class="hljs-literal">species</span> ant skills: [ <span class="hljs-builtin">moving</span> ] control: <span class="hljs-builtin">fsm</span> { 
+    <span class="hljs-literal">rgb</span> color &lt;- #white ; 
     ant_grid place -&gt; {ant_grid (location)} ;
     
     <span class="hljs-comment">//Reflex to make the ant wander</span>
-    reflex wandering { 
+    <span class="hljs-builtin">reflex</span> wandering { 
         do wander amplitude: 120;
     }
     <span class="hljs-comment">//Initial state that will change to full</span>
@@ -59,9 +59,9 @@ species ant skills: [ moving ] control: fsm {
     <span class="hljs-comment">//State full that will change to black if the place color is empty and drop the color inside it</span>
     state full {
         enter { 
-            int encountered &lt;- 0; 
+            <span class="hljs-literal">int</span> encountered &lt;- 0; 
         }
-        if place.color = color { 
+        <span class="hljs-keyword">if</span> place.color = color { 
             encountered &lt;- encountered + 1 ;
         }
         transition to: empty when: (place.color = black) and (encountered &gt; number_of_objects_in_history) {
@@ -70,18 +70,18 @@ species ant skills: [ moving ] control: fsm {
         }
     }
     aspect default {
-        draw file(<span class="hljs-string">"../images/ant_normal.svg"</span>) size:5 color: color rotate: heading - 90;
+        draw <span class="hljs-literal">file</span>(<span class="hljs-string">"../images/ant_normal.svg"</span>) size:5 color: color rotate: heading - 90;
         draw circle(5) empty: true color: color;
     }
 }
 <span class="hljs-comment">//Grid that will use the density to determine the color</span>
 grid ant_grid width: width_and_height_of_grid height: width_and_height_of_grid neighbors: 8 use_regular_agents: false frequency: 0{
-    rgb color &lt;- (rnd(100)) &lt; density_percent ? (colors at rnd(number_of_different_colors - 1)) : #black ;
+    <span class="hljs-literal">rgb</span> color &lt;- (rnd(100)) &lt; density_percent ? (colors at rnd(number_of_different_colors - 1)) : #black ;
 }
 
 
     
-experiment sort type: gui{
+<span class="hljs-builtin">experiment</span> sort type: gui{
     parameter <span class="hljs-string">"Number of colors:"</span> var: number_of_different_colors category: <span class="hljs-string">"Environment"</span> ;
     parameter <span class="hljs-string">"Density of colors:"</span> var: density_percent category: <span class="hljs-string">"Environment"</span> ;
     parameter <span class="hljs-string">"Number of similar colors in memory necessary to put down:"</span> var: number_of_objects_in_history category: <span class="hljs-string">"Agents"</span> ;
@@ -92,7 +92,7 @@ experiment sort type: gui{
     output {
         display OpenGL type: opengl  {
             grid ant_grid ;
-            species ant transparency: 0.2 ;
+            <span class="hljs-literal">species</span> ant transparency: 0.2 ;
         }
     }
 }

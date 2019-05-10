@@ -22,7 +22,7 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <ul>
 <li>Possibility to define 3D points with the <strong>{x,y,z}</strong> syntax:</li>
 </ul>
-<pre><code class="hljs">let pt type: point &lt;- {2, 5, 3};
+<pre><code class="hljs">let pt type: <span class="hljs-literal">point</span> &lt;- {2, 5, 3};
 </code></pre>
 <p>#summary One-sentence summary of this page.</p>
 <p>The aim of this feature is to run models and experiments on a grid or a cluster without GUI and to take advantages of High Performance Computing. It promises efficient running by accelerating each simulation and experiment plan computing. The GUI is not loaded and managed. Several simulations could be run in parallel, at same time.</p>
@@ -88,21 +88,21 @@ An agent is created by line of the CSV file. It is also possible to read the dif
    ...
    action myAction 
    {
-     arg location type: point; <span class="hljs-comment">// contains le location of the click in the environment</span>
-     arg selected_agents type: list; <span class="hljs-comment">// contains agents clicked by the event</span>
+     arg location type: <span class="hljs-literal">point</span>; <span class="hljs-comment">// contains le location of the click in the environment</span>
+     arg selected_agents type: <span class="hljs-literal">list</span>; <span class="hljs-comment">// contains agents clicked by the event</span>
     
     ... <span class="hljs-comment">//code written by the authors ...</span>
    } 
  }
 
- experiment Simple type:gui {
-    parameter <span class="hljs-string">'Evaporation Rate:'</span> var: evaporation_rate;
-    parameter <span class="hljs-string">'Diffusion Rate:'</span> var: diffusion_rate;
+ <span class="hljs-builtin">experiment</span> Simple type:gui {
+    parameter 'Evaporation Rate:' var: evaporation_rate;
+    parameter 'Diffusion Rate:' var: diffusion_rate;
     output { 
         display Ants refresh_every: 2 { 
             grid ant_grid;
-            species ant aspect: default;
-            text tt value: string ( food_remaining ) size: 24.0 position: { 20 , 20 } color: rgb ( <span class="hljs-string">'white'</span> );
+            <span class="hljs-literal">species</span> ant aspect: default;
+            text tt value: <span class="hljs-literal">string</span> ( food_remaining ) size: 24.0 position: { 20 , 20 } color: <span class="hljs-literal">rgb</span> ( 'white' );
             event mouse_up action: myAction;
         }  
 
@@ -128,11 +128,11 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <li><strong>returns</strong> the action returns an integer with the meaning: -1: failed to move; 0: success to move closer and closer to the target; 1: arrive the false target; 2: arrive the target</li>
 </ul>
 <pre><code class="hljs">
- reflex move_with_vehicle_goto when: target != <span class="hljs-literal">nil</span>{
-            let moving_status type: int &lt;- -1;
+ <span class="hljs-builtin">reflex</span> move_with_vehicle_goto when: target != nil{
+            let moving_status type: <span class="hljs-literal">int</span> &lt;- -1;
             do vehicle_goto target: target on: the_graph speed: speed target_type: true returns: moving_status;
-            if (int(moving_status) &gt; 0){
-                let temp_targets &lt;- list(targetpoint) - target;
+            <span class="hljs-keyword">if</span> (<span class="hljs-literal">int</span>(moving_status) &gt; 0){
+                let temp_targets &lt;- <span class="hljs-literal">list</span>(targetpoint) - target;
                 set target &lt;- one_of(temp_targets);
             }
             

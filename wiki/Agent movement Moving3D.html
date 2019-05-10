@@ -10,26 +10,26 @@
 <pre><code class="hljs">
 
 
-model Moving3DModel   
+<span class="hljs-builtin">model</span> Moving3DModel   
 
 global {
-    int number_of_agents parameter: <span class="hljs-string">'Number of Agents'</span> min: 1 &lt;- 250 step:10 category: <span class="hljs-string">'Initialization'</span>; 
-    int envSize &lt;-100; <span class="hljs-comment">//max:100;</span>
-    int mazeSize &lt;-10;
-    int radius parameter: <span class="hljs-string">'Radius'</span> min: 1 &lt;- 1 ;
-    int directionSize parameter: <span class="hljs-string">'direction size'</span> min: 1 &lt;- 10 ;
-    string effectType &lt;-<span class="hljs-string">""</span>;<span class="hljs-comment">// among:["","firework", "blob","direction"];</span>
-    string movingType &lt;-<span class="hljs-string">"move"</span>;
-    graph mazeGraph;
-    geometry shape &lt;- cube(envSize);
-    bool trace &lt;-false;
-    string agentAspect &lt;- <span class="hljs-string">"sphere"</span> among:[<span class="hljs-string">"circle"</span>, <span class="hljs-string">"sphere"</span>,<span class="hljs-string">"direction"</span>];
+    <span class="hljs-literal">int</span> number_of_agents parameter: 'Number of Agents' min: 1 &lt;- 250 step:10 category: 'Initialization'; 
+    <span class="hljs-literal">int</span> envSize &lt;-100; <span class="hljs-comment">//max:100;</span>
+    <span class="hljs-literal">int</span> mazeSize &lt;-10;
+    <span class="hljs-literal">int</span> radius parameter: 'Radius' min: 1 &lt;- 1 ;
+    <span class="hljs-literal">int</span> directionSize parameter: 'direction size' min: 1 &lt;- 10 ;
+    <span class="hljs-literal">string</span> effectType &lt;-<span class="hljs-string">""</span>;<span class="hljs-comment">// among:["","firework", "blob","direction"];</span>
+    <span class="hljs-literal">string</span> movingType &lt;-<span class="hljs-string">"move"</span>;
+    <span class="hljs-literal">graph</span> mazeGraph;
+    <span class="hljs-literal">geometry</span> shape &lt;- cube(envSize);
+    <span class="hljs-literal">bool</span> trace &lt;-false;
+    <span class="hljs-literal">string</span> agentAspect &lt;- <span class="hljs-string">"sphere"</span> among:[<span class="hljs-string">"circle"</span>, <span class="hljs-string">"sphere"</span>,<span class="hljs-string">"direction"</span>];
 
     init { 
         
-        if(movingType = <span class="hljs-string">"move"</span> or movingType = <span class="hljs-string">"complete"</span>){
+        <span class="hljs-keyword">if</span>(movingType = <span class="hljs-string">"move"</span> or movingType = <span class="hljs-string">"complete"</span>){
           create movingAgent number: number_of_agents{
-            if(effectType = <span class="hljs-string">"firework"</span>){
+            <span class="hljs-keyword">if</span>(effectType = <span class="hljs-string">"firework"</span>){
               location &lt;- {envSize/2, envSize/2, envSize/2};    
             }
             else{
@@ -39,14 +39,14 @@ global {
           } 
         }
         
-        if(movingType = <span class="hljs-string">"wander"</span> or movingType = <span class="hljs-string">"complete"</span>){
+        <span class="hljs-keyword">if</span>(movingType = <span class="hljs-string">"wander"</span> or movingType = <span class="hljs-string">"complete"</span>){
             create wanderAgent number: number_of_agents{
               location &lt;- {rnd(envSize), rnd(envSize), rnd(envSize)};
               color&lt;-°green;    
             }
         }
         
-        if(movingType = <span class="hljs-string">"goto"</span> or movingType = <span class="hljs-string">"complete"</span>){
+        <span class="hljs-keyword">if</span>(movingType = <span class="hljs-string">"goto"</span> or movingType = <span class="hljs-string">"complete"</span>){
             create gotoAgent number: number_of_agents{
               location &lt;- {rnd(envSize), rnd(envSize), rnd(envSize)};
               myTarget &lt;-{rnd(envSize),rnd(envSize),rnd(envSize)};
@@ -54,7 +54,7 @@ global {
             }
         }
         
-        if(movingType = <span class="hljs-string">"gotoOnNetwork"</span> or movingType = <span class="hljs-string">"complete"</span>){
+        <span class="hljs-keyword">if</span>(movingType = <span class="hljs-string">"gotoOnNetwork"</span> or movingType = <span class="hljs-string">"complete"</span>){
             
             loop i from:0 to:mazeSize{
               loop j from:0 to: mazeSize{
@@ -76,144 +76,144 @@ global {
      }
 }
 
-species abstractAgent skills: [moving3D]{
-    rgb color;
+<span class="hljs-literal">species</span> abstractAgent skills: [<span class="hljs-builtin">moving3D</span>]{
+    <span class="hljs-literal">rgb</span> color;
     aspect default {
-        if(agentAspect = <span class="hljs-string">"sphere"</span>){
+        <span class="hljs-keyword">if</span>(agentAspect = <span class="hljs-string">"sphere"</span>){
             draw sphere(radius) color:color;
         }
-        if(agentAspect = <span class="hljs-string">"circle"</span>){
+        <span class="hljs-keyword">if</span>(agentAspect = <span class="hljs-string">"circle"</span>){
             draw circle(radius) color:color;
         }
-        if(agentAspect = <span class="hljs-string">"direction"</span>){
+        <span class="hljs-keyword">if</span>(agentAspect = <span class="hljs-string">"direction"</span>){
           draw sphere(radius) color:color;
           draw line([{location.x,location.y,location.z},{location.x+directionSize*cos(pitch)*cos(heading),location.y+directionSize*cos(pitch)*sin(heading),location.z+directionSize*sin(pitch)}]) end_arrow:1.0 color:color;    
         }       
     }
 } 
 
-species movingAgent  parent:abstractAgent{ 
-    reflex move{
+<span class="hljs-literal">species</span> movingAgent  parent:abstractAgent{ 
+    <span class="hljs-builtin">reflex</span> move{
       do move;
     }       
 }
 
-species wanderAgent parent:abstractAgent{ 
-    reflex wander{
+<span class="hljs-literal">species</span> wanderAgent parent:abstractAgent{ 
+    <span class="hljs-builtin">reflex</span> wander{
       do wander amplitude:90;
     }
 }
 
-species gotoAgent parent:abstractAgent{ 
-    point myTarget;
-    string gotoType;
-    reflex goto{
-        if(effectType = <span class="hljs-string">"blob"</span>){
+<span class="hljs-literal">species</span> gotoAgent parent:abstractAgent{ 
+    <span class="hljs-literal">point</span> myTarget;
+    <span class="hljs-literal">string</span> gotoType;
+    <span class="hljs-builtin">reflex</span> goto{
+        <span class="hljs-keyword">if</span>(effectType = <span class="hljs-string">"blob"</span>){
             myTarget&lt;-{rnd(envSize),rnd(envSize),rnd(envSize)};
         }
         do goto target:myTarget;      
     }
 }
 
-species gotoAgentOnNetwork parent:abstractAgent{ 
-    point myTarget;
-    string gotoType;
-    reflex goto{
+<span class="hljs-literal">species</span> gotoAgentOnNetwork parent:abstractAgent{ 
+    <span class="hljs-literal">point</span> myTarget;
+    <span class="hljs-literal">string</span> gotoType;
+    <span class="hljs-builtin">reflex</span> goto{
         do goto target:myTarget on: mazeGraph;
     }       
 }
 
-species followAgent parent:abstractAgent{ 
-    point myTarget;
-    string gotoType;
-    reflex goto{
-      if(gotoType = <span class="hljs-string">"goto"</span>){
+<span class="hljs-literal">species</span> followAgent parent:abstractAgent{ 
+    <span class="hljs-literal">point</span> myTarget;
+    <span class="hljs-literal">string</span> gotoType;
+    <span class="hljs-builtin">reflex</span> goto{
+      <span class="hljs-keyword">if</span>(gotoType = <span class="hljs-string">"goto"</span>){
         do goto target:myTarget;
       }
-      if(gotoType = <span class="hljs-string">"gotoOnNetwork"</span>){
+      <span class="hljs-keyword">if</span>(gotoType = <span class="hljs-string">"gotoOnNetwork"</span>){
         do goto target:myTarget on: mazeGraph;
       }
       
     }   
 }
     
-species cell schedules:[]{
+<span class="hljs-literal">species</span> cell schedules:[]{
     
     aspect myPoint{
-        draw sphere(0.01 * envSize/mazeSize) color:rgb(255,255,255,0.5) at:location ;
+        draw sphere(0.01 * envSize/mazeSize) color:<span class="hljs-literal">rgb</span>(255,255,255,0.5) at:location ;
     }
     
 }
 
-species edge_agent schedules:[]{
+<span class="hljs-literal">species</span> edge_agent schedules:[]{
     aspect base2 {
-        draw shape color: rgb(255,255,255);
+        draw shape color: <span class="hljs-literal">rgb</span>(255,255,255);
     }
 }
     
 
-experiment Moving  type: gui {
+<span class="hljs-builtin">experiment</span> Moving  type: gui {
     parameter <span class="hljs-string">"Trace"</span> var:trace &lt;- false;
     parameter <span class="hljs-string">"Movement"</span> var:movingType &lt;- <span class="hljs-string">"move"</span>;
     parameter <span class="hljs-string">"Agent Aspect"</span> var:agentAspect &lt;- <span class="hljs-string">"direction"</span>;
     parameter <span class="hljs-string">"Effect type"</span> var:effectType &lt;- <span class="hljs-string">""</span> among:[<span class="hljs-string">""</span>,<span class="hljs-string">"firework"</span>];
     output {    
-        display MovingAgent type:opengl  background:rgb(10,40,55) {
-            species movingAgent trace:trace;
+        display MovingAgent type:opengl  background:<span class="hljs-literal">rgb</span>(10,40,55) {
+            <span class="hljs-literal">species</span> movingAgent trace:trace;
         }
     }
 }
 
-experiment Wandering  type: gui {
+<span class="hljs-builtin">experiment</span> Wandering  type: gui {
     parameter <span class="hljs-string">"Trace"</span> var:trace &lt;- false;
     parameter <span class="hljs-string">"Movement"</span> var:movingType &lt;- <span class="hljs-string">"wander"</span>;
     parameter <span class="hljs-string">"Agent Aspect"</span> var:agentAspect &lt;- <span class="hljs-string">"direction"</span>;
     output {    
-        display WanderingAgent type:opengl  background:rgb(10,40,55) {
-            species wanderAgent trace:trace;
+        display WanderingAgent type:opengl  background:<span class="hljs-literal">rgb</span>(10,40,55) {
+            <span class="hljs-literal">species</span> wanderAgent trace:trace;
         }
     }
 }
 
-experiment Goto  type: gui {
+<span class="hljs-builtin">experiment</span> Goto  type: gui {
     parameter <span class="hljs-string">"Trace"</span> var:trace &lt;- false;
     parameter <span class="hljs-string">"Movement"</span> var:movingType &lt;- <span class="hljs-string">"goto"</span>;
     parameter <span class="hljs-string">"Agent Aspect"</span> var:agentAspect &lt;- <span class="hljs-string">"direction"</span>;
     parameter <span class="hljs-string">"Effect Type"</span> var:effectType &lt;- <span class="hljs-string">""</span> among:[<span class="hljs-string">""</span>,<span class="hljs-string">"blob"</span>];
     output {    
-        display GotoAgent type:opengl  background:rgb(10,40,55) {
-            species gotoAgent trace:trace;
+        display GotoAgent type:opengl  background:<span class="hljs-literal">rgb</span>(10,40,55) {
+            <span class="hljs-literal">species</span> gotoAgent trace:trace;
         }
     }
 }
 
-experiment GotoOnNetwork  type: gui {
+<span class="hljs-builtin">experiment</span> GotoOnNetwork  type: gui {
     parameter <span class="hljs-string">"Trace"</span> var:trace &lt;- false;
     parameter <span class="hljs-string">"Movement"</span> var:movingType &lt;- <span class="hljs-string">"gotoOnNetwork"</span>;
     parameter <span class="hljs-string">"Agent Aspect"</span> var:agentAspect &lt;- <span class="hljs-string">"direction"</span>;
     output {
             
-        display GotoOnNetworkAgent type:opengl background:rgb(10,40,55) {
-            species gotoAgentOnNetwork trace:trace;
-            species cell aspect:myPoint;
-            species edge_agent aspect: base2 ;
+        display GotoOnNetworkAgent type:opengl background:<span class="hljs-literal">rgb</span>(10,40,55) {
+            <span class="hljs-literal">species</span> gotoAgentOnNetwork trace:trace;
+            <span class="hljs-literal">species</span> cell aspect:myPoint;
+            <span class="hljs-literal">species</span> edge_agent aspect: base2 ;
         }
     }
 }
 
-experiment Complete  type: gui {
+<span class="hljs-builtin">experiment</span> Complete  type: gui {
     parameter <span class="hljs-string">"Trace"</span> var:trace &lt;- false;
     parameter <span class="hljs-string">"Movement"</span> var:movingType &lt;- <span class="hljs-string">"complete"</span>;
     parameter <span class="hljs-string">"Agent Aspect"</span> var:agentAspect &lt;- <span class="hljs-string">"direction"</span>;
     output {
             
-        display GotoOnNetworkAgent type:opengl background:rgb(10,40,55) {
-            species movingAgent position:{0,0,0} trace:trace;
-            species wanderAgent position:{envSize,0,0} trace:trace;
-            species gotoAgent position:{envSize*2,0,0} trace:trace;
-            species gotoAgentOnNetwork position:{envSize*3,0,0} trace:trace;
-            species cell aspect:myPoint position:{envSize*3,0,0};
-            species edge_agent aspect: base2 position:{envSize*3,0,0};
+        display GotoOnNetworkAgent type:opengl background:<span class="hljs-literal">rgb</span>(10,40,55) {
+            <span class="hljs-literal">species</span> movingAgent position:{0,0,0} trace:trace;
+            <span class="hljs-literal">species</span> wanderAgent position:{envSize,0,0} trace:trace;
+            <span class="hljs-literal">species</span> gotoAgent position:{envSize*2,0,0} trace:trace;
+            <span class="hljs-literal">species</span> gotoAgentOnNetwork position:{envSize*3,0,0} trace:trace;
+            <span class="hljs-literal">species</span> cell aspect:myPoint position:{envSize*3,0,0};
+            <span class="hljs-literal">species</span> edge_agent aspect: base2 position:{envSize*3,0,0};
         }
     }
 }

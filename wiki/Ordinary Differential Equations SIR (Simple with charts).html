@@ -8,37 +8,37 @@
 <p>A simple example of ODE use into agents with the example of the SIR equation system.</p>
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Simple with charts)/display_charts-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Simple with charts)/display_chartsH-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Simple with charts)/display_charts_radar-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs">
-model simple_ODE_SIR
+<span class="hljs-builtin">model</span> simple_ODE_SIR
 
 global {
     init{
         create aSIR number:10{
-            S&lt;-S-(int(self)*10000);
+            S&lt;-S-(<span class="hljs-literal">int</span>(self)*10000);
         }
     }
-    list S_3d-&gt;{aSIR collect each.S};
-    list I_3d-&gt;{aSIR collect each.I};
-    list R_3d-&gt;{aSIR collect each.R};
-    reflex ss when: cycle&gt;=40{
+    <span class="hljs-literal">list</span> S_3d-&gt;{aSIR collect each.S};
+    <span class="hljs-literal">list</span> I_3d-&gt;{aSIR collect each.I};
+    <span class="hljs-literal">list</span> R_3d-&gt;{aSIR collect each.R};
+    <span class="hljs-builtin">reflex</span> ss when: cycle&gt;=40{
         do pause;
         
     }
 }
 
 
-species aSIR {
-    int N &lt;- 150000 ;
-    int iInit &lt;- 1000;      
+<span class="hljs-literal">species</span> aSIR {
+    <span class="hljs-literal">int</span> N &lt;- 150000 ;
+    <span class="hljs-literal">int</span> iInit &lt;- 1000;      
 
-    float t;  
-    float S &lt;- N - float(iInit);          
-    float I &lt;- float(iInit); 
-    float R &lt;- 0.0; 
+    <span class="hljs-literal">float</span> t;  
+    <span class="hljs-literal">float</span> S &lt;- N - <span class="hljs-literal">float</span>(iInit);          
+    <span class="hljs-literal">float</span> I &lt;- <span class="hljs-literal">float</span>(iInit); 
+    <span class="hljs-literal">float</span> R &lt;- 0.0; 
     
-    float alpha &lt;- 0.2 min: 0.0 max: 1.0;
-    float beta &lt;- 0.8  min: 0.0 max: 1.0;
+    <span class="hljs-literal">float</span> alpha &lt;- 0.2 min: 0.0 max: 1.0;
+    <span class="hljs-literal">float</span> beta &lt;- 0.8  min: 0.0 max: 1.0;
 
-    float h &lt;- 0.1;
+    <span class="hljs-literal">float</span> h &lt;- 0.1;
    
     equation SIR{ 
         diff(S,t) = (- beta * S * I / N);
@@ -46,58 +46,58 @@ species aSIR {
         diff(R,t) = (alpha * I);
     }
                 
-    reflex solving {
+    <span class="hljs-builtin">reflex</span> solving {
         solve SIR method: <span class="hljs-string">"rk4"</span> step: h ;<span class="hljs-comment">//cycle_length: 1/h ;</span>
     }    
 }
 
 
-experiment maths type: gui {
-        float minimum_cycle_duration&lt;-0.2;
+<span class="hljs-builtin">experiment</span> maths type: gui {
+        <span class="hljs-literal">float</span> minimum_cycle_duration&lt;-0.2;
     
     output { 
         display display_charts {
             chart <span class="hljs-string">"SIR_agent"</span> type: series background: #white {
-                data <span class="hljs-string">'S0'</span> value: (aSIR[0]).S color: #green ;                
-                data <span class="hljs-string">'S1'</span> value: (aSIR[1]).S color: #green ;                
-                data <span class="hljs-string">'S2'</span> value: (aSIR[2]).S color: #green ;                
-                data <span class="hljs-string">'S3'</span> value: (aSIR[3]).S color: #green ;                
-                data <span class="hljs-string">'S4'</span> value: (aSIR[4]).S color: #green ;                
-                data <span class="hljs-string">'S5'</span> value: (aSIR[5]).S color: #green ;                
-                data <span class="hljs-string">'S6'</span> value: (aSIR[6]).S color: #green ;                
-                data <span class="hljs-string">'S7'</span> value: (aSIR[7]).S color: #green ;                
-                data <span class="hljs-string">'S8'</span> value: (aSIR[8]).S color: #green ;        
-                data <span class="hljs-string">'S9'</span> value: (aSIR[9]).S color: #green ;                
+                data 'S0' value: (aSIR[0]).S color: #green ;                
+                data 'S1' value: (aSIR[1]).S color: #green ;                
+                data 'S2' value: (aSIR[2]).S color: #green ;                
+                data 'S3' value: (aSIR[3]).S color: #green ;                
+                data 'S4' value: (aSIR[4]).S color: #green ;                
+                data 'S5' value: (aSIR[5]).S color: #green ;                
+                data 'S6' value: (aSIR[6]).S color: #green ;                
+                data 'S7' value: (aSIR[7]).S color: #green ;                
+                data 'S8' value: (aSIR[8]).S color: #green ;        
+                data 'S9' value: (aSIR[9]).S color: #green ;                
                         
-                data <span class="hljs-string">'I0'</span> value: (aSIR[0]).I color: #red ;              
-                data <span class="hljs-string">'I1'</span> value: (aSIR[1]).I color: #red ;              
-                data <span class="hljs-string">'I2'</span> value: (aSIR[2]).I color: #red ;              
-                data <span class="hljs-string">'I3'</span> value: (aSIR[3]).I color: #red ;              
-                data <span class="hljs-string">'I4'</span> value: (aSIR[4]).I color: #red ;              
-                data <span class="hljs-string">'I5'</span> value: (aSIR[5]).I color: #red ;              
-                data <span class="hljs-string">'I6'</span> value: (aSIR[6]).I color: #red ;              
-                data <span class="hljs-string">'I7'</span> value: (aSIR[7]).I color: #red ;              
-                data <span class="hljs-string">'I8'</span> value: (aSIR[8]).I color: #red ;      
-                data <span class="hljs-string">'I9'</span> value: (aSIR[9]).I color: #red ;              
+                data 'I0' value: (aSIR[0]).I color: #red ;              
+                data 'I1' value: (aSIR[1]).I color: #red ;              
+                data 'I2' value: (aSIR[2]).I color: #red ;              
+                data 'I3' value: (aSIR[3]).I color: #red ;              
+                data 'I4' value: (aSIR[4]).I color: #red ;              
+                data 'I5' value: (aSIR[5]).I color: #red ;              
+                data 'I6' value: (aSIR[6]).I color: #red ;              
+                data 'I7' value: (aSIR[7]).I color: #red ;              
+                data 'I8' value: (aSIR[8]).I color: #red ;      
+                data 'I9' value: (aSIR[9]).I color: #red ;              
                         
-                data <span class="hljs-string">'R0'</span> value: (aSIR[0]).R color: #blue ;             
-                data <span class="hljs-string">'R1'</span> value: (aSIR[1]).R color: #blue ;             
-                data <span class="hljs-string">'R2'</span> value: (aSIR[2]).R color: #blue ;             
-                data <span class="hljs-string">'R3'</span> value: (aSIR[3]).R color: #blue ;             
-                data <span class="hljs-string">'R4'</span> value: (aSIR[4]).R color: #blue ;             
-                data <span class="hljs-string">'R5'</span> value: (aSIR[5]).R color: #blue ;             
-                data <span class="hljs-string">'R6'</span> value: (aSIR[6]).R color: #blue ;             
-                data <span class="hljs-string">'R7'</span> value: (aSIR[7]).R color: #blue ;             
-                data <span class="hljs-string">'R8'</span> value: (aSIR[8]).R color: #blue ;     
-                data <span class="hljs-string">'R9'</span> value: (aSIR[9]).R color: #blue ;         
+                data 'R0' value: (aSIR[0]).R color: #blue ;             
+                data 'R1' value: (aSIR[1]).R color: #blue ;             
+                data 'R2' value: (aSIR[2]).R color: #blue ;             
+                data 'R3' value: (aSIR[3]).R color: #blue ;             
+                data 'R4' value: (aSIR[4]).R color: #blue ;             
+                data 'R5' value: (aSIR[5]).R color: #blue ;             
+                data 'R6' value: (aSIR[6]).R color: #blue ;             
+                data 'R7' value: (aSIR[7]).R color: #blue ;             
+                data 'R8' value: (aSIR[8]).R color: #blue ;     
+                data 'R9' value: (aSIR[9]).R color: #blue ;         
             }
         }
         
         display display_charts_radar {
             chart <span class="hljs-string">"SIR_agent"</span> type: radar background: #white axes:#white {
-                data <span class="hljs-string">'S0'</span> value: (aSIR[0]).S[] color: #green ;          
-                data <span class="hljs-string">'I0'</span> value: (aSIR[0]).I[] color: #red ;    
-                data <span class="hljs-string">'R0'</span> value: (aSIR[0]).R[] color: #blue ;       
+                data 'S0' value: (aSIR[0]).S[] color: #green ;          
+                data 'I0' value: (aSIR[0]).I[] color: #red ;    
+                data 'R0' value: (aSIR[0]).R[] color: #blue ;       
             }
         }
         
@@ -107,9 +107,9 @@ experiment maths type: gui {
             chart <span class="hljs-string">"SIR_agent"</span> type: heatmap background: #white
             reverse_axes: true
              {
-                data <span class="hljs-string">'S0'</span> value: S_3d color: #green ;   
-                data <span class="hljs-string">'I0'</span> value: I_3d color: #red ; 
-                data <span class="hljs-string">'R0'</span> value: R_3d color: #blue ;    
+                data 'S0' value: S_3d color: #green ;   
+                data 'I0' value: I_3d color: #red ; 
+                data 'R0' value: R_3d color: #blue ;    
             }
         }
     }

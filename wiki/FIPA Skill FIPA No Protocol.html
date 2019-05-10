@@ -9,7 +9,7 @@
 (1) can send whatever type of message (i.e., message performative) in the corresponding conversation
 (2) is responsible for marking the end of the conversation by sending a message with 'end_conversation' performative.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model no_protocol_1
+<pre><code class="hljs"><span class="hljs-builtin">model</span> no_protocol_1
 
 global {
     Participant p;
@@ -20,55 +20,55 @@ global {
         
         p &lt;- ps at 0;
         
-        <span class="hljs-statement">write</span> <span class="hljs-string">'Step the simulation to observe the outcome in the console'</span>;
+        write 'Step the simulation to observe the outcome in the console';
     }
 }
 
-species Initiator skills: [fipa] {
-    reflex print_debug_infor {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' with conversations: '</span> + (string(conversations)) + <span class="hljs-string">'; mailbox: '</span> + (string(mailbox));
+<span class="hljs-literal">species</span> Initiator skills: [<span class="hljs-builtin">fipa</span>] {
+    <span class="hljs-builtin">reflex</span> print_debug_infor {
+        write name + ' with conversations: ' + (<span class="hljs-literal">string</span>(conversations)) + '; mailbox: ' + (<span class="hljs-literal">string</span>(mailbox));
     }
 
-    reflex say_hello when: (time = 1) {
-        do start_conversation with: [ to :: [p], protocol :: <span class="hljs-string">'no-protocol'</span>, performative :: <span class="hljs-string">'inform'</span>, contents :: [ (<span class="hljs-string">'Hello from '</span> + name)] ];
+    <span class="hljs-builtin">reflex</span> say_hello when: (time = 1) {
+        do start_conversation with: [ to :: [p], protocol :: 'no-protocol', performative :: 'inform', contents :: [ ('Hello from ' + name)] ];
     }
     
-    reflex read_hello_from_participant when: (time = 3) {
+    <span class="hljs-builtin">reflex</span> read_hello_from_participant when: (time = 3) {
         loop i over: informs {
-            <span class="hljs-statement">write</span> name + <span class="hljs-string">' receives message with content: '</span> + (string(i.contents));
-            do inform with: [ <span class="hljs-facet">message</span> :: i, contents :: [ (<span class="hljs-string">'Goodbye from '</span> + name)] ];
+            write name + ' receives message with content: ' + (<span class="hljs-literal">string</span>(i.contents));
+            do inform with: [ message :: i, contents :: [ ('Goodbye from ' + name)] ];
         }
     }
     
-    reflex read_rebound_goodbye when: (time = 5) {
+    <span class="hljs-builtin">reflex</span> read_rebound_goodbye when: (time = 5) {
         loop i over: mailbox {
-            <span class="hljs-statement">write</span> name + <span class="hljs-string">' receives message with content: '</span> + (string(i.contents));
+            write name + ' receives message with content: ' + (<span class="hljs-literal">string</span>(i.contents));
         }
     }
 }
 
-species Participant skills: [fipa] {
-    reflex print_debug_infor {
-        <span class="hljs-statement">write</span> name + <span class="hljs-string">' with conversations: '</span> + (string(conversations)) + <span class="hljs-string">'; mailbox: '</span> + (string(mailbox));
+<span class="hljs-literal">species</span> Participant skills: [<span class="hljs-builtin">fipa</span>] {
+    <span class="hljs-builtin">reflex</span> print_debug_infor {
+        write name + ' with conversations: ' + (<span class="hljs-literal">string</span>(conversations)) + '; mailbox: ' + (<span class="hljs-literal">string</span>(mailbox));
     }
 
-    reflex reply_hello when: (time = 2) {
+    <span class="hljs-builtin">reflex</span> reply_hello when: (time = 2) {
         loop m over: informs {
-            <span class="hljs-statement">write</span> name + <span class="hljs-string">' receives message with content: '</span> + (string(m.contents));
-            do inform with: [ <span class="hljs-facet">message</span> :: m, contents :: [ (<span class="hljs-string">'Rebound hello from '</span> + name) ] ];
+            write name + ' receives message with content: ' + (<span class="hljs-literal">string</span>(m.contents));
+            do inform with: [ message :: m, contents :: [ ('Rebound hello from ' + name) ] ];
         }
     }
     
-    reflex read_goodbye when: (time = 4) {
+    <span class="hljs-builtin">reflex</span> read_goodbye when: (time = 4) {
         loop i over: informs {
-            <span class="hljs-statement">write</span> name + <span class="hljs-string">' receives message with content: '</span> + (string(i.contents));
-            do end_conversation with: [ <span class="hljs-facet">message</span> :: i, contents :: [ (<span class="hljs-string">'Rebound goodbye from'</span> + name) ] ];
+            write name + ' receives message with content: ' + (<span class="hljs-literal">string</span>(i.contents));
+            do end_conversation with: [ message :: i, contents :: [ ('Rebound goodbye from' + name) ] ];
         }
     }
 }
 
 
-experiment test_no_protocol type: gui {}
+<span class="hljs-builtin">experiment</span> test_no_protocol type: gui {}
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {

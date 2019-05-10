@@ -8,21 +8,21 @@
 <p>Co-model example : Voronoi applied on Boids.</p>
 <p>Imported models :</p>
 <pre><code class="hljs">
-model voronoi
+<span class="hljs-builtin">model</span> voronoi
  
 global {
     <span class="hljs-comment">// Parameters </span>
     <span class="hljs-comment">//Number of points</span>
-    int num_points &lt;- 4 min: 1 max: 1000;
+    <span class="hljs-literal">int</span> num_points &lt;- 4 min: 1 max: 1000;
     <span class="hljs-comment">//Size of the environment</span>
-    int env_width &lt;- 100 min: 10 max: 400;
-    int env_height &lt;- 100 min: 10 max: 400;
+    <span class="hljs-literal">int</span> env_width &lt;- 100 min: 10 max: 400;
+    <span class="hljs-literal">int</span> env_height &lt;- 100 min: 10 max: 400;
     
     <span class="hljs-comment">// Environment</span>
-    geometry shape &lt;- rectangle(env_width, env_height);
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(env_width, env_height);
     
     init { 
-        <span class="hljs-statement">write</span> <span class="hljs-string">'This model shows how Voronoi-like shapes can be drawn on a regular surface. A set of mobile agents is placed on a grid. Each agent possesses an attribute called *inside_color*. Each step, the agents move randomly and the grid cells paint themselves using the *inside_color* of the nearest agent. Dynamical boundaries then appear on the screen without any further calculations.'</span>;
+        write 'This <span class="hljs-builtin">model</span> shows how Voronoi-like shapes can be drawn on a regular surface. A set of mobile agents is placed on a grid. Each <span class="hljs-literal">agent</span> possesses an attribute called *inside_color*. Each step, the agents move randomly and the grid cells paint themselves using the *inside_color* of the nearest <span class="hljs-literal">agent</span>. Dynamical boundaries then appear on the screen without any further calculations.';
         <span class="hljs-comment">//Creation of all the points</span>
         create center number: num_points ;  
     }   
@@ -30,14 +30,14 @@ global {
 <span class="hljs-comment">//Grid for the voronoi clustering</span>
 grid cell width: env_width height: env_height neighbors: 8 use_regular_agents: false {
     <span class="hljs-comment">// Note: since GAMA 1.7, the topology needs to be specified for this computation to use continuous distances</span>
-    center closest_center &lt;- <span class="hljs-literal">nil</span> update: (center closest_to self.location) using topology(world);
-    rgb color &lt;- #white update: (closest_center).color;
+    center closest_center &lt;- nil update: (center closest_to self.location) using <span class="hljs-literal">topology</span>(world);
+    <span class="hljs-literal">rgb</span> color &lt;- #white update: (closest_center).color;
 }
 <span class="hljs-comment">//Species representing the center of a Voronoi point</span>
-species center skills: [moving] { 
-    rgb color &lt;- rgb([rnd (255),rnd (255),rnd (255)]); 
+<span class="hljs-literal">species</span> center skills: [<span class="hljs-builtin">moving</span>] { 
+    <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>([rnd (255),rnd (255),rnd (255)]); 
     <span class="hljs-comment">//Make the center of the cluster wander in the environment       </span>
-    reflex wander {
+    <span class="hljs-builtin">reflex</span> wander {
         do wander amplitude: 90;
     }  
     aspect base {
@@ -46,31 +46,31 @@ species center skills: [moving] {
 }
 
 
-experiment voronoi type: gui{ 
-    parameter <span class="hljs-string">'Number of points:'</span> var: num_points;
-    parameter <span class="hljs-string">'Width of the environment:'</span> var: env_width;
-    parameter <span class="hljs-string">'Height of the environment:'</span> var: env_height;
+<span class="hljs-builtin">experiment</span> voronoi type: gui{ 
+    parameter 'Number of points:' var: num_points;
+    parameter 'Width of the environment:' var: env_width;
+    parameter 'Height of the environment:' var: env_height;
     
     output {
         display Voronoi type: opengl {
             grid cell  ;
-            species center aspect: base ;
+            <span class="hljs-literal">species</span> center aspect: base ;
         }
     }   
 }
 </code></pre>
-<pre><code class="hljs">model Voronoi_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Voronoi_coupling
 
 import <span class="hljs-string">"../../../Toy Models/Voronoi/Voronoi.gaml"</span>
 
 
-experiment Voronoi_coupling_exp type:gui  parent:voronoi{
+<span class="hljs-builtin">experiment</span> Voronoi_coupling_exp type:gui  parent:voronoi{
     
-    list&lt;center&gt; getCenter{
-        return list(center);
+    <span class="hljs-literal">list</span>&lt;center&gt; getCenter{
+        return <span class="hljs-literal">list</span>(center);
     }
-    list&lt;cell&gt; getCell{
-        return list(cell);
+    <span class="hljs-literal">list</span>&lt;cell&gt; getCell{
+        return <span class="hljs-literal">list</span>(cell);
     }
     
     
@@ -79,46 +79,46 @@ experiment Voronoi_coupling_exp type:gui  parent:voronoi{
 }
 </code></pre>
 <pre><code class="hljs">
-model boids 
+<span class="hljs-builtin">model</span> boids 
 global torus: torus_environment{ 
     <span class="hljs-comment">//Number of boids that will be created</span>
-    int number_of_agents &lt;- 50 min: 1 max: 1000000;
+    <span class="hljs-literal">int</span> number_of_agents &lt;- 50 min: 1 max: 1000000;
     <span class="hljs-comment">//Number of obstacles for the boids movement to represent</span>
-    int number_of_obstacles &lt;- 0 min: 0;
+    <span class="hljs-literal">int</span> number_of_obstacles &lt;- 0 min: 0;
     <span class="hljs-comment">//Maximal speed of the boids</span>
-    float maximal_speed &lt;- 15.0 min: 0.1 max: 15.0;
+    <span class="hljs-literal">float</span> maximal_speed &lt;- 15.0 min: 0.1 max: 15.0;
     <span class="hljs-comment">//Factors for the group of boids</span>
-    int cohesion_factor &lt;- 200;
-    int alignment_factor &lt;- 100; 
+    <span class="hljs-literal">int</span> cohesion_factor &lt;- 200;
+    <span class="hljs-literal">int</span> alignment_factor &lt;- 100; 
     <span class="hljs-comment">//Variables for the movement of the boids</span>
-    float minimal_distance &lt;- 10.0; 
-    int maximal_turn &lt;- 45 min: 0 max: 359; 
+    <span class="hljs-literal">float</span> minimal_distance &lt;- 10.0; 
+    <span class="hljs-literal">int</span> maximal_turn &lt;- 45 min: 0 max: 359; 
     
-    int width_and_height_of_environment &lt;- 1000;  
-    bool torus_environment &lt;- false; 
-    bool apply_cohesion &lt;- true ;
-    bool apply_alignment &lt;- true ;
-    bool apply_separation &lt;- true;
-    bool apply_avoid &lt;- true;  
-    bool apply_wind &lt;- true;   
-    bool moving_obstacles &lt;- false;   
-    int bounds &lt;- int(width_and_height_of_environment / 20); 
+    <span class="hljs-literal">int</span> width_and_height_of_environment &lt;- 1000;  
+    <span class="hljs-literal">bool</span> torus_environment &lt;- false; 
+    <span class="hljs-literal">bool</span> apply_cohesion &lt;- true ;
+    <span class="hljs-literal">bool</span> apply_alignment &lt;- true ;
+    <span class="hljs-literal">bool</span> apply_separation &lt;- true;
+    <span class="hljs-literal">bool</span> apply_avoid &lt;- true;  
+    <span class="hljs-literal">bool</span> apply_wind &lt;- true;   
+    <span class="hljs-literal">bool</span> moving_obstacles &lt;- false;   
+    <span class="hljs-literal">int</span> bounds &lt;- <span class="hljs-literal">int</span>(width_and_height_of_environment / 20); 
     <span class="hljs-comment">//Vector for the wind</span>
-    point wind_vector &lt;- {0,0}; 
-    list images of: image_file &lt;- [file(<span class="hljs-string">'../images/bird1.png'</span>),file(<span class="hljs-string">'../images/bird2.png'</span>),file(<span class="hljs-string">'../images/bird3.png'</span>)]; 
-    int xmin &lt;- bounds;   
-    int ymin &lt;- bounds;  
-    int xmax &lt;- (width_and_height_of_environment - bounds);     
-    int ymax &lt;- (width_and_height_of_environment - bounds);   
+    <span class="hljs-literal">point</span> wind_vector &lt;- {0,0}; 
+    <span class="hljs-literal">list</span> images of: image_file &lt;- [<span class="hljs-literal">file</span>('../images/bird1.png'),<span class="hljs-literal">file</span>('../images/bird2.png'),<span class="hljs-literal">file</span>('../images/bird3.png')]; 
+    <span class="hljs-literal">int</span> xmin &lt;- bounds;   
+    <span class="hljs-literal">int</span> ymin &lt;- bounds;  
+    <span class="hljs-literal">int</span> xmax &lt;- (width_and_height_of_environment - bounds);     
+    <span class="hljs-literal">int</span> ymax &lt;- (width_and_height_of_environment - bounds);   
     
     <span class="hljs-comment">//Action to move the goal to the mouse location</span>
-    action move_goal(point mouse) {
+    action move_goal(<span class="hljs-literal">point</span> mouse) {
         ask first(boids_goal) {
             do goto target: mouse speed: 30;
         }
     }
     
-    geometry shape &lt;- square(width_and_height_of_environment);
+    <span class="hljs-literal">geometry</span> shape &lt;- square(width_and_height_of_environment);
     
     init { 
         <span class="hljs-comment">//Create the boids agents</span>
@@ -135,11 +135,11 @@ global torus: torus_environment{
 }
 
 <span class="hljs-comment">//Species boids goal which represents the goal that will be followed by boids agents using the skill moving</span>
-species boids_goal skills: [moving] {
-    float range  &lt;- 20.0;
+<span class="hljs-literal">species</span> boids_goal skills: [<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-literal">float</span> range  &lt;- 20.0;
     
     <span class="hljs-comment">//If the mouse is not used, then the goal just wander</span>
-    reflex wander {  
+    <span class="hljs-builtin">reflex</span> wander {  
         do  wander amplitude: 45 speed: 20;  
     }
     
@@ -149,16 +149,16 @@ species boids_goal skills: [moving] {
     }
 } 
 <span class="hljs-comment">//Species boids which represents the boids agents whom follow the boid goal agents, using the skill moving</span>
-species boids skills: [moving] {
+<span class="hljs-literal">species</span> boids skills: [<span class="hljs-builtin">moving</span>] {
     <span class="hljs-comment">//Speed of the boids agents</span>
-    float speed max: maximal_speed &lt;- maximal_speed;
+    <span class="hljs-literal">float</span> speed max: maximal_speed &lt;- maximal_speed;
     <span class="hljs-comment">//Range used to consider the group of the agent</span>
-    float range &lt;- minimal_distance * 2;
-    point velocity &lt;- {0,0};
+    <span class="hljs-literal">float</span> range &lt;- minimal_distance * 2;
+    <span class="hljs-literal">point</span> velocity &lt;- {0,0};
         
     <span class="hljs-comment">//Reflex used when the separation is applied to change the velocity of the boid</span>
-    reflex separation when: apply_separation {
-        point acc &lt;- {0,0};
+    <span class="hljs-builtin">reflex</span> separation when: apply_separation {
+        <span class="hljs-literal">point</span> acc &lt;- {0,0};
         ask (boids overlapping (circle(minimal_distance)))  {
             acc &lt;- acc - ((location) - myself.location);
         }  
@@ -166,26 +166,26 @@ species boids skills: [moving] {
     }
     
     <span class="hljs-comment">//Reflex to align the boid with the other boids in the range</span>
-    reflex alignment when: apply_alignment {
-        list others  &lt;- ((boids overlapping (circle (range)))  - self);
-        point acc &lt;- mean (others collect (each.velocity)) - velocity;
+    <span class="hljs-builtin">reflex</span> alignment when: apply_alignment {
+        <span class="hljs-literal">list</span> others  &lt;- ((boids overlapping (circle (range)))  - self);
+        <span class="hljs-literal">point</span> acc &lt;- mean (others collect (each.velocity)) - velocity;
         velocity &lt;- velocity + (acc / alignment_factor);
     }
      
     <span class="hljs-comment">//Reflex to apply the cohesion of the boids group in the range of the agent</span>
-    reflex cohesion when: apply_cohesion {
-        list others &lt;- ((boids overlapping (circle (range)))  - self);
-        point mass_center &lt;- (length(others) &gt; 0) ? mean (others collect (each.location)) : location;
+    <span class="hljs-builtin">reflex</span> cohesion when: apply_cohesion {
+        <span class="hljs-literal">list</span> others &lt;- ((boids overlapping (circle (range)))  - self);
+        <span class="hljs-literal">point</span> mass_center &lt;- (length(others) &gt; 0) ? mean (others collect (each.location)) : location;
 
-        point acc &lt;- mass_center - location;
+        <span class="hljs-literal">point</span> acc &lt;- mass_center - location;
         acc &lt;- acc / cohesion_factor; 
         velocity &lt;- velocity + acc;   
     }
     
     <span class="hljs-comment">//Reflex to avoid the obstacles</span>
-    reflex avoid when: apply_avoid { 
-        point acc &lt;- {0,0};
-        list&lt;obstacle&gt; nearby_obstacles &lt;- (obstacle overlapping (circle (range)) );
+    <span class="hljs-builtin">reflex</span> avoid when: apply_avoid { 
+        <span class="hljs-literal">point</span> acc &lt;- {0,0};
+        <span class="hljs-literal">list</span>&lt;obstacle&gt; nearby_obstacles &lt;- (obstacle overlapping (circle (range)) );
         loop obs over: nearby_obstacles {
             acc &lt;- acc - ((location of obs) - my (location));
         }
@@ -194,42 +194,42 @@ species boids skills: [moving] {
     
     <span class="hljs-comment">//action to represent the bounding of the environment considering the velocity of the boid</span>
     action bounding {
-        if  !(torus_environment) {
-            if  (location.x) &lt; xmin {
+        <span class="hljs-keyword">if</span>  !(torus_environment) {
+            <span class="hljs-keyword">if</span>  (location.x) &lt; xmin {
                 velocity &lt;- velocity + {bounds,0};
-            } else if (location.x) &gt; xmax {
+            } else <span class="hljs-keyword">if</span> (location.x) &gt; xmax {
                 velocity &lt;- velocity - {bounds,0};
             }
             
-            if (location.y) &lt; ymin {
+            <span class="hljs-keyword">if</span> (location.y) &lt; ymin {
                 velocity &lt;- velocity + {0,bounds};
-            } else if (location.y) &gt; ymax {
+            } else <span class="hljs-keyword">if</span> (location.y) &gt; ymax {
                 velocity &lt;- velocity - {0,bounds};
             }
             
         }
     }
     <span class="hljs-comment">//Reflex to follow the goal </span>
-    reflex follow_goal {
+    <span class="hljs-builtin">reflex</span> follow_goal {
         velocity &lt;- velocity + ((first(boids_goal).location - location) / cohesion_factor);
     }
     <span class="hljs-comment">//Reflex to apply the wind vector on the velocity</span>
-    reflex wind when: apply_wind {
+    <span class="hljs-builtin">reflex</span> wind when: apply_wind {
         velocity &lt;- velocity + wind_vector;
     }
     
     <span class="hljs-comment">//Action to move the agent  </span>
     action do_move {  
-        if (((velocity.x) as int) = 0) and (((velocity.y) as int) = 0) {
+        <span class="hljs-keyword">if</span> (((velocity.x) as <span class="hljs-literal">int</span>) = 0) and (((velocity.y) as <span class="hljs-literal">int</span>) = 0) {
             velocity &lt;- {(rnd(4)) -2, (rnd(4)) - 2};
         }
-        point old_location &lt;- copy(location);
+        <span class="hljs-literal">point</span> old_location &lt;- copy(location);
         do goto target: location + velocity;
         velocity &lt;- location - old_location;
     }
     
     <span class="hljs-comment">//Reflex to apply the movement by calling the do_move action</span>
-    reflex movement {
+    <span class="hljs-builtin">reflex</span> movement {
         do do_move;
     }
     
@@ -246,14 +246,14 @@ species boids skills: [moving] {
 } 
 
 <span class="hljs-comment">//Species obstacle that represents the obstacles avoided by the boids agents using the skill moving</span>
-species obstacle skills: [moving] {
-    float speed &lt;- 2.0;
-    geometry shape &lt;- triangle(15);
+<span class="hljs-literal">species</span> obstacle skills: [<span class="hljs-builtin">moving</span>] {
+    <span class="hljs-literal">float</span> speed &lt;- 2.0;
+    <span class="hljs-literal">geometry</span> shape &lt;- triangle(15);
     
     <span class="hljs-comment">//Reflex to move the obstacles if it is available</span>
-    reflex move_obstacles when: moving_obstacles {
+    <span class="hljs-builtin">reflex</span> move_obstacles when: moving_obstacles {
         <span class="hljs-comment">//Will make the agent go to a boid with a 50% probability</span>
-        if flip(0.5)  
+        <span class="hljs-keyword">if</span> flip(0.5)  
         { 
             do goto target: one_of(boids);
         } 
@@ -268,33 +268,33 @@ species obstacle skills: [moving] {
 }
 
 
-experiment boids_gui type: gui {
-    parameter <span class="hljs-string">'Number of agents'</span> var: number_of_agents;
-    parameter <span class="hljs-string">'Number of obstacles'</span> var: number_of_obstacles;
-    parameter <span class="hljs-string">'Maximal speed'</span> var: maximal_speed;
-    parameter <span class="hljs-string">'Cohesion Factor'</span> var: cohesion_factor;
-    parameter <span class="hljs-string">'Alignment Factor'</span> var: alignment_factor; 
-    parameter <span class="hljs-string">'Minimal Distance'</span>  var: minimal_distance; 
-    parameter <span class="hljs-string">'Maximal Turn'</span>  var: maximal_turn; 
-    parameter <span class="hljs-string">'Width/Height of the Environment'</span> var: width_and_height_of_environment ;  
-    parameter <span class="hljs-string">'Toroidal Environment ?'</span>  var: torus_environment ; 
-    parameter <span class="hljs-string">'Apply Cohesion ?'</span> var: apply_cohesion ;
-    parameter <span class="hljs-string">'Apply Alignment ?'</span> var: apply_alignment ;   
-    parameter <span class="hljs-string">'Apply Separation ?'</span> var: apply_separation ;   
-    parameter <span class="hljs-string">'Apply Avoidance ?'</span> var: apply_avoid ;   
-    parameter <span class="hljs-string">'Apply Wind ?'</span> var: apply_wind ;     
-    parameter <span class="hljs-string">'Moving Obstacles ?'</span> var: moving_obstacles  ;    
-    parameter <span class="hljs-string">'Direction of the wind'</span> var: wind_vector ;  
+<span class="hljs-builtin">experiment</span> boids_gui type: gui {
+    parameter 'Number of agents' var: number_of_agents;
+    parameter 'Number of obstacles' var: number_of_obstacles;
+    parameter 'Maximal speed' var: maximal_speed;
+    parameter 'Cohesion Factor' var: cohesion_factor;
+    parameter 'Alignment Factor' var: alignment_factor; 
+    parameter 'Minimal Distance'  var: minimal_distance; 
+    parameter 'Maximal Turn'  var: maximal_turn; 
+    parameter 'Width/Height of the Environment' var: width_and_height_of_environment ;  
+    parameter 'Toroidal Environment ?'  var: torus_environment ; 
+    parameter 'Apply Cohesion ?' var: apply_cohesion ;
+    parameter 'Apply Alignment ?' var: apply_alignment ;   
+    parameter 'Apply Separation ?' var: apply_separation ;   
+    parameter 'Apply Avoidance ?' var: apply_avoid ;   
+    parameter 'Apply Wind ?' var: apply_wind ;     
+    parameter 'Moving Obstacles ?' var: moving_obstacles  ;    
+    parameter 'Direction of the wind' var: wind_vector ;  
     
     <span class="hljs-comment">//Minimum duration of a step to better see the movements</span>
-    float minimum_cycle_duration &lt;- 0.01;
+    <span class="hljs-literal">float</span> minimum_cycle_duration &lt;- 0.01;
 
     output {
         display Sky  background: #blue type: opengl { 
-            image <span class="hljs-string">'../images/sky.jpg'</span> refresh: false;
-            species boids aspect: image trace: 10 fading: true ;
-            species boids_goal;
-            species obstacle;
+            image '../images/sky.jpg' refresh: false;
+            <span class="hljs-literal">species</span> boids aspect: image trace: 10 fading: true ;
+            <span class="hljs-literal">species</span> boids_goal;
+            <span class="hljs-literal">species</span> obstacle;
             <span class="hljs-comment">//Event to call the action move_goal in global if the mouse move within the experiment</span>
             event mouse_move action: move_goal;
         }
@@ -302,19 +302,19 @@ experiment boids_gui type: gui {
     }
 }
 </code></pre>
-<pre><code class="hljs">model Boids_coupling
+<pre><code class="hljs"><span class="hljs-builtin">model</span> Boids_coupling
 
 import <span class="hljs-string">"../../../Toy Models/Boids/models/Boids.gaml"</span>
 
 
-experiment Boids_coupling_exp type:gui  parent:boids_gui{
+<span class="hljs-builtin">experiment</span> Boids_coupling_exp type:gui  parent:boids_gui{
     
-    list&lt;boids_goal&gt; getBoids_goal{
-        return list(boids_goal);
+    <span class="hljs-literal">list</span>&lt;boids_goal&gt; getBoids_goal{
+        return <span class="hljs-literal">list</span>(boids_goal);
     }
     
-    list&lt;boids&gt; getBoids{
-        return list(boids);
+    <span class="hljs-literal">list</span>&lt;boids&gt; getBoids{
+        return <span class="hljs-literal">list</span>(boids);
     }
     
     
@@ -323,7 +323,7 @@ experiment Boids_coupling_exp type:gui  parent:boids_gui{
 }
 </code></pre>
 <p>Code of the model :</p>
-<pre><code class="hljs">model comodelBoidsVoronoi
+<pre><code class="hljs"><span class="hljs-builtin">model</span> comodelBoidsVoronoi
 import <span class="hljs-string">"Boids_coupling.gaml"</span> as myBoids
 import <span class="hljs-string">"Voronoi_coupling.gaml"</span> as myVoronoi
 
@@ -331,7 +331,7 @@ import <span class="hljs-string">"Voronoi_coupling.gaml"</span> as myVoronoi
 global
 {
     <span class="hljs-comment">// set the bound of the environment</span>
-    geometry shape &lt;- envelope(100);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(100);
     
     init
     {   
@@ -341,19 +341,19 @@ global
         create myVoronoi.Voronoi_coupling_exp with:[num_points::100, env_width::100, env_height::100];
     }
 
-    reflex simulate_micro_models
+    <span class="hljs-builtin">reflex</span> simulate_micro_models
     {
         <span class="hljs-comment">//tell myBoids to step a cycle</span>
         ask (myBoids.Boids_coupling_exp collect each.simulation){ do _step_;}
         <span class="hljs-comment">//get all boids's location into a list</span>
-        list&lt;point&gt; theLocations&lt;-(myBoids.Boids_coupling_exp accumulate each.getBoids()) collect each.location;
+        <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; theLocations&lt;-(myBoids.Boids_coupling_exp accumulate each.getBoids()) collect each.location;
         <span class="hljs-comment">//myVoronoi do a step with the location of their agent from the location list above </span>
-        ask (myVoronoi.Voronoi_coupling_exp collect each.simulation){ ask center{location&lt;-theLocations at (int(self)); }do _step_;}
+        ask (myVoronoi.Voronoi_coupling_exp collect each.simulation){ ask center{location&lt;-theLocations at (<span class="hljs-literal">int</span>(self)); }do _step_;}
     }
 
 }
 
-experiment comodel_Boids_Voronoi_Exp type: gui
+<span class="hljs-builtin">experiment</span> comodel_Boids_Voronoi_Exp type: gui
 {
     output
     {

@@ -7,38 +7,38 @@
         </script><link rel="stylesheet" href="/BC2019-Gama-Site/css/main.css"/><script src="/BC2019-Gama-Site/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/BC2019-Gama-Site/"><img class="logo" src="/BC2019-Gama-Site//img/gama-logo_white.png" alt="GAMA-Platform"/><h2 class="headerTitleWithLogo">GAMA-Platform</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/BC2019-Gama-Site/wiki/Home" target="_self">Documentation</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Tutorials" target="_self">Tutorials</a></li><li class=""><a href="/BC2019-Gama-Site/download" target="_self">Download</a></li><li class=""><a href="/BC2019-Gama-Site/wiki/Contribute" target="_self">Contribute</a></li><li class=""><a target="_self"></a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">sugarscape</h1></header><article><div><span><p>_Author : _</p>
 <p>A model with animal moving on a grid to find sugar. The animal agents have a life duration and die if it is reached or if they don't have anymore sugar.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model sugarscape
+<pre><code class="hljs"><span class="hljs-builtin">model</span> sugarscape
 
   
 global {
     <span class="hljs-comment">// Parameters </span>
     
     <span class="hljs-comment">//Growth rate of the sugar</span>
-    int sugarGrowthRate &lt;- 1;
+    <span class="hljs-literal">int</span> sugarGrowthRate &lt;- 1;
     <span class="hljs-comment">//Minimum age of death</span>
-    int minDeathAge &lt;- 60;
+    <span class="hljs-literal">int</span> minDeathAge &lt;- 60;
     <span class="hljs-comment">//Maximum age of death</span>
-    int maxDeathAge &lt;- 100;
+    <span class="hljs-literal">int</span> maxDeathAge &lt;- 100;
     <span class="hljs-comment">//Metabolism maximum</span>
-    int maxMetabolism &lt;- 3;
+    <span class="hljs-literal">int</span> maxMetabolism &lt;- 3;
     
     <span class="hljs-comment">//Maximum and Minimum initial sugar</span>
-    int maxInitialSugar &lt;- 25 ;
-    int minInitialSugar &lt;- 5;
+    <span class="hljs-literal">int</span> maxInitialSugar &lt;- 25 ;
+    <span class="hljs-literal">int</span> minInitialSugar &lt;- 5;
     <span class="hljs-comment">//Maximum range</span>
-    int maxRange &lt;- 6;
-    bool replace &lt;- true;
+    <span class="hljs-literal">int</span> maxRange &lt;- 6;
+    <span class="hljs-literal">bool</span> replace &lt;- true;
     <span class="hljs-comment">//Number of agents</span>
-    int numberOfAgents &lt;- 400;  
+    <span class="hljs-literal">int</span> numberOfAgents &lt;- 400;  
     
     <span class="hljs-comment">// Environment</span>
-    geometry shape &lt;- rectangle(50, 50);
+    <span class="hljs-literal">geometry</span> shape &lt;- rectangle(50, 50);
         
-    file&lt;int&gt; types  &lt;- file&lt;int&gt;(<span class="hljs-string">'../images/sugarscape.pgm'</span>);
-    rgb FFFFAA const: true &lt;- rgb(<span class="hljs-string">'#FFFFAA'</span>);
-    rgb FFFF55 const: true &lt;- rgb(<span class="hljs-string">'#FFFF55'</span>);
-    rgb dark_yellow const: true &lt;- rgb(<span class="hljs-string">'#EEB422'</span>);
-    rgb less_red const: true &lt;- rgb(<span class="hljs-string">'#FF5F5F'</span>);
+    <span class="hljs-literal">file</span>&lt;<span class="hljs-literal">int</span>&gt; types  &lt;- <span class="hljs-literal">file</span>&lt;<span class="hljs-literal">int</span>&gt;('../images/sugarscape.pgm');
+    <span class="hljs-literal">rgb</span> FFFFAA const: true &lt;- <span class="hljs-literal">rgb</span>('#FFFFAA');
+    <span class="hljs-literal">rgb</span> FFFF55 const: true &lt;- <span class="hljs-literal">rgb</span>('#FFFF55');
+    <span class="hljs-literal">rgb</span> dark_yellow const: true &lt;- <span class="hljs-literal">rgb</span>('#EEB422');
+    <span class="hljs-literal">rgb</span> less_red const: true &lt;- <span class="hljs-literal">rgb</span>('#FF5F5F');
     
     init {
         
@@ -57,11 +57,11 @@ global {
     <span class="hljs-comment">//Grid species representing the sugar cells</span>
     grid sugar_cell width: 50 height: 50 neighbors: 4 use_individual_shapes: false use_regular_agents: false{ 
         <span class="hljs-comment">//Maximum sugar</span>
-        int maxSugar;
+        <span class="hljs-literal">int</span> maxSugar;
         <span class="hljs-comment">//Sugar contained in thecell</span>
-        int sugar update: sugar + sugarGrowthRate max: maxSugar;
-        rgb color update: [#white,FFFFAA,FFFF55,#yellow,dark_yellow] at sugar;
-        map&lt;int,list&lt;sugar_cell&gt;&gt; neighbors;
+        <span class="hljs-literal">int</span> sugar update: sugar + sugarGrowthRate max: maxSugar;
+        <span class="hljs-literal">rgb</span> color update: [#white,FFFFAA,FFFF55,#yellow,dark_yellow] at sugar;
+        <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>,<span class="hljs-literal">list</span>&lt;sugar_cell&gt;&gt; neighbors;
         
         <span class="hljs-comment">//Initialization of the neighbors</span>
         init {
@@ -72,23 +72,23 @@ global {
     }   
     
 <span class="hljs-comment">//Species animal representing the animal agents</span>
-species animal {
+<span class="hljs-literal">species</span> animal {
     <span class="hljs-comment">//Color of the animal</span>
-    rgb color  &lt;- #red;
+    <span class="hljs-literal">rgb</span> color  &lt;- #red;
     <span class="hljs-comment">//Speed of the animal</span>
-    float speed  &lt;- 1.0;
+    <span class="hljs-literal">float</span> speed  &lt;- 1.0;
     <span class="hljs-comment">//Metabolism of the animal</span>
-    int metabolism  min: 1 &lt;- rnd(maxMetabolism);
+    <span class="hljs-literal">int</span> metabolism  min: 1 &lt;- rnd(maxMetabolism);
     <span class="hljs-comment">//Perception range of the animal</span>
-    int vision  min: 1 &lt;- rnd(maxRange);
+    <span class="hljs-literal">int</span> vision  min: 1 &lt;- rnd(maxRange);
     <span class="hljs-comment">//Maximal age of the animal</span>
-    int maxAge  min: minDeathAge max: maxDeathAge &lt;- rnd (maxDeathAge - minDeathAge) + minDeathAge;
+    <span class="hljs-literal">int</span> maxAge  min: minDeathAge max: maxDeathAge &lt;- rnd (maxDeathAge - minDeathAge) + minDeathAge;
     <span class="hljs-comment">//Size of the animal</span>
-    float size  &lt;- 0.5;
+    <span class="hljs-literal">float</span> size  &lt;- 0.5;
     <span class="hljs-comment">//Sugar of the animal</span>
-    int sugar min: 0 &lt;- (rnd (maxInitialSugar - minInitialSugar)) + minInitialSugar update: sugar - metabolism;
+    <span class="hljs-literal">int</span> sugar min: 0 &lt;- (rnd (maxInitialSugar - minInitialSugar)) + minInitialSugar update: sugar - metabolism;
     <span class="hljs-comment">//Age of the animal</span>
-    int age max: maxAge &lt;- 0 update: int(age + step);
+    <span class="hljs-literal">int</span> age max: maxAge &lt;- 0 update: <span class="hljs-literal">int</span>(age + step);
     <span class="hljs-comment">//Place of the animal</span>
     sugar_cell place ; 
     
@@ -99,18 +99,18 @@ species animal {
         location &lt;- place.location;
     }
     <span class="hljs-comment">//Move the agent to another place and collect the sugar of the previous place</span>
-    reflex basic_move { 
+    <span class="hljs-builtin">reflex</span> basic_move { 
         sugar &lt;- sugar + place.sugar;
         place.sugar &lt;- 0;
-        list&lt;sugar_cell&gt; neighbors &lt;- place.neighbors[vision];
-        list&lt;sugar_cell&gt; poss_targets &lt;- (neighbors) where (each.sugar &gt; 0);
+        <span class="hljs-literal">list</span>&lt;sugar_cell&gt; neighbors &lt;- place.neighbors[vision];
+        <span class="hljs-literal">list</span>&lt;sugar_cell&gt; poss_targets &lt;- (neighbors) where (each.sugar &gt; 0);
         <span class="hljs-comment">//If no sugar is found in the neighbors cells, move randomly</span>
         place &lt;- empty(poss_targets) ? one_of (neighbors) : one_of (poss_targets);
         location &lt;- place.location;
     }
     <span class="hljs-comment">//Reflex to kill the animal once it reaches its maximal age or it doesn't have sugar anymore</span>
-    reflex end_of_life when: (sugar = 0) or (age = maxAge) {
-        if replace {
+    <span class="hljs-builtin">reflex</span> end_of_life when: (sugar = 0) or (age = maxAge) {
+        <span class="hljs-keyword">if</span> replace {
             create animal ;
         }
         do die;
@@ -120,32 +120,32 @@ species animal {
     }
 }
 
-experiment sugarscape type: gui{
-    parameter <span class="hljs-string">'Growth rate of sugar:'</span> var: sugarGrowthRate category: <span class="hljs-string">'Environment'</span>;
-    parameter <span class="hljs-string">'Minimum age of death:'</span> var: minDeathAge &lt;- 60 category: <span class="hljs-string">'Agents'</span>;
-    parameter <span class="hljs-string">'Maximum age of death:'</span> var: maxDeathAge &lt;- 100 category: <span class="hljs-string">'Agents'</span>;
-    parameter <span class="hljs-string">'Maximum metabolism:'</span> var: maxMetabolism &lt;- 3 category: <span class="hljs-string">'Agents'</span>;
-    parameter <span class="hljs-string">'Maximum initial sugar per cell:'</span>  var: maxInitialSugar &lt;- 25 category: <span class="hljs-string">'Environment'</span>;
-    parameter <span class="hljs-string">'Minimum initial sugar per cell:'</span> var: minInitialSugar &lt;- 5 category: <span class="hljs-string">'Environment'</span>;
-    parameter <span class="hljs-string">'Maximum range of vision:'</span> var: maxRange &lt;- 6 category: <span class="hljs-string">'Agents'</span>;
-    parameter <span class="hljs-string">'Replace dead agents ?'</span> var: replace &lt;- true category: <span class="hljs-string">'Agents'</span>;
-    parameter <span class="hljs-string">'Number of agents:'</span> var: numberOfAgents &lt;- 400 category: <span class="hljs-string">'Agents'</span>;
+<span class="hljs-builtin">experiment</span> sugarscape type: gui{
+    parameter 'Growth rate of sugar:' var: sugarGrowthRate category: 'Environment';
+    parameter 'Minimum age of death:' var: minDeathAge &lt;- 60 category: 'Agents';
+    parameter 'Maximum age of death:' var: maxDeathAge &lt;- 100 category: 'Agents';
+    parameter 'Maximum metabolism:' var: maxMetabolism &lt;- 3 category: 'Agents';
+    parameter 'Maximum initial sugar per cell:'  var: maxInitialSugar &lt;- 25 category: 'Environment';
+    parameter 'Minimum initial sugar per cell:' var: minInitialSugar &lt;- 5 category: 'Environment';
+    parameter 'Maximum range of vision:' var: maxRange &lt;- 6 category: 'Agents';
+    parameter 'Replace dead agents ?' var: replace &lt;- true category: 'Agents';
+    parameter 'Number of agents:' var: numberOfAgents &lt;- 400 category: 'Agents';
     
     output {
         display grille {
             grid sugar_cell;
-            species animal;
+            <span class="hljs-literal">species</span> animal;
         }
         display chart refresh: every(5) {
-            chart <span class="hljs-string">'Energy'</span> type: pie background: #lightgray style: exploded {
-                data <span class="hljs-string">"strong"</span> value: (animal as list) count (each.sugar &gt; 8) color: #green;
-                data <span class="hljs-string">"weak"</span> value: (animal as list) count (each.sugar &lt; 9) color: #red;
+            chart 'Energy' type: pie background: #lightgray style: exploded {
+                data <span class="hljs-string">"strong"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &gt; 8) color: #green;
+                data <span class="hljs-string">"weak"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &lt; 9) color: #red;
             }
         }
         display chart2 refresh: every(5) {
-            chart <span class="hljs-string">'Energy'</span> type: histogram background: #lightgray {
-                data <span class="hljs-string">"strong"</span> value: (animal as list) count (each.sugar &gt; 8)  color: #green;
-                data <span class="hljs-string">"weak"</span> value: (animal as list) count (each.sugar &lt; 9)  color: #red;
+            chart 'Energy' type: histogram background: #lightgray {
+                data <span class="hljs-string">"strong"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &gt; 8)  color: #green;
+                data <span class="hljs-string">"weak"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &lt; 9)  color: #red;
             }
         }
     }

@@ -8,7 +8,7 @@
 <p>Provides a  complex geometry to agents (svg,obj or 3ds are accepted). The geometry becomes that of the agents.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model obj_loading   
+<span class="hljs-builtin">model</span> obj_loading   
 
 global {
 
@@ -17,11 +17,11 @@ global {
     }  
 } 
 
-species object skills:[moving]{
+<span class="hljs-literal">species</span> object skills:[<span class="hljs-builtin">moving</span>]{
     
-    geometry shape &lt;- obj_file(<span class="hljs-string">"../includes/teapot.obj"</span>) as geometry;
+    <span class="hljs-literal">geometry</span> shape &lt;- obj_file(<span class="hljs-string">"../includes/teapot.obj"</span>) as <span class="hljs-literal">geometry</span>;
     
-    reflex move{
+    <span class="hljs-builtin">reflex</span> move{
         do wander;
     }
     aspect obj {
@@ -30,10 +30,10 @@ species object skills:[moving]{
             
 }   
 
-experiment Display  type: gui {
+<span class="hljs-builtin">experiment</span> Display  type: gui {
     output {
         display complex  background:#gray type: opengl{
-          species object aspect:obj;                
+          <span class="hljs-literal">species</span> object aspect:obj;                
         }
     }
 }

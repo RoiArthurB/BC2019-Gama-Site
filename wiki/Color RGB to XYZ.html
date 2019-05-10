@@ -8,32 +8,32 @@
 <p>A model to show how to convert rgb values in xyz position using the operator rgb_to_xyz. Each pixel of a given image is used to create a point with its coordinates depending on its color : red value for x coordinate, green value for y coordinate and blue value for the z coordinate.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model rgbCube
+<span class="hljs-builtin">model</span> rgbCube
 
 global {
     <span class="hljs-comment">//import an image</span>
-    file imageRaster &lt;- file(<span class="hljs-string">'images/RGB.jpg'</span>);
+    <span class="hljs-literal">file</span> imageRaster &lt;- <span class="hljs-literal">file</span>('images/RGB.jpg');
     
     <span class="hljs-comment">//list of points  create from the image </span>
-    list&lt;point&gt; p;
+    <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; p;
     
     <span class="hljs-comment">//geometry of the world (environment)</span>
-    geometry shape &lt;- square(255);
+    <span class="hljs-literal">geometry</span> shape &lt;- square(255);
     
     <span class="hljs-comment">//create the list of points from the image: a point is defined per pixel, its coordinate correspond to the value of the red,green,blue color</span>
     init {
-        p &lt;- list&lt;point&gt; (rgb_to_xyz(imageRaster));
+        p &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; (rgb_to_xyz(imageRaster));
     }
 }
 
 
-experiment Display type: gui {
+<span class="hljs-builtin">experiment</span> Display type: gui {
     output {
         display RGB_to_XYZ type: opengl { 
-            image imageRaster.path refresh: false;
+            image imageRaster.<span class="hljs-literal">path</span> refresh: false;
             graphics <span class="hljs-string">"pts"</span> refresh: false{
                 loop pt over: p {
-                    draw cube(1) at: pt color: rgb(pt.x, pt.y, pt.z);
+                    draw cube(1) at: pt color: <span class="hljs-literal">rgb</span>(pt.x, pt.y, pt.z);
                 }
             }
         }

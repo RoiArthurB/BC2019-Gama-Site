@@ -8,19 +8,19 @@
 <p>A simple SI model without Ordinary Differential Equations showing agents moving randomly among a grid and becoming infected</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model si
+<span class="hljs-builtin">model</span> si
 
 global { 
     
-    int number_S &lt;- 495;  <span class="hljs-comment">// The number of susceptible</span>
-    int number_I &lt;- 5 ; <span class="hljs-comment">// The number of infected</span>
-    float survivalProbability &lt;- 1/(70*365) ; <span class="hljs-comment">// The survival probability</span>
-    float beta &lt;- 0.05 ;    <span class="hljs-comment">// The parameter Beta</span>
-    float nu &lt;- 0.001 ; <span class="hljs-comment">// The parameter Nu</span>
-    int numberHosts &lt;- number_S+number_I; <span class="hljs-comment">//Total number of hosts</span>
-    bool local_infection &lt;- true ; <span class="hljs-comment">//Infection spread locally or not</span>
-    int neighbors_size &lt;- 2 ; <span class="hljs-comment">//Size of the neighborhood</span>
-    geometry shape &lt;- square(50);
+    <span class="hljs-literal">int</span> number_S &lt;- 495;  <span class="hljs-comment">// The number of susceptible</span>
+    <span class="hljs-literal">int</span> number_I &lt;- 5 ; <span class="hljs-comment">// The number of infected</span>
+    <span class="hljs-literal">float</span> survivalProbability &lt;- 1/(70*365) ; <span class="hljs-comment">// The survival probability</span>
+    <span class="hljs-literal">float</span> beta &lt;- 0.05 ;    <span class="hljs-comment">// The parameter Beta</span>
+    <span class="hljs-literal">float</span> nu &lt;- 0.001 ; <span class="hljs-comment">// The parameter Nu</span>
+    <span class="hljs-literal">int</span> numberHosts &lt;- number_S+number_I; <span class="hljs-comment">//Total number of hosts</span>
+    <span class="hljs-literal">bool</span> local_infection &lt;- true ; <span class="hljs-comment">//Infection spread locally or not</span>
+    <span class="hljs-literal">int</span> neighbors_size &lt;- 2 ; <span class="hljs-comment">//Size of the neighborhood</span>
+    <span class="hljs-literal">geometry</span> shape &lt;- square(50);
     init { 
         <span class="hljs-comment">//Creation of all the susceptible hosts</span>
         create Host number: number_S {
@@ -38,45 +38,45 @@ global {
        }
    }
    <span class="hljs-comment">//Reflex to update the number of infected hosts</span>
-   reflex compute_nb_infected {
+   <span class="hljs-builtin">reflex</span> compute_nb_infected {
         number_I &lt;- Host count (each.is_infected);
    }  
 }
 
 <span class="hljs-comment">//Grid to discretize space</span>
 grid si_grid width: 50 height: 50 use_individual_shapes: false use_regular_agents: false frequency: 0{
-    rgb color &lt;- #black;
-    list&lt;si_grid&gt; neighbors &lt;- (self neighbors_at neighbors_size) ;       
+    <span class="hljs-literal">rgb</span> color &lt;- #black;
+    <span class="hljs-literal">list</span>&lt;si_grid&gt; neighbors &lt;- (self neighbors_at neighbors_size) ;       
 }
 <span class="hljs-comment">//Species host which represent the possible hosts of a disease</span>
-species Host  {
+<span class="hljs-literal">species</span> Host  {
     <span class="hljs-comment">//Booleans to represent the state of the agent</span>
-    bool is_susceptible &lt;- true;
-    bool is_infected &lt;- false;
-    bool is_immune &lt;- false;
-    rgb color &lt;- #green;
-    int sic_count &lt;- 0;
+    <span class="hljs-literal">bool</span> is_susceptible &lt;- true;
+    <span class="hljs-literal">bool</span> is_infected &lt;- false;
+    <span class="hljs-literal">bool</span> is_immune &lt;- false;
+    <span class="hljs-literal">rgb</span> color &lt;- #green;
+    <span class="hljs-literal">int</span> sic_count &lt;- 0;
     si_grid myPlace;
     
     <span class="hljs-comment">//The agent is placed randomly among the grid</span>
     init {
-        myPlace &lt;- one_of (si_grid as list);
+        myPlace &lt;- one_of (si_grid as <span class="hljs-literal">list</span>);
         location &lt;- myPlace.location;
     }        
     <span class="hljs-comment">//Reflex to move the agents in its neighborhood</span>
-    reflex basic_move {
+    <span class="hljs-builtin">reflex</span> basic_move {
         myPlace &lt;- one_of (myPlace.neighbors) ;
         location &lt;- myPlace.location;
     }
     <span class="hljs-comment">//Reflex to infect the agent if it is susceptible and according to the other infected agents</span>
-    reflex become_infected when: is_susceptible {
-        float rate &lt;- 0.0;
-        if(local_infection) {
-            int nb_hosts &lt;- 0;
-            int nb_hosts_infected &lt;- 0;
+    <span class="hljs-builtin">reflex</span> become_infected when: is_susceptible {
+        <span class="hljs-literal">float</span> rate &lt;- 0.0;
+        <span class="hljs-keyword">if</span>(local_infection) {
+            <span class="hljs-literal">int</span> nb_hosts &lt;- 0;
+            <span class="hljs-literal">int</span> nb_hosts_infected &lt;- 0;
             loop hst over: ((myPlace.neighbors + myPlace) accumulate (Host overlapping each)) {
                 nb_hosts &lt;- nb_hosts + 1;
-                if (hst.is_infected) {
+                <span class="hljs-keyword">if</span> (hst.is_infected) {
                     nb_hosts_infected &lt;- nb_hosts_infected + 1;
                 }
             }
@@ -84,7 +84,7 @@ species Host  {
         } else {
             rate &lt;- number_I / numberHosts;
         }
-        if (flip(beta * rate)) {
+        <span class="hljs-keyword">if</span> (flip(beta * rate)) {
             is_susceptible &lt;-  false;
             is_infected &lt;-  true;
             is_immune &lt;-  false;
@@ -92,8 +92,8 @@ species Host  {
         }
     }
     <span class="hljs-comment">//Reflex to kill the agent according to the death rate</span>
-    reflex shallDie when: flip(nu) {
-        create species(self) {
+    <span class="hljs-builtin">reflex</span> shallDie when: flip(nu) {
+        create <span class="hljs-literal">species</span>(self) {
             myPlace &lt;- myself.myPlace ;
             location &lt;- myself.location ; 
         }
@@ -106,7 +106,7 @@ species Host  {
 }
 
 
-experiment Simulation type: gui { 
+<span class="hljs-builtin">experiment</span> Simulation type: gui { 
     parameter <span class="hljs-string">"Number of Susceptible"</span> var: number_S ;<span class="hljs-comment">// The number of susceptible</span>
     parameter <span class="hljs-string">"Number of Infected"</span> var: number_I ;  <span class="hljs-comment">// The number of infected</span>
     parameter <span class="hljs-string">"Survival Probability"</span> var: survivalProbability ; <span class="hljs-comment">// The survival probability</span>
@@ -118,7 +118,7 @@ experiment Simulation type: gui {
     output { 
         display si_display {
             grid si_grid lines: #black;
-            species Host aspect: basic;
+            <span class="hljs-literal">species</span> Host aspect: basic;
         }
             
         display chart refresh: every(10) {

@@ -80,7 +80,7 @@
 <ul>
 <li>To save data in a text file:</li>
 </ul>
-<pre><code class="hljs">save (string(cycle) + <span class="hljs-string">"-&gt;"</span>  + name + <span class="hljs-string">":"</span> + location) to: <span class="hljs-string">"save_data.txt"</span> type: <span class="hljs-string">"text"</span>;
+<pre><code class="hljs">save (<span class="hljs-literal">string</span>(cycle) + <span class="hljs-string">"-&gt;"</span>  + name + <span class="hljs-string">":"</span> + location) to: <span class="hljs-string">"save_data.txt"</span> type: <span class="hljs-string">"text"</span>;
 </code></pre>
 <ul>
 <li>To save the values of some attributes of the current agent in csv file:</li>
@@ -101,7 +101,7 @@
 <code>file_name</code>: string
 <code>data_to_write</code>: string</p>
 <h3><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example:</h3>
-<pre><code class="hljs">file name: <span class="hljs-string">"results"</span> type: text data: time + <span class="hljs-string">"; "</span> + nb_preys + <span class="hljs-string">";"</span> + nb_predators refresh:every(2);  
+<pre><code class="hljs"><span class="hljs-literal">file</span> name: <span class="hljs-string">"results"</span> type: text data: time + <span class="hljs-string">"; "</span> + nb_preys + <span class="hljs-string">";"</span> + nb_predators refresh:every(2);  
 </code></pre>
 <p>Each time step (or according to the frequency defined in the <code>refresh</code> facet of the file output), a new line will be added at the end of the file. If <code>rewrite: false</code> is defined in its facets, a new file will be created for each simulation (identified by a timestamp in its name).</p>
 <p>Optionally, a <code>footer</code> and a <code>header</code> can also be described with the corresponding facets (of type string).</p>

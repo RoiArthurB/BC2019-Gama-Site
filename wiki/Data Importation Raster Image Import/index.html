@@ -8,19 +8,19 @@
 <p>Model which shows how to import a Raster file in GAMA and use it to initialize the color attributes of a grid of cells. This model represents a grid with a cell, each cell has a color, and this color is used for animals (izards) to be placed on a cell that verifies some conditions. The izards do not move once they have been placed.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs">
-model HowToImportRaster
+<span class="hljs-builtin">model</span> HowToImportRaster
 
 global {    
     <span class="hljs-comment">// Constants </span>
-    int heightImg const: true &lt;- 5587;
-    int widthImg const: true &lt;- 6201;    
+    <span class="hljs-literal">int</span> heightImg const: true &lt;- 5587;
+    <span class="hljs-literal">int</span> widthImg const: true &lt;- 6201;    
       
     <span class="hljs-comment">// Global variables</span>
-    int factorDiscret &lt;- 30 ;
-    file mntImageRaster &lt;- image_file(<span class="hljs-string">'../images/mnt/testAG.jpg'</span>) ;
+    <span class="hljs-literal">int</span> factorDiscret &lt;- 30 ;
+    <span class="hljs-literal">file</span> mntImageRaster &lt;- image_file('../images/mnt/testAG.jpg') ;
     
-    int nbIzard &lt;- 250 ; 
-    file izardShape &lt;- file(<span class="hljs-string">'../images/icons/izard.gif'</span>);
+    <span class="hljs-literal">int</span> nbIzard &lt;- 250 ; 
+    <span class="hljs-literal">file</span> izardShape &lt;- <span class="hljs-literal">file</span>('../images/icons/izard.gif');
             
     <span class="hljs-comment">// Initialization of grid and creation of the izard agents</span>
     <span class="hljs-comment">// - we use the as_matrix operator to transform a image file into a matrix of colors </span>
@@ -29,7 +29,7 @@ global {
     init {
         <span class="hljs-comment">// set mapColor value: mntImageRaster as_matrix {widthImg/factorDiscret,heightImg/factorDiscret} ;</span>
         ask cell {      
-            color &lt;-rgb( (mntImageRaster) at {grid_x,grid_y}) ;
+            color &lt;-<span class="hljs-literal">rgb</span>( (mntImageRaster) at {grid_x,grid_y}) ;
         }
         create izard number: nbIzard; 
     }
@@ -41,7 +41,7 @@ global {
 <span class="hljs-comment">// the shuffle operator is used to randomized the list of cells</span>
 
 
-species izard { 
+<span class="hljs-literal">species</span> izard { 
     init{
         location &lt;- (shuffle(cell) first_with ((each.color != #white) and (empty(izard inside each)))).location ;
     }       
@@ -62,7 +62,7 @@ grid cell  width: widthImg/factorDiscret height: heightImg/factorDiscret;
 
 
 
-experiment main type: gui { 
+<span class="hljs-builtin">experiment</span> main type: gui { 
     <span class="hljs-comment">// We display:</span>
     <span class="hljs-comment">// - the grid</span>
     <span class="hljs-comment">// - the original MNT image as background</span>
@@ -72,8 +72,8 @@ experiment main type: gui {
     output {
         display HowToImportRaster {
            grid cell;
-           image <span class="hljs-string">'Background'</span> file: mntImageRaster.path;
-           species izard aspect: image; 
+           image 'Background' <span class="hljs-literal">file</span>: mntImageRaster.<span class="hljs-literal">path</span>;
+           <span class="hljs-literal">species</span> izard aspect: image; 
         }   
     }   
 }

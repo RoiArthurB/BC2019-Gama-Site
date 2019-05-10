@@ -67,7 +67,7 @@
 <p>The value of the cycle and time variables are shown in the top left (green rectangle) of the simulation interface. Clicking on the green rectangle allows to display either the number cycles or the time variable. Concerning this variable, it is presented following a years - month - days - hours - minutes - seconds format. In this presentation, every months are considered as being composed of 30 days (the different number of days of months are not taken into account).</p>
 <p>Concerning the step facet, the variable can be modified by the modeler. A classic way of doing it consists in reediting the variable in the global section:</p>
 <pre><code class="hljs">global {
-       float step &lt;- 1 #hour;
+       <span class="hljs-literal">float</span> step &lt;- 1 #hour;
 }
 </code></pre>
 <p>In this example, each simulation step will represent 1 hour. This time will be taken into account for all actions based on time (e.g. moving actions).</p>
@@ -101,28 +101,28 @@ A date variable has several attributes:</p>
 </code></pre>
 <p>Note that the current date can be access through the #now built-in variable (variable of type date).</p>
 <p>In addition, GAMA provides different useful operators working on dates. For instance, it is possible to compute the duration in seconds between 2 dates using the &quot;<code>-</code>&quot; operator. The result is given in seconds:</p>
-<pre><code class="hljs">float d &lt;- starting_date - my_date;
+<pre><code class="hljs"><span class="hljs-literal">float</span> d &lt;- starting_date - my_date;
 </code></pre>
 <p>It is also possible to add or subtract a duration (in seconds) to a date:</p>
-<pre><code class="hljs"><span class="hljs-statement">write</span> <span class="hljs-string">"my_date + 10: "</span> + (my_date + 10);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date - 10: "</span> + (my_date - 10);
+<pre><code class="hljs">write <span class="hljs-string">"my_date + 10: "</span> + (my_date + 10);
+write <span class="hljs-string">"my_date - 10: "</span> + (my_date - 10);
 </code></pre>
 <p>At last, it is possible to add or subtract a duration (in years, months, weeks, days, hours, minutes,  seconds) to a date:</p>
-<pre><code class="hljs"><span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_years 1: "</span> + (my_date add_years 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_months 1: "</span> + (my_date add_months 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_weeks 1: "</span> + (my_date add_weeks 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_days 1: "</span> + (my_date add_days 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_hours 1: "</span> + (my_date add_hours 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_minutes 1: "</span> + (my_date add_minutes 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date add_seconds 1: "</span> + (my_date add_seconds 1);
+<pre><code class="hljs">write <span class="hljs-string">"my_date add_years 1: "</span> + (my_date add_years 1);
+write <span class="hljs-string">"my_date add_months 1: "</span> + (my_date add_months 1);
+write <span class="hljs-string">"my_date add_weeks 1: "</span> + (my_date add_weeks 1);
+write <span class="hljs-string">"my_date add_days 1: "</span> + (my_date add_days 1);
+write <span class="hljs-string">"my_date add_hours 1: "</span> + (my_date add_hours 1);
+write <span class="hljs-string">"my_date add_minutes 1: "</span> + (my_date add_minutes 1);
+write <span class="hljs-string">"my_date add_seconds 1: "</span> + (my_date add_seconds 1);
           
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_years 1: "</span> + (my_date subtract_years 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_months 1: "</span> + (my_date subtract_months 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_weeks 1: "</span> + (my_date subtract_weeks 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_days 1: "</span> + (my_date subtract_days 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_hours 1: "</span> + (my_date subtract_hours 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_minutes 1: "</span> + (my_date subtract_minutes 1);
-<span class="hljs-statement">write</span> <span class="hljs-string">"my_date subtract_seconds 1: "</span> + (my_date subtract_seconds 1);
+write <span class="hljs-string">"my_date subtract_years 1: "</span> + (my_date subtract_years 1);
+write <span class="hljs-string">"my_date subtract_months 1: "</span> + (my_date subtract_months 1);
+write <span class="hljs-string">"my_date subtract_weeks 1: "</span> + (my_date subtract_weeks 1);
+write <span class="hljs-string">"my_date subtract_days 1: "</span> + (my_date subtract_days 1);
+write <span class="hljs-string">"my_date subtract_hours 1: "</span> + (my_date subtract_hours 1);
+write <span class="hljs-string">"my_date subtract_minutes 1: "</span> + (my_date subtract_minutes 1);
+write <span class="hljs-string">"my_date subtract_seconds 1: "</span> + (my_date subtract_seconds 1);
 </code></pre>
 <p>For the modelers, two global date variable are available:</p>
 <ul>

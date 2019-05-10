@@ -8,41 +8,41 @@
 <p>Shows how to move agents using two event layers :
 Click to grab an group of agents, click again to drop them. Press the keys &quot;k&quot; to kill the agents in the selection, and &quot;d&quot; to duplicate them.</p>
 <p>Code of the model :</p>
-<pre><code class="hljs">model MovingAgents
+<pre><code class="hljs"><span class="hljs-builtin">model</span> MovingAgents
 
 global
 {
-    list&lt;being&gt; moved_agents ;
-    geometry shape &lt;- square(1000);
-    point target;
-    geometry zone &lt;- circle(100);
-    bool can_drop;
+    <span class="hljs-literal">list</span>&lt;being&gt; moved_agents ;
+    <span class="hljs-literal">geometry</span> shape &lt;- square(1000);
+    <span class="hljs-literal">point</span> target;
+    <span class="hljs-literal">geometry</span> zone &lt;- circle(100);
+    <span class="hljs-literal">bool</span> can_drop;
     init
     {
         create being number: 100;
     }
 
-    action kill (list&lt;agent&gt; selectedAgent, point mousePosition)
+    action kill (<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; selectedAgent, <span class="hljs-literal">point</span> mousePosition)
     {
         ask moved_agents
         {
             do die;
         }
 
-        moved_agents &lt;- list&lt;being&gt;([]);
+        moved_agents &lt;- <span class="hljs-literal">list</span>&lt;being&gt;([]);
     }
 
-    action duplicate (list&lt;agent&gt; selectedAgent, point mousePosition)
+    action duplicate (<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; selectedAgent, <span class="hljs-literal">point</span> mousePosition)
     {
-        geometry available_space &lt;- (zone at_location target) - (union(moved_agents) + 10);
+        <span class="hljs-literal">geometry</span> available_space &lt;- (zone at_location target) - (union(moved_agents) + 10);
         create being number: length(moved_agents) with: (location: any_location_in(available_space));
     }
 
-    action click (list&lt;agent&gt; selectedAgent, point mousePosition)
+    action click (<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; selectedAgent, <span class="hljs-literal">point</span> mousePosition)
     {
-        if (empty(moved_agents))
+        <span class="hljs-keyword">if</span> (empty(moved_agents))
         {
-            list&lt;being&gt; selected_agents &lt;- being inside (zone at_location mousePosition);
+            <span class="hljs-literal">list</span>&lt;being&gt; selected_agents &lt;- being inside (zone at_location mousePosition);
             moved_agents &lt;- selected_agents;
             ask selected_agents
             {
@@ -50,28 +50,28 @@ global
                 color &lt;- # olive;
             }
 
-        } else if (can_drop)
+        } else <span class="hljs-keyword">if</span> (can_drop)
         {
             ask moved_agents
             {
                 color &lt;- # burlywood;
             }
 
-            moved_agents &lt;- list&lt;being&gt;([]);
+            moved_agents &lt;- <span class="hljs-literal">list</span>&lt;being&gt;([]);
         }
 
     }
 
-    action move (list&lt;agent&gt; selectedAgent, point mousePosition)
+    action move (<span class="hljs-literal">list</span>&lt;<span class="hljs-literal">agent</span>&gt; selectedAgent, <span class="hljs-literal">point</span> mousePosition)
     {
         can_drop &lt;- true;
         target &lt;- mousePosition;
-        list&lt;being&gt; other_agents &lt;- (being inside (zone at_location mousePosition)) - moved_agents;
-        geometry occupied &lt;- geometry(other_agents);
+        <span class="hljs-literal">list</span>&lt;being&gt; other_agents &lt;- (being inside (zone at_location mousePosition)) - moved_agents;
+        <span class="hljs-literal">geometry</span> occupied &lt;- <span class="hljs-literal">geometry</span>(other_agents);
         ask moved_agents
         {
             location &lt;- mousePosition - difference;
-            if (occupied intersects self)
+            <span class="hljs-keyword">if</span> (occupied intersects self)
             {
                 color &lt;- # red;
                 can_drop &lt;- false;
@@ -86,14 +86,14 @@ global
 
 }
 
-species being skills: [moving]
+<span class="hljs-literal">species</span> being skills: [<span class="hljs-builtin">moving</span>]
 {
-    geometry shape &lt;- square(10);
-    point difference &lt;- { 0, 0 };
-    rgb color &lt;- # burlywood;
-    reflex r
+    <span class="hljs-literal">geometry</span> shape &lt;- square(10);
+    <span class="hljs-literal">point</span> difference &lt;- { 0, 0 };
+    <span class="hljs-literal">rgb</span> color &lt;- # burlywood;
+    <span class="hljs-builtin">reflex</span> r
     {
-        if (!(moved_agents contains self))
+        <span class="hljs-keyword">if</span> (!(moved_agents contains self))
         {
             do wander amplitude: 30;
         }
@@ -107,7 +107,7 @@ species being skills: [moving]
 
 }
 
-experiment <span class="hljs-string">"Click and Move"</span> type: gui
+<span class="hljs-builtin">experiment</span> <span class="hljs-string">"Click and Move"</span> type: gui
 {
     font regular &lt;- font(<span class="hljs-string">"Helvetica"</span>, 14, # bold);
     output
@@ -116,27 +116,27 @@ experiment <span class="hljs-string">"Click and Move"</span> type: gui
         {
             graphics <span class="hljs-string">"Empty target"</span> 
             {
-                if (empty(moved_agents))
+                <span class="hljs-keyword">if</span> (empty(moved_agents))
                 {
                     draw zone at: target empty: false border: false color: #wheat;
                 }
 
             }
 
-            species being;
+            <span class="hljs-literal">species</span> being;
             event mouse_move action: move;
             event mouse_up action: click;
-            event <span class="hljs-string">'k'</span> action: kill;
-            event <span class="hljs-string">'c'</span> action: duplicate;
+            event 'k' action: kill;
+            event 'c' action: duplicate;
             graphics <span class="hljs-string">"Full target"</span> 
             {
-                int size &lt;- length(moved_agents);
-                if (size &gt; 0)
+                <span class="hljs-literal">int</span> size &lt;- length(moved_agents);
+                <span class="hljs-keyword">if</span> (size &gt; 0)
                 {
-                    rgb c1 &lt;- rgb(#darkseagreen, 120);
-                    rgb c2 &lt;- rgb(#firebrick, 120);
+                    <span class="hljs-literal">rgb</span> c1 &lt;- <span class="hljs-literal">rgb</span>(#darkseagreen, 120);
+                    <span class="hljs-literal">rgb</span> c2 &lt;- <span class="hljs-literal">rgb</span>(#firebrick, 120);
                     draw zone at: target empty: false border: false color: (can_drop ? c1 : c2);
-                    draw string(size) at: target + { -30, -30 } font: regular color: # white;
+                    draw <span class="hljs-literal">string</span>(size) at: target + { -30, -30 } font: regular color: # white;
                     draw <span class="hljs-string">"'k': kill"</span> at: target + { -30, 0 } font: regular color: # white;
                     draw <span class="hljs-string">"'c': copy"</span> at: target + { -30, 30 } font: regular color: # white;
                 }
@@ -149,27 +149,27 @@ experiment <span class="hljs-string">"Click and Move"</span> type: gui
         {
             graphics <span class="hljs-string">"Empty target"</span> 
             {
-                if (empty(moved_agents))
+                <span class="hljs-keyword">if</span> (empty(moved_agents))
                 {
                     draw zone at: target empty: false border: false color: #wheat;
                 }
 
             }
 
-            species being;
+            <span class="hljs-literal">species</span> being;
             event mouse_move action: move;
             event mouse_up action: click;
-            event <span class="hljs-string">'k'</span> action: kill;
-            event <span class="hljs-string">'c'</span> action: duplicate;
+            event 'k' action: kill;
+            event 'c' action: duplicate;
             graphics <span class="hljs-string">"Full target"</span> 
             {
-                int size &lt;- length(moved_agents);
-                if (size &gt; 0)
+                <span class="hljs-literal">int</span> size &lt;- length(moved_agents);
+                <span class="hljs-keyword">if</span> (size &gt; 0)
                 {
-                    rgb c1 &lt;- rgb(#darkseagreen, 120);
-                    rgb c2 &lt;- rgb(#firebrick, 120);
+                    <span class="hljs-literal">rgb</span> c1 &lt;- <span class="hljs-literal">rgb</span>(#darkseagreen, 120);
+                    <span class="hljs-literal">rgb</span> c2 &lt;- <span class="hljs-literal">rgb</span>(#firebrick, 120);
                     draw zone at: target empty: false border: false color: (can_drop ? c1 : c2);
-                    draw string(size) at: target + { -30, -30 } font: regular color: # white;
+                    draw <span class="hljs-literal">string</span>(size) at: target + { -30, -30 } font: regular color: # white;
                     draw <span class="hljs-string">"'k': kill"</span> at: target + { -30, 0 } font: regular color: # white;
                     draw <span class="hljs-string">"'c': copy"</span> at: target + { -30, 30 } font: regular color: # white;
                 }
