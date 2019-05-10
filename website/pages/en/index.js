@@ -127,7 +127,11 @@ class Index extends React.Component {
           padding: 0 !important;
         }
 
-        img { height: 100%; }
+        .projectLogo img { 
+          height: 100%;
+        }
+
+        .projectLogo img{ width: 100%; }
 
         /*  BUTTONS */
         .button { border-width: 2px;font-weight: bold; }
