@@ -6,7 +6,7 @@
 var database, fuse;
 
 var options = {
-  shouldSort: true,
+  shouldSort: false,
   tokenize: true,
   findAllMatches: true,
   threshold: 0.4,
@@ -62,46 +62,62 @@ function requestSearch(e) {
       // Send request
       var result = fuse.search(e.srcElement.value);
 
-      console.log(result);
+      // Clean previous result (if multiple request)
+      cleanSearchResult();
 
       createSearchResult(result);
     }
 }
 
-function displayResult(result){
-  for (var i = 0; i < result.length; i++) {
-    var url = document.URL.split('/')[2] + "/wiki/" + result[i]["url"];
-  }
-}
-
 function createSearchResult(result) {
+  // Prepare list container
   var resultDiv = document.createElement("DIV");
   var resultList = document.createElement("UL");
-  for (var j = 0; j < 100; j++) {
-    
-    for (var i = 0; i < result.length; i++) {
-      var link = document.createElement("A");
 
-      link.setAttribute("href", document.URL.split('/')[2] + "/BC2019-Gama-Site/wiki/" + result[i]["url"]);
-      link.appendChild( document.createTextNode(result[i]["title"] + " <i>("+result[i]["tag"] + ")</i>" ) );
+  var prevTag = ""; 
+  for (var i = 0; i < result.length; i++) {
 
-      var li = document.createElement("LI");
+    // Display new Tag title if changing
+    if (prevTag != result[i]["tag"]) {
+      prevTag = result[i]["tag"]
+      resultList.appendChild( document.createElement("HR") );
 
-      li.appendChild(link);
+      var tagTitle = document.createElement("H4");
+      tagTitle.appendChild( document.createTextNode( prevTag ) );
 
-      resultList.appendChild( li );
+      resultList.appendChild( tagTitle );
     }
+
+    // Prepare result item
+    var link = document.createElement("A");
+
+    // Create link
+    link.setAttribute("href", document.URL.split('/')[2] + "/BC2019-Gama-Site/wiki/" + result[i]["url"]);
+    link.appendChild( document.createTextNode(result[i]["title"] ) );
+
+    // Append result item
+    var li = document.createElement("LI");
+
+    li.appendChild(link);
+
+    resultList.appendChild( li );
   }
 
+  // Append result list
   resultDiv.appendChild(resultList);
 
+  // Set id => Apply CSS
   resultDiv.id = "searchResult";
+
+  // Append display in webpage
   document.body.appendChild(resultDiv);
 }
 
+// Look for result display (base on ID) and remove it
 function cleanSearchResult(){
   var searchResult = document.getElementById('searchResult');
-  searchResult.parentNode.removeChild(searchResult);
+  if (searchResult != null)
+    searchResult.parentNode.removeChild(searchResult);
 }
 
 // On page ready
