@@ -31,7 +31,7 @@ function initSearchEngine(){
   var client = new XMLHttpRequest();
   
   // Get json file with an asynchrone request
-  client.open('GET', '../database/index.json');
+  client.open('GET', '/BC2019-Gama-Site/database/index.json');
 
   // Prepare request
   client.onreadystatechange = function() {
@@ -185,23 +185,27 @@ function endpoint(){
 }
 
 function queryBuilder(item, wiki=true, doc=false){
-    var url;
+    var url = realUrl[0] + "//";
+
+    // BaseURL
+    for (var i = 2; i < realUrl.length; i++) {
+      if ( !(realUrl[i] == ("wiki" || "download") || realUrl[i].charAt(6) == "?") ) {
+        url += realUrl[i] + '/';
+      }else{
+        break;
+      }
+      
+    }
 
     if(doc){
-      if (realUrl[3] == "search")
-        url = realUrl[0] + "//" + realUrl[2] + "/wiki/Home";
-      else
-        url = realUrl[0] + "//" + realUrl[2] + "/" + realUrl[3] + "/wiki/Home"; 
+        url += "wiki/Home"; 
     }else{
 
       if (wiki) {
-        if (realUrl[3] == "wiki")
-          url = realUrl[0] + "//" + realUrl[2] + "/wiki/" + item;
-        else
-          url = realUrl[0] + "//" + realUrl[2] + "/" + realUrl[3] + "/wiki/" + item; 
+        url += "wiki/" + item; 
       }
       else{
-          url = realUrl[0] + "//" + realUrl[2] + item;
+          url += item;
       }
 
     }
