@@ -1,5 +1,8 @@
 /* your custom css */
 
+html p, html li {
+  text-align: justify;
+}
 .buttonOrange {
   border-color: #EEB64F;
   color: #EEB64F;
