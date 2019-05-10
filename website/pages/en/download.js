@@ -91,7 +91,6 @@ function Download(props) {
         text-align: center;
       }
       @media only screen and (min-width: 1024px) {
-        .blockContent { width: 30vh; }
         .button { width: 50%; }
       }
       @media only screen and (max-width: 1023px) { 
