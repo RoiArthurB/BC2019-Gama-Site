@@ -42,20 +42,20 @@ function initSearchEngine(){
 
     // Load Fuse search engine
     fuse = new Fuse(database, options);
+
+    /*  EVENT LISTENER  */
+    if (realUrl[realUrl.length -1] == "search" || realUrl[realUrl.length -1].charAt(6) == "?"){
+      // Redirect API
+      endpoint();
+    }else{
+      // Get search input
+      document.getElementById('search_input_react').addEventListener('keyup', requestSearch);
+      document.getElementById('search_input_react').setAttribute("onfocusout", "setTimeout(cleanSearchResult, 200)");
+    }
   }
 
   // Send request
   client.send();
-
-  /*  EVENT LISTENER  */
-  if (realUrl[realUrl.length -1] == "search"){
-    // Redirect API
-    endpoint();
-  }else{
-    // Get search input
-    document.getElementById('search_input_react').addEventListener('keyup', requestSearch);
-    document.getElementById('search_input_react').setAttribute("onfocusout", "setTimeout(cleanSearchResult, 200)");
-  }
 }
 
 
@@ -138,12 +138,43 @@ function endpoint(){
 
   console.log(getRequest);
 
-  if (getRequest == undefined){
+  if (getRequest == undefined || getRequest == '' ){
+    // Home doc
     window.location.replace( queryBuilder(true, true, true) );
   }
 
-  console.log( getRequest.split('&') );
-//    window.location.replace("http://stackoverflow.com");
+  /* Request on tag */
+  const optionsTag = {
+    findAllMatches: true,
+    threshold: 0.1,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      "tag"
+    ]
+  };
+  fuse = new Fuse(database, optionsTag);
+  var resultTag = fuse.search( getRequest.split("&")[0].split("=")[1] );
+
+  /* Request on title 
+  on filtred db */
+  const optionsTitle = {
+    shouldSort: true,
+    findAllMatches: true,
+    threshold: 0.1,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      "title"
+    ]
+  };
+
+  fuse = new Fuse(resultTag, optionsTitle);
+  window.location.replace( queryBuilder(fuse.search( getRequest.split("&")[1].split("=")[1] )[0]["url"]) );
 }
 
 function queryBuilder(item, wiki=true, doc=false){
