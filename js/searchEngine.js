@@ -5,6 +5,8 @@
  */
 var database, fuse;
 
+var realUrl = document.URL.split('/');
+
 var options = {
   shouldSort: false,
   tokenize: true,
@@ -40,16 +42,20 @@ function initSearchEngine(){
 
     // Load Fuse search engine
     fuse = new Fuse(database, options);
+
+    /*  EVENT LISTENER  */
+    if (realUrl[realUrl.length -1] == "search" || realUrl[realUrl.length -1].charAt(6) == "?"){
+      // Redirect API
+      endpoint();
+    }else{
+      // Get search input
+      document.getElementById('search_input_react').addEventListener('keyup', requestSearch);
+      document.getElementById('search_input_react').setAttribute("onfocusout", "setTimeout(cleanSearchResult, 200)");
+    }
   }
 
   // Send request
   client.send();
-
-  /*  EVENT LISTENER  */
-
-  // Get search input
-  document.getElementById('search_input_react').addEventListener('keyup', requestSearch);
-  document.getElementById('search_input_react').setAttribute("onfocusout", "setTimeout(cleanSearchResult, 200)");
 }
 
 
@@ -93,7 +99,8 @@ function createSearchResult(result) {
     var link = document.createElement("A");
 
     // Create link
-    var url = "https://" + document.URL.split('/')[2] + "/BC2019-Gama-Site/wiki/" + result[i]["url"];
+    var url = queryBuilder( result[i]["url"] );
+    
     link.setAttribute( "href", url.replace(/\s/g, '') );
     link.appendChild( document.createTextNode(result[i]["title"] ) );
 
@@ -122,6 +129,82 @@ function cleanSearchResult(){
     searchResult.parentNode.removeChild(searchResult);
 }
 
+
+/*
+ *  END POINT
+ */
+function endpoint(){
+  var getRequest = document.URL.split('?')[1];
+
+  console.log(getRequest);
+
+  if (getRequest == undefined || getRequest == '' ){
+    // Home doc
+    window.location.replace( queryBuilder(true, true, true) );
+  }
+
+  /* Request on tag */
+  const optionsTag = {
+    findAllMatches: true,
+    threshold: 0.1,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      "tag"
+    ]
+  };
+  fuse = new Fuse(database, optionsTag);
+  var resultTag = fuse.search( getRequest.split("&")[0].split("=")[1] );
+
+  /* Request on title 
+  on filtred db */
+  const optionsTitle = {
+    shouldSort: true,
+    findAllMatches: true,
+    threshold: 0.1,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      "title"
+    ]
+  };
+
+  fuse = new Fuse(resultTag, optionsTitle);
+  window.location.replace( queryBuilder(fuse.search( getRequest.split("&")[1].split("=")[1] )[0]["url"]) );
+}
+
+function queryBuilder(item, wiki=true, doc=false){
+    var url;
+
+    if(doc){
+      if (realUrl[3] == "search")
+        url = realUrl[0] + "//" + realUrl[2] + "/wiki/Home";
+      else
+        url = realUrl[0] + "//" + realUrl[2] + "/" + realUrl[3] + "/wiki/Home"; 
+    }else{
+
+      if (wiki) {
+        if (realUrl[3] == "wiki")
+          url = realUrl[0] + "//" + realUrl[2] + "/wiki/" + item;
+        else
+          url = realUrl[0] + "//" + realUrl[2] + "/" + realUrl[3] + "/wiki/" + item; 
+      }
+      else{
+          url = realUrl[0] + "//" + realUrl[2] + item;
+      }
+
+    }
+
+    return url;
+}
+
+/*
+ *  INIT
+ */
 // On page ready
 // -> Wait Fuse.js to be loaded
 document.addEventListener('DOMContentLoaded', initSearchEngine, false);
