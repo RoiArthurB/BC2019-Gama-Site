@@ -57,13 +57,17 @@ function initSearchEngine(){
  *  SEARCH ENGINE
  */
 function requestSearch(e) {
-  // Send request
-  var result = fuse.search(e.srcElement.value);
 
   // Clean previous result (if multiple request)
   cleanSearchResult();
 
-  createSearchResult(result);
+  // Don't display empty result if field empty
+  if( e.srcElement.value != "") {
+    // Send request
+    var result = fuse.search(e.srcElement.value);
+
+    createSearchResult(result);
+  }
 }
 
 function createSearchResult(result) {
