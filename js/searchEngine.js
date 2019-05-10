@@ -57,16 +57,13 @@ function initSearchEngine(){
  *  SEARCH ENGINE
  */
 function requestSearch(e) {
-    if (e.keyCode == 13) { // Enter
+  // Send request
+  var result = fuse.search(e.srcElement.value);
 
-      // Send request
-      var result = fuse.search(e.srcElement.value);
+  // Clean previous result (if multiple request)
+  cleanSearchResult();
 
-      // Clean previous result (if multiple request)
-      cleanSearchResult();
-
-      createSearchResult(result);
-    }
+  createSearchResult(result);
 }
 
 function createSearchResult(result) {
