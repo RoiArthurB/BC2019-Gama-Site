@@ -47,7 +47,7 @@ class HomeSplash extends React.Component {
     );
 
     const PromoSection = props => (
-      <div className="section promoSection">
+      <div id="promo" className="section promoSection">
         <div className="promoRow">
           <div className="pluginRowBlock">{props.children}</div>
         </div>
@@ -64,7 +64,7 @@ class HomeSplash extends React.Component {
 
     const ImgSoftware = props => (
       <div className="pluginWrapper">
-        <img src={props.img_src} alt="GAMA-Platform Software" />
+        <img id="imgSoft" src={props.img_src} alt="GAMA-Platform Software" />
       </div>
     );
 
@@ -108,7 +108,7 @@ class Index extends React.Component {
         .navPusher{ padding: 0; }
 
         .homeSplashFade {
-            max-height: 100vh;
+            height: 100vh;
             background: linear-gradient(#121020,#21233e);
             position: relative;
             overflow: hidden;
@@ -127,14 +127,21 @@ class Index extends React.Component {
           padding: 0 !important;
         }
 
+        img { height: 100%; }
+
         /*  BUTTONS */
         .button { border-width: 2px;font-weight: bold; }
       `}} />
     );
 
+  const Script = props => (
+    <script type="text/javascript" src="./js/index.js"></script>
+  );
+
     return (
       <div>
         <Design/>
+        <Script/>
         <HomeSplash siteConfig={siteConfig} language={language} />
       </div>
     );

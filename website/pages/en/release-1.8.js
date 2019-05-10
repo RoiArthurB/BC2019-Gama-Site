@@ -50,12 +50,6 @@ function search(props) {
       </div>
     );
 
-  const Script = props => (
-    <script>
-      console.log(\"coucou\");
-    </script>
-  );
-
   return (
     <div className="docMainWrapper wrapper">
       <Design />
