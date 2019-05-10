@@ -158,6 +158,9 @@ function endpoint(){
   fuse = new Fuse(database, optionsTag);
   var resultTag = fuse.search( getRequest.split("&")[0].split("=")[1] );
 
+  if (resultTag.length == 0)
+    resultTag = database;
+
   /* Request on title 
   on filtred db */
   const optionsTitle = {
@@ -174,7 +177,11 @@ function endpoint(){
   };
 
   fuse = new Fuse(resultTag, optionsTitle);
-  window.location.replace( queryBuilder(fuse.search( getRequest.split("&")[1].split("=")[1] )[0]["url"]) );
+  resultTag = fuse.search( getRequest.split("&")[1].split("=")[1] )[0];
+  if (resultTag == undefined)
+    window.location.replace( queryBuilder(true, true, true) );
+  else
+    window.location.replace( queryBuilder(resultTag["url"]) );
 }
 
 function queryBuilder(item, wiki=true, doc=false){
