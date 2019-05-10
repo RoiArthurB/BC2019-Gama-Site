@@ -33,7 +33,8 @@ mv ./gama.wiki/resources ./website/static/
 if [ -f ./website/database/index.json ];then
 	rm ./website/database/index.json
 fi
-mv ./gama.wiki/WikiOnly/database.json ./website/database/index.json
+mv ./gama.wiki/WikiOnly/database.json ./website/static/database/index.json 
+
 
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
