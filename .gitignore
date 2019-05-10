@@ -62,3 +62,9 @@ typings/
 # next.js build output
 .next
 
+#Self Project
+*.txt
+docs.backup/
+gama.wiki/
+tests/
+website/build/

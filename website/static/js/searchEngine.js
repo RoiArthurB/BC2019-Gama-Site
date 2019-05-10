@@ -9,7 +9,7 @@ var options = {
   shouldSort: false,
   tokenize: true,
   findAllMatches: true,
-  threshold: 0.4,
+  threshold: 0.2,
   location: 0,
   distance: 100,
   maxPatternLength: 32,
@@ -93,7 +93,8 @@ function createSearchResult(result) {
     var link = document.createElement("A");
 
     // Create link
-    link.setAttribute("href", document.URL.split('/')[2] + "/BC2019-Gama-Site/wiki/" + result[i]["url"]);
+    var url = "https://" + document.URL.split('/')[2] + "/BC2019-Gama-Site/wiki/" + result[i]["url"];
+    link.setAttribute( "href", url.replace(/\s/g, '') );
     link.appendChild( document.createTextNode(result[i]["title"] ) );
 
     // Append result item
