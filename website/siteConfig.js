@@ -162,7 +162,7 @@ const siteConfig = {
   headerLinks: [
     {doc: 'Home',	label: 'Documentation'},
     {doc: 'Tutorials',	label: 'Tutorials'},
-    {page: 'help',	label: 'Download'},	
+    {page: 'download',	label: 'Download'},	
     {doc: 'Contribute',	label: 'Contribute'},
     // Enable blog
 //    {blog: true, label: 'Blog'},
