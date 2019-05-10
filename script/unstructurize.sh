@@ -13,7 +13,7 @@
 
 #!/bin/sh
 
-# If no folder _docs/_
+# If no folder _docs/_ create one
 if [ ! -d ./docs ];then
 	mkdir ./docs
 fi
@@ -23,17 +23,17 @@ if [ -d ./gama.wiki/.git ];then
 	rm -fr ./gama.wiki/.git
 fi
 
-# Move folder resource in the static folder in _website/_
+# Update folder resource in the static folder in _website/_
 if [ -d ./website/static/resources ];then
 	rm -fr ./website/static/resources
 fi
-
 mv ./gama.wiki/resources ./website/static/
 
-# Soft link form _resource/_ folder in root _static/_ folder
-# -> Removed because github.io doesn't link symbolic links :/ 
-#ln -s ./website/static/resources/* ./website/static/
-
+# Update database.json in the static folder in _website/_
+if [ -f ./website/database/index.json ];then
+	rm ./website/database/index.json
+fi
+mv ./gama.wiki/WikiOnly/database.json ./website/database/index.json
 
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
