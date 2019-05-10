@@ -78,10 +78,10 @@ class HomeSplash extends React.Component {
             <FlexItem>
               <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href="./download" className="button buttonWhiteActive">Download</Button>
+            <Button href={`${baseUrl}download`}  className="button buttonWhiteActive">Download</Button>
             <Button href={docUrl('Home')} className="button buttonOrange">Discover</Button>
             <Button href={docUrl('Tutorials')} className="button buttonRed">Learn</Button>
-            <Button href="./Download" className="button buttonBlue">Contribute</Button>
+            <Button href={docUrl('Contribute')} className="button buttonBlue">Contribute</Button>
           </PromoSection>
             </FlexItem>
           </FlexContainer>
