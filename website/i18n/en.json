@@ -419,6 +419,9 @@
       "DevelopingExtensions": {
         "title": "Developing Extensions"
       },
+      "developingGAMA": {
+        "title": "Get into the GAMA Java API"
+      },
       "DevelopingIndexAnnotations": {
         "title": "Index of annotations"
       },
@@ -947,6 +950,9 @@
       "Introduction": {
         "title": "Introduction"
       },
+      "IntroductionToGamaJavaAPI": {
+        "title": "IntroductionToGamaJavaAPI"
+      },
       "KnownIssues": {
         "title": "Known issues"
       },
@@ -1086,25 +1092,25 @@
         "title": "Operators"
       },
       "OperatorsAA": {
-        "title": "OperatorsAA"
+        "title": "Operators (A to A)"
       },
       "OperatorsBC": {
-        "title": "OperatorsBC"
+        "title": "Operators (B to C)"
       },
       "OperatorsDH": {
-        "title": "OperatorsDH"
+        "title": "Operators (D to H)"
       },
       "OperatorsIM": {
-        "title": "OperatorsIM"
+        "title": "Operators (I to M)"
       },
       "OperatorsNR": {
-        "title": "OperatorsNR"
+        "title": "Operators (N to R)"
       },
       "OperatorsSplitted": {
-        "title": "OperatorsSplitted"
+        "title": "Operators"
       },
       "OperatorsSZ": {
-        "title": "OperatorsSZ"
+        "title": "Operators (S to Z)"
       },
       "OptimizingModels": {
         "title": "Optimizing Models"
