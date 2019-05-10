@@ -15,5 +15,5 @@
 
 for f in ./docs/*.md ; do
 	#echo $f
-	sed -r -i 's/!\[[a-z./0-9]*\]\(/&..\//g' "$f"
+	sed -r -i 's/!\[.*\]\(/&..\//g' "$f"
 done
