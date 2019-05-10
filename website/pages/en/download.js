@@ -107,8 +107,8 @@ function Download(props) {
           <header className="postHeader">
             <h1>Download <i>GAMA latest Release</i></h1>
           </header>
-          <p>Choose the version which fit the best for you !</p>
-          <p>You can download just the GAMA software, the software with an embedded JDK or the continuous build packed from GitHub.</p>
+          <p>Choose the version that fits you the best !</p>
+          <p>You can download the GAMA software with or without an embedded JDK or the Git version from GitHub.</p>
           <OsGrid version={siteConfig.downloadVersion} zipName={siteConfig.zipName} />
         </div>
         <div className="post">
