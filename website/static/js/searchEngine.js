@@ -49,7 +49,7 @@ function initSearchEngine(){
 
   // Get search input
   document.getElementById('search_input_react').addEventListener('keyup', requestSearch);
-  document.getElementById('search_input_react').setAttribute("onfocusout", "setTimeout(cleanSearchResult, 500)");
+  document.getElementById('search_input_react').setAttribute("onfocusout", "setTimeout(cleanSearchResult, 200)");
 }
 
 
