@@ -31,7 +31,7 @@ class HomeSplash extends React.Component {
     );
 
     const FlexContainer = props => ( <div className="section container"> {props.children} </div> );
-    const FlexItem = props => ( <div className="item">{props.children}</div> );
+    const FlexItem = props => ( <div className={`item ${props.className}`}>{props.children}</div> );
 
     const Logo = props => (
       <div className="projectLogo">
@@ -72,20 +72,26 @@ class HomeSplash extends React.Component {
       <SplashContainer>
         <div className="inner">
           <FlexContainer>
-            <FlexItem>
+            <FlexItem className="logoItem">
               <Logo src={`${baseUrl}${siteConfig.footerIcon}`} />
             </FlexItem>
-            <FlexItem>
+            <FlexItem className="">
               <ProjectTitle siteConfig={siteConfig} />
-          <PromoSection>
-            <Button href={`${baseUrl}download`}  className="button buttonWhiteActive">Download</Button>
-            <Button href={docUrl('Home')} className="button buttonOrange">Discover</Button>
-            <Button href={docUrl('Tutorials')} className="button buttonRed">Learn</Button>
-            <Button href={docUrl('Contribute')} className="button buttonBlue">Contribute</Button>
-          </PromoSection>
             </FlexItem>
           </FlexContainer>
-          <ImgSoftware img_src={`${baseUrl}img/flipper.png`} />
+          <FlexContainer>
+            <FlexItem className="fRight">
+              <Button href={`${baseUrl}download`}  className="button buttonWhiteActive">Download</Button>
+            </FlexItem>
+            <FlexItem className="fLeft">
+              <PromoSection>
+                <Button href={docUrl('Home')} className="button buttonOrange">Discover</Button>
+                <Button href={docUrl('Tutorials')} className="button buttonRed">Learn</Button>
+                <Button href={docUrl('Contribute')} className="button buttonBlue">Contribute</Button>
+              </PromoSection>
+            </FlexItem>
+          </FlexContainer>
+          <ImgSoftware img_src={`${baseUrl}img/gama-platform.png`} />
         </div>
       </SplashContainer>
     );
@@ -102,6 +108,11 @@ class Index extends React.Component {
         .container {
           display:  inline-flex;
           align-items: center;
+          width: 100%;
+        }
+        .item{
+          width: 50%;
+          margin: 0 3em;
         }
         /*  One Screen  */
         .fixedHeaderContainer, footer{ display: none; }
@@ -114,27 +125,50 @@ class Index extends React.Component {
             overflow: hidden;
         }
         .projectTitle {
+          text-align: left;
           color: white;
         }
         .projectTitle > small {
-          width: 50%;
-          margin: 1.5em auto 0 auto;
+          margin: 1.5em 0;
+          text-align: justify;
         }
-        .promoSection { margin: 3em; }
+        .promoSection { margin: 3em 0; }
 
         .projectLogo {
           position: inherit !important;
           padding: 0 !important;
         }
 
-        .projectLogo img { 
-          height: 100%;
+        .projectLogo img{ 
+          width: auto; 
         }
-
-        .projectLogo img{ width: 100%; }
 
         /*  BUTTONS */
         .button { border-width: 2px;font-weight: bold; }
+
+        .fLeft > div {
+          float: left;
+        }
+        .fRight > div {
+          float: right;
+        }
+        .fRight {
+          padding-right: 71px;
+        }
+
+        .logoItem {
+          text-align: right;
+        }
+
+        @media only screen and (max-width: 1200px) {
+          .homeContainer .homeWrapper .projectLogo {
+            display: block;
+          }
+          .homeContainer .homeWrapper .projectLogo img {
+            height: 100%;
+            max-height: 250px;
+          }
+        }
       `}} />
     );
 
