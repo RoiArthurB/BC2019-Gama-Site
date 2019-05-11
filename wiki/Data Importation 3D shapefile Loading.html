@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> shapefile_loading
 
-global {
+<span class="hljs-class">global </span>{
     
     <span class="hljs-comment">//file variable that will store the shape file</span>
     <span class="hljs-literal">file</span> shape_file_gis_3d_objects &lt;- shape_file('../includes/Mobilier.shp', 0);
@@ -19,17 +19,17 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> gis_3d_object {
+<span class="hljs-class">species <span class="hljs-title">gis_3d_object</span> </span>{
     aspect base {
         draw shape at:{world.shape.width/2,world.shape.height/2,0};
     }
 }
 
-<span class="hljs-builtin">experiment</span> display_shape type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">display_shape</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
 
     output {
-        display city_display type: opengl draw_env:false{
-            <span class="hljs-literal">species</span> gis_3d_object aspect: base;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>:<span class="hljs-title">false</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">gis_3d_object</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
 
     }
@@ -50,8 +50,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

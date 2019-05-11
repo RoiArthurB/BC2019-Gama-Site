@@ -10,9 +10,9 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> geotiffimport
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//definiton of the file to import</span>
-    <span class="hljs-literal">file</span> grid_data &lt;- <span class="hljs-literal">file</span>('../includes/bogota_grid.tif') ;
+    <span class="hljs-literal">file</span> grid_data &lt;- <span class="hljs-literal">file</span>('../includes/bogota_<span class="hljs-class">grid.<span class="hljs-title">tif</span>') ;</span>
     
     <span class="hljs-comment">//computation of the environment size from the geotiff file</span>
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(grid_data);  
@@ -30,12 +30,12 @@ global {
 }
 
 <span class="hljs-comment">//definition of the grid from the geotiff file: the width and height of the grid are directly read from the asc file. The values of the asc file are stored in the grid_value attribute of the cells.</span>
-grid cell <span class="hljs-literal">file</span>: grid_data;
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">file</span>: <span class="hljs-title">grid_data</span>;</span>
 
-<span class="hljs-builtin">experiment</span> show_example type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">show_example</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display test {
-            grid cell lines: #black;
+        <span class="hljs-class">display <span class="hljs-title">test</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
         }
     } 
 }
@@ -54,8 +54,8 @@ grid cell <span class="hljs-literal">file</span>: grid_data;
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

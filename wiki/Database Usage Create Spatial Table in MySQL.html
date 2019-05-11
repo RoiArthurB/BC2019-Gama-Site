@@ -10,13 +10,13 @@
 <pre><code class="hljs"><span class="hljs-builtin">model</span> CreateBuildingTableMySQL
 
 
-global
+<span class="hljs-class">global</span>
 {
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">string</span>&gt; PARAMS &lt;- ['host'::'localhost', 'dbtype'::'MySQL', 'database'::'', 'port'::'8889', 'user'::'root', 'passwd'::'root'];
     init
     {
-        create test_species number: 1;
-        ask test_species
+        create test_<span class="hljs-class">species <span class="hljs-title">number</span>: 1;</span>
+        ask test_<span class="hljs-class">species</span>
         {
             <span class="hljs-keyword">if</span> (self testConnection [params::PARAMS])
             {
@@ -39,11 +39,11 @@ global
 
 }
 
-<span class="hljs-literal">species</span> test_species skills: [<span class="hljs-builtin">SQLSKILL</span>]
+<span class="hljs-class">species <span class="hljs-title">test_species</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">SQLSKILL</span>]</span>
 {
 }
 
-<span class="hljs-builtin">experiment</span> default_expr type: gui
+<span class="hljs-class">experiment <span class="hljs-title">default_expr</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
 }
 </code></pre>
@@ -61,8 +61,8 @@ global
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

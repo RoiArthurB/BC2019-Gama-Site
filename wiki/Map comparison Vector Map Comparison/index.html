@@ -16,7 +16,7 @@ For each comparator, two comparisons are made : one without taking into account 
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> mapcomparison
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; categories ;
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>,<span class="hljs-literal">rgb</span>&gt; color_cat ;
     <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; fuzzy_categories;
@@ -79,7 +79,7 @@ global {
     
 }
  
-<span class="hljs-literal">species</span> areaclc {
+<span class="hljs-class">species <span class="hljs-title">areaclc</span> </span>{
     <span class="hljs-literal">string</span> init_cover;
     <span class="hljs-literal">string</span> obs_cover;
     <span class="hljs-literal">string</span> sim_cover;
@@ -100,19 +100,19 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> mapcomparison type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">mapcomparison</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display map_sim type: opengl{
-            <span class="hljs-literal">species</span> areaclc aspect: simulation;
+        <span class="hljs-class">display <span class="hljs-title">map_sim</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">areaclc</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">simulation</span>;</span>
         }
-        display map_observed type: opengl{
-            <span class="hljs-literal">species</span> areaclc aspect: observed refresh: false;
+        <span class="hljs-class">display <span class="hljs-title">map_observed</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">areaclc</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">observed</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
         }
-        display map_init type: opengl{
-            <span class="hljs-literal">species</span> areaclc aspect: init refresh: false;
+        <span class="hljs-class">display <span class="hljs-title">map_init</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">areaclc</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">init</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
         }
-        display map_fuzzy type: opengl background: #pink{
-            <span class="hljs-literal">species</span> areaclc aspect: fuzzy_sim ;
+        <span class="hljs-class">display <span class="hljs-title">map_fuzzy</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">background</span>: #<span class="hljs-title">pink</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">areaclc</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">fuzzy_sim</span> ;</span>
         }
     }
 }
@@ -132,8 +132,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

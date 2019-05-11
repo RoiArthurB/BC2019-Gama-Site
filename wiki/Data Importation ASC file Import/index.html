@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> ascimport
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//definiton of the file to import</span>
     <span class="hljs-literal">file</span> grid_data &lt;- <span class="hljs-literal">file</span>('../includes/hab10.asc') ;
     
@@ -21,20 +21,20 @@ global {
 
 
 <span class="hljs-comment">//definition of the grid from the asc file: the width and height of the grid are directly read from the asc file. The values of the asc file are stored in the grid_value attribute of the cells.</span>
-grid cell <span class="hljs-literal">file</span>: grid_data{
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">file</span>: <span class="hljs-title">grid_data</span></span>{
     init {
         color&lt;- grid_value = 0.0 ? #black  : (grid_value = 1.0  ? #green :   #yellow);
     }
 }
 
-<span class="hljs-builtin">experiment</span> gridloading type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">gridloading</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-string">"As DEM"</span> type: opengl{
-            grid cell lines: #gray elevation: grid_value * 300 ;
+        <span class="hljs-class">display "<span class="hljs-title">As</span> <span class="hljs-title">DEM</span>" <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">gray</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">grid_value</span> * 300 ;</span>
         }
         
-        display <span class="hljs-string">"As 2D grid"</span>  type: java2D {
-            grid cell lines: #black;
+        <span class="hljs-class">display "<span class="hljs-title">As</span> 2<span class="hljs-title">D</span> <span class="hljs-title">grid</span>"  <span class="hljs-title">type</span>: <span class="hljs-title">java2D</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
         }
     } 
 }
@@ -55,8 +55,8 @@ grid cell <span class="hljs-literal">file</span>: grid_data{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> SavetoAsc
 
-global {
+<span class="hljs-class">global </span>{
     init {  
         <span class="hljs-comment">//save grid "grid_value" attribute into the asc file.</span>
         save cell to:<span class="hljs-string">"../results/grid.asc"</span> type:<span class="hljs-string">"asc"</span>;
@@ -18,15 +18,15 @@ global {
 }
 
 <span class="hljs-comment">//Grid that will be saved in the ASC File</span>
-grid cell width: 50 height: 50 {
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 50 <span class="hljs-title">height</span>: 50 </span>{
     <span class="hljs-literal">float</span> grid_value &lt;- self distance_to world.location;
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(255 * (1 - grid_value / 50), 0,0);
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> {
-            grid cell lines: #black;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
         }
     }
 }
@@ -45,8 +45,8 @@ grid cell width: 50 height: 50 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

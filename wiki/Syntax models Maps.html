@@ -12,7 +12,7 @@
 
 <span class="hljs-comment">/* Maps is a data structure consisting of a list of pair&lt;key, value&gt; where each key is unique */</span>
 
-<span class="hljs-literal">species</span> declaring_map_attributes {
+<span class="hljs-class">species <span class="hljs-title">declaring_map_attributes</span> </span>{
     
     <span class="hljs-comment">/**
      * Declarations of map attributes
@@ -68,8 +68,8 @@
         <span class="hljs-comment">// by using the casting 'map()' operator</span>
         <span class="hljs-comment">// for instance, map(species_name) will return a list of all the agents of species_name</span>
         <span class="hljs-comment">// using pairs of agent::agent. If the key is explicit, it is used in the casting:</span>
-        create test_species number:4;
-        <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, test_species&gt; my_agents &lt;- <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, test_species&gt;(test_species);
+        create test_<span class="hljs-class">species <span class="hljs-title">number</span>:4;</span>
+        <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, test_<span class="hljs-class">species&gt; <span class="hljs-title">my_agents</span> &lt;- <span class="hljs-title">map</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">test_species</span>&gt;(<span class="hljs-title">test_species</span>);</span>
         write sample(my_agents);
         <span class="hljs-comment">// Some special casting operations are applied to specific types, like agents (returns a copy of their attributes)</span>
         write sample(<span class="hljs-literal">map</span>(any(my_agents)));
@@ -81,9 +81,9 @@
     }
 }
 
-<span class="hljs-literal">species</span> test_species{}
+<span class="hljs-class">species <span class="hljs-title">test_species</span></span>{}
 
-<span class="hljs-literal">species</span> accessing_map_elements {
+<span class="hljs-class">species <span class="hljs-title">accessing_map_elements</span> </span>{
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">int</span>&gt; l1 &lt;- <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">int</span>&gt;([1,2,3,4,5,6,7,8,9,10]);
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">string</span>&gt; l2 &lt;- [1::'this',2::'is',3::'a',4::'<span class="hljs-literal">list</span>', 5::'of',6::'strings'];
     init {
@@ -125,7 +125,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> combining_maps {
+<span class="hljs-class">species <span class="hljs-title">combining_maps</span> </span>{
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">int</span>&gt; l1 &lt;- <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">int</span>&gt;([1,2,3,4,5,6,7,8,9,10]);
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">int</span>&gt; l2 &lt;- <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, <span class="hljs-literal">int</span>&gt;([1,3,5,7,9]);
     init {
@@ -144,7 +144,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> modifying_maps {
+<span class="hljs-class">species <span class="hljs-title">modifying_maps</span> </span>{
     init {
         write <span class="hljs-string">""</span>;
         write <span class="hljs-string">"== MODIFYING MAPS =="</span>;
@@ -232,7 +232,7 @@
     
 }
 
-<span class="hljs-literal">species</span> looping_on_maps {
+<span class="hljs-class">species <span class="hljs-title">looping_on_maps</span> </span>{
     init {
         write <span class="hljs-string">""</span>;
         write <span class="hljs-string">"== LOOPING ON MAPS =="</span>;
@@ -267,8 +267,8 @@
         }
         write sample(l2);
         <span class="hljs-comment">// Finally, maps containing agents can be the support of implicit loops in the 'ask' statement</span>
-        create test_species number: 5 returns: my_agents;
-        <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, test_species&gt; map_of_agents &lt;- <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, test_species&gt;(my_agents);
+        create test_<span class="hljs-class">species <span class="hljs-title">number</span>: 5 <span class="hljs-title">returns</span>: <span class="hljs-title">my_agents</span>;</span>
+        <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>, test_<span class="hljs-class">species&gt; <span class="hljs-title">map_of_agents</span> &lt;- <span class="hljs-title">map</span>&lt;<span class="hljs-title">int</span>, <span class="hljs-title">test_species</span>&gt;(<span class="hljs-title">my_agents</span>);</span>
         write(sample(map_of_agents));
         l2 &lt;- [];
         ask map_of_agents{
@@ -282,7 +282,7 @@
     }
 
 
-<span class="hljs-builtin">experiment</span> Maps type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Maps</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     user_command <span class="hljs-string">"Declaring maps"</span> {create declaring_map_attributes;}
     user_command <span class="hljs-string">"Accessing maps"</span> {create accessing_map_elements;}
     user_command <span class="hljs-string">"Combining maps"</span> {create combining_maps;}
@@ -304,8 +304,8 @@
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -9,21 +9,21 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> ville
 
-global {
+<span class="hljs-class">global </span>{
     init {
         create foyer number: 500;
     }
 }
 
-<span class="hljs-literal">species</span> batiment {
+<span class="hljs-class">species <span class="hljs-title">batiment</span> </span>{
     <span class="hljs-literal">string</span> type;
     <span class="hljs-literal">int</span> capacite;
 }
 
-<span class="hljs-literal">species</span> route {
+<span class="hljs-class">species <span class="hljs-title">route</span> </span>{
 }
 
-<span class="hljs-literal">species</span> foyer {
+<span class="hljs-class">species <span class="hljs-title">foyer</span> </span>{
     <span class="hljs-literal">float</span> revenu &lt;- gauss(1500, 500);
     <span class="hljs-literal">bool</span> est_satisfait ;
     batiment habitation;
@@ -35,10 +35,10 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> ville type: gui { 
+<span class="hljs-class">experiment <span class="hljs-title">ville</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{ 
     output {
-        display carte_principale {
-            <span class="hljs-literal">species</span> foyer aspect: revenu;
+        <span class="hljs-class">display <span class="hljs-title">carte_principale</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">foyer</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">revenu</span>;</span>
         }
     }
 }
@@ -57,8 +57,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

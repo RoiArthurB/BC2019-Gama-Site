@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> preys_predators_shelters
 
-global { 
+<span class="hljs-class">global </span>{ 
     <span class="hljs-comment">//Parameters for the prey species</span>
     <span class="hljs-literal">rgb</span> prey_color &lt;- #green const: true;
     <span class="hljs-literal">float</span> prey_perception &lt;- 20.0;
@@ -49,12 +49,12 @@ global {
     }
 }
 <span class="hljs-comment">//Species prey which can move using the skill moving and its operators</span>
-<span class="hljs-literal">species</span> prey skills: [<span class="hljs-builtin">moving</span>] control: <span class="hljs-builtin">fsm</span> {
+<span class="hljs-class">species <span class="hljs-title">prey</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- square (prey_size);
     <span class="hljs-literal">rgb</span> color &lt;- prey_color;
     
     <span class="hljs-comment">//List of all predators inside the perception of the prey</span>
-    <span class="hljs-literal">list</span> nearby_predators update: (agents_overlapping (shape + prey_perception)) of_species predator depends_on: shape;
+    <span class="hljs-literal">list</span> nearby_predators update: (agents_overlapping (shape + prey_perception)) of_<span class="hljs-class">species <span class="hljs-title">predator</span> <span class="hljs-title">depends_on</span>: <span class="hljs-title">shape</span>;</span>
     <span class="hljs-literal">int</span> invisible_time min: 1 &lt;- <span class="hljs-literal">int</span>(time);
 
     shelter nearest_shelter;        
@@ -98,7 +98,7 @@ global {
 }
 
 <span class="hljs-comment">//Species predator which can move using the skill moving</span>
-<span class="hljs-literal">species</span> predator skills: [<span class="hljs-builtin">moving</span>] schedules: shuffle (<span class="hljs-literal">list</span> (predator)) {
+<span class="hljs-class">species <span class="hljs-title">predator</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">schedules</span>: <span class="hljs-title">shuffle</span> (<span class="hljs-title">list</span> (<span class="hljs-title">predator</span>)) </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- square (predator_size);
     prey target_prey update: self choose_target_prey [];
     
@@ -111,10 +111,10 @@ global {
         return target_prey;
     }
     <span class="hljs-comment">//Reflex to move randomly when no prey are perceived</span>
-    <span class="hljs-builtin">reflex</span> move_around when: (target_prey = nil) { do wander speed: predator_speed; }
+    <span class="hljs-class">reflex <span class="hljs-title">move_around</span> <span class="hljs-title">when</span>: (<span class="hljs-title">target_prey</span> = <span class="hljs-title">nil</span>) </span>{ do wander speed: predator_speed; }
     
     <span class="hljs-comment">//Reflex to make the predator chase a prey</span>
-    <span class="hljs-builtin">reflex</span> chase_prey when: (target_prey != nil) { do move heading: self towards target_prey speed: predator_speed;}
+    <span class="hljs-class">reflex <span class="hljs-title">chase_prey</span> <span class="hljs-title">when</span>: (<span class="hljs-title">target_prey</span> != <span class="hljs-title">nil</span>) </span>{ do move heading: self towards target_prey speed: predator_speed;}
     
     aspect default {
         draw shape color: predator_color;
@@ -122,18 +122,18 @@ global {
 } 
 
 <span class="hljs-comment">//Species shelter that will capture prey agents</span>
-<span class="hljs-literal">species</span> shelter skills: [<span class="hljs-builtin">moving</span>]  frequency: 2 {
+<span class="hljs-class">species <span class="hljs-title">shelter</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]  <span class="hljs-title">frequency</span>: 2 </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- (square (50.0)) at_location {250, 250};
     
     <span class="hljs-comment">//List of all preys which are being chased and inside the shelter but not captured yet</span>
     <span class="hljs-literal">list</span>&lt;prey&gt; chased_preys update: (prey) where ( (each.shape intersects shape) and (each.state = 'flee_predator') );
     
-    <span class="hljs-builtin">reflex</span> move_around {
+    <span class="hljs-class">reflex <span class="hljs-title">move_around</span> </span>{
         <span class="hljs-comment">//do wander speed: shelter_speed; </span>
     }
      
     <span class="hljs-comment">//Capture all the chased preys inside the shelter and change their species to prey_in_shelter</span>
-    <span class="hljs-builtin">reflex</span> capture_chased_preys when: !(empty (chased_preys)) { 
+    <span class="hljs-class">reflex <span class="hljs-title">capture_chased_preys</span> <span class="hljs-title">when</span>: !(<span class="hljs-title">empty</span> (<span class="hljs-title">chased_preys</span>)) </span>{ 
         capture chased_preys as: prey_in_shelter {
             state &lt;- 'in_shelter'; 
             shape &lt;- ( triangle (4.0) ) at_location location;
@@ -141,7 +141,7 @@ global {
     }
     
     <span class="hljs-comment">//Release all the prey_in_shelter after a certain time and change their state to invisible after making their species returned to prey</span>
-    <span class="hljs-builtin">reflex</span> release_member_preys {
+    <span class="hljs-class">reflex <span class="hljs-title">release_member_preys</span> </span>{
         <span class="hljs-literal">list</span>&lt;prey_in_shelter&gt; to_be_released &lt;- (prey_in_shelter) where ( (time - each.in_shelter_time) &gt; prey_in_shelter_max_time );
          
         release to_be_released in: world as: prey { 
@@ -151,7 +151,7 @@ global {
     } 
     
     <span class="hljs-comment">//Subspecies prey_in_shelter that will represent the prey agents captured by the shelter</span>
-    <span class="hljs-literal">species</span> prey_in_shelter parent: prey frequency: 2 schedules: ( ( <span class="hljs-literal">int</span> ( (length (prey_in_shelter)) / 2 ) ) among (<span class="hljs-literal">list</span> (prey_in_shelter)) ) {
+    <span class="hljs-class">species <span class="hljs-title">prey_in_shelter</span> <span class="hljs-title">parent</span>: <span class="hljs-title">prey</span> <span class="hljs-title">frequency</span>: 2 <span class="hljs-title">schedules</span>: ( ( <span class="hljs-title">int</span> ( (<span class="hljs-title">length</span> (<span class="hljs-title">prey_in_shelter</span>)) / 2 ) ) <span class="hljs-title">among</span> (<span class="hljs-title">list</span> (<span class="hljs-title">prey_in_shelter</span>)) ) </span>{
         <span class="hljs-literal">int</span> in_shelter_time &lt;- <span class="hljs-literal">int</span>(time);
         
         state in_shelter {
@@ -169,13 +169,13 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> default_experiment type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">default_experiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display default_display type: opengl{
-            <span class="hljs-literal">species</span> prey aspect: default;
-            <span class="hljs-literal">species</span> predator transparency: 0.5 aspect: default;
-            <span class="hljs-literal">species</span> shelter transparency: 0.5 aspect: default { 
-                <span class="hljs-literal">species</span> prey_in_shelter aspect: default;
+        <span class="hljs-class">display <span class="hljs-title">default_display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">prey</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">predator</span> <span class="hljs-title">transparency</span>: 0.5 <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">shelter</span> <span class="hljs-title">transparency</span>: 0.5 <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> </span>{ 
+                <span class="hljs-class">species <span class="hljs-title">prey_in_shelter</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
             }
         }
     }
@@ -195,8 +195,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

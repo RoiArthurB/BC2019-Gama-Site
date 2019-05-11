@@ -71,7 +71,7 @@
 <li><code>refresh:</code> bool statement, optional : the new value is computed if the bool statement returns true.</li>
 </ul>
 <p>Example:</p>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> my_experiment type: gui {
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
         monitor monitor_name value: cycle refresh:every(1);
     }
@@ -81,7 +81,7 @@
 <h2><a class="anchor" aria-hidden="true" id="define-an-inspector"></a><a href="#define-an-inspector" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Define an inspector</h2>
 <p>During the simulation, the user interface of GAMA provides the user the possibility to <a href="InspectorsAndMonitors">inspect an agent</a>, or a group of agents. But you can also define the inspector you want directly from your model, as an output of the experiment.</p>
 <p>Use the statement <code>inspect</code> to define your inspector, in the output scope of your gui experiment. The inspector has to be named (using the facet <code>name</code>), a value has to be specified (with the <code>value</code> facet).</p>
-<pre><code class="hljs">inspect name:<span class="hljs-string">"inspector_name"</span> value:the_value_you_want_to_display;
+<pre><code class="hljs">inspect name:<span class="hljs-string">"inspector_name"</span> value:the_value_you_want_to_<span class="hljs-class">display;</span>
 </code></pre>
 <p>Note that you can inspect any type of species (regular species, grid species, even the world...).</p>
 <p>The optional facet <code>type</code> is used to specify the type of your inspector. 2 values are possible :</p>
@@ -94,27 +94,27 @@
 <p>Example of implementation :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> new
 
-global {
+<span class="hljs-class">global </span>{
     init {
-        create my_species number:3;
+        create my_<span class="hljs-class">species <span class="hljs-title">number</span>:3;</span>
     }
 }
 
-<span class="hljs-literal">species</span> my_species {
+<span class="hljs-class">species <span class="hljs-title">my_species</span> </span>{
     <span class="hljs-literal">int</span> int_attr &lt;- 6;
     <span class="hljs-literal">string</span> str_attr &lt;- <span class="hljs-string">"my_value"</span>;
     <span class="hljs-literal">string</span> str_attr_not_important &lt;- <span class="hljs-string">"blabla"</span>;
 }
 
-grid my_grid_species width: 10 height: 10 {
+<span class="hljs-class">grid <span class="hljs-title">my_grid_species</span> <span class="hljs-title">width</span>: 10 <span class="hljs-title">height</span>: 10 </span>{
     <span class="hljs-literal">int</span> rnd_value &lt;- rnd(5);
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span> </span>{
     output {
-        inspect name:<span class="hljs-string">"my_species_inspector"</span> value:my_species attributes:[<span class="hljs-string">"int_attr"</span>,<span class="hljs-string">"str_attr"</span>];
-        inspect name:<span class="hljs-string">"my_species_browser"</span> value:my_species type:table;
-        inspect name:<span class="hljs-string">"my_grid_species_browser"</span> value:5 among my_grid_species type:table;
+        inspect name:<span class="hljs-string">"my_species_inspector"</span> value:my_<span class="hljs-class">species <span class="hljs-title">attributes</span>:["<span class="hljs-title">int_attr</span>","<span class="hljs-title">str_attr</span>"];</span>
+        inspect name:<span class="hljs-string">"my_species_browser"</span> value:my_<span class="hljs-class">species <span class="hljs-title">type</span>:<span class="hljs-title">table</span>;</span>
+        inspect name:<span class="hljs-string">"my_grid_species_browser"</span> value:5 among my_grid_<span class="hljs-class">species <span class="hljs-title">type</span>:<span class="hljs-title">table</span>;</span>
     }
 }
 </code></pre>
@@ -133,8 +133,8 @@ grid my_grid_species width: 10 height: 10 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> simpleOSMLoading 
  
-global{
+<span class="hljs-class">global</span>{
     
     <span class="hljs-comment">//map used to filter the object to build from the OSM file according to attributes. for an exhaustive list, see: http://wiki.openstreetmap.org/wiki/Map_Features</span>
     <span class="hljs-literal">map</span> filtering &lt;- <span class="hljs-literal">map</span>([<span class="hljs-string">"highway"</span>::[<span class="hljs-string">"primary"</span>, <span class="hljs-string">"secondary"</span>, <span class="hljs-string">"tertiary"</span>, <span class="hljs-string">"motorway"</span>, <span class="hljs-string">"living_street"</span>,<span class="hljs-string">"residential"</span>, <span class="hljs-string">"unclassified"</span>], <span class="hljs-string">"building"</span>::[<span class="hljs-string">"yes"</span>]]);
@@ -41,12 +41,12 @@ global{
     }   
 }
 
-<span class="hljs-literal">species</span> osm_agent {
+<span class="hljs-class">species <span class="hljs-title">osm_agent</span> </span>{
     <span class="hljs-literal">string</span> highway_str;
     <span class="hljs-literal">string</span> building_str;
 } 
     
-<span class="hljs-literal">species</span> road {
+<span class="hljs-class">species <span class="hljs-title">road</span> </span>{
     <span class="hljs-literal">rgb</span> color &lt;- rnd_color(255);
     <span class="hljs-literal">string</span> type;
     aspect default {
@@ -54,25 +54,25 @@ global{
     }
 } 
     
-<span class="hljs-literal">species</span> node_agent {
+<span class="hljs-class">species <span class="hljs-title">node_agent</span> </span>{
     <span class="hljs-literal">string</span> type;
     aspect default { 
         draw square(3) color: #red ;
     }
 } 
     
-<span class="hljs-literal">species</span> building {
+<span class="hljs-class">species <span class="hljs-title">building</span> </span>{
     aspect default { 
         draw shape color: <span class="hljs-literal">rgb</span>(200,200,200);
     }
 }  
 
-<span class="hljs-builtin">experiment</span> load_OSM type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">load_OSM</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> type: opengl {
-            <span class="hljs-literal">species</span> building refresh: false;
-            <span class="hljs-literal">species</span> road refresh: false  ;
-            <span class="hljs-literal">species</span> node_agent refresh: false ;
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>  ;</span>
+            <span class="hljs-class">species <span class="hljs-title">node_agent</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span> ;</span>
         }
     }
 }
@@ -91,8 +91,8 @@ global{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

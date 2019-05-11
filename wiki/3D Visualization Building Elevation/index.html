@@ -10,7 +10,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> tutorial_gis_city_traffic
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Load of the different shapefiles used by the model</span>
     <span class="hljs-literal">file</span> shape_file_buildings &lt;- shape_file('../includes/building.shp', 0);
     <span class="hljs-literal">file</span> shape_file_roads &lt;- shape_file('../includes/road.shp', 0);
@@ -59,7 +59,7 @@ global {
 }
 
 
-<span class="hljs-literal">species</span> building {
+<span class="hljs-class">species <span class="hljs-title">building</span> </span>{
     <span class="hljs-literal">string</span> type;
     <span class="hljs-literal">rgb</span> color &lt;- #gray;
     <span class="hljs-literal">int</span> height;
@@ -68,7 +68,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> road {
+<span class="hljs-class">species <span class="hljs-title">road</span> </span>{
     <span class="hljs-literal">rgb</span> color &lt;- #black;
     aspect base {
         draw shape color: color;
@@ -76,7 +76,7 @@ global {
 
 }
 
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">rgb</span> color &lt;- #yellow;
     building living_place &lt;- nil;
     building working_place &lt;- nil;
@@ -84,17 +84,17 @@ global {
     <span class="hljs-literal">int</span> end_work;
     <span class="hljs-literal">string</span> objectif;
     <span class="hljs-literal">point</span> the_target &lt;- nil;
-    <span class="hljs-builtin">reflex</span> time_to_work when: day_time = start_work {
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_work</span> <span class="hljs-title">when</span>: <span class="hljs-title">day_time</span> = <span class="hljs-title">start_work</span> </span>{
         objectif &lt;- 'working';
         the_target &lt;- any_location_in(working_place);
     }
 
-    <span class="hljs-builtin">reflex</span> time_to_go_home when: day_time = end_work {
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_go_home</span> <span class="hljs-title">when</span>: <span class="hljs-title">day_time</span> = <span class="hljs-title">end_work</span> </span>{
         objectif &lt;- 'go home';
         the_target &lt;- any_location_in(living_place);
     }
 
-    <span class="hljs-builtin">reflex</span> move when: the_target != nil {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">the_target</span> != <span class="hljs-title">nil</span> </span>{
         do goto target: the_target on: the_graph;
         switch the_target {
             match location {
@@ -114,7 +114,7 @@ global {
 
 
 
-<span class="hljs-builtin">experiment</span> road_traffic type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">road_traffic</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Shapefile <span class="hljs-keyword">for</span> the buildings:' var: shape_file_buildings category: 'GIS';
     parameter 'Shapefile <span class="hljs-keyword">for</span> the roads:' var: shape_file_roads category: 'GIS';
     parameter 'Shapefile <span class="hljs-keyword">for</span> the bounds:' var: shape_file_bounds category: 'GIS';
@@ -126,21 +126,21 @@ global {
     parameter 'minimal speed' var: min_speed category: 'People';
     parameter 'maximal speed' var: max_speed category: 'People';
     output {
-        display city_display type: opengl {
-            <span class="hljs-literal">species</span> building aspect: base;
-            <span class="hljs-literal">species</span> road aspect: base;
-            <span class="hljs-literal">species</span> people aspect: base;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
         
-        display city_display2 {
-            <span class="hljs-literal">species</span> building aspect: base;
-            <span class="hljs-literal">species</span> road aspect: base;
-            <span class="hljs-literal">species</span> people aspect: base;
+        <span class="hljs-class">display <span class="hljs-title">city_display2</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
     }
 }
 
-<span class="hljs-builtin">experiment</span> road_traffic_multi_layer type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">road_traffic_multi_layer</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Shapefile <span class="hljs-keyword">for</span> the buildings:' var: shape_file_buildings category: 'GIS';
     parameter 'Shapefile <span class="hljs-keyword">for</span> the roads:' var: shape_file_roads category: 'GIS';
     parameter 'Shapefile <span class="hljs-keyword">for</span> the bounds:' var: shape_file_bounds category: 'GIS';
@@ -152,21 +152,21 @@ global {
     parameter 'minimal speed' var: min_speed category: 'People';
     parameter 'maximal speed' var: max_speed category: 'People';
     output {
-        display city_display type: opengl {
-            <span class="hljs-literal">species</span> road aspect: base;
-            <span class="hljs-literal">species</span> building aspect: base position:{0,0,0.25};
-            <span class="hljs-literal">species</span> people aspect: base position:{0,0,0.5};
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> <span class="hljs-title">position</span>:</span>{0,0,0.25};
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> <span class="hljs-title">position</span>:</span>{0,0,0.5};
         }
     }
 
 }
 
-<span class="hljs-builtin">experiment</span> road_traffic_flying_off type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">road_traffic_flying_off</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display flyingOffAgents type: opengl {
-            <span class="hljs-literal">species</span> road aspect: base;
-            <span class="hljs-literal">species</span> building aspect: base position: { 0, 0, (time * 2)/1000 };
-            <span class="hljs-literal">species</span> people aspect: base position: { 0, 0, (time * 4)/1000 };
+        <span class="hljs-class">display <span class="hljs-title">flyingOffAgents</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> <span class="hljs-title">position</span>: </span>{ 0, 0, (time * 2)/1000 };
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> <span class="hljs-title">position</span>: </span>{ 0, 0, (time * 4)/1000 };
         }
     }
 }
@@ -185,8 +185,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -8,7 +8,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> Clock
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Background of the clock</span>
     <span class="hljs-literal">file</span> clock_normal     const: true &lt;- image_file(<span class="hljs-string">"../images/clock.png"</span>);
     <span class="hljs-comment">//Image for the big hand </span>
@@ -41,10 +41,10 @@ global {
     }
 }
 <span class="hljs-comment">//Species that will represent the clock</span>
-<span class="hljs-literal">species</span>  clock { 
+<span class="hljs-class">species  <span class="hljs-title">clock</span> </span>{ 
         <span class="hljs-literal">float</span> nb_minutes&lt;-0.0 update: ((timeElapsed mod 3600000#ms))/60000#ms; <span class="hljs-comment">//Mod with 60 minutes or 1 hour, then divided by one minute value to get the number of minutes</span>
         <span class="hljs-literal">float</span> nb_hours&lt;-0.0 update:((timeElapsed mod 43200000#ms))/3600000#ms;
-        <span class="hljs-builtin">reflex</span> update {
+        <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
             write <span class="hljs-literal">string</span>(nb_hours)+<span class="hljs-string">" : "</span>+nb_minutes;
             <span class="hljs-keyword">if</span> (cycle = alarmCycle) 
             {
@@ -64,7 +64,7 @@ global {
  
 }
 
-<span class="hljs-builtin">experiment</span> Display type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Display</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     <span class="hljs-literal">float</span> minimum_cycle_duration &lt;- 0.1#s;
     parameter 'Zoom: ' var: zoom category: 'Init' ;
     parameter 'Milliseconds/cycle' var: step category: 'Init';
@@ -74,9 +74,9 @@ global {
     parameter 'alarm Minutes' var: alarm_minutes;
     parameter 'alarm Seconds' var: alarm_seconds;
     output {
-        display ClockView type: opengl { 
+        <span class="hljs-class">display <span class="hljs-title">ClockView</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
             graphics <span class="hljs-string">"c"</span> refresh: false {draw clock_normal size: 10*zoom at:{world.shape.width/5,world.shape.height/5} ;}
-            <span class="hljs-literal">species</span> clock ;
+            <span class="hljs-class">species <span class="hljs-title">clock</span> ;</span>
         }
     }
 
@@ -97,8 +97,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> soccerbase
 
-<span class="hljs-literal">species</span> soccer_game {
+<span class="hljs-class">species <span class="hljs-title">soccer_game</span> </span>{
     <span class="hljs-comment">// contains the global informations of the game</span>
     <span class="hljs-literal">rgb</span> back_color_team;
     <span class="hljs-literal">rgb</span> front_color_team;
@@ -45,7 +45,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> base_player skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">base_player</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
@@ -269,7 +269,7 @@
     <span class="hljs-comment">///////////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// The update function, calls the adequate behavior</span>
-    <span class="hljs-builtin">reflex</span> update when:cycle&gt;1 {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>&gt;1 </span>{
         do apply_inertia;
         <span class="hljs-comment">// verify if it is a non-offside position</span>
         <span class="hljs-keyword">if</span> ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
@@ -318,7 +318,7 @@
 
 
 
-<span class="hljs-literal">species</span> base_team {
+<span class="hljs-class">species <span class="hljs-title">base_team</span> </span>{
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
@@ -339,11 +339,11 @@
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position;
 }
 
-<span class="hljs-literal">species</span> ball_sp skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">ball_sp</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">// The ball agent.</span>
     <span class="hljs-literal">float</span> speed &lt;- 0.0;
     <span class="hljs-literal">geometry</span> ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
-    <span class="hljs-builtin">reflex</span> update {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         speed &lt;- speed*0.95;
         <span class="hljs-literal">float</span> future_speed &lt;- speed;
         <span class="hljs-literal">point</span> tmpPos&lt;-location;
@@ -379,7 +379,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> goal_sp {
+<span class="hljs-class">species <span class="hljs-title">goal_sp</span> </span>{
     <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     
     init {
@@ -391,12 +391,12 @@
     }
 }
 
-<span class="hljs-literal">species</span> goal_keeper {
+<span class="hljs-class">species <span class="hljs-title">goal_keeper</span> </span>{
     <span class="hljs-comment">// the goal has a basic behavior : he tries to catch the ball when it is close enough, and when </span>
     <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     ball_sp ball &lt;- nil update:first(ball_sp);
     
-    <span class="hljs-builtin">reflex</span> update when:cycle&gt;0 {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>&gt;0 </span>{
         location &lt;- {ball.location.x/90*12+(90-12)/2,location.y};
         <span class="hljs-keyword">if</span> (ball distance_to self &lt; 2) {
             <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
@@ -429,7 +429,7 @@
 
 import <span class="hljs-string">"./soccer_base.gaml"</span>
 
-<span class="hljs-literal">species</span> player_stupidTeam parent:base_player {
+<span class="hljs-class">species <span class="hljs-title">player_stupidTeam</span> <span class="hljs-title">parent</span>:<span class="hljs-title">base_player</span> </span>{
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -461,7 +461,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     
 }
 
-<span class="hljs-literal">species</span> stupidTeam parent:base_team {
+<span class="hljs-class">species <span class="hljs-title">stupidTeam</span> <span class="hljs-title">parent</span>:<span class="hljs-title">base_team</span> </span>{
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -495,8 +495,8 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

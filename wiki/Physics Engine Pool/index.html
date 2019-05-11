@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> pool3D
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Parameters for the environment</span>
     <span class="hljs-literal">int</span> width_of_environment &lt;- 200;
     <span class="hljs-literal">int</span> height_of_environment &lt;- 300;
@@ -177,7 +177,7 @@ global {
     }
 
     <span class="hljs-comment">//Reflex to compute the forces at each step</span>
-    <span class="hljs-builtin">reflex</span> computeForces {
+    <span class="hljs-class">reflex <span class="hljs-title">computeForces</span> </span>{
         ask world2 {
             do compute_forces step: 1;
         }
@@ -187,10 +187,10 @@ global {
 }
 
 <span class="hljs-comment">//Species corresponding to the physics engine, derivated from the built-in species Physical3DWorld</span>
-<span class="hljs-literal">species</span> physic_world parent: physical_world ;
+<span class="hljs-class">species <span class="hljs-title">physic_world</span> <span class="hljs-title">parent</span>: <span class="hljs-title">physical_world</span> ;</span>
 
 <span class="hljs-comment">//Species representing the ground agents used for the computation of the forces, using the skill physical3D</span>
-<span class="hljs-literal">species</span> ground skills: [<span class="hljs-builtin">physics</span>] {
+<span class="hljs-class">species <span class="hljs-title">ground</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>] </span>{
     aspect default {
         draw shape color: <span class="hljs-literal">rgb</span>([10, 114, 63]) border: <span class="hljs-literal">rgb</span>([10, 114, 63]);
     }
@@ -198,7 +198,7 @@ global {
 }
 
 <span class="hljs-comment">//Species representing the wall agents of the pool using the skill physical3D</span>
-<span class="hljs-literal">species</span> wall skills: [<span class="hljs-builtin">physics</span>] {
+<span class="hljs-class">species <span class="hljs-title">wall</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>] </span>{
     <span class="hljs-literal">rgb</span> color;
     aspect default {
         draw shape color: color depth: 10;
@@ -207,7 +207,7 @@ global {
 }
 
 <span class="hljs-comment">//Species representing the ball agents of the pool using the skill physical3D</span>
-<span class="hljs-literal">species</span> ball skills: [<span class="hljs-builtin">physics</span>] {
+<span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>] </span>{
     <span class="hljs-literal">rgb</span> color&lt;-#white;
     <span class="hljs-literal">int</span> size &lt;- size_of_agents;
     <span class="hljs-literal">float</span> speed &lt;- speed_of_agents;
@@ -219,11 +219,11 @@ global {
 
 }
 
-<span class="hljs-builtin">experiment</span> pool type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">pool</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display Circle type: opengl tesselation: true background: #white draw_env: false { <span class="hljs-literal">species</span> ground aspect: default;
-        <span class="hljs-literal">species</span> wall aspect: default;
-        <span class="hljs-literal">species</span> ball aspect: sphere;
+        <span class="hljs-class">display <span class="hljs-title">Circle</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">tesselation</span>: <span class="hljs-title">true</span> <span class="hljs-title">background</span>: #<span class="hljs-title">white</span> <span class="hljs-title">draw_env</span>: <span class="hljs-title">false</span> </span>{ <span class="hljs-class">species <span class="hljs-title">ground</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
+        <span class="hljs-class">species <span class="hljs-title">wall</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
+        <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">sphere</span>;</span>
         }
     }
 
@@ -244,8 +244,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

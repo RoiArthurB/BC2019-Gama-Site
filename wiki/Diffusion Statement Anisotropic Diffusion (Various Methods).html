@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> diffusion_computation_method
 
-global{
+<span class="hljs-class">global</span>{
     <span class="hljs-literal">int</span> size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(size) * 10);
     cells_dot selected_cells_dot;
@@ -26,7 +26,7 @@ global{
         selected_cells_dot &lt;- location as cells_dot;
         selected_cells_convol &lt;- location as cells_convol;
     }
-    <span class="hljs-builtin">reflex</span> new_Value {
+    <span class="hljs-class">reflex <span class="hljs-title">new_Value</span> </span>{
         ask(selected_cells_dot){
             phero &lt;- 1.0;
         }
@@ -35,7 +35,7 @@ global{
         }       
     }
 
-    <span class="hljs-builtin">reflex</span> diff {
+    <span class="hljs-class">reflex <span class="hljs-title">diff</span> </span>{
         <span class="hljs-comment">// Declare a diffusion on the grid "cells_dot" (with a dot product computation) and on "cells_convol" (with a convol computation). </span>
         <span class="hljs-comment">// The value of the diffusion will be store in the new variable "phero" of the cell.</span>
         diffuse var: phero on: cells_dot <span class="hljs-literal">matrix</span>: mat_diff method: <span class="hljs-string">"dot_product"</span>;    
@@ -44,7 +44,7 @@ global{
 }
 
 
-grid cells_dot height: size width: size {
+<span class="hljs-class">grid <span class="hljs-title">cells_dot</span> <span class="hljs-title">height</span>: <span class="hljs-title">size</span> <span class="hljs-title">width</span>: <span class="hljs-title">size</span> </span>{
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is linked to the value of "phero".</span>
@@ -53,7 +53,7 @@ grid cells_dot height: size width: size {
     <span class="hljs-literal">float</span> grid_value update: phero * 100;
 } 
 
-grid cells_convol height: size width: size {
+<span class="hljs-class">grid <span class="hljs-title">cells_convol</span> <span class="hljs-title">height</span>: <span class="hljs-title">size</span> <span class="hljs-title">width</span>: <span class="hljs-title">size</span> </span>{
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is linked to the value of "phero".</span>
@@ -63,15 +63,15 @@ grid cells_convol height: size width: size {
 } 
 
 
-<span class="hljs-builtin">experiment</span> diffusion type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">diffusion</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display dot type: opengl {
+        <span class="hljs-class">display <span class="hljs-title">dot</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
             <span class="hljs-comment">// Display the grid with elevation</span>
-            grid cells_dot elevation: true triangulation: true;
+            <span class="hljs-class">grid <span class="hljs-title">cells_dot</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
-        display convol type: opengl {
+        <span class="hljs-class">display <span class="hljs-title">convol</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
             <span class="hljs-comment">// Display the grid with elevation</span>
-            grid cells_convol elevation: true triangulation: true;
+            <span class="hljs-class">grid <span class="hljs-title">cells_convol</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
     }
 }
@@ -90,8 +90,8 @@ grid cells_convol height: size width: size {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

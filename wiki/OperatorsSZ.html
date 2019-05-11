@@ -90,14 +90,14 @@
 <h2><a class="anchor" aria-hidden="true" id="using-actions-as-operators"></a><a href="#using-actions-as-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using actions as operators</h2>
 <p>Actions defined in species can be used as operators, provided they are called on the correct agent. The syntax is that of normal functional operators, but the agent that will perform the action must be added as the first operand.</p>
 <p>For instance, if the following species is defined:</p>
-<pre><code class="hljs"><span class="hljs-literal">species</span> spec1 {
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">spec1</span> </span>{
         <span class="hljs-literal">int</span> min(<span class="hljs-literal">int</span> x, <span class="hljs-literal">int</span> y) {
                 return x &gt; y ? x : y;
         }
 }
 </code></pre>
 <p>Any agent instance of spec1 can use <code>min</code> as an operator (if the action conflicts with an existing operator, a warning will be emitted). For instance, in the same model, the following line is perfectly acceptable:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
         init {
                 create spec1;
                 spec1 my_agent &lt;- spec1[0];
@@ -744,7 +744,7 @@ change the agentCause value of the given emotion</p>
 <h4><a class="anchor" aria-hidden="true" id="result-28"></a><a href="#result-28" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Result:</h4>
 <p>Returns true if the current_date of the model is after (or equal to) the date passed in argument. Synonym of 'current_date &gt;= argument'. Can be used, like 'after', in its composed form with 2 arguments to express the lowest boundary of the computation of a frequency. However, contrary to 'after', there is a subtle difference: the lowest boundary will be tested against the frequency as well</p>
 <h4><a class="anchor" aria-hidden="true" id="examples-25"></a><a href="#examples-25" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples:</h4>
-<pre><code class="hljs"><span class="hljs-builtin">reflex</span> when: since(starting_date) {}    <span class="hljs-comment">// this reflex will always be run every(2#days) since (starting_date + 1#day) // the computation will return true 1 day after the starting date and every two days after this reference date </span>
+<pre><code class="hljs"><span class="hljs-class">reflex <span class="hljs-title">when</span>: <span class="hljs-title">since</span>(<span class="hljs-title">starting_date</span>) </span>{}    <span class="hljs-comment">// this reflex will always be run every(2#days) since (starting_date + 1#day) // the computation will return true 1 day after the starting date and every two days after this reference date </span>
 
 </code></pre>
 <hr>
@@ -926,10 +926,10 @@ unknown var1 &lt;- graphEpidemio source_of(edge(3)); <span class="hljs-comment">
 </ul>
 <h4><a class="anchor" aria-hidden="true" id="examples-33"></a><a href="#examples-33" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples:</h4>
 <pre><code class="hljs"> 
-<span class="hljs-literal">species</span> var0 &lt;- <span class="hljs-literal">species</span>(self); <span class="hljs-comment">// var0 equals the species of the current agent </span>
-<span class="hljs-literal">species</span> var1 &lt;- <span class="hljs-literal">species</span>('node'); <span class="hljs-comment">// var1 equals node </span>
-<span class="hljs-literal">species</span> var2 &lt;- <span class="hljs-literal">species</span>([1,5,9,3]); <span class="hljs-comment">// var2 equals nil </span>
-<span class="hljs-literal">species</span> var3 &lt;- <span class="hljs-literal">species</span>(node1); <span class="hljs-comment">// var3 equals node</span>
+<span class="hljs-class">species <span class="hljs-title">var0</span> &lt;- <span class="hljs-title">species</span>(<span class="hljs-title">self</span>); // <span class="hljs-title">var0</span> <span class="hljs-title">equals</span> <span class="hljs-title">the</span> <span class="hljs-title">species</span> <span class="hljs-title">of</span> <span class="hljs-title">the</span> <span class="hljs-title">current</span> <span class="hljs-title">agent</span> </span>
+<span class="hljs-class">species <span class="hljs-title">var1</span> &lt;- <span class="hljs-title">species</span>('<span class="hljs-title">node</span>'); // <span class="hljs-title">var1</span> <span class="hljs-title">equals</span> <span class="hljs-title">node</span> </span>
+<span class="hljs-class">species <span class="hljs-title">var2</span> &lt;- <span class="hljs-title">species</span>([1,5,9,3]); // <span class="hljs-title">var2</span> <span class="hljs-title">equals</span> <span class="hljs-title">nil</span> </span>
+<span class="hljs-class">species <span class="hljs-title">var3</span> &lt;- <span class="hljs-title">species</span>(<span class="hljs-title">node1</span>); // <span class="hljs-title">var3</span> <span class="hljs-title">equals</span> <span class="hljs-title">node</span></span>
 
 </code></pre>
 <hr>
@@ -1902,7 +1902,7 @@ A list of geometries (triangles) corresponding to the Delaunay triangulation of 
 <h4><a class="anchor" aria-hidden="true" id="result-85"></a><a href="#result-85" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Result:</h4>
 <p>Returns true if the current_date of the model is before (or equel to) the date passed in argument. Synonym of 'current_date &lt;= argument'</p>
 <h4><a class="anchor" aria-hidden="true" id="examples-74"></a><a href="#examples-74" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples:</h4>
-<pre><code class="hljs"><span class="hljs-builtin">reflex</span> when: until(starting_date) {}    <span class="hljs-comment">// This reflex will be run only once at the beginning of the simulation </span>
+<pre><code class="hljs"><span class="hljs-class">reflex <span class="hljs-title">when</span>: <span class="hljs-title">until</span>(<span class="hljs-title">starting_date</span>) </span>{}    <span class="hljs-comment">// This reflex will be run only once at the beginning of the simulation </span>
 
 </code></pre>
 <hr>
@@ -2348,8 +2348,8 @@ Rounds off the value of left-hand operand to the precision given by the value of
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -11,14 +11,14 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> prey_predator
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> nb_preys_init &lt;- 200;
     init {
         create prey number: nb_preys_init ;
     }
 }
 
-<span class="hljs-literal">species</span> prey {
+<span class="hljs-class">species <span class="hljs-title">prey</span> </span>{
     <span class="hljs-literal">float</span> size &lt;- 1.0 ;
     <span class="hljs-literal">rgb</span> color &lt;- #blue;
         
@@ -27,11 +27,11 @@ global {
     }
 } 
 
-<span class="hljs-builtin">experiment</span> prey_predator type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">prey_predator</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Initial number of preys: "</span> var: nb_preys_init min: 1 max: 1000 category: <span class="hljs-string">"Prey"</span> ;
     output {
-        display main_display {
-            <span class="hljs-literal">species</span> prey aspect: base ;
+        <span class="hljs-class">display <span class="hljs-title">main_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">prey</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
         }
     }
 }
@@ -52,8 +52,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

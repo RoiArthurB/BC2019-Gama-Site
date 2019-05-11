@@ -10,7 +10,7 @@ Click to grab an group of agents, click again to drop them. Press the keys &quot
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> MovingAgents
 
-global
+<span class="hljs-class">global</span>
 {
     <span class="hljs-literal">list</span>&lt;being&gt; moved_agents ;
     <span class="hljs-literal">geometry</span> shape &lt;- square(1000);
@@ -86,12 +86,12 @@ global
 
 }
 
-<span class="hljs-literal">species</span> being skills: [<span class="hljs-builtin">moving</span>]
+<span class="hljs-class">species <span class="hljs-title">being</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>
 {
     <span class="hljs-literal">geometry</span> shape &lt;- square(10);
     <span class="hljs-literal">point</span> difference &lt;- { 0, 0 };
     <span class="hljs-literal">rgb</span> color &lt;- # burlywood;
-    <span class="hljs-builtin">reflex</span> r
+    <span class="hljs-class">reflex <span class="hljs-title">r</span></span>
     {
         <span class="hljs-keyword">if</span> (!(moved_agents contains self))
         {
@@ -107,12 +107,12 @@ global
 
 }
 
-<span class="hljs-builtin">experiment</span> <span class="hljs-string">"Click and Move"</span> type: gui
+<span class="hljs-class">experiment "<span class="hljs-title">Click</span> <span class="hljs-title">and</span> <span class="hljs-title">Move</span>" <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     font regular &lt;- font(<span class="hljs-string">"Helvetica"</span>, 14, # bold);
     output
     {
-        display <span class="hljs-string">"Click and Move [OPENGL]"</span> type: opengl
+        <span class="hljs-class">display "<span class="hljs-title">Click</span> <span class="hljs-title">and</span> <span class="hljs-title">Move</span> [<span class="hljs-title">OPENGL</span>]" <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>
         {
             graphics <span class="hljs-string">"Empty target"</span> 
             {
@@ -123,7 +123,7 @@ global
 
             }
 
-            <span class="hljs-literal">species</span> being;
+            <span class="hljs-class">species <span class="hljs-title">being</span>;</span>
             event mouse_move action: move;
             event mouse_up action: click;
             event 'k' action: kill;
@@ -145,7 +145,7 @@ global
 
         }
         
-        display <span class="hljs-string">"Click and Move [JAVA2D]"</span> type: java2D
+        <span class="hljs-class">display "<span class="hljs-title">Click</span> <span class="hljs-title">and</span> <span class="hljs-title">Move</span> [<span class="hljs-title">JAVA2D</span>]" <span class="hljs-title">type</span>: <span class="hljs-title">java2D</span></span>
         {
             graphics <span class="hljs-string">"Empty target"</span> 
             {
@@ -156,7 +156,7 @@ global
 
             }
 
-            <span class="hljs-literal">species</span> being;
+            <span class="hljs-class">species <span class="hljs-title">being</span>;</span>
             event mouse_move action: move;
             event mouse_up action: click;
             event 'k' action: kill;
@@ -198,8 +198,8 @@ global
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -9,10 +9,10 @@
 <li>The inputs will be composed of parameters manipulated by the user for each simulation.</li>
 <li>The outputs will be composed of displays, monitors or output files. They will be define inside the scope <code>output</code>.</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> exp_name type: gui {
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">exp_name</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
    [input]
    output {
-     [display statements]
+     [<span class="hljs-class">display <span class="hljs-title">statements</span>]</span>
      [monitor statements]
      [<span class="hljs-literal">file</span> statements]
    }
@@ -24,7 +24,7 @@
 <li><strong><code>batch</code></strong> experiments are used to play an experiment several times (usually with other input values), used for model exploration. We will come back to this notion a bit further in the tutorial.</li>
 </ul>
 <p>Inside experiment scope, you can access to some built-ins which can be useful, such as <code>minimum_cycle_duration</code>, to force the duration of one cycle.</p>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> my_experiment type: gui {
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     <span class="hljs-literal">float</span> minimum_cycle_duration &lt;- 2.0#minute;
 }
 </code></pre>
@@ -44,8 +44,8 @@
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

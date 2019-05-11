@@ -11,7 +11,7 @@
 
 <span class="hljs-builtin">model</span> contour_lines_import
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//the contour lines shapefile</span>
     <span class="hljs-literal">file</span> shape_file_cl &lt;- <span class="hljs-literal">file</span>('../includes/contourLines.shp') ;
     
@@ -38,24 +38,24 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> contour_line {
+<span class="hljs-class">species <span class="hljs-title">contour_line</span> </span>{
     <span class="hljs-literal">float</span> elevation;
     aspect default {
         draw shape + 5.0 color: #red depth: 10 at: {location.x,location.y, elevation}; 
     }
 }
-<span class="hljs-literal">species</span> triangle_ag {
+<span class="hljs-class">species <span class="hljs-title">triangle_ag</span> </span>{
     aspect default {
         draw shape color: #grey ; 
     }
 }
 
 
-<span class="hljs-builtin">experiment</span> contour_lines_import type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">contour_lines_import</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> type: opengl {
-            <span class="hljs-literal">species</span> triangle_ag refresh: false;
-            <span class="hljs-literal">species</span> contour_line refresh: false;
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">triangle_ag</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">contour_line</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
         }
     }
 }
@@ -74,8 +74,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

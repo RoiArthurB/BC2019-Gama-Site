@@ -84,12 +84,12 @@ In the global section we define the new variable</p>
 <h3><a class="anchor" aria-hidden="true" id="moving3d-skills"></a><a href="#moving3d-skills" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Moving3D skills</h3>
 <p>In the previous example, we only created <strong>cells</strong> agent that did not have any behavior. In this step we want to make move the <strong>cells</strong> agent. To do so we add a <strong>moving3D</strong> skills to the cells.</p>
 <p>More information on built-in skills proposed by Gama can be found <a href="BuiltInSkills">here</a></p>
-<pre><code class="hljs"><span class="hljs-literal">species</span> cells skills:[<span class="hljs-builtin">moving3D</span>]{
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">cells</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving3D</span>]</span>{
 ...     
 }
 </code></pre>
 <p>Then we define a new reflex for the species <strong>cells</strong> that consists in calling the action <em>move</em> bundled in <strong>moving3D</strong> skills.</p>
-<pre><code class="hljs"><span class="hljs-builtin">reflex</span> move{
+<pre><code class="hljs"><span class="hljs-class">reflex <span class="hljs-title">move</span></span>{
   do move;
 }                       
 </code></pre>
@@ -106,11 +106,11 @@ In the global section we define the new variable</p>
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="output"></a><a href="#output" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Output</h4>
 <pre><code class="hljs">output {
-  display View1 type:opengl{
+  <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span></span>{
     graphics <span class="hljs-string">"env"</span>{
       draw cube(environmentSize) color: #black empty:true;  
     }
-    <span class="hljs-literal">species</span> cells;  
+    <span class="hljs-class">species <span class="hljs-title">cells</span>;  </span>
   }
 }
 </code></pre>
@@ -118,7 +118,7 @@ In the global section we define the new variable</p>
 <p>The GIT version of the model can be found here [Model 02.gaml](<a href="https://github.com/gama-platform/gama/tree/master/msi.gama.models/models/Tutorials/3D/models/Model">https://github.com/gama-platform/gama/tree/master/msi.gama.models/models/Tutorials/3D/models/Model</a> 02.gaml)</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> Tuto3D   
 
-global {
+<span class="hljs-class">global </span>{
   <span class="hljs-literal">int</span> nb_cells &lt;-100;
   <span class="hljs-literal">int</span> environmentSize &lt;-100;
   <span class="hljs-literal">geometry</span> shape &lt;- cube(environmentSize);  
@@ -129,9 +129,9 @@ global {
   }  
 } 
   
-<span class="hljs-literal">species</span> cells skills:[<span class="hljs-builtin">moving3D</span>]{  
+<span class="hljs-class">species <span class="hljs-title">cells</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving3D</span>]</span>{  
     
-  <span class="hljs-builtin">reflex</span> move{
+  <span class="hljs-class">reflex <span class="hljs-title">move</span></span>{
     do move;
   }                     
   aspect default {
@@ -139,14 +139,14 @@ global {
   }
 }
 
-<span class="hljs-builtin">experiment</span> Tuto3D  type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Tuto3D</span>  <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
   parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span> ;
   output {
-    display View1 type:opengl{
+    <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span></span>{
       graphics <span class="hljs-string">"env"</span>{
         draw cube(environmentSize) color: #black empty:true;    
       }
-      <span class="hljs-literal">species</span> cells;
+      <span class="hljs-class">species <span class="hljs-title">cells</span>;</span>
     }
   }
 }
@@ -167,8 +167,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

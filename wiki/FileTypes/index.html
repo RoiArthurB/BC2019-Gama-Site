@@ -59,7 +59,7 @@
 </code></pre>
 <p>However, internally, GAMA makes the difference between the different types of files.
 Indeed, for instance:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/data.csv"</span>);
         loop el over: my_file {
@@ -88,7 +88,7 @@ Iris-setosa
 </code></pre>
 <p>Indeed, the content of CSV file is a matrix: each row of the matrix is a line of the file; each column of the matrix is value delimited by the separator (by default &quot;,&quot;).</p>
 <p>In contrary:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/data.shp"</span>);
         loop el over: my_file {
@@ -196,7 +196,7 @@ Polygon
 <h3><a class="anchor" aria-hidden="true" id="content"></a><a href="#content" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a text file is a list of string corresponding to each line of the text file.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- text_file(<span class="hljs-string">"../includes/data.txt"</span>);
         loop el over: my_file {
@@ -226,7 +226,7 @@ For example:</p>
 <h3><a class="anchor" aria-hidden="true" id="content-1"></a><a href="#content-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a csv file is a matrix of string: each row of the matrix is a line of the file; each column of the matrix is value delimited by the separator (by default &quot;,&quot;).
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- csv_file(<span class="hljs-string">"../includes/data.csv"</span>);
         loop el over: my_file {
@@ -296,7 +296,7 @@ Iris-setosa
 <h3><a class="anchor" aria-hidden="true" id="content-2"></a><a href="#content-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a shapefile is a list of geometries corresponding to the objects of the shapefile.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- shape_file(<span class="hljs-string">"../includes/data.shp"</span>);
         loop el over: my_file {
@@ -350,7 +350,7 @@ loop el over: my_file {
 <h3><a class="anchor" aria-hidden="true" id="content-3"></a><a href="#content-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a OSM data is a list of geometries corresponding to the objects of the OSM file.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- osm_file(<span class="hljs-string">"../includes/data.gz"</span>);
         loop el over: my_file {
@@ -400,7 +400,7 @@ Polygon
 <p>Esri ASCII Grid files are classic text raster GIS data.</p>
 <p>More details about Esri ASCII grid file can be found <a href="http://en.wikipedia.org/wiki/Esri_grid">here</a>.</p>
 <p>Note that grid files can be used to initialize a grid species. The number of rows and columns will be read from the file. Similarly, the values of each cell contained in the grid file will be accessible through the <strong>grid_value</strong> attribute.</p>
-<pre><code class="hljs">grid cell <span class="hljs-literal">file</span>: grid_file {
+<pre><code class="hljs"><span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">file</span>: <span class="hljs-title">grid_file</span> </span>{
 }
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="extensions-4"></a><a href="#extensions-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extensions</h3>
@@ -411,7 +411,7 @@ Polygon
 <h3><a class="anchor" aria-hidden="true" id="content-4"></a><a href="#content-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a grid file is a list of geometries corresponding to the cells of the grid.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- grid_file(<span class="hljs-string">"../includes/data.asc"</span>);
         loop el over: my_file {
@@ -466,7 +466,7 @@ loop el over: my_file {
 <h3><a class="anchor" aria-hidden="true" id="content-5"></a><a href="#content-5" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of an image file is a matrix of int: each pixel is a value in the matrix.</p>
 <p>For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- image_file(<span class="hljs-string">"../includes/DEM.png"</span>);
         loop el over: my_file {
@@ -506,7 +506,7 @@ loop el over: my_file {
 <h3><a class="anchor" aria-hidden="true" id="content-6"></a><a href="#content-6" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a SVG file is a list of geometries.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- svg_file(<span class="hljs-string">"../includes/data.svg"</span>);
         loop el over: my_file {
@@ -538,7 +538,7 @@ For example:</p>
 <h3><a class="anchor" aria-hidden="true" id="content-7"></a><a href="#content-7" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a property file is a map of string corresponding to the content of the file.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- property_file(<span class="hljs-string">"../includes/data.properties"</span>);
         loop el over: my_file {
@@ -583,7 +583,7 @@ Iris-setosa
 <h3><a class="anchor" aria-hidden="true" id="content-8"></a><a href="#content-8" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a R file corresponds to the results of the application of the script contained in the file.</p>
 <p>For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- R_file(<span class="hljs-string">"../includes/data.r"</span>);
         loop el over: my_file {
@@ -613,7 +613,7 @@ Iris-setosa
 <h3><a class="anchor" aria-hidden="true" id="content-9"></a><a href="#content-9" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a 3DS file is a list of geometries.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- threeds_file(<span class="hljs-string">"../includes/data.3ds"</span>);
         loop el over: my_file {
@@ -642,7 +642,7 @@ For example:</p>
 <h3><a class="anchor" aria-hidden="true" id="content-10"></a><a href="#content-10" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content</h3>
 <p>The content of a OBJ file is a list of geometries.
 For example:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">file</span> my_file &lt;- obj_file(<span class="hljs-string">"../includes/data.obj"</span>);
         loop el over: my_file {
@@ -674,8 +674,8 @@ For example:</p>
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

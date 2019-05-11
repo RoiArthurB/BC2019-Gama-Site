@@ -12,7 +12,7 @@
 
 
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> environment_size &lt;- 500; 
  
      
@@ -53,21 +53,21 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to compute the forces at each step</span>
-    <span class="hljs-builtin">reflex</span> computeForces  {
+    <span class="hljs-class">reflex <span class="hljs-title">computeForces</span>  </span>{
       ask world2 {do compute_forces step: 1;}
     }           
 } 
 
 
-<span class="hljs-literal">species</span> physic_world parent: physical_world ;
+<span class="hljs-class">species <span class="hljs-title">physic_world</span> <span class="hljs-title">parent</span>: <span class="hljs-title">physical_world</span> ;</span>
 
-<span class="hljs-literal">species</span> ground skills: [<span class="hljs-builtin">physics</span>]{       
+<span class="hljs-class">species <span class="hljs-title">ground</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>]</span>{       
     aspect image{
         draw imageRaster size: environment_size;
     }
 }
  
-<span class="hljs-literal">species</span> ball skills: [<span class="hljs-builtin">physics</span>] {  
+<span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>] </span>{  
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span> (217,229,143); 
     <span class="hljs-literal">float</span> radius;
 
@@ -75,15 +75,15 @@ global {
         draw sphere(radius) color: color ;
     }   
 }
-<span class="hljs-builtin">experiment</span> Falling_Hello_world type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Falling_Hello_world</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     init{
         minimum_cycle_duration &lt;-0.001;
     }
     
     output {        
-        display Rain  type: opengl background:<span class="hljs-literal">rgb</span>(0,58,64) draw_env:false{
-            <span class="hljs-literal">species</span> ground aspect:image;
-            <span class="hljs-literal">species</span> ball aspect:sphere;         
+        <span class="hljs-class">display <span class="hljs-title">Rain</span>  <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">background</span>:<span class="hljs-title">rgb</span>(0,58,64) <span class="hljs-title">draw_env</span>:<span class="hljs-title">false</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">ground</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">image</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">sphere</span>;         </span>
         }
     }
 }
@@ -103,8 +103,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

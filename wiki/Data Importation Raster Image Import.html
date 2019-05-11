@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> HowToImportRaster
 
-global {    
+<span class="hljs-class">global </span>{    
     <span class="hljs-comment">// Constants </span>
     <span class="hljs-literal">int</span> heightImg const: true &lt;- 5587;
     <span class="hljs-literal">int</span> widthImg const: true &lt;- 6201;    
@@ -41,7 +41,7 @@ global {
 <span class="hljs-comment">// the shuffle operator is used to randomized the list of cells</span>
 
 
-<span class="hljs-literal">species</span> izard { 
+<span class="hljs-class">species <span class="hljs-title">izard</span> </span>{ 
     init{
         location &lt;- (shuffle(cell) first_with ((each.color != #white) and (empty(izard inside each)))).location ;
     }       
@@ -58,11 +58,11 @@ global {
 <span class="hljs-comment">// - in the creation of a matrix: ([...] as_matrix {widthImg/factorDiscret,heightImg/factorDiscret} ;)</span>
 <span class="hljs-comment">// - in the creation of the grid: grid cellule width: widthImg/factorDiscret height: heightImg/factorDiscret;</span>
 
-grid cell  width: widthImg/factorDiscret height: heightImg/factorDiscret;
+<span class="hljs-class">grid <span class="hljs-title">cell</span>  <span class="hljs-title">width</span>: <span class="hljs-title">widthImg</span>/<span class="hljs-title">factorDiscret</span> <span class="hljs-title">height</span>: <span class="hljs-title">heightImg</span>/<span class="hljs-title">factorDiscret</span>;</span>
 
 
 
-<span class="hljs-builtin">experiment</span> main type: gui { 
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{ 
     <span class="hljs-comment">// We display:</span>
     <span class="hljs-comment">// - the grid</span>
     <span class="hljs-comment">// - the original MNT image as background</span>
@@ -70,10 +70,10 @@ grid cell  width: widthImg/factorDiscret height: heightImg/factorDiscret;
     <span class="hljs-comment">// We can thus compare the original MNT image and the discretized image in the grid.</span>
     <span class="hljs-comment">// For cosmetic need, we can choose to not display the grid. </span>
     output {
-        display HowToImportRaster {
-           grid cell;
+        <span class="hljs-class">display <span class="hljs-title">HowToImportRaster</span> </span>{
+           <span class="hljs-class">grid <span class="hljs-title">cell</span>;</span>
            image 'Background' <span class="hljs-literal">file</span>: mntImageRaster.<span class="hljs-literal">path</span>;
-           <span class="hljs-literal">species</span> izard aspect: image; 
+           <span class="hljs-class">species <span class="hljs-title">izard</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">image</span>; </span>
         }   
     }   
 }
@@ -92,8 +92,8 @@ grid cell  width: widthImg/factorDiscret height: heightImg/factorDiscret;
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

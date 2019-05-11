@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> Tuto3D
 
-global {
+<span class="hljs-class">global </span>{
   <span class="hljs-literal">int</span> nb_cells &lt;-100;
   <span class="hljs-literal">int</span> environmentSize &lt;-100;
   <span class="hljs-literal">geometry</span> shape &lt;- cube(environmentSize);  
@@ -21,16 +21,16 @@ global {
   }  
 } 
     
-<span class="hljs-literal">species</span> cells skills: [<span class="hljs-builtin">moving3D</span>] {  
+<span class="hljs-class">species <span class="hljs-title">cells</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving3D</span>] </span>{  
     <span class="hljs-literal">rgb</span> color;
     <span class="hljs-literal">list</span>&lt;cells&gt; neighbors;
     <span class="hljs-literal">int</span> offset;
     
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
       do wander;    
     }   
     
-    <span class="hljs-builtin">reflex</span> computeNeighbors {
+    <span class="hljs-class">reflex <span class="hljs-title">computeNeighbors</span> </span>{
       neighbors &lt;- cells select ((each distance_to self) &lt; 10);
     }
         
@@ -43,14 +43,14 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> Tuto3D  type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Tuto3D</span>  <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
   parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span> ;
   output {
-    display View1 type:opengl background:<span class="hljs-literal">rgb</span>(10,40,55){
+    <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> <span class="hljs-title">background</span>:<span class="hljs-title">rgb</span>(10,40,55)</span>{
       graphics <span class="hljs-string">"env"</span>{
         draw cube(environmentSize) color: #black empty:true;    
       }
-      <span class="hljs-literal">species</span> cells;
+      <span class="hljs-class">species <span class="hljs-title">cells</span>;</span>
     }
   }  
 }
@@ -71,8 +71,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

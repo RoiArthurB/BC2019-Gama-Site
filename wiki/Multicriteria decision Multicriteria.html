@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> multicriteria
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">float</span> weight_standing &lt;- 1.0;
     <span class="hljs-literal">float</span> weight_price &lt;- 1.0;
     <span class="hljs-literal">float</span> weight_distance &lt;- 1.0;
@@ -73,7 +73,7 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> reset_selected {
+    <span class="hljs-class">reflex <span class="hljs-title">reset_selected</span> </span>{
         ask house {
             is_selected_WM &lt;- false;
             is_selected_electre &lt;- false;
@@ -89,12 +89,12 @@ global {
 }
     
 
-<span class="hljs-literal">species</span> people  {
+<span class="hljs-class">species <span class="hljs-title">people</span>  </span>{
     aspect default {
         draw sphere(2) color: °red;
     }
     
-    <span class="hljs-builtin">reflex</span> choose_house_weighted_means {
+    <span class="hljs-class">reflex <span class="hljs-title">choose_house_weighted_means</span> </span>{
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; cands &lt;- houses_eval();
         <span class="hljs-literal">int</span> choice &lt;- weighted_means_DM(cands, criteria_WM);
         <span class="hljs-keyword">if</span> (choice &gt;= 0) {
@@ -102,21 +102,21 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> choose_house_promethee {
+    <span class="hljs-class">reflex <span class="hljs-title">choose_house_promethee</span> </span>{
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; cands &lt;- houses_eval();
         <span class="hljs-literal">int</span> choice &lt;- promethee_DM(cands, criteria_Promethee);
         <span class="hljs-keyword">if</span> (choice &gt;= 0) {
             ask (house at choice) {is_selected_promethee &lt;- true;}
         }
     }
-    <span class="hljs-builtin">reflex</span> choose_house_electre {
+    <span class="hljs-class">reflex <span class="hljs-title">choose_house_electre</span> </span>{
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; cands &lt;- houses_eval();
         <span class="hljs-literal">int</span> choice &lt;- electre_DM(cands, criteria_Electre, 0.7);
         <span class="hljs-keyword">if</span> (choice &gt;= 0) {
             ask (house at choice) {is_selected_electre &lt;- true;}
         }
     }
-    <span class="hljs-builtin">reflex</span> choose_house_evidence_theory {
+    <span class="hljs-class">reflex <span class="hljs-title">choose_house_evidence_theory</span> </span>{
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; cands &lt;- houses_eval();
         <span class="hljs-literal">int</span> choice &lt;- evidence_theory_DM(cands, criteria_ET, true);
         <span class="hljs-keyword">if</span> (choice &gt;= 0) {
@@ -139,7 +139,7 @@ global {
     
 }
 
-<span class="hljs-literal">species</span> house {
+<span class="hljs-class">species <span class="hljs-title">house</span> </span>{
     <span class="hljs-literal">bool</span> is_selected_WM &lt;- false;
     <span class="hljs-literal">bool</span> is_selected_electre &lt;- false;
     <span class="hljs-literal">bool</span> is_selected_promethee &lt;- false;
@@ -176,7 +176,7 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> multicriteria type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">multicriteria</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"weight of the standing criterion"</span> var:weight_standing category: <span class="hljs-string">"Weight"</span>;
     parameter <span class="hljs-string">"weight of the price criterion"</span> var:weight_price category: <span class="hljs-string">"Weight"</span>;
     parameter <span class="hljs-string">"weight of the distance criterion"</span> var:weight_distance category: <span class="hljs-string">"Weight"</span>;
@@ -222,21 +222,21 @@ global {
     parameter <span class="hljs-string">"max rejection of the distance criterion"</span> var:v2c_distance category: <span class="hljs-string">"Evidence Theory"</span>;
     parameter <span class="hljs-string">"max rejection of the area criterion"</span> var:v2c_area category: <span class="hljs-string">"Evidence Theory"</span>;
     output {
-        display Map_Weighted_Means type: opengl{
-            <span class="hljs-literal">species</span> house aspect: weighted_means;
-            <span class="hljs-literal">species</span> people;
+        <span class="hljs-class">display <span class="hljs-title">Map_Weighted_Means</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">house</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">weighted_means</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
         }
-        display Map_Electre type: opengl{
-            <span class="hljs-literal">species</span> house aspect: electre_means;
-            <span class="hljs-literal">species</span> people;
+        <span class="hljs-class">display <span class="hljs-title">Map_Electre</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">house</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">electre_means</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
         }
-        display Map_Promethee type: opengl{
-            <span class="hljs-literal">species</span> house aspect: promethee_means;
-            <span class="hljs-literal">species</span> people;
+        <span class="hljs-class">display <span class="hljs-title">Map_Promethee</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">house</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">promethee_means</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
         }
-        display Map_Evidence_theory type: opengl{
-            <span class="hljs-literal">species</span> house aspect: evidence_theory_means;
-            <span class="hljs-literal">species</span> people;
+        <span class="hljs-class">display <span class="hljs-title">Map_Evidence_theory</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">house</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">evidence_theory_means</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
         }
     }
 }
@@ -255,8 +255,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

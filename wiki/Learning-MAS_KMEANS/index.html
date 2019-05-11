@@ -9,7 +9,7 @@
 <pre><code class="hljs"><span class="hljs-builtin">model</span> MASKMEANS
 
 
-global
+<span class="hljs-class">global</span>
 {
 <span class="hljs-comment">// the number of classes to create (kmeans)</span>
 <span class="hljs-comment">// It corresponds to the centroids</span>
@@ -63,7 +63,7 @@ global
 
     }
 
-    <span class="hljs-builtin">reflex</span> assign_points_to_centroid when: even(cycle)
+    <span class="hljs-class">reflex <span class="hljs-title">assign_points_to_centroid</span> <span class="hljs-title">when</span>: <span class="hljs-title">even</span>(<span class="hljs-title">cycle</span>)</span>
     {
     <span class="hljs-comment">// The "assignment" step is also referred to as expectation step,</span>
         ask centroids
@@ -84,7 +84,7 @@ global
 
     }
 
-    <span class="hljs-builtin">reflex</span> update_centroids when: not even(cycle)
+    <span class="hljs-class">reflex <span class="hljs-title">update_centroids</span> <span class="hljs-title">when</span>: <span class="hljs-title">not</span> <span class="hljs-title">even</span>(<span class="hljs-title">cycle</span>)</span>
     {
     <span class="hljs-comment">// the "update step" as maximization step,</span>
     <span class="hljs-comment">// making this algorithm a variant of the generalized expectation-maximization algorithm.</span>
@@ -100,7 +100,7 @@ global
 
 }
 
-<span class="hljs-literal">species</span> datapoints
+<span class="hljs-class">species <span class="hljs-title">datapoints</span></span>
 {
     <span class="hljs-literal">rgb</span> color_kmeans &lt;- # grey;
     centroids mycenter;
@@ -116,7 +116,7 @@ global
 
 }
 
-<span class="hljs-literal">species</span> centroids
+<span class="hljs-class">species <span class="hljs-title">centroids</span></span>
 {
     <span class="hljs-literal">rgb</span> color_kmeans &lt;- # grey;
     <span class="hljs-literal">list</span>&lt;datapoints&gt; mypoints;
@@ -140,7 +140,7 @@ global
 
 }
 
-<span class="hljs-builtin">experiment</span> clustering2D type: gui
+<span class="hljs-class">experiment <span class="hljs-title">clustering2D</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     parameter <span class="hljs-string">"Number of clusters to split the data into"</span> var: k category: <span class="hljs-string">"KMEANS"</span>;
     parameter <span class="hljs-string">"Number of points to be clustered"</span> var: N init: 100;
@@ -150,10 +150,10 @@ global
     <span class="hljs-literal">point</span> target &lt;- { 20, 95 };
     output
     {
-        display map_kmeans
+        <span class="hljs-class">display <span class="hljs-title">map_kmeans</span></span>
         {
-            <span class="hljs-literal">species</span> datapoints aspect: kmeans_aspect2D;
-            <span class="hljs-literal">species</span> centroids aspect: kmeans_aspect2D;
+            <span class="hljs-class">species <span class="hljs-title">datapoints</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">kmeans_aspect2D</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">centroids</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">kmeans_aspect2D</span>;</span>
             graphics <span class="hljs-string">"Full target"</span>
             {
                 draw rectangle(100, 4) color: # yellow at: target + { 30, 0 };
@@ -173,7 +173,7 @@ global
     }
 }
 
-<span class="hljs-builtin">experiment</span> clustering3D type: gui
+<span class="hljs-class">experiment <span class="hljs-title">clustering3D</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     parameter <span class="hljs-string">"Number of clusters to split the data into"</span> var: k category: <span class="hljs-string">"KMEANS"</span>;
     parameter <span class="hljs-string">"Number of points to be clustered"</span> var: N init: 100;
@@ -185,10 +185,10 @@ global
     }
     output
     {
-        display map_kmeans type: opengl
+        <span class="hljs-class">display <span class="hljs-title">map_kmeans</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>
         {
-            <span class="hljs-literal">species</span> datapoints aspect: kmeans_aspect3D;
-            <span class="hljs-literal">species</span> centroids aspect: kmeans_aspect3D;
+            <span class="hljs-class">species <span class="hljs-title">datapoints</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">kmeans_aspect3D</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">centroids</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">kmeans_aspect3D</span>;</span>
         }
 
     }
@@ -210,8 +210,8 @@ global
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

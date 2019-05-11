@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> multigraph
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> shape_file_in &lt;- <span class="hljs-literal">file</span>('../includes/road.shp') ;
     <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>('../includes/bounds.shp') ;
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
@@ -44,7 +44,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-literal">point</span> location &lt;- any_location_in(one_of(road));
     people target_people &lt;- one_of(people);
     <span class="hljs-literal">point</span> target &lt;- target_people.location;
@@ -59,7 +59,7 @@ global {
     }
     
     <span class="hljs-comment">//the agent moves toward its target, when reaching it, it chooses another target as the location of one of the people agent</span>
-    <span class="hljs-builtin">reflex</span> movement {
+    <span class="hljs-class">reflex <span class="hljs-title">movement</span> </span>{
         <span class="hljs-keyword">if</span> (location distance_to target &lt; 5.0) {
             target_people &lt;- one_of(people);
             target &lt;- target_people.location;
@@ -72,26 +72,26 @@ global {
     }   
 }
     
-<span class="hljs-literal">species</span> friendship_link {
+<span class="hljs-class">species <span class="hljs-title">friendship_link</span> </span>{
     
     aspect default {
         draw shape color: #blue;
     }
 }
     
-<span class="hljs-literal">species</span> road  {
+<span class="hljs-class">species <span class="hljs-title">road</span>  </span>{
     aspect default {
         draw shape color:#black ;
     }
 } 
 
 
-<span class="hljs-builtin">experiment</span> multigraph type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">multigraph</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display friendship type: opengl{
-            <span class="hljs-literal">species</span> road ;
-            <span class="hljs-literal">species</span> friendship_link ;
-            <span class="hljs-literal">species</span> people;
+        <span class="hljs-class">display <span class="hljs-title">friendship</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">friendship_link</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
         }
     }
 }
@@ -110,8 +110,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

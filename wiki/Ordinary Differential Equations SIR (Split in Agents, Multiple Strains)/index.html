@@ -9,7 +9,7 @@
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains)/chart_1system_eq-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations SIR (Split in Agents, Multiple Strains)/chart_3system_eq-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs"><span class="hljs-builtin">model</span> SIR_split_in_agents_multiple_strains
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">// Parameters</span>
     <span class="hljs-literal">int</span> number_S &lt;- 495 ; <span class="hljs-comment">// The number of susceptible</span>
     <span class="hljs-literal">int</span> number_I &lt;- 5 ; <span class="hljs-comment">// The number of infected</span>
@@ -50,7 +50,7 @@ global {
 }
 
 
-<span class="hljs-literal">species</span> S_agt {
+<span class="hljs-class">species <span class="hljs-title">S_agt</span> </span>{
     <span class="hljs-literal">float</span> t;        
     <span class="hljs-literal">float</span> Ssize;
     
@@ -58,10 +58,10 @@ global {
         diff(self.Ssize, t) = (- sum(I_agt accumulate [each.beta * each.Isize]) * self.Ssize / N);
     }
 
-    <span class="hljs-builtin">reflex</span> solving {solve evol method: <span class="hljs-string">"rk4"</span> step: hKR4 ;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{solve evol method: <span class="hljs-string">"rk4"</span> step: hKR4 ;}
 }
 
-<span class="hljs-literal">species</span> I_agt {
+<span class="hljs-class">species <span class="hljs-title">I_agt</span> </span>{
     <span class="hljs-literal">float</span> t;        
     <span class="hljs-literal">float</span> Isize;
      
@@ -73,7 +73,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> R_agt {
+<span class="hljs-class">species <span class="hljs-title">R_agt</span> </span>{
     <span class="hljs-literal">float</span> t;        
     <span class="hljs-literal">float</span> Rsize;
 
@@ -82,7 +82,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> my_SIR_maths {
+<span class="hljs-class">species <span class="hljs-title">my_SIR_maths</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">float</span> Im;
     <span class="hljs-literal">float</span> Sm;
@@ -94,12 +94,12 @@ global {
         diff(self.Rm, t) = (_delta * Im);
     }
 
-    <span class="hljs-builtin">reflex</span> solving {solve SIR method: <span class="hljs-string">"rk4"</span> step: hKR4;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{solve SIR method: <span class="hljs-string">"rk4"</span> step: hKR4;}
 }
 
 
 
-<span class="hljs-builtin">experiment</span> Simulation type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Simulation</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Number of Susceptible' type: <span class="hljs-literal">int</span> var: number_S &lt;- 495 category: <span class="hljs-string">"Initial population"</span>; 
     parameter 'Number of Infected'    type: <span class="hljs-literal">int</span> var: number_I &lt;- 5   category: <span class="hljs-string">"Initial population"</span>;
     parameter 'Number of Removed'     type: <span class="hljs-literal">int</span> var: number_R &lt;- 0   category: <span class="hljs-string">"Initial population"</span>;
@@ -108,7 +108,7 @@ global {
     parameter 'Delta (I-&gt;R)' type: <span class="hljs-literal">float</span> var: _delta &lt;- 0.01 category: <span class="hljs-string">"Parameters"</span>;    
     
     output {
-        display chart_3system_eq {
+        <span class="hljs-class">display <span class="hljs-title">chart_3system_eq</span> </span>{
             chart 'Split system' type: series background: #lightgray {
                 data 'susceptible' value: first(S_agt).Ssize color: #green;
                 data 'infected0' value: first(I_agt).beta * first(I_agt).Isize color: #white;
@@ -119,7 +119,7 @@ global {
 
         }
 
-        display chart_1system_eq  {
+        <span class="hljs-class">display <span class="hljs-title">chart_1system_eq</span>  </span>{
             chart 'unified system' type: series background: #lightgray {
                 data 'susceptible_maths' value: first(my_SIR_maths).Sm color: #green;
                 data 'infected_maths' value: first(my_SIR_maths).Im color: #red;
@@ -145,8 +145,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

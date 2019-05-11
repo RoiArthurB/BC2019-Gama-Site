@@ -11,7 +11,7 @@
 <span class="hljs-builtin">model</span> RoadTrafficCity
  
    
-global {   
+<span class="hljs-class">global </span>{   
     
     <span class="hljs-comment">//Shapefiles for the buildings, the roads and the bounds of the environment</span>
     <span class="hljs-literal">file</span> shape_file_roads parameter: <span class="hljs-string">"Shapefile for the roads:"</span> category: <span class="hljs-string">"GIS"</span> &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/ManhattanRoads.shp"</span>) ;
@@ -63,7 +63,7 @@ global {
             living_space &lt;- 3.0;
             tolerance &lt;- 0.1;
             lanes_attribute &lt;- <span class="hljs-string">"nbLanes"</span>;
-            obstacle_species &lt;- [<span class="hljs-literal">species</span>(self)]; 
+            obstacle_<span class="hljs-class">species &lt;- [<span class="hljs-title">species</span>(<span class="hljs-title">self</span>)]; </span>
             speed &lt;- min_speed + rnd (max_speed - min_speed) ;
             start_work &lt;- min_work_start + rnd (max_work_start - min_work_start) ;
             end_work &lt;- min_work_end + rnd (max_work_end - min_work_end) ;
@@ -74,14 +74,14 @@ global {
     }
     
     <span class="hljs-comment">//Update of the graph every 10 Cycles to take into account the traffic jam of the road in the weights of the graph</span>
-    <span class="hljs-builtin">reflex</span> update_graph when:every(10){
+    <span class="hljs-class">reflex <span class="hljs-title">update_graph</span> <span class="hljs-title">when</span>:<span class="hljs-title">every</span>(10)</span>{
         <span class="hljs-literal">map</span>&lt;road,<span class="hljs-literal">float</span>&gt; weights_map &lt;- road as_map (each:: (each.shape.perimeter * each.coeff_traffic));
         the_graph &lt;- the_graph with_weights weights_map;
     }
     
 } 
     
-<span class="hljs-literal">species</span> road  { 
+<span class="hljs-class">species <span class="hljs-title">road</span>  </span>{ 
     <span class="hljs-literal">int</span> nbLanes;
     <span class="hljs-literal">int</span> indexDirection; 
     <span class="hljs-literal">bool</span> blocked &lt;- false;
@@ -125,14 +125,14 @@ global {
     }       
 }
     
-<span class="hljs-literal">species</span> building  { 
+<span class="hljs-class">species <span class="hljs-title">building</span>  </span>{ 
     <span class="hljs-literal">rgb</span> color &lt;- #gray;
     aspect base { 
         draw shape color: color ;
     }
 }
     
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">driving</span>]{ 
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">driving</span>]</span>{ 
     <span class="hljs-literal">float</span> speed; 
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>([rnd(255),rnd(255),rnd(255)]) ;
     <span class="hljs-literal">point</span> targetBis &lt;- nil ; 
@@ -147,7 +147,7 @@ global {
     <span class="hljs-literal">point</span> the_target &lt;- nil ;
         
     <span class="hljs-comment">//Reflex to make the agent move while it had a target and normalMove equals true</span>
-    <span class="hljs-builtin">reflex</span> move when: the_target != nil and normalMove{
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">the_target</span> != <span class="hljs-title">nil</span> <span class="hljs-title">and</span> <span class="hljs-title">normalMove</span></span>{
         previousLoc &lt;- copy(location);
         do goto_driving target: the_target on: the_graph speed: speed ; 
         switch location { 
@@ -163,7 +163,7 @@ global {
     }
         
     <span class="hljs-comment">//Reflex to make the agent move when it is not normal moving </span>
-    <span class="hljs-builtin">reflex</span> EvadeMove when: !(normalMove){
+    <span class="hljs-class">reflex <span class="hljs-title">EvadeMove</span> <span class="hljs-title">when</span>: !(<span class="hljs-title">normalMove</span>)</span>{
         previousLoc &lt;- copy(location);
         do goto_driving target: targetBis on: the_graph speed: speed ; 
         switch location { 
@@ -177,13 +177,13 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to make the agent go to its working place when it's time to go work</span>
-    <span class="hljs-builtin">reflex</span> time_to_work when: day_time = start_work {
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_work</span> <span class="hljs-title">when</span>: <span class="hljs-title">day_time</span> = <span class="hljs-title">start_work</span> </span>{
         objective &lt;- <span class="hljs-string">"working"</span> ;
         the_target &lt;- any_location_in (working_place);
     }
     
     <span class="hljs-comment">//Reflex to make the agent go to its living place when it's time to go home</span>
-    <span class="hljs-builtin">reflex</span> time_to_go_home when: day_time = end_work {
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_go_home</span> <span class="hljs-title">when</span>: <span class="hljs-title">day_time</span> = <span class="hljs-title">end_work</span> </span>{
         objective &lt;- <span class="hljs-string">"go home"</span> ;
         the_target &lt;- any_location_in (living_place); 
     }  
@@ -193,7 +193,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> traffic type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">traffic</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Shapefile for the buildings:"</span> var: shape_file_buildings category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
@@ -206,16 +206,16 @@ global {
     parameter <span class="hljs-string">"maximal speed"</span> var: max_speed category: <span class="hljs-string">"People"</span> ;
     
     output {
-        display city_display {
-            <span class="hljs-literal">species</span> road aspect: road_width ;
-            <span class="hljs-literal">species</span> building aspect: base;
-            <span class="hljs-literal">species</span> people aspect: base;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">road_width</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
-        display traffic_jam_display {
-            <span class="hljs-literal">species</span> road aspect: base ;
-            <span class="hljs-literal">species</span> road aspect: traffic_jam ;
+        <span class="hljs-class">display <span class="hljs-title">traffic_jam_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">traffic_jam</span> ;</span>
         }
-        display chart_display refresh: every(10) {
+        <span class="hljs-class">display <span class="hljs-title">chart_display</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">every</span>(10) </span>{
             chart <span class="hljs-string">"Traffic jam"</span> type: series size: {0.9, 0.4} position: {0.05, 0.05} {
                 data <span class="hljs-string">"Mean road traffic coefficient"</span> value: mean (road collect each.coeff_traffic) style: line color: #green ;
                 data <span class="hljs-string">"Max road traffic coefficient"</span> value: road max_of (each.coeff_traffic) style: line color: #red ;
@@ -246,8 +246,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

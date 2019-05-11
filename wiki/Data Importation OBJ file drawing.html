@@ -11,7 +11,7 @@
 
 <span class="hljs-builtin">model</span> obj_drawing   
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- square(40);
 
     init { 
@@ -19,11 +19,11 @@ global {
     }  
 } 
 
-<span class="hljs-literal">species</span> object skills: [<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(rnd(255),rnd(255),rnd(255));
     <span class="hljs-literal">int</span> size &lt;- rnd(10) + 1;
     <span class="hljs-literal">int</span> rot &lt;- 1000 + rnd(1000);
-    <span class="hljs-builtin">reflex</span> m when: every(100) {
+    <span class="hljs-class">reflex <span class="hljs-title">m</span> <span class="hljs-title">when</span>: <span class="hljs-title">every</span>(100) </span>{
         do wander amplitude: 30 speed: 0.001;
     }
     aspect obj {
@@ -31,10 +31,10 @@ global {
     }
 }   
 
-<span class="hljs-builtin">experiment</span> Display  type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Display</span>  <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display ComplexObject type: opengl background:°orange{
-            <span class="hljs-literal">species</span> object aspect:obj;              
+        <span class="hljs-class">display <span class="hljs-title">ComplexObject</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">background</span>:°<span class="hljs-title">orange</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">obj</span>;              </span>
         }
     }
 }
@@ -53,8 +53,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -9,7 +9,7 @@
 <p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/diff-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/LV-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/SEIR-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/SI-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/SIR-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/SIRS-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p><p><img src="gm_wiki/resources/images/modelLibraryScreenshots/Additionnal Plugins/Ordinary Differential Equations/Ordinary Differential Equations Built-In Equations/SISs-10.png" alt="Eclipse folder." title class="img-responsive"> == $0</p>Code of the model : 
 <pre><code class="hljs"><span class="hljs-builtin">model</span> all_predefined_equations
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">float</span> mu &lt;- 0.02;
     <span class="hljs-literal">float</span> alpha &lt;- 35.842;
     <span class="hljs-literal">float</span> gamma &lt;- 100.0;
@@ -39,7 +39,7 @@ global {
 }
 
 
-<span class="hljs-literal">species</span> preSI {
+<span class="hljs-class">species <span class="hljs-title">preSI</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -55,7 +55,7 @@ global {
         //solve eqSI method:rk4 step:h;
     }*/</span>
     
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         <span class="hljs-literal">list</span> i_list;
         <span class="hljs-literal">list</span> v_list ;
         solve eqSI method: <span class="hljs-string">"rk4"</span> step: h ;<span class="hljs-comment">//cycle_length: 1/h integrated_times: i_list integrated_values: v_list;</span>
@@ -64,7 +64,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> userSI {
+<span class="hljs-class">species <span class="hljs-title">userSI</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -76,12 +76,12 @@ global {
         diff(S,t) = -beta * S * I / N ;
         diff(I,t) = beta * S * I / N ;
     }       
-    <span class="hljs-builtin">reflex</span> solving{solve eqSI method:rk4 step:h;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span></span>{solve eqSI method:rk4 step:h;}
     
 }
 
 
-<span class="hljs-literal">species</span> preSIS {
+<span class="hljs-class">species <span class="hljs-title">preSIS</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -92,12 +92,12 @@ global {
 
     <span class="hljs-comment">// must be followed with exact order S, I, t  and N,beta</span>
     equation eqSIS type: SIS vars: [S,I,t] params: [N,beta,gamma] ;
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqSIS method:rk4 step:h;
     }
 }
 
-<span class="hljs-literal">species</span> userSIS {
+<span class="hljs-class">species <span class="hljs-title">userSIS</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -110,13 +110,13 @@ global {
         diff(S,t) = -beta * S * I / N + gamma * I;
         diff(I,t) = beta * S * I / N - gamma * I;
     }       
-    <span class="hljs-builtin">reflex</span> solving {    
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{    
         solve eqSIS method:rk4 step:h;
     }
 }
 
 
-<span class="hljs-literal">species</span> preSIR {
+<span class="hljs-class">species <span class="hljs-title">preSIR</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -128,12 +128,12 @@ global {
 
     <span class="hljs-comment">// must be followed with exact order S, I, R, t  and N,beta,delta</span>
     equation eqSIR type:SIR vars:[S,I,R,t] params:[N,beta,gamma] ;
-    <span class="hljs-builtin">reflex</span> solving {    
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{    
         solve eqSIR method:rk4 step:h;
     }
 }
 
-<span class="hljs-literal">species</span> userSIR{
+<span class="hljs-class">species <span class="hljs-title">userSIR</span></span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -148,13 +148,13 @@ global {
         diff(I,t) = (beta * S * I / N) - (gamma * I);
         diff(R,t) = (gamma * I);
     }       
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqSIR method:rk4 step:h;
     }
 }
 
 
-<span class="hljs-literal">species</span> preSIRS {
+<span class="hljs-class">species <span class="hljs-title">preSIRS</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -168,12 +168,12 @@ global {
 
     <span class="hljs-comment">// must be followed with exact order S, I, R, t  and N,beta,delta</span>
     equation eqSIRS type: SIRS vars: [S,I,R,t] params: [N,beta,gamma,omega,mu] ;
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqSIRS method:rk4 step:h;
     }
 }
 
-<span class="hljs-literal">species</span> userSIRS {
+<span class="hljs-class">species <span class="hljs-title">userSIRS</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> I ; 
@@ -190,13 +190,13 @@ global {
          diff(I,t) = beta * S * I / N - gamma * I - mu * I ;
          diff(R,t) = gamma * I - omega * R - mu * R ;
     }       
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqSIRS method:rk4 step:h;
     }
 }
 
 
-<span class="hljs-literal">species</span> preSEIR {
+<span class="hljs-class">species <span class="hljs-title">preSEIR</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> S &lt;- N - I;       
@@ -211,12 +211,12 @@ global {
 
     <span class="hljs-comment">// must be followed with exact order S, E, I, R, t  and N,beta,gamma,sigma,mu</span>
     equation eqSEIR type: SEIR vars: [S,E,I,R,t] params: [N,beta,gamma,sigma,mu] ;
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqSEIR method:rk4 step:h;
     }
 }
 
-<span class="hljs-literal">species</span> userSEIR {
+<span class="hljs-class">species <span class="hljs-title">userSEIR</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">int</span> N;
     <span class="hljs-literal">float</span> S &lt;- N - I;       
@@ -235,13 +235,13 @@ global {
         diff(I,t) = sigma * E - mu * I - gamma * I;
         diff(R,t) = gamma * I - mu * R ;
     }       
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
     solve eqSEIR method:rk4 step:h;
     }
 }
 
 
-<span class="hljs-literal">species</span> preLV {
+<span class="hljs-class">species <span class="hljs-title">preLV</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">float</span> x ; 
     <span class="hljs-literal">float</span> y ; 
@@ -253,12 +253,12 @@ global {
 
     <span class="hljs-comment">// must be followed with exact order x, y, t  and  alpha,beta,delta,gamma</span>
     equation eqLV type: LV vars: [x,y,t] params: [alpha,beta,delta,gamma] ;
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqLV method:rk4 step:h;
     }
 }
 
-<span class="hljs-literal">species</span> userLV {
+<span class="hljs-class">species <span class="hljs-title">userLV</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">float</span> x ; 
     <span class="hljs-literal">float</span> y ; 
@@ -272,16 +272,16 @@ global {
         diff(x,t) =   x * (alpha - beta * y);
         diff(y,t) = - y * (delta - gamma * x);
     }       
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve eqLV method:rk4 step:h;
     }
 }
 
 
 
-<span class="hljs-builtin">experiment</span> examples type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">examples</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {        
-        display SI  {
+        <span class="hljs-class">display <span class="hljs-title">SI</span>  </span>{
             chart 'examplePreSI' type: series background: #lightgray position: {0,0} size:{1,0.5} {
                 data <span class="hljs-string">"S"</span> value: first(preSI).S color: #green;
                 data <span class="hljs-string">"I"</span> value: first(preSI).I color: #red;
@@ -292,7 +292,7 @@ global {
             }
         }
 
-        display SISs  {
+        <span class="hljs-class">display <span class="hljs-title">SISs</span>  </span>{
             chart 'examplePreSIS' type: series background: #lightgray position: {0,0} size:{1,0.5} {
                 data <span class="hljs-string">"S"</span> value: first(preSIS).S color: #green;
                 data <span class="hljs-string">"I"</span> value: first(preSIS).I color: #red;
@@ -303,7 +303,7 @@ global {
             }           
         }
         
-        display SIR  {
+        <span class="hljs-class">display <span class="hljs-title">SIR</span>  </span>{
             chart 'examplePreSIR' type: series background: #lightgray position: {0,0} size:{1,0.5} {
                 data <span class="hljs-string">"S"</span> value: first(preSIR).S color: #green;
                 data <span class="hljs-string">"I"</span> value: first(preSIR).I color: #red;
@@ -316,7 +316,7 @@ global {
             }           
         }
 
-        display SIRS  {
+        <span class="hljs-class">display <span class="hljs-title">SIRS</span>  </span>{
             chart 'examplePreSIRS' type: series background: #lightgray position: {0,0} size:{1,0.5} {
                 data <span class="hljs-string">"S"</span> value: first(preSIRS).S color: #green;
                 data <span class="hljs-string">"I"</span> value: first(preSIRS).I color: #red;
@@ -329,7 +329,7 @@ global {
             }           
         }
 
-        display SEIR  {
+        <span class="hljs-class">display <span class="hljs-title">SEIR</span>  </span>{
             chart 'examplePreSEIR' type: series background: #lightgray position: {0,0} size:{1,0.5} {
                 data <span class="hljs-string">"S"</span> value: first(preSEIR).S color: #green;
                 data <span class="hljs-string">"E"</span> value: first(preSEIR).E color: #yellow;
@@ -344,7 +344,7 @@ global {
             }
         }
 
-        display LV  {
+        <span class="hljs-class">display <span class="hljs-title">LV</span>  </span>{
             chart 'examplePreLV' type: series background: #lightgray position: {0,0} size:{1,0.5} {
                 data <span class="hljs-string">"x"</span> value: first(preLV).x color: #yellow;
                 data <span class="hljs-string">"y"</span> value: first(preLV).y color: #blue;
@@ -357,9 +357,9 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> diff_predefined_defined_by_user type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">diff_predefined_defined_by_user</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display diff  {
+        <span class="hljs-class">display <span class="hljs-title">diff</span>  </span>{
             chart 'diffSI' type: series background: #lightgray  position: {0,0} size:{0.5, 0.33} {
                 data <span class="hljs-string">"dS"</span> value: (first(userSI).S - first(preSI).S) color: #yellow;
                 data <span class="hljs-string">"dI"</span> value: (first(userSI).I - first(preSI).I) color: #blue;
@@ -407,8 +407,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

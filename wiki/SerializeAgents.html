@@ -14,18 +14,18 @@
 <li>to allow any agent to be serialized</li>
 </ul>
 <p>Example of use of the two operators:</p>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> toto {
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">toto</span> </span>{
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; history &lt;- [];
 
-    <span class="hljs-builtin">reflex</span> store when: (cycle &lt; 6){
+    <span class="hljs-class">reflex <span class="hljs-title">store</span> <span class="hljs-title">when</span>: (<span class="hljs-title">cycle</span> &lt; 6)</span>{
         add serializeSimulation(cycle) to: history;
     }
     
-    <span class="hljs-builtin">reflex</span> restore when: (cycle = 6){
+    <span class="hljs-class">reflex <span class="hljs-title">restore</span> <span class="hljs-title">when</span>: (<span class="hljs-title">cycle</span> = 6)</span>{
         <span class="hljs-literal">int</span> i &lt;- unSerializeSimulation(<span class="hljs-literal">string</span>(history[0]));
     } 
     
-    <span class="hljs-builtin">reflex</span> store22 when: cycle=2{
+    <span class="hljs-class">reflex <span class="hljs-title">store22</span> <span class="hljs-title">when</span>: <span class="hljs-title">cycle</span>=2</span>{
         write <span class="hljs-string">"Sauvegarde de la simulation "</span> + saveSimulation(<span class="hljs-string">"file.xml"</span>);
     }
 }
@@ -60,8 +60,8 @@
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

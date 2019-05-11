@@ -11,7 +11,7 @@ After the Initiator agent reads the 'accept_proposal' message, the conversation 
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> fipa_propose_1
 
-global {
+<span class="hljs-class">global </span>{
     Participant p;
     
     init {
@@ -24,13 +24,13 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> Initiator skills: [<span class="hljs-builtin">fipa</span>] {
-    <span class="hljs-builtin">reflex</span> send_propose_message when: (time = 1) {
+<span class="hljs-class">species <span class="hljs-title">Initiator</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">fipa</span>] </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">send_propose_message</span> <span class="hljs-title">when</span>: (<span class="hljs-title">time</span> = 1) </span>{
         write name + ' sends a propose message';
         do start_conversation ( to : [p], protocol : '<span class="hljs-builtin">fipa</span>-propose', performative : 'propose', contents : ['Go swimming?'] );
     }
     
-    <span class="hljs-builtin">reflex</span> read_accept_proposals when: !(empty(accept_proposals)) {
+    <span class="hljs-class">reflex <span class="hljs-title">read_accept_proposals</span> <span class="hljs-title">when</span>: !(<span class="hljs-title">empty</span>(<span class="hljs-title">accept_proposals</span>)) </span>{
         write name + ' receives accept_proposal messages';
         loop i over: accept_proposals {
             write 'accept_proposal message with content: ' + (<span class="hljs-literal">string</span>(i.contents));
@@ -39,15 +39,15 @@ global {
     
 }
 
-<span class="hljs-literal">species</span> Participant skills: [<span class="hljs-builtin">fipa</span>] {
-    <span class="hljs-builtin">reflex</span> accept_proposal when: !(empty(proposes)) {
+<span class="hljs-class">species <span class="hljs-title">Participant</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">fipa</span>] </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">accept_proposal</span> <span class="hljs-title">when</span>: !(<span class="hljs-title">empty</span>(<span class="hljs-title">proposes</span>)) </span>{
         message proposalFromInitiator &lt;- proposes at 0;
         
         do accept_proposal ( message : proposalFromInitiator, contents : ['OK! It \'s hot today!'] );
     }
 }
 
-<span class="hljs-builtin">experiment</span> test_propose_interaction_protocol type: gui {}
+<span class="hljs-class">experiment <span class="hljs-title">test_propose_interaction_protocol</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{}
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/BC2019-Gama-Site/" class="nav-home"><img src="/BC2019-Gama-Site//img/gama-logo.png" alt="GAMA-Platform" width="66" height="58"/></a><div><h5>Networks</h5><a href="https://www.youtube.com/channel/UCWJ1kWGDDI-9u2f2uD0gcaQ" target="_blank"><i class="fab fa-youtube"></i> Youtube</a><a href="https://www.linkedin.com/company/gama-platform" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://twitter.com/gamaplatform" target="_blank"><i class="fab fa-twitter"></i> Twitter</a><a href="https://www.facebook.com/GamaPlatform/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></div><div><h5>Mailing list</h5><a href="https://groups.google.com/forum/#!forum/gama-platform" target="_blank"><i class="fas fa-envelope"></i> For Users<br/>gama-platform@googlegroups.com</a><a href="https://groups.google.com/forum/#!forum/gama-dev" target="_blank"><i class="fas fa-envelope"></i> For Developers<br/>gama-dev@googlegroups.com</a></div><div><h5>Ecosystem</h5><a href="https://github.com/gama-platform/gama"><i class="fab fa-github"></i> GitHub Gama</a><a href="https://github.com/gama-platform/gama.experimental"><i class="fas fa-puzzle-piece"></i> Gama Experimental Plugins</a><a href="https://github.com/gama-platform/gama.models.experimental"><i class="fas fa-scroll"></i> Gama Experimental Models</a></div></section><section class="copyright">Copyright © 2019 GAMA-Platform</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
@@ -63,8 +63,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

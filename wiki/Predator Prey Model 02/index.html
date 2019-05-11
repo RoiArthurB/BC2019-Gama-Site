@@ -9,14 +9,14 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> prey_predator
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> nb_preys_init &lt;- 200;
     init {
         create prey number: nb_preys_init ;
     }
 }
 
-<span class="hljs-literal">species</span> prey {
+<span class="hljs-class">species <span class="hljs-title">prey</span> </span>{
     <span class="hljs-literal">float</span> size &lt;- 1.0 ;
     <span class="hljs-literal">rgb</span> color &lt;- #blue;
     vegetation_cell myCell &lt;- one_of (vegetation_cell) ;
@@ -30,19 +30,19 @@ global {
     }
 }
 
-grid vegetation_cell width: 50 height: 50 neighbors: 4 {
+<span class="hljs-class">grid <span class="hljs-title">vegetation_cell</span> <span class="hljs-title">width</span>: 50 <span class="hljs-title">height</span>: 50 <span class="hljs-title">neighbors</span>: 4 </span>{
     <span class="hljs-literal">float</span> maxFood &lt;- 1.0 ;
     <span class="hljs-literal">float</span> foodProd &lt;- (rnd(1000) / 1000) * 0.01 ;
     <span class="hljs-literal">float</span> food &lt;- (rnd(1000) / 1000) max: maxFood update: food + foodProd ;
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(<span class="hljs-literal">int</span>(255 * (1 - food)), 255, <span class="hljs-literal">int</span>(255 * (1 - food))) update: <span class="hljs-literal">rgb</span>(<span class="hljs-literal">int</span>(255 * (1 - food)), 255, <span class="hljs-literal">int</span>(255 *(1 - food))) ;
 }
 
-<span class="hljs-builtin">experiment</span> prey_predator type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">prey_predator</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Initial number of preys: "</span> var: nb_preys_init min: 1 max: 1000 category: <span class="hljs-string">"Prey"</span> ;
     output {
-        display main_display {
-            grid vegetation_cell lines: #black ;
-            <span class="hljs-literal">species</span> prey aspect: base ;
+        <span class="hljs-class">display <span class="hljs-title">main_display</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">vegetation_cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">prey</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
         }
     }
 }
@@ -63,8 +63,8 @@ grid vegetation_cell width: 50 height: 50 neighbors: 4 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

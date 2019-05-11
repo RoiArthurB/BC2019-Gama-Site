@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> model6 
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Shapefile of roads</span>
     <span class="hljs-literal">file</span> roads_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
     <span class="hljs-comment">//Shapefile of buildings</span>
@@ -39,12 +39,12 @@ global {
 }
 
 <span class="hljs-comment">//Species people that can be infected and will move from a location to a target</span>
-<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{     
     <span class="hljs-literal">float</span> speed &lt;- 5.0 + rnd(5);
     <span class="hljs-literal">bool</span> is_infected &lt;- flip(0.01);
     <span class="hljs-literal">point</span> target;
     <span class="hljs-comment">//Reflex to make the agent move from its location to its target on the graph</span>
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         do goto target:target on: road_network;
         <span class="hljs-comment">//Change the target once it has been reached</span>
         <span class="hljs-keyword">if</span> (location = target) {
@@ -52,7 +52,7 @@ global {
         }
     }
     <span class="hljs-comment">//Reflex to know if a non-infected agent is infected by the agents nearby</span>
-    <span class="hljs-builtin">reflex</span> infect when: is_infected{
+    <span class="hljs-class">reflex <span class="hljs-title">infect</span> <span class="hljs-title">when</span>: <span class="hljs-title">is_infected</span></span>{
         ask people at_distance 10 {
             <span class="hljs-keyword">if</span> flip(0.01) {
                 is_infected &lt;- true;
@@ -64,7 +64,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> roads {
+<span class="hljs-class">species <span class="hljs-title">roads</span> </span>{
     aspect geom {
         draw shape color: #black;
     }
@@ -73,7 +73,7 @@ global {
 <span class="hljs-comment">//Species buildings that will change the people agents inside it to people in building agent</span>
 <span class="hljs-comment">//Managing them once they have been captured, and releasing them once they reached a</span>
 <span class="hljs-comment">//leaving time</span>
-<span class="hljs-literal">species</span> buildings {
+<span class="hljs-class">species <span class="hljs-title">buildings</span> </span>{
     <span class="hljs-literal">float</span> height &lt;- 10.0+ rnd(10);
     <span class="hljs-comment">//Variable to know the number of people infected inside the buildings</span>
     <span class="hljs-literal">int</span> nb_I -&gt; {members count (people_in_building(each).is_infected)};
@@ -95,13 +95,13 @@ global {
         draw shape color: empty(members) ? #gray : (nb_I/length(members) &gt; 0.5 ? #red : #green) depth: height;
     }
     <span class="hljs-comment">//Species people in building that will be managed by the building agents</span>
-    <span class="hljs-literal">species</span> people_in_building parent: people schedules: [] {
+    <span class="hljs-class">species <span class="hljs-title">people_in_building</span> <span class="hljs-title">parent</span>: <span class="hljs-title">people</span> <span class="hljs-title">schedules</span>: [] </span>{
         <span class="hljs-literal">int</span> leaving_time;
         aspect circle{}
     }
     <span class="hljs-comment">//Reflex to capture the people entering inside the building, changing them in people in building species and puting a leaving time to know when lettiing</span>
     <span class="hljs-comment">// them out</span>
-    <span class="hljs-builtin">reflex</span> let_people_enter {
+    <span class="hljs-class">reflex <span class="hljs-title">let_people_enter</span> </span>{
         <span class="hljs-literal">list</span>&lt;people&gt; entering_people &lt;- (people inside self);
         <span class="hljs-keyword">if</span> !(empty (entering_people)) {
             capture entering_people as: people_in_building returns: people_captured;
@@ -111,7 +111,7 @@ global {
         }
     }
     <span class="hljs-comment">//Reflex to let the people_in_building agents go out if there leaving time is reached, releasing them in the world as people agent</span>
-    <span class="hljs-builtin">reflex</span> let_people_leave  {
+    <span class="hljs-class">reflex <span class="hljs-title">let_people_leave</span>  </span>{
         <span class="hljs-literal">list</span>&lt;people_in_building&gt; leaving_people &lt;- <span class="hljs-literal">list</span>&lt;people_in_building&gt;(members) where (time &gt;= each.leaving_time);
         <span class="hljs-keyword">if</span> !(empty (leaving_people)) {
             release leaving_people as: people in: world;
@@ -123,7 +123,7 @@ global {
         diff(I,t) = (  beta * S * I / nbInhabitants) ;
     }
     <span class="hljs-comment">//Make the computation of the ODE System only when they are people inside</span>
-    <span class="hljs-builtin">reflex</span> epidemic when:(S&gt;0 and I&gt;0){     
+    <span class="hljs-class">reflex <span class="hljs-title">epidemic</span> <span class="hljs-title">when</span>:(<span class="hljs-title">S</span>&gt;0 <span class="hljs-title">and</span> <span class="hljs-title">I</span>&gt;0)</span>{     
         <span class="hljs-literal">float</span> I0 &lt;- I;
         solve SIR method: <span class="hljs-string">"rk4"</span> step: h ;
         I_to_1 &lt;- I_to_1 + (I - I0);
@@ -136,12 +136,12 @@ global {
     }    
 }
 
-<span class="hljs-builtin">experiment</span> main_experiment type:gui{
+<span class="hljs-class">experiment <span class="hljs-title">main_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span></span>{
     output {
-        display <span class="hljs-literal">map</span> type: opengl {
-            <span class="hljs-literal">species</span> roads aspect:geom;
-            <span class="hljs-literal">species</span> buildings aspect:geom;
-            <span class="hljs-literal">species</span> people aspect:circle;           
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">roads</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">geom</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">buildings</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">geom</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">circle</span>;           </span>
         }
     }
 }
@@ -160,8 +160,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

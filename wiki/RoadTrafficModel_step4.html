@@ -66,7 +66,7 @@
 <h2><a class="anchor" aria-hidden="true" id="model-definition"></a><a href="#model-definition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model Definition</h2>
 <h3><a class="anchor" aria-hidden="true" id="road-agent"></a><a href="#road-agent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>road agent</h3>
 <p>We add a <strong>destruction_coeff</strong> variable which initial value is randomly defined between 1 and 2 and which have a max of 2. The color of the agent will depend of this variable. In order to simplify the GAML code, we define a new variable  <strong>colorValue</strong> that represents the value of red color and that will be defined between 0 and 255.</p>
-<pre><code class="hljs">   <span class="hljs-literal">species</span> road  {
+<pre><code class="hljs">   <span class="hljs-class">species <span class="hljs-title">road</span>  </span>{
     <span class="hljs-literal">float</span> destruction_coeff &lt;- 1 + ((rnd(100))/ 100.0) max: 2.0;
     <span class="hljs-literal">int</span> colorValue &lt;- <span class="hljs-literal">int</span>(255*(destruction_coeff - 1)) update: <span class="hljs-literal">int</span>(255*(destruction_coeff - 1));
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(min([255, colorValue]),max ([0, 255 - colorValue]),0)  update: <span class="hljs-literal">rgb</span>(min([255, colorValue]),max ([0, 255 - colorValue]),0) ;
@@ -87,7 +87,7 @@
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> tutorial_gis_city_traffic
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> shape_file_buildings &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
     <span class="hljs-literal">file</span> shape_file_roads &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/road.shp"</span>);
     <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/bounds.shp"</span>);
@@ -128,7 +128,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> building {
+<span class="hljs-class">species <span class="hljs-title">building</span> </span>{
     <span class="hljs-literal">string</span> type; 
     <span class="hljs-literal">rgb</span> color &lt;- #gray  ;
     
@@ -137,7 +137,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> road  {
+<span class="hljs-class">species <span class="hljs-title">road</span>  </span>{
     <span class="hljs-literal">float</span> destruction_coeff &lt;- 1 + ((rnd(100))/ 100.0) max: 2.0;
     <span class="hljs-literal">int</span> colorValue &lt;- <span class="hljs-literal">int</span>(255*(destruction_coeff - 1)) update: <span class="hljs-literal">int</span>(255*(destruction_coeff - 1));
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(min([255, colorValue]),max ([0, 255 - colorValue]),0)  update: <span class="hljs-literal">rgb</span>(min([255, colorValue]),max ([0, 255 - colorValue]),0) ;
@@ -147,7 +147,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">rgb</span> color &lt;- #yellow ;
     building living_place &lt;- nil ;
     building working_place &lt;- nil ;
@@ -156,17 +156,17 @@ global {
     <span class="hljs-literal">string</span> objective ; 
     <span class="hljs-literal">point</span> the_target &lt;- nil ;
         
-    <span class="hljs-builtin">reflex</span> time_to_work when: current_hour = start_work and objective = <span class="hljs-string">"resting"</span>{
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_work</span> <span class="hljs-title">when</span>: <span class="hljs-title">current_hour</span> = <span class="hljs-title">start_work</span> <span class="hljs-title">and</span> <span class="hljs-title">objective</span> = "<span class="hljs-title">resting</span>"</span>{
         objective &lt;- <span class="hljs-string">"working"</span> ;
         the_target &lt;- any_location_in (working_place);
     }
         
-    <span class="hljs-builtin">reflex</span> time_to_go_home when: current_hour = end_work and objective = <span class="hljs-string">"working"</span>{
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_go_home</span> <span class="hljs-title">when</span>: <span class="hljs-title">current_hour</span> = <span class="hljs-title">end_work</span> <span class="hljs-title">and</span> <span class="hljs-title">objective</span> = "<span class="hljs-title">working</span>"</span>{
         objective &lt;- <span class="hljs-string">"resting"</span> ;
         the_target &lt;- any_location_in (living_place); 
     } 
      
-    <span class="hljs-builtin">reflex</span> move when: the_target != nil {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">the_target</span> != <span class="hljs-title">nil</span> </span>{
         do goto target: the_target on: the_graph ; 
         <span class="hljs-keyword">if</span> the_target = location {
             the_target &lt;- nil ;
@@ -178,7 +178,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> road_traffic type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">road_traffic</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Shapefile for the buildings:"</span> var: shape_file_buildings category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
@@ -191,10 +191,10 @@ global {
     parameter <span class="hljs-string">"maximal speed"</span> var: max_speed category: <span class="hljs-string">"People"</span> max: 10 #km/#h;
     
     output {
-        display city_display type:opengl {
-            <span class="hljs-literal">species</span> building aspect: base ;
-            <span class="hljs-literal">species</span> road aspect: base ;
-            <span class="hljs-literal">species</span> people aspect: base ;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
         }
     }
 }
@@ -213,8 +213,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

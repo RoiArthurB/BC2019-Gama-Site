@@ -10,14 +10,14 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> simple_ODE_SIR
 
-global {
+<span class="hljs-class">global </span>{
     init{
         create agent_with_SIR_dynamic number:1;
     }
 }
 
 
-<span class="hljs-literal">species</span> agent_with_SIR_dynamic {
+<span class="hljs-class">species <span class="hljs-title">agent_with_SIR_dynamic</span> </span>{
     <span class="hljs-literal">int</span> N &lt;- 1500 ;
     <span class="hljs-literal">int</span> iInit &lt;- 1;     
 
@@ -37,15 +37,15 @@ global {
         diff(R,t) = (alpha * I);
     }
                 
-    <span class="hljs-builtin">reflex</span> solving {
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{
         solve SIR method: <span class="hljs-string">"rk4"</span> step: h ;<span class="hljs-comment">//cycle_length: 1/h ;</span>
     }    
 }
 
 
-<span class="hljs-builtin">experiment</span> maths type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">maths</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output { 
-        display display_charts {
+        <span class="hljs-class">display <span class="hljs-title">display_charts</span> </span>{
             chart <span class="hljs-string">"SIR_agent"</span> type: series background: #white {
                 data 'S' value: first(<span class="hljs-literal">list</span>(agent_with_SIR_dynamic)).S color: #green ;               
                 data 'I' value: first(<span class="hljs-literal">list</span>(agent_with_SIR_dynamic)).I color: #red ;
@@ -69,8 +69,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -12,7 +12,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> Tuto3D
 
-global {
+<span class="hljs-class">global </span>{
   <span class="hljs-literal">int</span> nb_cells &lt;-100;   
   init { 
     create cells number: nb_cells { 
@@ -21,17 +21,17 @@ global {
   }  
 } 
   
-<span class="hljs-literal">species</span> cells{                      
+<span class="hljs-class">species <span class="hljs-title">cells</span></span>{                      
   aspect default {
     draw sphere(1) color:#blue;   
   }
 }
 
-<span class="hljs-builtin">experiment</span> Tuto3D  type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Tuto3D</span>  <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
   parameter <span class="hljs-string">"Initial number of cells: "</span> var: nb_cells min: 1 max: 1000 category: <span class="hljs-string">"Cells"</span> ;  
   output {
-    display View1 type:opengl {
-      <span class="hljs-literal">species</span> cells;
+    <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> </span>{
+      <span class="hljs-class">species <span class="hljs-title">cells</span>;</span>
     }
   }
 }
@@ -50,8 +50,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

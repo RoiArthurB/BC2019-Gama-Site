@@ -9,7 +9,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> ODE_LotkaVolterra_InfluenceTimeStep
 
-global {
+<span class="hljs-class">global </span>{
 
     <span class="hljs-literal">float</span> prey_birth_rate ;         <span class="hljs-comment">// natural birth rate of preys</span>
     <span class="hljs-literal">float</span> predation_rate ;          <span class="hljs-comment">// death rate of preys due to predators</span>
@@ -37,7 +37,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> LotkaVolterra_agent {
+<span class="hljs-class">species <span class="hljs-title">LotkaVolterra_agent</span> </span>{
     
     <span class="hljs-literal">float</span> nb_prey &lt;- nb_prey_init ;                 <span class="hljs-comment">// number of preys initialized with the values given by the user</span>
     <span class="hljs-literal">float</span> nb_predator &lt;- nb_predator_init ;         <span class="hljs-comment">// number of predators initialized with the values given by the user</span>
@@ -48,13 +48,13 @@ global {
         diff(nb_prey,t) =   nb_prey * (prey_birth_rate - predation_rate * nb_predator);                     <span class="hljs-comment">// evolution of the number of preys duting an integration time step</span>
         diff(nb_predator,t) = - nb_predator * (predator_death_rate - predation_efficiency * nb_prey);       <span class="hljs-comment">// evolution of the number of predator during an integration time step</span>
       }
-      <span class="hljs-builtin">reflex</span> solving {        
+      <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{        
         solve lotka_volterra method: <span class="hljs-string">"rk4"</span> step:integration_time_step;<span class="hljs-comment">// cycle_length:1/integration_time_step;          // use of runge kutta 4 method with an integration time step of value integration_time_step</span>
        }
 }
 
 
-<span class="hljs-builtin">experiment</span> maths type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">maths</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
         
     parameter <span class="hljs-string">"Prey birth rate"</span> var: prey_birth_rate &lt;- 0.05 min: 0.0 max: 1.0 category: <span class="hljs-string">"Prey"</span>;                        <span class="hljs-comment">// the user defines the value of parameter prey_birth_rate on the interface, the default value is 0.05 and this value must be between 0 and 1</span>
     parameter <span class="hljs-string">"Predation rate"</span> var: predation_rate &lt;- 0.001 min: 0.0 max: 1.0 category: <span class="hljs-string">"Prey"</span>;                         <span class="hljs-comment">// the user defines the value of parameter prey_birth_rate on the interface, the default value is 0.001 and this value must be between 0 and 1</span>
@@ -69,7 +69,7 @@ global {
     parameter <span class="hljs-string">"Integration time step of the third chart "</span> var:  integration_time_step3 &lt;- 0.01  min: 0.0 max: 1.0 category: <span class="hljs-string">"Integration time steps"</span>;   <span class="hljs-comment">// the user defines the value of the third integration step he wants to compare, the default value is 0.01 and this value must be between 0 and 1</span>
         
     output {        
-        display TimeSeries  {   <span class="hljs-comment">// creation of a display to show time series of the model, values are plotted at every step. Since there is more than one chart plotted in one display, every chart has a position and a size</span>
+        <span class="hljs-class">display <span class="hljs-title">TimeSeries</span>  </span>{   <span class="hljs-comment">// creation of a display to show time series of the model, values are plotted at every step. Since there is more than one chart plotted in one display, every chart has a position and a size</span>
             chart <span class="hljs-string">"Lotka Volterra Time Series - Integration time step = 1 "</span> type: series background: #white position: {0,0} size:{1,0.33} x_range: 1000 {       <span class="hljs-comment">// one chart, of type 'serie', is named Lotka Volterra Time Series - Integration time step = 1, it shows quantities according to time, and the background is white</span>
                 data 'Number of preys' value: first(LotkaVolterra_agent where (each.integration_time_step = 1.0)).nb_prey color: #green ;           <span class="hljs-comment">// number of preys in the case where the integration time step is 1 is plotted in green     </span>
                 data 'Number of predators' value: first(LotkaVolterra_agent where (each.integration_time_step = 1.0)).nb_predator color: #red ;     <span class="hljs-comment">// number of predators in the case where the integration time step is 1 is plotted in red   </span>
@@ -83,7 +83,7 @@ global {
                 data 'Number of predators' value: first(LotkaVolterra_agent where (each.integration_time_step = 0.01)).nb_predator color: #red ;
             }
         }
-        display PhasePortrait {         
+        <span class="hljs-class">display <span class="hljs-title">PhasePortrait</span> </span>{         
             chart <span class="hljs-string">"Lotka Volterra Phase Portrait - Integration time step = 1"</span> type: xy background: #white position: {0,0} size:{1,0.33} {       <span class="hljs-comment">// creation of a display to show phase portrait of the model, values are plotted at every step. Since there is more than one chart plotted in one display, every chart has a position and a size</span>
             data 'Number of preys according to number of predators' value:{LV_agents[0].nb_prey, LV_agents[0].nb_predator} color: #black ;  <span class="hljs-comment">// number of predators are plotted in black according to the number of preys in the case where the integration time step is 1       </span>
             }
@@ -111,8 +111,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> graphloadinglayout
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">graph</span> the_graph ;
     <span class="hljs-literal">string</span> barabasi_file &lt;- <span class="hljs-string">"../includes/ProteinSimple.dgs"</span>;
     <span class="hljs-literal">geometry</span> shape &lt;- rectangle(500,500);
@@ -24,30 +24,30 @@ global {
     }
     
     <span class="hljs-comment">//In case the layout type is forcedirected or random, the reflex will change at each step the layout of the graph</span>
-    <span class="hljs-builtin">reflex</span> layout_graph {
+    <span class="hljs-class">reflex <span class="hljs-title">layout_graph</span> </span>{
         the_graph &lt;- layout(the_graph, layout_type, layout_time);
     }
 }
 
-<span class="hljs-literal">species</span> edge_agent {
+<span class="hljs-class">species <span class="hljs-title">edge_agent</span> </span>{
     aspect default {    
         draw shape color: #black;
     }
 }
 
-<span class="hljs-literal">species</span> node_agent {
+<span class="hljs-class">species <span class="hljs-title">node_agent</span> </span>{
     aspect default {    
         draw circle(2) color: #red;
     }
 }
 
-<span class="hljs-builtin">experiment</span> loadgraph type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">loadgraph</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Layout type"</span> var: layout_type among: [ <span class="hljs-string">"forcedirected"</span>, <span class="hljs-string">"random"</span>, <span class="hljs-string">"radialtree"</span>, <span class="hljs-string">"circle"</span>];
     parameter <span class="hljs-string">"layout time"</span> var: layout_time min: 1 max: 100000;
     output {
-        display <span class="hljs-literal">map</span> type: opengl{
-            <span class="hljs-literal">species</span> edge_agent ;
-            <span class="hljs-literal">species</span> node_agent ;
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">edge_agent</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">node_agent</span> ;</span>
         }
     }
 }
@@ -66,8 +66,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -76,7 +76,7 @@ We define 4 new variables:</p>
 <li><strong>nb_people_not_infected</strong> (int): nb_people - nb of people infected</li>
 <li><strong>infected_rate</strong> (float): nb of people infected / nb of people</li>
 </ul>
-<pre><code class="hljs">global{
+<pre><code class="hljs"><span class="hljs-class">global</span>{
     ...
         <span class="hljs-literal">int</span> current_hour update: (cycle / 60) mod 24;
     <span class="hljs-literal">int</span> nb_people_infected &lt;- nb_infected_init update: people count (each.is_infected);
@@ -87,9 +87,9 @@ We define 4 new variables:</p>
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="stopping-condition"></a><a href="#stopping-condition" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>stopping condition</h3>
 <p>We add a new reflex that stops the simulation if the <strong>infected_rate</strong> is equal to 1. To stop the simulation, we apply the <strong>halt</strong> action.</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
    ...
-        <span class="hljs-builtin">reflex</span> end_simulation when: infected_rate = 1.0 {
+        <span class="hljs-class">reflex <span class="hljs-title">end_simulation</span> <span class="hljs-title">when</span>: <span class="hljs-title">infected_rate</span> = 1.0 </span>{
         do halt;
     }
 }
@@ -105,7 +105,7 @@ We define 4 new variables:</p>
 <li>refresh: bool, optional : if the expression is true, compute (default is true).</li>
 </ul>
 <p>In this model, we define 2 monitors to follow the value of the variable <strong>current_hour</strong> and <strong>infected_rate</strong>:</p>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> main_experiment type:gui{
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">main_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span></span>{
     ...
     output {
         monitor <span class="hljs-string">"Current hour"</span> value: current_hour;
@@ -140,11 +140,11 @@ Inside this display, we define a chart of type <em>series</em>:</p>
 <li>data2: infected; color : red</li>
 </ul></li>
 </ul>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> main_experiment type:gui{
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">main_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span></span>{
     ...
     output {
         ...
-        display chart refresh:every(10) {
+        <span class="hljs-class">display <span class="hljs-title">chart</span> <span class="hljs-title">refresh</span>:<span class="hljs-title">every</span>(10) </span>{
             chart <span class="hljs-string">"Disease spreading"</span> type: series {
                 data <span class="hljs-string">"susceptible"</span> value: nb_people_not_infected color: #green;
                 data <span class="hljs-string">"infected"</span> value: nb_people_infected color: #red;
@@ -156,7 +156,7 @@ Inside this display, we define a chart of type <em>series</em>:</p>
 <h2><a class="anchor" aria-hidden="true" id="complete-model"></a><a href="#complete-model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complete Model</h2>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> SI_city
 
-global{
+<span class="hljs-class">global</span>{
     <span class="hljs-literal">int</span> nb_people &lt;- 500;
     <span class="hljs-literal">float</span> step &lt;- 1 #minutes;
     <span class="hljs-literal">geometry</span> shape&lt;-envelope(square(500 #m));
@@ -176,17 +176,17 @@ global{
             is_infected &lt;- true;
         }
     }
-    <span class="hljs-builtin">reflex</span> end_simulation when: infected_rate = 1.0 {
+    <span class="hljs-class">reflex <span class="hljs-title">end_simulation</span> <span class="hljs-title">when</span>: <span class="hljs-title">infected_rate</span> = 1.0 </span>{
         do halt;
     }
 }
 
-<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{     
     <span class="hljs-literal">bool</span> is_infected &lt;- false;
-    <span class="hljs-builtin">reflex</span> move{
+    <span class="hljs-class">reflex <span class="hljs-title">move</span></span>{
         do wander;
     }
-    <span class="hljs-builtin">reflex</span> infect when: is_infected{
+    <span class="hljs-class">reflex <span class="hljs-title">infect</span> <span class="hljs-title">when</span>: <span class="hljs-title">is_infected</span></span>{
         ask people at_distance infection_distance {
             <span class="hljs-keyword">if</span> flip(proba_infection) {
                 is_infected &lt;- true;
@@ -198,17 +198,17 @@ global{
     }
 }
 
-<span class="hljs-builtin">experiment</span> main_experiment type:gui{
+<span class="hljs-class">experiment <span class="hljs-title">main_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span></span>{
     parameter <span class="hljs-string">"Infection distance"</span> var: infection_distance;
     parameter <span class="hljs-string">"Proba infection"</span> var: proba_infection min: 0.0 max: 1.0;
     parameter <span class="hljs-string">"Nb people infected at init"</span> var: nb_infected_init ;
     output {
         monitor <span class="hljs-string">"Current hour"</span> value: current_hour;
         monitor <span class="hljs-string">"Infected people rate"</span> value: infected_rate;
-        display <span class="hljs-literal">map</span> {
-            <span class="hljs-literal">species</span> people aspect:circle;           
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">circle</span>;           </span>
         }
-        display chart refresh:every(10) {
+        <span class="hljs-class">display <span class="hljs-title">chart</span> <span class="hljs-title">refresh</span>:<span class="hljs-title">every</span>(10) </span>{
             chart <span class="hljs-string">"Disease spreading"</span> type: series {
                 data <span class="hljs-string">"susceptible"</span> value: nb_people_not_infected color: #green;
                 data <span class="hljs-string">"infected"</span> value: nb_people_infected color: #red;
@@ -231,8 +231,8 @@ global{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

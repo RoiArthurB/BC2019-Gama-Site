@@ -433,7 +433,7 @@ path_between (a_graph, a_source, a_target) <span class="hljs-comment">// idem wi
 <li>It can be used as a casting operator (with the same capabilities as the built-in type agent)</li>
 </ul>
 <p>In the simple following example, we create a set of &quot;humans&quot; and initialize a random &quot;friendship network&quot; among them. See how the name of the species, human, is used in the create command, as an argument to the list casting operator, and as the type of the variable named friend.</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
          create human number: 10;
          ask human {
@@ -442,7 +442,7 @@ path_between (a_graph, a_source, a_target) <span class="hljs-comment">// idem wi
      }
 }
 entities {
-    <span class="hljs-literal">species</span> human {
+    <span class="hljs-class">species <span class="hljs-title">human</span> </span>{
         human friend &lt;- nil;
     }
 }
@@ -472,7 +472,7 @@ More complex topologies can also be built using dedicated operators, e.g. to dec
 <p><a href="#table-of-contents">Top of the page</a></p>
 <h2><a class="anchor" aria-hidden="true" id="defining-custom-types"></a><a href="#defining-custom-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining custom types</h2>
 <p>Sometimes, besides the species of agents that compose the model, it can be necessary to declare custom datatypes. Species serve this purpose as well, and can be seen as &quot;classes&quot; that can help to instantiate simple &quot;objects&quot;. In the following example, we declare a new kind of &quot;object&quot;, bottle, that lacks the skills habitually associated with agents (moving, visible, etc.), but can nevertheless group together attributes and behaviors within the same closure. The following example demonstrates how to create the species:</p>
-<pre><code class="hljs"><span class="hljs-literal">species</span> bottle {
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">bottle</span> </span>{
     <span class="hljs-literal">float</span> volume &lt;- 0.0 max:1 min:0.0;
     <span class="hljs-literal">bool</span> is_empty -&gt; {volume = 0.0};
     action fill {
@@ -486,7 +486,7 @@ More complex topologies can also be built using dedicated operators, e.g. to dec
 }
 </code></pre>
 <p>And how to use bottles as any other agent in a species (a drinker owns a bottle; when he gets thirsty, it drinks a random quantity from it; when it is empty, it refills it):</p>
-<pre><code class="hljs"><span class="hljs-literal">species</span> drinker {
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">drinker</span> </span>{
      ...
     bottle my_bottle&lt;- nil;
     <span class="hljs-literal">float</span> quantity &lt;- rnd (100) / 100;
@@ -506,13 +506,13 @@ More complex topologies can also be built using dedicated operators, e.g. to dec
           my_bottle &lt;- first(created_bottle);
     }
     ...
-    <span class="hljs-builtin">reflex</span> filling_bottle when: bottle.is_empty {
+    <span class="hljs-class">reflex <span class="hljs-title">filling_bottle</span> <span class="hljs-title">when</span>: <span class="hljs-title">bottle</span>.<span class="hljs-title">is_empty</span> </span>{
          ask  my_bottle {
               do fill;
          }
     }
     ...
-    <span class="hljs-builtin">reflex</span> drinking when: thirsty {
+    <span class="hljs-class">reflex <span class="hljs-title">drinking</span> <span class="hljs-title">when</span>: <span class="hljs-title">thirsty</span> </span>{
          do drink;
     }
 }
@@ -532,8 +532,8 @@ More complex topologies can also be built using dedicated operators, e.g. to dec
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

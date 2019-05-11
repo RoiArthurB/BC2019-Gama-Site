@@ -8,7 +8,7 @@
 <p>This model shows the movement of boids following a goal, and creating without their own volonty, a flock .  The goal agent and the boids will move within the 3D space.</p>
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> boids_3D 
-global torus: torus_environment{ 
+<span class="hljs-class">global <span class="hljs-title">torus</span>: <span class="hljs-title">torus_environment</span></span>{ 
     <span class="hljs-comment">//Number of boids to create</span>
     <span class="hljs-literal">int</span> number_of_agents parameter: 'Number of agents' &lt;- 100 min: 1 max: 1000000;
     <span class="hljs-comment">//Number of obstacles to create</span>
@@ -54,12 +54,12 @@ global torus: torus_environment{
 }
 
 <span class="hljs-comment">//Species boids_goal that will represent the goal agent, using the skill moving</span>
-<span class="hljs-literal">species</span> boids_goal skills: [<span class="hljs-builtin">moving3D</span>] {
+<span class="hljs-class">species <span class="hljs-title">boids_goal</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving3D</span>] </span>{
     <span class="hljs-literal">float</span> range init: 20.0;
     
     <span class="hljs-comment">//Reflex to make the goal agent wander in a certain amplitude and a certain speed, </span>
     <span class="hljs-comment">//Respecting the minimal and maximal z values</span>
-    <span class="hljs-builtin">reflex</span> wander { 
+    <span class="hljs-class">reflex <span class="hljs-title">wander</span> </span>{ 
         do  wander amplitude: 45 speed: 20; 
         <span class="hljs-keyword">if</span> (location.z) &lt; 0 {
             location &lt;- {location.x,location.y,0};
@@ -75,7 +75,7 @@ global torus: torus_environment{
 } 
 
 <span class="hljs-comment">//Species boids that will represent the boids agents, using the skill moving</span>
-<span class="hljs-literal">species</span> boids skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">boids</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">//Attribute for the speed of the boids</span>
     <span class="hljs-literal">float</span> speed max: maximal_speed &lt;- maximal_speed;
     <span class="hljs-comment">//Range of sensing of the boids</span>
@@ -88,7 +88,7 @@ global torus: torus_environment{
     <span class="hljs-literal">point</span> mass_center update:  (length(others) &gt; 0) ? (mean (others collect (each.location)) )  : location;
     
     <span class="hljs-comment">//Reflex to apply separation</span>
-    <span class="hljs-builtin">reflex</span> separation when: apply_separation {
+    <span class="hljs-class">reflex <span class="hljs-title">separation</span> <span class="hljs-title">when</span>: <span class="hljs-title">apply_separation</span> </span>{
         <span class="hljs-literal">point</span> acc &lt;- {0,0,0};
         loop boid over: (boids at_distance (minimal_distance))  {
             acc &lt;- acc - ((location of boid) - location);
@@ -96,13 +96,13 @@ global torus: torus_environment{
         velocity &lt;- velocity + acc;
     }
     <span class="hljs-comment">//Reflex to apply alignment</span>
-    <span class="hljs-builtin">reflex</span> alignment when: apply_alignment {
+    <span class="hljs-class">reflex <span class="hljs-title">alignment</span> <span class="hljs-title">when</span>: <span class="hljs-title">apply_alignment</span> </span>{
         <span class="hljs-literal">point</span> acc &lt;- (length(others) &gt; 0) ? (mean (others collect (each.velocity))) : {0.0,0.0,0.0};
         acc &lt;- acc - velocity;
         velocity &lt;- velocity + (acc / alignment_factor);
     }
     <span class="hljs-comment">//Reflex to apply cohesion</span>
-    <span class="hljs-builtin">reflex</span> cohesion when: apply_cohesion {
+    <span class="hljs-class">reflex <span class="hljs-title">cohesion</span> <span class="hljs-title">when</span>: <span class="hljs-title">apply_cohesion</span> </span>{
         <span class="hljs-literal">point</span> acc &lt;- mass_center - location;
         acc &lt;- acc / cohesion_factor;
         velocity &lt;- velocity + acc; 
@@ -116,11 +116,11 @@ global torus: torus_environment{
         }
     }
     <span class="hljs-comment">//Reflex to make the agent follow the goal</span>
-    <span class="hljs-builtin">reflex</span> follow_goal when: apply_goal {
+    <span class="hljs-class">reflex <span class="hljs-title">follow_goal</span> <span class="hljs-title">when</span>: <span class="hljs-title">apply_goal</span> </span>{
         velocity &lt;- velocity + ((goal - location) / cohesion_factor);
     }
     <span class="hljs-comment">//Reflex to apply the wind by using the vector of wind</span>
-    <span class="hljs-builtin">reflex</span> wind when: apply_wind {
+    <span class="hljs-class">reflex <span class="hljs-title">wind</span> <span class="hljs-title">when</span>: <span class="hljs-title">apply_wind</span> </span>{
         velocity &lt;- velocity + wind_vector;
     }
     <span class="hljs-comment">//Action to make the agent moving</span>
@@ -133,7 +133,7 @@ global torus: torus_environment{
         velocity &lt;- location - old_location;
     }
     <span class="hljs-comment">//Reflex to move the agent, calling both bounding and do_move action</span>
-    <span class="hljs-builtin">reflex</span> movement {
+    <span class="hljs-class">reflex <span class="hljs-title">movement</span> </span>{
         do bounding;
         do do_move;
     }
@@ -148,15 +148,15 @@ global torus: torus_environment{
 }
 
 
-<span class="hljs-builtin">experiment</span> boids_3D type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">boids_3D</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     
     
     output {
         
-        display Sky1 type:opengl  z_fighting:false{
+        <span class="hljs-class">display <span class="hljs-title">Sky1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span>  <span class="hljs-title">z_fighting</span>:<span class="hljs-title">false</span></span>{
             image 'background' <span class="hljs-literal">file</span>:'../images/ocean.jpg' ;
-            <span class="hljs-literal">species</span> boids aspect: image;
-            <span class="hljs-literal">species</span> boids_goal; 
+            <span class="hljs-class">species <span class="hljs-title">boids</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">image</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">boids_goal</span>; </span>
         }
         
 
@@ -177,8 +177,8 @@ global torus: torus_environment{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

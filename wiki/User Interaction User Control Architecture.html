@@ -11,7 +11,7 @@
 
 <span class="hljs-builtin">model</span> user_control
 
-global {
+<span class="hljs-class">global </span>{
 
     <span class="hljs-literal">int</span> nbAgent &lt;- 10;
     <span class="hljs-literal">bool</span> advanced_user_control &lt;- false;
@@ -23,14 +23,14 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> cell {
+<span class="hljs-class">species <span class="hljs-title">cell</span> </span>{
     <span class="hljs-literal">rgb</span> color;  
     aspect default {
         draw circle(1) color: color;
     }
 }
 
-<span class="hljs-literal">species</span> user control:<span class="hljs-builtin">user_only</span> {
+<span class="hljs-class">species <span class="hljs-title">user</span> <span class="hljs-title">control</span>:<span class="hljs-title">user_only</span> </span>{
    user_panel <span class="hljs-string">"Default"</span> initial: true {
       transition to: <span class="hljs-string">"Basic Control"</span> when: every (10) and !advanced_user_control;
       transition to: <span class="hljs-string">"Advanced Control"</span> when: every(10) and advanced_user_control;
@@ -65,11 +65,11 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> Displays type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Displays</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"advanced user control"</span> var: advanced_user_control &lt;- false;
     output { 
-        display <span class="hljs-literal">map</span> { 
-            <span class="hljs-literal">species</span> cell;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{ 
+            <span class="hljs-class">species <span class="hljs-title">cell</span>;</span>
         }
     }
 }
@@ -88,8 +88,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

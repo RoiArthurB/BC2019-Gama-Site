@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> gridloading
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> grid_data &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/DEM-Vulcano/vulcano_50.asc"</span>);
     <span class="hljs-literal">file</span> dem parameter: 'DEM' &lt;- <span class="hljs-literal">file</span>('../includes/DEM-Vulcano/DEM.png');
     <span class="hljs-literal">file</span> texture parameter: 'Texture' &lt;- <span class="hljs-literal">file</span>('../includes/DEM-Vulcano/Texture.png');
@@ -39,95 +39,95 @@ global {
     }
 }
 
-grid cell <span class="hljs-literal">file</span>: grid_data {
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">file</span>: <span class="hljs-title">grid_data</span> </span>{
     <span class="hljs-literal">rgb</span> color;
-    <span class="hljs-builtin">reflex</span> decreaseValue {
+    <span class="hljs-class">reflex <span class="hljs-title">decreaseValue</span> </span>{
         grid_value &lt;- grid_value  + rnd (0.2) - 0.1;
     }
 }
 
-<span class="hljs-builtin">experiment</span> DEM type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">DEM</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
 
         <span class="hljs-comment">//Display the grid triangulated in 3D with the cell altitude corresponding to its grid_value and the color cells (if defined otherwise in black)</span>
-        display gridWithElevationTriangulated type: opengl autosave: true{ 
-            grid cell elevation: true triangulation: true ;
+        <span class="hljs-class">display <span class="hljs-title">gridWithElevationTriangulated</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">autosave</span>: <span class="hljs-title">true</span></span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span> ;</span>
         }
 
         <span class="hljs-comment">//Display the grid triangulated in 3D with the cell altitude corresponding to its grid_value and the color of cells as a gray value corresponding to grid_value / maxZ *255</span>
-        display gridGrayScaledTriangulated type: opengl { 
-            grid cell elevation: true grayscale: true triangulation: true;
+        <span class="hljs-class">display <span class="hljs-title">gridGrayScaledTriangulated</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">grayscale</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
 
         <span class="hljs-comment">//Display the textured grid in 3D with the cell altitude corresponding to its grid_value.               </span>
-        display gridTextured type: opengl { 
-            grid cell texture: texture text: false triangulation: true elevation: true;
+        <span class="hljs-class">display <span class="hljs-title">gridTextured</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">texture</span>: <span class="hljs-title">texture</span> <span class="hljs-title">text</span>: <span class="hljs-title">false</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span>;</span>
         }
     }
 
 }
 
-<span class="hljs-builtin">experiment</span> GridDEMComplete type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">GridDEMComplete</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
 
     <span class="hljs-comment">//Display the grid on a plan with cell color (if defined otherwise in black)</span>
-        display grid type: opengl { <span class="hljs-comment">//Same as in java2D</span>
-            grid cell;
+        <span class="hljs-class">display <span class="hljs-title">grid</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ <span class="hljs-comment">//Same as in java2D</span>
+            <span class="hljs-class">grid <span class="hljs-title">cell</span>;</span>
         }
 
         <span class="hljs-comment">//Display the grid in 3D with the cell altitude corresponding to its grid_value and the color cells (if defined otherwise in black)</span>
-        display gridWithElevation type: opengl { 
-            grid cell elevation: true;
+        <span class="hljs-class">display <span class="hljs-title">gridWithElevation</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span>;</span>
         }
 
         <span class="hljs-comment">//Display the grid triangulated in 3D with the cell altitude corresponding to its grid_value and the color cells (if defined otherwise in black)</span>
-        display gridWithElevationTriangulated type: opengl { 
-            grid cell elevation: true triangulation: true ;
+        <span class="hljs-class">display <span class="hljs-title">gridWithElevationTriangulated</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span> ;</span>
         }
 
         <span class="hljs-comment">//Display the grid in 3D with the cell altitude corresponding to its grid_value and the color of cells as a gray value corresponding to grid_value / maxZ *255</span>
-        display gridGrayScaled type: opengl { 
-            grid cell elevation: true grayscale: true;
+        <span class="hljs-class">display <span class="hljs-title">gridGrayScaled</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">grayscale</span>: <span class="hljs-title">true</span>;</span>
         }
         <span class="hljs-comment">//Display the grid triangulated in 3D with the cell altitude corresponding to its grid_value and the color of cells as a gray value corresponding to grid_value / maxZ *255</span>
-        display gridGrayScaledTriangulated type: opengl { 
-            grid cell elevation: true grayscale: true triangulation: true;
+        <span class="hljs-class">display <span class="hljs-title">gridGrayScaledTriangulated</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">grayscale</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
 
         <span class="hljs-comment">//Display the textured grid in 3D with the cell altitude corresponding to its grid_value.               </span>
-        display gridTextured type: opengl { 
-            grid cell texture: texture text: false triangulation: false elevation: true;
+        <span class="hljs-class">display <span class="hljs-title">gridTextured</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">texture</span>: <span class="hljs-title">texture</span> <span class="hljs-title">text</span>: <span class="hljs-title">false</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">false</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span>;</span>
         }
 
         <span class="hljs-comment">//Display the textured triangulated grid in 3D with the cell altitude corresponding to its grid_value.</span>
-        display gridTexturedTriangulated type: opengl { 
-            grid cell texture: texture text: false triangulation: true elevation: true;
+        <span class="hljs-class">display <span class="hljs-title">gridTexturedTriangulated</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">texture</span>: <span class="hljs-title">texture</span> <span class="hljs-title">text</span>: <span class="hljs-title">false</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span>;</span>
         }
-        display gridWithText type: opengl { 
-            grid cell text: true elevation: true grayscale: true;
+        <span class="hljs-class">display <span class="hljs-title">gridWithText</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">text</span>: <span class="hljs-title">true</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">grayscale</span>: <span class="hljs-title">true</span>;</span>
         }
     }
 
 }
 
-<span class="hljs-builtin">experiment</span> GraphicDEMComplete type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">GraphicDEMComplete</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display VulcanoTexturedScaled type: opengl draw_env: false { 
+        <span class="hljs-class">display <span class="hljs-title">VulcanoTexturedScaled</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>: <span class="hljs-title">false</span> </span>{ 
             graphics 'GraphicPrimitive' {
                 draw dem(dem, texture, 0.1);
             }
         } 
-        display VulcanoDEMScaled type: opengl draw_env: false { 
+        <span class="hljs-class">display <span class="hljs-title">VulcanoDEMScaled</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>: <span class="hljs-title">false</span> </span>{ 
             graphics 'GraphicPrimitive' {
                 draw dem(dem, 0.1);
             }
         } 
-        display VulcanoTextured type: opengl draw_env: false { 
+        <span class="hljs-class">display <span class="hljs-title">VulcanoTextured</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>: <span class="hljs-title">false</span> </span>{ 
             graphics 'GraphicPrimitive' {
                 draw dem(dem, texture);
             }
         } 
-        display VulcanoDEM type: opengl draw_env: false { 
+        <span class="hljs-class">display <span class="hljs-title">VulcanoDEM</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>: <span class="hljs-title">false</span> </span>{ 
             graphics 'GraphicPrimitive' {
                 draw dem(dem);
             }
@@ -149,8 +149,8 @@ grid cell <span class="hljs-literal">file</span>: grid_data {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

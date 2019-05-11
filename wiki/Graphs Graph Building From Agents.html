@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> graphbuilding
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt; the_graph ;
     <span class="hljs-literal">string</span> graph_builing_type &lt;- <span class="hljs-string">"distance"</span>;
     <span class="hljs-literal">float</span> distance &lt;- 20.0;
@@ -31,20 +31,20 @@ global {
     
 }
 
-<span class="hljs-literal">species</span> dummy_agent {
+<span class="hljs-class">species <span class="hljs-title">dummy_agent</span> </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- square (5);
     aspect default {    
         draw shape color: #red;
     }
 }
 
-<span class="hljs-builtin">experiment</span> loadgraph type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">loadgraph</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Method to build the graph"</span> var: graph_builing_type among: [ <span class="hljs-string">"distance"</span>, <span class="hljs-string">"intersection"</span>];
     parameter <span class="hljs-string">"Tolerance"</span> var: tolerance min: 0.0 max: 2.0 category: <span class="hljs-string">"Intersection"</span>;
     parameter <span class="hljs-string">"Distance"</span> var: distance min: 1.0 max: 50.0 category: <span class="hljs-string">"Distance"</span>;
     output {
-        display <span class="hljs-literal">map</span> {
-            <span class="hljs-literal">species</span> dummy_agent ;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">dummy_agent</span> ;</span>
             graphics <span class="hljs-string">"the graph"</span> {
                 loop edge over: the_graph.edges {
                     draw edge color: #blue;
@@ -68,8 +68,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

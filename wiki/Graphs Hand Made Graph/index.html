@@ -11,7 +11,7 @@
 @no_warning
 <span class="hljs-builtin">model</span> handMadeGraph
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt; the_graph1 ;
     <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>, <span class="hljs-literal">geometry</span>&gt; the_graph2;
     
@@ -30,22 +30,22 @@ global {
     
 }
 
-<span class="hljs-literal">species</span> edge_agent {
+<span class="hljs-class">species <span class="hljs-title">edge_agent</span> </span>{
     aspect default {    
         draw shape color: #black;
     }
 }
 
-<span class="hljs-literal">species</span> node_agent {
+<span class="hljs-class">species <span class="hljs-title">node_agent</span> </span>{
     aspect default {    
         draw circle(1) color: #red;
     }
 }
 
-<span class="hljs-builtin">experiment</span> create_graph type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">create_graph</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     
     output {
-        display graph1 type: opengl{
+        <span class="hljs-class">display <span class="hljs-title">graph1</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
             graphics <span class="hljs-string">"the graph 1"</span> {
                 loop e over: the_graph1.edges {
                     draw e color: °blue; 
@@ -55,7 +55,7 @@ global {
                 }
             }
         }
-        display graph2 type: opengl{
+        <span class="hljs-class">display <span class="hljs-title">graph2</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
             graphics <span class="hljs-string">"the graph 2"</span> {
                 loop e over: the_graph2.edges {
                     draw e color: °red; 
@@ -82,8 +82,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

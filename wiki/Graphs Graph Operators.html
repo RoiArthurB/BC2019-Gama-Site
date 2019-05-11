@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> graphoperators
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">graph</span>&lt;<span class="hljs-literal">geometry</span>,<span class="hljs-literal">geometry</span>&gt; the_graph;
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; cliques;
     init {
@@ -42,7 +42,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> people {
+<span class="hljs-class">species <span class="hljs-title">people</span> </span>{
     <span class="hljs-literal">float</span> centrality;
     <span class="hljs-literal">rgb</span> centrality_color;
     aspect centrality{
@@ -51,17 +51,17 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> graphoperators type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">graphoperators</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     
     output {
         
-        display <span class="hljs-literal">map</span> background:#lightgray{
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">background</span>:#<span class="hljs-title">lightgray</span></span>{
             graphics <span class="hljs-string">"edges"</span> {
                 loop edge over: the_graph.edges {
                     draw edge color: #black;
                 }
             }
-            <span class="hljs-literal">species</span> people aspect: centrality;
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">centrality</span>;</span>
         }
     }
 }
@@ -80,8 +80,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

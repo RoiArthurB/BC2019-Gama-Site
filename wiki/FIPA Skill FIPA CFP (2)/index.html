@@ -19,7 +19,7 @@ Participant4 replies with an inform_result message.</p>
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> cfp_cfp_2
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> nbOfParticipants &lt;- 5;
     participant refuser;
     <span class="hljs-literal">list</span>&lt;participant&gt; proposers;
@@ -52,15 +52,15 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> initiator skills: [<span class="hljs-builtin">fipa</span>] {
+<span class="hljs-class">species <span class="hljs-title">initiator</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">fipa</span>] </span>{
     
-    <span class="hljs-builtin">reflex</span> send_cfp_to_participants when: (time = 1) {
+    <span class="hljs-class">reflex <span class="hljs-title">send_cfp_to_participants</span> <span class="hljs-title">when</span>: (<span class="hljs-title">time</span> = 1) </span>{
         
         write '(Time ' + time + '): ' + name + ' sends a cfp message to all participants';
         do start_conversation with: [ to :: <span class="hljs-literal">list</span>(participant), protocol :: '<span class="hljs-builtin">fipa</span>-contract-net', performative :: 'cfp', contents :: ['Go swimming'] ];
     }
     
-    <span class="hljs-builtin">reflex</span> receive_refuse_messages when: !empty(refuses) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_refuse_messages</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">refuses</span>) </span>{
         write '(Time ' + time + '): ' + name + ' receives refuse messages';
         
         loop r over: refuses {
@@ -68,7 +68,7 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> receive_propose_messages when: !empty(proposes) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_propose_messages</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">proposes</span>) </span>{
         write '(Time ' + time + '): ' + name + ' receives propose messages';
         
         loop p over: proposes {
@@ -84,12 +84,12 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> receive_failure_messages when: !empty(failures) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_failure_messages</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">failures</span>) </span>{
         message f &lt;- failures[0];
         write '\t' + name + ' receives a failure message from ' + <span class="hljs-literal">agent</span>(f.sender).name + ' with content ' + f.contents ;
     }
     
-    <span class="hljs-builtin">reflex</span> receive_inform_messages when: !empty(informs) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_inform_messages</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">informs</span>) </span>{
         write '(Time ' + time + '): ' + name + ' receives inform messages';
         
         loop i over: informs {
@@ -98,9 +98,9 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> participant skills: [<span class="hljs-builtin">fipa</span>] {
+<span class="hljs-class">species <span class="hljs-title">participant</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">fipa</span>] </span>{
     
-    <span class="hljs-builtin">reflex</span> receive_cfp_from_initiator when: !empty(cfps) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_cfp_from_initiator</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">cfps</span>) </span>{
         
         message proposalFromInitiator &lt;- cfps[0];
         write '(Time ' + time + '): ' + name + ' receives a cfp message from ' + <span class="hljs-literal">agent</span>(proposalFromInitiator.sender).name + ' with content ' + proposalFromInitiator.contents;
@@ -116,12 +116,12 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> receive_reject_proposals when: !empty(reject_proposals) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_reject_proposals</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">reject_proposals</span>) </span>{
         message r &lt;- reject_proposals[0];
         write '(Time ' + time + '): ' + name + ' receives a reject_proposal message from ' + <span class="hljs-literal">agent</span>(r.sender).name + ' with content ' + r.contents;
     }
     
-    <span class="hljs-builtin">reflex</span> receive_accept_proposals when: !empty(accept_proposals) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_accept_proposals</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">accept_proposals</span>) </span>{
         message a &lt;- accept_proposals[0];
         write '(Time ' + time + '): ' + name + ' receives a accept_proposal message from ' + <span class="hljs-literal">agent</span>(a.sender).name + ' with content ' + a.contents;
         
@@ -142,7 +142,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> test type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">test</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
         
     }
@@ -162,8 +162,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

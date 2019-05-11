@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> usercommand
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Number of agent to initialise</span>
     <span class="hljs-literal">int</span> nbAgent &lt;- 1;
     
@@ -37,7 +37,7 @@ global {
 }
 
 <span class="hljs-comment">//Species that will be used</span>
-<span class="hljs-literal">species</span> cell {
+<span class="hljs-class">species <span class="hljs-title">cell</span> </span>{
     <span class="hljs-literal">rgb</span> color;  
     <span class="hljs-literal">bool</span> is_square &lt;- false; 
     
@@ -61,10 +61,10 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> Displays type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Displays</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> { 
-            <span class="hljs-literal">species</span> cell;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{ 
+            <span class="hljs-class">species <span class="hljs-title">cell</span>;</span>
         }
     }
 }
@@ -83,8 +83,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

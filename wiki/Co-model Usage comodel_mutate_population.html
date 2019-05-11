@@ -8,7 +8,7 @@
 <p>This is a simple comodel serve to demonstrate the importation and instatiation of micro-model  using the couplings  with the mutation the population of micro-model. A population can be a collection from itself and from other mircro-model</p>
 <p>Imported models :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> PreyPredator
- global
+ <span class="hljs-class">global</span>
 {
     <span class="hljs-literal">geometry</span> shape &lt;- square(100);
     <span class="hljs-literal">float</span> perceipt_radius &lt;- 20.0;
@@ -26,12 +26,12 @@
 
 }
 
-<span class="hljs-literal">species</span> generic_species skills: [<span class="hljs-builtin">moving</span>]
+<span class="hljs-class">species <span class="hljs-title">generic_species</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>
 {
     <span class="hljs-literal">float</span> speed &lt;- 1.0;
     <span class="hljs-literal">point</span> goal &lt;- nil;
     <span class="hljs-literal">bool</span> is_chased &lt;- false;
-    <span class="hljs-builtin">reflex</span> live_with_my_goal
+    <span class="hljs-class">reflex <span class="hljs-title">live_with_my_goal</span></span>
     {
         <span class="hljs-keyword">if</span> (goal != nil)
         {
@@ -46,12 +46,12 @@
 
 }
 
-<span class="hljs-literal">species</span> prey parent: generic_species
+<span class="hljs-class">species <span class="hljs-title">prey</span> <span class="hljs-title">parent</span>: <span class="hljs-title">generic_species</span></span>
 {
     <span class="hljs-literal">geometry</span> shape &lt;- circle(0.5);
     <span class="hljs-literal">float</span> speed &lt;- 0.2;
     <span class="hljs-literal">rgb</span> color &lt;- # green;
-    <span class="hljs-builtin">reflex</span> fleeing
+    <span class="hljs-class">reflex <span class="hljs-title">fleeing</span></span>
     {
         <span class="hljs-keyword">if</span> (length((lstPredator where (each != nil and !dead(each) and each distance_to self &lt; perceipt_radius))) &gt; 0)
         {
@@ -60,7 +60,7 @@
             color &lt;- # lime;
             <span class="hljs-keyword">if</span> (goal = nil)
             {
-                <span class="hljs-literal">agent</span> a &lt;- any(((lstPrey where (each != nil and !dead(each) and !generic_species(each).is_chased))));
+                <span class="hljs-literal">agent</span> a &lt;- any(((lstPrey where (each != nil and !dead(each) and !generic_<span class="hljs-class">species(<span class="hljs-title">each</span>).<span class="hljs-title">is_chased</span>))));</span>
                 <span class="hljs-keyword">if</span> (a != nil and !dead(a))
                 {
                     <span class="hljs-keyword">if</span> (flip(0.5))
@@ -101,11 +101,11 @@
 
 }
 
-<span class="hljs-literal">species</span> predator parent: generic_species
+<span class="hljs-class">species <span class="hljs-title">predator</span> <span class="hljs-title">parent</span>: <span class="hljs-title">generic_species</span></span>
 {
     <span class="hljs-literal">geometry</span> shape &lt;- triangle(2);
     <span class="hljs-literal">rgb</span> color &lt;- # red;
-    <span class="hljs-builtin">reflex</span> hunting
+    <span class="hljs-class">reflex <span class="hljs-title">hunting</span></span>
     {
         <span class="hljs-keyword">if</span> (goal = nil)
         {
@@ -147,15 +147,15 @@
 
 }
 
-<span class="hljs-builtin">experiment</span> prey_predator_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">prey_predator_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     output
     {
-        display main_display
+        <span class="hljs-class">display <span class="hljs-title">main_display</span></span>
 
         {
-            <span class="hljs-literal">species</span> prey;
-            <span class="hljs-literal">species</span> predator;
+            <span class="hljs-class">species <span class="hljs-title">prey</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">predator</span>;</span>
         }
 
     }
@@ -165,11 +165,11 @@
 <pre><code class="hljs"><span class="hljs-builtin">model</span> PreyPredator_coupling
 import <span class="hljs-string">"PreyPredator.gaml"</span>
 
-global
+<span class="hljs-class">global</span>
 {   
 }
 
-<span class="hljs-builtin">experiment</span> PreyPredator_coupling_exp parent:prey_predator_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">PreyPredator_coupling_exp</span> <span class="hljs-title">parent</span>:<span class="hljs-title">prey_predator_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
 <span class="hljs-literal">geometry</span> shape&lt;- square(100);
     <span class="hljs-literal">list</span>&lt;prey&gt; getPrey{
@@ -194,7 +194,7 @@ global
 import <span class="hljs-string">"PreyPredator_coupling.gaml"</span> as myP
 
 
-global
+<span class="hljs-class">global</span>
 {
     <span class="hljs-comment">// set the shape of world as a rectangle 200 x 100</span>
     <span class="hljs-literal">geometry</span> shape &lt;- rectangle(200, 100);
@@ -236,7 +236,7 @@ global
 
     }
 
-    <span class="hljs-builtin">reflex</span> simulate_micro_models
+    <span class="hljs-class">reflex <span class="hljs-title">simulate_micro_models</span></span>
     {
         <span class="hljs-comment">// ask all simulation do their job</span>
         ask (myP.PreyPredator_coupling_exp collect each.simulation)
@@ -248,12 +248,12 @@ global
 
 }
 
-<span class="hljs-builtin">experiment</span> comodel_with_the_coupling_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">comodel_with_the_coupling_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     output
     {
         <span class="hljs-comment">//a mixing display of all agents from all populations</span>
-        display <span class="hljs-string">"comodel"</span>
+        <span class="hljs-class">display "<span class="hljs-title">comodel</span>"</span>
         {
             agents <span class="hljs-string">"agentprey"</span> value: (myP.PreyPredator_coupling_exp accumulate each.getPrey());
             agents <span class="hljs-string">"agentpredator"</span> value: (myP.PreyPredator_coupling_exp accumulate each.getPredator());
@@ -277,8 +277,8 @@ global
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

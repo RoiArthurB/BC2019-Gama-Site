@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> clustering
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//the number of groups to create (kmeans)</span>
     <span class="hljs-literal">int</span> k &lt;- 4;
     
@@ -25,7 +25,7 @@ global {
         create dummy number: 100;
     }
     
-    <span class="hljs-builtin">reflex</span> cluster_building {
+    <span class="hljs-class">reflex <span class="hljs-title">cluster_building</span> </span>{
         <span class="hljs-comment">//create a list of list containing for each dummy agent a list composed of its x and y values</span>
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; instances &lt;- dummy collect ([each.location.x, each.location.y]);
         
@@ -54,7 +54,7 @@ global {
     
 }
 
-<span class="hljs-literal">species</span> dummy {
+<span class="hljs-class">species <span class="hljs-title">dummy</span> </span>{
     <span class="hljs-literal">rgb</span> color_dbscan &lt;- #grey;
     <span class="hljs-literal">rgb</span> color_kmeans &lt;- #grey;
     aspect dbscan_aspect {
@@ -65,16 +65,16 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> clustering type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">clustering</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Number of clusters to split the data into"</span> var: k category: <span class="hljs-string">"KMEANS"</span>;
     parameter <span class="hljs-string">"Maximum radius of the neighborhood to be considered"</span> var: eps category: <span class="hljs-string">"DBSCAN"</span>;
     parameter <span class="hljs-string">"Minimum number of points needed for a cluster "</span> var: minPoints category: <span class="hljs-string">"DBSCAN"</span>;
     output {
-        display map_dbscan{
-            <span class="hljs-literal">species</span> dummy aspect: dbscan_aspect;
+        <span class="hljs-class">display <span class="hljs-title">map_dbscan</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">dummy</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">dbscan_aspect</span>;</span>
         }
-        display map_kmeans{
-            <span class="hljs-literal">species</span> dummy aspect: kmeans_aspect;
+        <span class="hljs-class">display <span class="hljs-title">map_kmeans</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">dummy</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">kmeans_aspect</span>;</span>
         }
     }
 }
@@ -93,8 +93,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

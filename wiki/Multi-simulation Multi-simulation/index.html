@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> multi_simulation
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//definition of three global variables of which the initial values will be used by the first simulation </span>
     <span class="hljs-literal">int</span> nb_agents &lt;- 10;
     <span class="hljs-literal">float</span> agent_speed &lt;- 1.0;
@@ -23,9 +23,9 @@ global {
 }
 
 <span class="hljs-comment">//definition a simple species that just move randomly at a given speed</span>
-<span class="hljs-literal">species</span> dummy skills: [<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">dummy</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-literal">rgb</span> color &lt;- #green;
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         do wander speed: agent_speed;
     }
     aspect default {
@@ -33,7 +33,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     <span class="hljs-comment">//definition of a minimal duration for each cycle. As the model is very simple, it can run too fast to observe the results, so we slow it down.</span>
     <span class="hljs-literal">float</span> minimum_cycle_duration &lt;- 0.1;
     
@@ -44,13 +44,13 @@ global {
         
     }
     output {
-        display <span class="hljs-literal">map</span> {
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
             <span class="hljs-comment">//we use an overlay to display the speed of the agents in the simulation</span>
             overlay <span class="hljs-string">"Overlay"</span> position: { 5, 5 } size: { 180 #px, 30 #px } background: # black transparency: 0.5 border: #black rounded: true
             {
                draw <span class="hljs-string">"agent_speed: "</span> + agent_speed color: # white font: font(<span class="hljs-string">"SansSerif"</span>, 20, #bold) at: { 10°px, 20°px };
             }
-            <span class="hljs-literal">species</span> dummy;
+            <span class="hljs-class">species <span class="hljs-title">dummy</span>;</span>
         }
     }
 }
@@ -69,8 +69,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

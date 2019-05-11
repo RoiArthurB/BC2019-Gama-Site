@@ -15,7 +15,7 @@ This model is designed to show how, with the same set of rules and some predefin
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> soccerbase
 
-<span class="hljs-literal">species</span> soccer_game {
+<span class="hljs-class">species <span class="hljs-title">soccer_game</span> </span>{
     <span class="hljs-comment">// contains the global informations of the game</span>
     <span class="hljs-literal">rgb</span> back_color_team;
     <span class="hljs-literal">rgb</span> front_color_team;
@@ -50,7 +50,7 @@ This model is designed to show how, with the same set of rules and some predefin
     }
 }
 
-<span class="hljs-literal">species</span> base_player skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">base_player</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
@@ -274,7 +274,7 @@ This model is designed to show how, with the same set of rules and some predefin
     <span class="hljs-comment">///////////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// The update function, calls the adequate behavior</span>
-    <span class="hljs-builtin">reflex</span> update when:cycle&gt;1 {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>&gt;1 </span>{
         do apply_inertia;
         <span class="hljs-comment">// verify if it is a non-offside position</span>
         <span class="hljs-keyword">if</span> ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
@@ -323,7 +323,7 @@ This model is designed to show how, with the same set of rules and some predefin
 
 
 
-<span class="hljs-literal">species</span> base_team {
+<span class="hljs-class">species <span class="hljs-title">base_team</span> </span>{
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
@@ -344,11 +344,11 @@ This model is designed to show how, with the same set of rules and some predefin
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position;
 }
 
-<span class="hljs-literal">species</span> ball_sp skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">ball_sp</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">// The ball agent.</span>
     <span class="hljs-literal">float</span> speed &lt;- 0.0;
     <span class="hljs-literal">geometry</span> ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
-    <span class="hljs-builtin">reflex</span> update {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         speed &lt;- speed*0.95;
         <span class="hljs-literal">float</span> future_speed &lt;- speed;
         <span class="hljs-literal">point</span> tmpPos&lt;-location;
@@ -384,7 +384,7 @@ This model is designed to show how, with the same set of rules and some predefin
     }
 }
 
-<span class="hljs-literal">species</span> goal_sp {
+<span class="hljs-class">species <span class="hljs-title">goal_sp</span> </span>{
     <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     
     init {
@@ -396,12 +396,12 @@ This model is designed to show how, with the same set of rules and some predefin
     }
 }
 
-<span class="hljs-literal">species</span> goal_keeper {
+<span class="hljs-class">species <span class="hljs-title">goal_keeper</span> </span>{
     <span class="hljs-comment">// the goal has a basic behavior : he tries to catch the ball when it is close enough, and when </span>
     <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     ball_sp ball &lt;- nil update:first(ball_sp);
     
-    <span class="hljs-builtin">reflex</span> update when:cycle&gt;0 {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>&gt;0 </span>{
         location &lt;- {ball.location.x/90*12+(90-12)/2,location.y};
         <span class="hljs-keyword">if</span> (ball distance_to self &lt; 2) {
             <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
@@ -433,7 +433,7 @@ This model is designed to show how, with the same set of rules and some predefin
 
 import <span class="hljs-string">"./soccer_base.gaml"</span>
 
-<span class="hljs-literal">species</span> player_stupidTeam parent:base_player {
+<span class="hljs-class">species <span class="hljs-title">player_stupidTeam</span> <span class="hljs-title">parent</span>:<span class="hljs-title">base_player</span> </span>{
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -465,7 +465,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     
 }
 
-<span class="hljs-literal">species</span> stupidTeam parent:base_team {
+<span class="hljs-class">species <span class="hljs-title">stupidTeam</span> <span class="hljs-title">parent</span>:<span class="hljs-title">base_team</span> </span>{
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -488,7 +488,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> soccerbase
 
-<span class="hljs-literal">species</span> soccer_game {
+<span class="hljs-class">species <span class="hljs-title">soccer_game</span> </span>{
     <span class="hljs-comment">// contains the global informations of the game</span>
     <span class="hljs-literal">rgb</span> back_color_team;
     <span class="hljs-literal">rgb</span> front_color_team;
@@ -523,7 +523,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     }
 }
 
-<span class="hljs-literal">species</span> base_player skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">base_player</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
@@ -747,7 +747,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     <span class="hljs-comment">///////////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// The update function, calls the adequate behavior</span>
-    <span class="hljs-builtin">reflex</span> update when:cycle&gt;1 {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>&gt;1 </span>{
         do apply_inertia;
         <span class="hljs-comment">// verify if it is a non-offside position</span>
         <span class="hljs-keyword">if</span> ( (((team.position = <span class="hljs-string">"back"</span>) and (location.y &gt; team.offside_pos))
@@ -796,7 +796,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
 
 
 
-<span class="hljs-literal">species</span> base_team {
+<span class="hljs-class">species <span class="hljs-title">base_team</span> </span>{
     <span class="hljs-comment">// ATTRIBUTES ////////////////////////////////////////////////</span>
     
     <span class="hljs-comment">// ATTRIBUTES ONLY USED IN THIS BASE CLASSE, SHOULD NEVER BEEN CALLED IN STRATEGY FILE</span>
@@ -817,11 +817,11 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; player_init_position;
 }
 
-<span class="hljs-literal">species</span> ball_sp skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">ball_sp</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-comment">// The ball agent.</span>
     <span class="hljs-literal">float</span> speed &lt;- 0.0;
     <span class="hljs-literal">geometry</span> ball_direction; <span class="hljs-comment">// the direction of the ball is used to be followed by the player</span>
-    <span class="hljs-builtin">reflex</span> update {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         speed &lt;- speed*0.95;
         <span class="hljs-literal">float</span> future_speed &lt;- speed;
         <span class="hljs-literal">point</span> tmpPos&lt;-location;
@@ -857,7 +857,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     }
 }
 
-<span class="hljs-literal">species</span> goal_sp {
+<span class="hljs-class">species <span class="hljs-title">goal_sp</span> </span>{
     <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     
     init {
@@ -869,12 +869,12 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     }
 }
 
-<span class="hljs-literal">species</span> goal_keeper {
+<span class="hljs-class">species <span class="hljs-title">goal_keeper</span> </span>{
     <span class="hljs-comment">// the goal has a basic behavior : he tries to catch the ball when it is close enough, and when </span>
     <span class="hljs-literal">string</span> position; <span class="hljs-comment">// can be "front" or "back".</span>
     ball_sp ball &lt;- nil update:first(ball_sp);
     
-    <span class="hljs-builtin">reflex</span> update when:cycle&gt;0 {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>&gt;0 </span>{
         location &lt;- {ball.location.x/90*12+(90-12)/2,location.y};
         <span class="hljs-keyword">if</span> (ball distance_to self &lt; 2) {
             <span class="hljs-keyword">if</span> (flip(1/(1+2*ball.speed))) {
@@ -906,7 +906,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
 
 import <span class="hljs-string">"./soccer_base.gaml"</span>
 
-<span class="hljs-literal">species</span> player_intelligentTeam parent:base_player {
+<span class="hljs-class">species <span class="hljs-title">player_intelligentTeam</span> <span class="hljs-title">parent</span>:<span class="hljs-title">base_player</span> </span>{
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -1041,7 +1041,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
     
 }
 
-<span class="hljs-literal">species</span> intelligentTeam parent:base_team {
+<span class="hljs-class">species <span class="hljs-title">intelligentTeam</span> <span class="hljs-title">parent</span>:<span class="hljs-title">base_team</span> </span>{
     <span class="hljs-comment">// READ ONLY ATTRIBUTES :</span>
     <span class="hljs-comment">// position : can be "front" or "back".</span>
     <span class="hljs-comment">// players : list of all the players of the team.</span>
@@ -1069,7 +1069,7 @@ import <span class="hljs-string">"./soccer_base.gaml"</span>
 import <span class="hljs-string">"./team1_strategy.gaml"</span>
 import <span class="hljs-string">"./team2_strategy.gaml"</span>
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">// set the size of the environment</span>
     <span class="hljs-literal">geometry</span> shape &lt;- rectangle(90#m,120#m);
     
@@ -1079,7 +1079,7 @@ global {
     <span class="hljs-literal">rgb</span> front_color_team &lt;- #red;
 }
 
-<span class="hljs-literal">species</span> info_player1 mirrors:player_intelligentTeam {
+<span class="hljs-class">species <span class="hljs-title">info_player1</span> <span class="hljs-title">mirrors</span>:<span class="hljs-title">player_intelligentTeam</span> </span>{
     <span class="hljs-comment">// mirror species that shows additionnal information about the player</span>
     <span class="hljs-literal">point</span> location &lt;- target.location update:target.location;
     <span class="hljs-literal">string</span> status &lt;- target.status update:target.status;
@@ -1093,7 +1093,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> info_player2 mirrors:player_stupidTeam {
+<span class="hljs-class">species <span class="hljs-title">info_player2</span> <span class="hljs-title">mirrors</span>:<span class="hljs-title">player_stupidTeam</span> </span>{
     <span class="hljs-comment">// mirror species that shows additionnal information about the player</span>
     <span class="hljs-literal">point</span> location &lt;- target.location update:target.location;
     <span class="hljs-literal">string</span> status &lt;- target.status update:target.status;
@@ -1107,7 +1107,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> intelligentTeam_vs_stupidTeam type:gui {
+<span class="hljs-class">experiment <span class="hljs-title">intelligentTeam_vs_stupidTeam</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span> </span>{
     init {
         <span class="hljs-comment">// instantialization of the game (contains global information about the game)</span>
         create soccer_game with:(back_color_team::back_color_team,front_color_team::front_color_team) returns:soccerGame;
@@ -1138,22 +1138,22 @@ global {
     }
     parameter <span class="hljs-string">"show player info"</span> var:show_info;
     output {
-        display <span class="hljs-string">"soccer_field"</span>  {
+        <span class="hljs-class">display "<span class="hljs-title">soccer_field</span>"  </span>{
             <span class="hljs-comment">// display the field.</span>
             image <span class="hljs-string">"../images/soccer_field2.png"</span>;
             <span class="hljs-comment">// display the species with their correct aspect</span>
-            <span class="hljs-literal">species</span> player_intelligentTeam aspect:player;
-            <span class="hljs-literal">species</span> player_stupidTeam aspect:player;
-            <span class="hljs-literal">species</span> ball_sp aspect:ball;
-            <span class="hljs-literal">species</span> goal_sp aspect:goal;
-            <span class="hljs-literal">species</span> goal_keeper aspect:goal_keeper;
-            <span class="hljs-literal">species</span> info_player1 aspect:info;
-            <span class="hljs-literal">species</span> info_player2 aspect:info;
+            <span class="hljs-class">species <span class="hljs-title">player_intelligentTeam</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">player</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">player_stupidTeam</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">player</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">ball_sp</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">ball</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal_sp</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">goal</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal_keeper</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">goal_keeper</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">info_player1</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">info</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">info_player2</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">info</span>;</span>
         }
     }
 }
 
-<span class="hljs-builtin">experiment</span> intelligentTeam_vs_intelligentTeam type:gui {
+<span class="hljs-class">experiment <span class="hljs-title">intelligentTeam_vs_intelligentTeam</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span> </span>{
     init {
         <span class="hljs-comment">// instantialization of the game (contains global information about the game)</span>
         create soccer_game with:(back_color_team::back_color_team,front_color_team::front_color_team) returns:soccerGame;
@@ -1185,16 +1185,16 @@ global {
     }
     parameter <span class="hljs-string">"show player info"</span> var:show_info;
     output {
-        display <span class="hljs-string">"soccer_field"</span>  {
+        <span class="hljs-class">display "<span class="hljs-title">soccer_field</span>"  </span>{
             <span class="hljs-comment">// display the field.</span>
             image <span class="hljs-string">"../images/soccer_field2.png"</span>;
             <span class="hljs-comment">// display the species with their correct aspect</span>
-            <span class="hljs-literal">species</span> player_intelligentTeam aspect:player;
-            <span class="hljs-literal">species</span> ball_sp aspect:ball;
-            <span class="hljs-literal">species</span> goal_sp aspect:goal;
-            <span class="hljs-literal">species</span> goal_keeper aspect:goal_keeper;
-            <span class="hljs-literal">species</span> info_player1 aspect:info;
-            <span class="hljs-literal">species</span> info_player2 aspect:info;
+            <span class="hljs-class">species <span class="hljs-title">player_intelligentTeam</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">player</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">ball_sp</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">ball</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal_sp</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">goal</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal_keeper</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">goal_keeper</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">info_player1</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">info</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">info_player2</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">info</span>;</span>
         }
     }
 }
@@ -1213,8 +1213,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

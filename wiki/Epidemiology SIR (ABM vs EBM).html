@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> comparison_ABM_EBM_SIR
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Number of susceptible individuals</span>
     <span class="hljs-literal">int</span> number_S &lt;- 499; 
     <span class="hljs-comment">//Number of infectious individuals</span>
@@ -55,13 +55,13 @@ global {
 
 }
 <span class="hljs-comment">//Grid that will be used to discretize space</span>
-grid sir_grid width: 50 height: 50 {
+<span class="hljs-class">grid <span class="hljs-title">sir_grid</span> <span class="hljs-title">width</span>: 50 <span class="hljs-title">height</span>: 50 </span>{
         <span class="hljs-literal">rgb</span> color &lt;- #black;
-        <span class="hljs-literal">list</span>&lt;sir_grid&gt; neighbors &lt;- (self neighbors_at neighbors_size) of_species sir_grid;
+        <span class="hljs-literal">list</span>&lt;sir_<span class="hljs-class">grid&gt; <span class="hljs-title">neighbors</span> &lt;- (<span class="hljs-title">self</span> <span class="hljs-title">neighbors_at</span> <span class="hljs-title">neighbors_size</span>) <span class="hljs-title">of_species</span> <span class="hljs-title">sir_grid</span>;</span>
     }
     
 <span class="hljs-comment">//Species host which represents the host of the disease</span>
-<span class="hljs-literal">species</span> Host {
+<span class="hljs-class">species <span class="hljs-title">Host</span> </span>{
     
     <span class="hljs-comment">//Different booleans to know in which state is the host</span>
     <span class="hljs-literal">bool</span> is_susceptible &lt;- true;
@@ -72,22 +72,22 @@ grid sir_grid width: 50 height: 50 {
     <span class="hljs-literal">rgb</span> color &lt;- #green;
     
     <span class="hljs-comment">//Location of the agent among the grid</span>
-    sir_grid myPlace;
+    sir_<span class="hljs-class">grid <span class="hljs-title">myPlace</span>;</span>
     <span class="hljs-comment">//Count of neighbors infected </span>
     <span class="hljs-literal">int</span> ngb_infected_number function: {self neighbors_at(neighbors_size) count(each.is_infected)};
     
     init {
         <span class="hljs-comment">//The location is chosen randomly</span>
-        myPlace &lt;- one_of(sir_grid);
+        myPlace &lt;- one_of(sir_<span class="hljs-class">grid);</span>
         location &lt;- myPlace.location;
     }
     <span class="hljs-comment">//Reflex to move the agent in the neighbors cells</span>
-    <span class="hljs-builtin">reflex</span> basic_move {
+    <span class="hljs-class">reflex <span class="hljs-title">basic_move</span> </span>{
         myPlace &lt;- one_of(myPlace.neighbors);
         location &lt;- myPlace.location;
     }
     <span class="hljs-comment">//Reflex to pass the agent to the state infected </span>
-    <span class="hljs-builtin">reflex</span> become_infected when: is_susceptible {
+    <span class="hljs-class">reflex <span class="hljs-title">become_infected</span> <span class="hljs-title">when</span>: <span class="hljs-title">is_susceptible</span> </span>{
             <span class="hljs-comment">//Probability of being infected according to the number of infected among the neighbors</span>
             <span class="hljs-keyword">if</span> (flip(1 - (1 - beta)  ^ ngb_infected_number)) {
                 is_susceptible &lt;-  false;
@@ -97,7 +97,7 @@ grid sir_grid width: 50 height: 50 {
             }                   
     }
     <span class="hljs-comment">//Reflex to pass the agent to the state immune</span>
-    <span class="hljs-builtin">reflex</span> become_immune when: (is_infected and flip(gamma)) {
+    <span class="hljs-class">reflex <span class="hljs-title">become_immune</span> <span class="hljs-title">when</span>: (<span class="hljs-title">is_infected</span> <span class="hljs-title">and</span> <span class="hljs-title">flip</span>(<span class="hljs-title">gamma</span>)) </span>{
         is_susceptible &lt;- false;
         is_infected &lt;- false;
         is_immune &lt;- true;
@@ -110,17 +110,17 @@ grid sir_grid width: 50 height: 50 {
 
 }
 <span class="hljs-comment">//Species node agent that will represent the SIR Ordinary differential equations system</span>
-<span class="hljs-literal">species</span> node_agent {
+<span class="hljs-class">species <span class="hljs-title">node_agent</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">float</span> I;
     <span class="hljs-literal">float</span> S;
     <span class="hljs-literal">float</span> R;
     equation eqSIR type: SIR vars: [S, I, R, t] params: [N, beta, gamma];
-    <span class="hljs-builtin">reflex</span> solving {solve eqSIR method: rk4 step: 1;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{solve eqSIR method: rk4 step: 1;}
     
 }
 
-<span class="hljs-builtin">experiment</span> Simulation_ABM_EBM type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Simulation_ABM_EBM</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Number of Susceptible' type: <span class="hljs-literal">int</span> var: number_S &lt;- 495 category: <span class="hljs-string">"Initial population"</span>;
     parameter 'Number of Infected' type: <span class="hljs-literal">int</span> var: number_I &lt;- 5 category: <span class="hljs-string">"Initial population"</span>;
     parameter 'Number of Removed' type: <span class="hljs-literal">int</span> var: number_R &lt;- 0 category: <span class="hljs-string">"Initial population"</span>;
@@ -128,25 +128,25 @@ grid sir_grid width: 50 height: 50 {
     parameter 'Gamma (I-&gt;R)' type: <span class="hljs-literal">float</span> var: gamma &lt;- 0.01 category: <span class="hljs-string">"Parameters"</span>;
     parameter 'Size of the neighbors' type: <span class="hljs-literal">int</span> var: neighbors_size &lt;- 1 min: 1 max: 5 category: <span class="hljs-string">"Infection"</span>;
     output {
-        display sir_display { 
-            grid sir_grid lines: #black;
-            <span class="hljs-literal">species</span> Host aspect: basic; 
+        <span class="hljs-class">display <span class="hljs-title">sir_display</span> </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">sir_grid</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">Host</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">basic</span>; </span>
         }
-        display ABM { 
+        <span class="hljs-class">display <span class="hljs-title">ABM</span> </span>{ 
             chart 'Susceptible' type: series background: #lightgray style: exploded {
                 data 'susceptible' value: (Host as <span class="hljs-literal">list</span>) count (each.is_susceptible) color: #green;
                 data 'infected' value: (Host as <span class="hljs-literal">list</span>) count (each.is_infected) color: #red;
                 data 'immune' value: (Host as <span class="hljs-literal">list</span>) count (each.is_immune) color: #blue;
             }
         }
-        display EBM { 
+        <span class="hljs-class">display <span class="hljs-title">EBM</span> </span>{ 
             chart <span class="hljs-string">"SIR"</span> type: series background: #white {
                 data 'S' value: first(node_agent).S color: #green;
                 data 'I' value: first(node_agent).I color: #red;
                 data 'R' value: first(node_agent).R color: #blue;
             }
         }
-        display ABM_EBM  { 
+        <span class="hljs-class">display <span class="hljs-title">ABM_EBM</span>  </span>{ 
             chart 'Susceptible' type: series background: #lightgray style: exploded {
                 data 'susceptible' value: (Host as <span class="hljs-literal">list</span>) count (each.is_susceptible) color: #green-50;
                 data 'infected' value: (Host as <span class="hljs-literal">list</span>) count (each.is_infected) color: #red-50;
@@ -174,8 +174,8 @@ grid sir_grid width: 50 height: 50 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

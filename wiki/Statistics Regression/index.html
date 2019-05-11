@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> example_regression
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Regression variable that will store the function</span>
     regression location_fct;
     <span class="hljs-literal">float</span> x_val &lt;- 50.0;
@@ -26,7 +26,7 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to compute the regression</span>
-    <span class="hljs-builtin">reflex</span> do_regression {
+    <span class="hljs-class">reflex <span class="hljs-title">do_regression</span> </span>{
         <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; instances &lt;- 0.0 as_matrix {3,length(dummy)};
         loop i from: 0 to: length(dummy) -1 {
             dummy ag &lt;- dummy[i];
@@ -44,18 +44,18 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> dummy {
+<span class="hljs-class">species <span class="hljs-title">dummy</span> </span>{
     aspect default {
         draw sphere(2) color: #blue;
     }
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Point to test, x value"</span> var: x_val ;
     parameter <span class="hljs-string">"Point to test, y value"</span> var: y_val ;
     output {
-        display <span class="hljs-literal">map</span> type: opengl {
-            <span class="hljs-literal">species</span> dummy;
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">dummy</span>;</span>
             graphics <span class="hljs-string">"new Point "</span> {
                 <span class="hljs-keyword">if</span> (location_fct != nil) {
                     draw sphere(2) color: #red at: {x_val,y_val,val};
@@ -83,8 +83,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

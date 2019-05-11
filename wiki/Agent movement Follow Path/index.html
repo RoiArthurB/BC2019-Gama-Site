@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> path_and_follow
 
-global{
+<span class="hljs-class">global</span>{
     <span class="hljs-literal">graph</span> the_graph;
     init{
             <span class="hljs-comment">//It is possible to define a road by defining its shape, being a line. The line need to be created by passing the location of the vertices</span>
@@ -44,7 +44,7 @@ global{
     }  
 }
 
-<span class="hljs-literal">species</span> myCircle skills:[<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">myCircle</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-comment">//The different ways to declare a path : declaring all the lines of the path using their vertices</span>
     <span class="hljs-comment">//                            using a list of agents representing the lines of the path</span>
     <span class="hljs-comment">//                            using the graph as a path</span>
@@ -58,7 +58,7 @@ global{
     <span class="hljs-literal">path</span> path_following&lt;- path_to_follow1;
     <span class="hljs-literal">rgb</span> color &lt;- #green;
     
-    <span class="hljs-builtin">reflex</span> myfollow{ 
+    <span class="hljs-class">reflex <span class="hljs-title">myfollow</span></span>{ 
         <span class="hljs-comment">//The operator follow make the agent move from the starting vertice of the starting edge of a path to the last vertice of the last edge of the path</span>
         <span class="hljs-comment">// but following the edges of the concerned path</span>
         do follow <span class="hljs-literal">path</span>: path_following; 
@@ -87,25 +87,25 @@ global{
     } 
 }
 
-<span class="hljs-literal">species</span> road {
+<span class="hljs-class">species <span class="hljs-title">road</span> </span>{
     aspect base {
       draw shape color:#blue ;  
       
     } 
 }
 
-<span class="hljs-literal">species</span> road_of_graph {
+<span class="hljs-class">species <span class="hljs-title">road_of_graph</span> </span>{
     aspect base {
       draw shape color:#red ;   
       
     } 
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     <span class="hljs-literal">float</span> minimum_cycle_duration &lt;- 0.10;
     output {
-        display myView { 
-            <span class="hljs-literal">species</span> myCircle aspect:base; 
+        <span class="hljs-class">display <span class="hljs-title">myView</span> </span>{ 
+            <span class="hljs-class">species <span class="hljs-title">myCircle</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>; </span>
         }
     }
 }
@@ -131,8 +131,8 @@ global{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

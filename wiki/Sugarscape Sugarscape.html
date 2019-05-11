@@ -10,7 +10,7 @@
 <pre><code class="hljs"><span class="hljs-builtin">model</span> sugarscape
 
   
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">// Parameters </span>
     
     <span class="hljs-comment">//Growth rate of the sugar</span>
@@ -55,7 +55,7 @@ global {
 }
 
     <span class="hljs-comment">//Grid species representing the sugar cells</span>
-    grid sugar_cell width: 50 height: 50 neighbors: 4 use_individual_shapes: false use_regular_agents: false{ 
+    <span class="hljs-class">grid <span class="hljs-title">sugar_cell</span> <span class="hljs-title">width</span>: 50 <span class="hljs-title">height</span>: 50 <span class="hljs-title">neighbors</span>: 4 <span class="hljs-title">use_individual_shapes</span>: <span class="hljs-title">false</span> <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span></span>{ 
         <span class="hljs-comment">//Maximum sugar</span>
         <span class="hljs-literal">int</span> maxSugar;
         <span class="hljs-comment">//Sugar contained in thecell</span>
@@ -72,7 +72,7 @@ global {
     }   
     
 <span class="hljs-comment">//Species animal representing the animal agents</span>
-<span class="hljs-literal">species</span> animal {
+<span class="hljs-class">species <span class="hljs-title">animal</span> </span>{
     <span class="hljs-comment">//Color of the animal</span>
     <span class="hljs-literal">rgb</span> color  &lt;- #red;
     <span class="hljs-comment">//Speed of the animal</span>
@@ -99,7 +99,7 @@ global {
         location &lt;- place.location;
     }
     <span class="hljs-comment">//Move the agent to another place and collect the sugar of the previous place</span>
-    <span class="hljs-builtin">reflex</span> basic_move { 
+    <span class="hljs-class">reflex <span class="hljs-title">basic_move</span> </span>{ 
         sugar &lt;- sugar + place.sugar;
         place.sugar &lt;- 0;
         <span class="hljs-literal">list</span>&lt;sugar_cell&gt; neighbors &lt;- place.neighbors[vision];
@@ -109,7 +109,7 @@ global {
         location &lt;- place.location;
     }
     <span class="hljs-comment">//Reflex to kill the animal once it reaches its maximal age or it doesn't have sugar anymore</span>
-    <span class="hljs-builtin">reflex</span> end_of_life when: (sugar = 0) or (age = maxAge) {
+    <span class="hljs-class">reflex <span class="hljs-title">end_of_life</span> <span class="hljs-title">when</span>: (<span class="hljs-title">sugar</span> = 0) <span class="hljs-title">or</span> (<span class="hljs-title">age</span> = <span class="hljs-title">maxAge</span>) </span>{
         <span class="hljs-keyword">if</span> replace {
             create animal ;
         }
@@ -120,7 +120,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> sugarscape type: gui{
+<span class="hljs-class">experiment <span class="hljs-title">sugarscape</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{
     parameter 'Growth rate of sugar:' var: sugarGrowthRate category: 'Environment';
     parameter 'Minimum age of death:' var: minDeathAge &lt;- 60 category: 'Agents';
     parameter 'Maximum age of death:' var: maxDeathAge &lt;- 100 category: 'Agents';
@@ -132,17 +132,17 @@ global {
     parameter 'Number of agents:' var: numberOfAgents &lt;- 400 category: 'Agents';
     
     output {
-        display grille {
-            grid sugar_cell;
-            <span class="hljs-literal">species</span> animal;
+        <span class="hljs-class">display <span class="hljs-title">grille</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">sugar_cell</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">animal</span>;</span>
         }
-        display chart refresh: every(5) {
+        <span class="hljs-class">display <span class="hljs-title">chart</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">every</span>(5) </span>{
             chart 'Energy' type: pie background: #lightgray style: exploded {
                 data <span class="hljs-string">"strong"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &gt; 8) color: #green;
                 data <span class="hljs-string">"weak"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &lt; 9) color: #red;
             }
         }
-        display chart2 refresh: every(5) {
+        <span class="hljs-class">display <span class="hljs-title">chart2</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">every</span>(5) </span>{
             chart 'Energy' type: histogram background: #lightgray {
                 data <span class="hljs-string">"strong"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &gt; 8)  color: #green;
                 data <span class="hljs-string">"weak"</span> value: (animal as <span class="hljs-literal">list</span>) count (each.sugar &lt; 9)  color: #red;
@@ -165,8 +165,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> RoadTrafficComplex
  
-global {   
+<span class="hljs-class">global </span>{   
     <span class="hljs-literal">bool</span> simple_data &lt;- false;
     
     <span class="hljs-comment">//Check if we use simple data or more complex roads</span>
@@ -29,7 +29,7 @@ global {
         
         <span class="hljs-comment">//create road agents using the shapefile and using the oneway column to check the orientation of the roads if there are directed</span>
         create road from: shape_file_roads with:[lanes::<span class="hljs-literal">int</span>(read(<span class="hljs-string">"lanes"</span>)), oneway::<span class="hljs-literal">string</span>(read(<span class="hljs-string">"oneway"</span>))] {
-            geom_display &lt;- shape + (2.5 * lanes);
+            geom_<span class="hljs-class">display &lt;- <span class="hljs-title">shape</span> + (2.5 * <span class="hljs-title">lanes</span>);</span>
             maxspeed &lt;- (lanes = 1 ? 30.0 : (lanes = 2 ? 50.0 : 70.0)) °km/°h;
             switch oneway {
                 match <span class="hljs-string">"no"</span> {
@@ -37,7 +37,7 @@ global {
                         lanes &lt;- max([1, <span class="hljs-literal">int</span> (myself.lanes / 2.0)]);
                         shape &lt;- polyline(reverse(myself.shape.points));
                         maxspeed &lt;- myself.maxspeed;
-                        geom_display  &lt;- myself.geom_display;
+                        geom_<span class="hljs-class">display  &lt;- <span class="hljs-title">myself</span>.<span class="hljs-title">geom_display</span>;</span>
                         linked_road &lt;- myself;
                         myself.linked_road &lt;- self;
                     }
@@ -81,7 +81,7 @@ global {
 } 
 
 <span class="hljs-comment">//species that will represent the intersection node, it can be traffic lights or not, using the skill_road_node skill</span>
-<span class="hljs-literal">species</span> intersection skills: [<span class="hljs-builtin">skill_road_node</span>] {
+<span class="hljs-class">species <span class="hljs-title">intersection</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">skill_road_node</span>] </span>{
     <span class="hljs-literal">bool</span> is_traffic_signal;
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&gt; stop;
     <span class="hljs-literal">int</span> time_to_change &lt;- 100;
@@ -135,7 +135,7 @@ global {
         color_fire &lt;- #red;
         is_green &lt;- false;
     }
-    <span class="hljs-builtin">reflex</span> dynamic_node when: is_traffic_signal  {
+    <span class="hljs-class">reflex <span class="hljs-title">dynamic_node</span> <span class="hljs-title">when</span>: <span class="hljs-title">is_traffic_signal</span>  </span>{
         counter &lt;- counter + 1;
         <span class="hljs-keyword">if</span> (counter &gt;= time_to_change) { 
             counter &lt;- 0;
@@ -160,19 +160,19 @@ global {
 
 
 <span class="hljs-comment">//species that will represent the roads, it can be directed or not and uses the skill skill_road</span>
-<span class="hljs-literal">species</span> road skills: [<span class="hljs-builtin">skill_road</span>] { 
-    <span class="hljs-literal">geometry</span> geom_display;
+<span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">skill_road</span>] </span>{ 
+    <span class="hljs-literal">geometry</span> geom_<span class="hljs-class">display;</span>
     <span class="hljs-literal">string</span> oneway;
     aspect base {    
         draw shape color: #gray end_arrow: 10;
     } 
     aspect base3D {    
-        draw geom_display color: #gray ;
+        draw geom_<span class="hljs-class">display <span class="hljs-title">color</span>: #<span class="hljs-title">gray</span> ;</span>
     } 
 }
 
 <span class="hljs-comment">//People species that will move on the graph of roads to a target and using the skill advanced_driving</span>
-<span class="hljs-literal">species</span> people skills: [advanced_driving] { 
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">advanced_driving</span>] </span>{ 
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(rnd(255), rnd(255), rnd(255)) ;
     <span class="hljs-literal">int</span> counter_stucked &lt;- 0;
     <span class="hljs-literal">int</span> threshold_stucked;
@@ -180,19 +180,19 @@ global {
     <span class="hljs-literal">float</span> proba_breakdown ;
     intersection target;
     
-    <span class="hljs-builtin">reflex</span> breakdown when: flip(proba_breakdown){
+    <span class="hljs-class">reflex <span class="hljs-title">breakdown</span> <span class="hljs-title">when</span>: <span class="hljs-title">flip</span>(<span class="hljs-title">proba_breakdown</span>)</span>{
         breakdown &lt;- true;
         max_speed &lt;- 1 °km/°h;
     }
     
-    <span class="hljs-builtin">reflex</span> time_to_go when: final_target = nil {
+    <span class="hljs-class">reflex <span class="hljs-title">time_to_go</span> <span class="hljs-title">when</span>: <span class="hljs-title">final_target</span> = <span class="hljs-title">nil</span> </span>{
         target &lt;- one_of(intersection where not each.is_traffic_signal);
         current_path &lt;- compute_path(<span class="hljs-literal">graph</span>: road_network, target: target );
         <span class="hljs-keyword">if</span> (current_path = nil ) {
             final_target &lt;- nil;
         }
     }
-    <span class="hljs-builtin">reflex</span> move when: current_path != nil and final_target != nil {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">current_path</span> != <span class="hljs-title">nil</span> <span class="hljs-title">and</span> <span class="hljs-title">final_target</span> != <span class="hljs-title">nil</span> </span>{
         do drive;
         <span class="hljs-keyword">if</span> real_speed &lt; 5°km/°h {
             counter_stucked&lt;- counter_stucked + 1;
@@ -235,24 +235,24 @@ global {
     
 } 
 
-<span class="hljs-builtin">experiment</span> experiment_2D type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">experiment_2D</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"if true, simple data (simple track), if false complex one (Manhattan):"</span> var: simple_data category: <span class="hljs-string">"GIS"</span> ;
     output {
-        display city_display {
-            <span class="hljs-literal">species</span> road aspect: base ;
-            <span class="hljs-literal">species</span> intersection aspect: base;
-            <span class="hljs-literal">species</span> people aspect: base;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">intersection</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
     }
 }
 
-<span class="hljs-builtin">experiment</span> experiment_3D type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">experiment_3D</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"if true, simple data (simple track), if false complex one (Manhattan):"</span> var: simple_data category: <span class="hljs-string">"GIS"</span> ;
     output {
-        display carte_principale type: opengl {
-            <span class="hljs-literal">species</span> road aspect: base3D refresh: true;
-            <span class="hljs-literal">species</span> intersection aspect: base3D;
-            <span class="hljs-literal">species</span> people aspect: base3D ; 
+        <span class="hljs-class">display <span class="hljs-title">carte_principale</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base3D</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">true</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">intersection</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base3D</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base3D</span> ; </span>
         }
     }
 }
@@ -272,8 +272,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

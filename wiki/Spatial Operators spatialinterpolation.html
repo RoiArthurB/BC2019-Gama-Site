@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> spatialinterpolation
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">point</span>, <span class="hljs-literal">float</span>&gt; pts;
     <span class="hljs-literal">float</span> max_val; 
     <span class="hljs-literal">float</span> min_val ; 
@@ -55,23 +55,23 @@ global {
 }
 
 <span class="hljs-comment">//cells where the distance is based on the shape of the cell (min distance between the rectangle and the points)</span>
-grid cell_shape width: nb_columns height: nb_rows {
+<span class="hljs-class">grid <span class="hljs-title">cell_shape</span> <span class="hljs-title">width</span>: <span class="hljs-title">nb_columns</span> <span class="hljs-title">height</span>: <span class="hljs-title">nb_rows</span> </span>{
     <span class="hljs-literal">float</span> val;
 }
 
 <span class="hljs-comment">//cells where the distance is based on the centroid of the cell (distance between the centroid and the points)</span>
-grid cell_location width: nb_columns height: nb_rows {
+<span class="hljs-class">grid <span class="hljs-title">cell_location</span> <span class="hljs-title">width</span>: <span class="hljs-title">nb_columns</span> <span class="hljs-title">height</span>: <span class="hljs-title">nb_rows</span> </span>{
     <span class="hljs-literal">float</span> val;
 }
 
 
-<span class="hljs-builtin">experiment</span> spatialinterpolation type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">spatialinterpolation</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"nb of columns"</span> var: nb_columns;
     parameter <span class="hljs-string">"nb of rows"</span> var: nb_rows;
     parameter <span class="hljs-string">"power parameter"</span> var: power;
     output {
-        display map_shape {
-            grid cell_shape;
+        <span class="hljs-class">display <span class="hljs-title">map_shape</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell_shape</span>;</span>
             graphics <span class="hljs-string">"points"</span> {
                 loop pt over: pts.keys {
                     <span class="hljs-literal">float</span> val &lt;- pts[pt];
@@ -80,8 +80,8 @@ grid cell_location width: nb_columns height: nb_rows {
                 }
             }
         }
-        display map_location {
-            grid cell_location;
+        <span class="hljs-class">display <span class="hljs-title">map_location</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell_location</span>;</span>
             graphics <span class="hljs-string">"points"</span> {
                 loop pt over: pts.keys {
                     <span class="hljs-literal">float</span> val &lt;- pts[pt];
@@ -107,8 +107,8 @@ grid cell_location width: nb_columns height: nb_rows {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

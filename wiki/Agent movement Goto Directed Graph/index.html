@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> simplemodel
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> road_file &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/gis/roads.shp"</span>);
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(road_file);
     <span class="hljs-literal">graph</span> the_graph; 
@@ -46,7 +46,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> road {
+<span class="hljs-class">species <span class="hljs-title">road</span> </span>{
     <span class="hljs-literal">int</span> direction;
     <span class="hljs-literal">rgb</span> color;
     aspect geom {
@@ -54,7 +54,7 @@ global {
     }
 }
 <span class="hljs-comment">//The people agents use the skill moving which have built-in variables such as speed, target, location, heading and built-in operators</span>
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">point</span> target;
     <span class="hljs-literal">path</span> my_path; 
     <span class="hljs-literal">point</span> source;
@@ -64,7 +64,7 @@ global {
         draw circle(10) color: #green;
     }
     
-    <span class="hljs-builtin">reflex</span> movement {
+    <span class="hljs-class">reflex <span class="hljs-title">movement</span> </span>{
         
         <span class="hljs-comment">//The operator goto is a built-in operator derivated from the moving skill, moving the agent from its location to its target, </span>
         <span class="hljs-comment">//   restricted by the on variable, with the speed and returning the path followed</span>
@@ -78,11 +78,11 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> simplemodel type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">simplemodel</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> {
-            <span class="hljs-literal">species</span> road aspect: geom;
-            <span class="hljs-literal">species</span> people aspect: circle;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">geom</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">circle</span>;</span>
         }
     }
 }
@@ -101,8 +101,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

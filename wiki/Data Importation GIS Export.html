@@ -11,7 +11,7 @@
 
 <span class="hljs-builtin">model</span> saveGIS
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> shape_file_buildings &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/buildings_simple.shp"</span>);
     <span class="hljs-literal">string</span> new_shape_file_buildings &lt;- <span class="hljs-string">"../results/buildings_final.shp"</span>;
     
@@ -24,12 +24,12 @@ global {
     }
     
     <span class="hljs-comment">//when cycle = 5, save of the building agents in a shapefile with the attributes height, type and price.</span>
-    <span class="hljs-builtin">reflex</span> save_data when: cycle = 5 {
+    <span class="hljs-class">reflex <span class="hljs-title">save_data</span> <span class="hljs-title">when</span>: <span class="hljs-title">cycle</span> = 5 </span>{
         save building to: new_shape_file_buildings type:<span class="hljs-string">"shp"</span> with:[height::<span class="hljs-string">"HEIGHT"</span>, type::<span class="hljs-string">"NATURE"</span>, price::<span class="hljs-string">"PRICE"</span>];
     }
 }
 
-<span class="hljs-literal">species</span> building {
+<span class="hljs-class">species <span class="hljs-title">building</span> </span>{
     <span class="hljs-literal">float</span> height;
     <span class="hljs-literal">string</span> type;
     <span class="hljs-literal">float</span> price &lt;- (shape.area * height) * (type = <span class="hljs-string">"Industrial"</span> ? 0.5: 1) update: price * (90 +rnd(20)) / 100; 
@@ -41,10 +41,10 @@ global {
     
 }
 
-<span class="hljs-builtin">experiment</span> GIS_agentification type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">GIS_agentification</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display city_display type: opengl {
-            <span class="hljs-literal">species</span> building;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">building</span>;</span>
         }
     }
 }
@@ -63,8 +63,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> modavi
  
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Graph of the agents</span>
     <span class="hljs-literal">graph</span>&lt;node_agent,edge_agent&gt; my_graph ;
     
@@ -42,7 +42,7 @@ global {
     <span class="hljs-literal">int</span> nbEdgeMax;
     
     <span class="hljs-comment">//Reflex to update the interaction matrix list</span>
-    <span class="hljs-builtin">reflex</span> updateInteractionMatrix{
+    <span class="hljs-class">reflex <span class="hljs-title">updateInteractionMatrix</span></span>{
         <span class="hljs-comment">//Ask for each edge agent to update it sources and destination to create the matrix</span>
         ask edge_agent{
             loop i from:0 to: nbTypeOfClass-1{                                                          
@@ -55,7 +55,7 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to compute te maximum number of edges</span>
-    <span class="hljs-builtin">reflex</span> computeNbEdgeMax{
+    <span class="hljs-class">reflex <span class="hljs-title">computeNbEdgeMax</span></span>{
         <span class="hljs-comment">//Number maximum of edges</span>
         nbEdgeMax &lt;-1;
         <span class="hljs-comment">//Ask for each macro edge its aggregated link list number</span>
@@ -109,7 +109,7 @@ global {
 
 
     <span class="hljs-comment">//Species to represent the node_agent</span>
-    <span class="hljs-literal">species</span> node_agent  {
+    <span class="hljs-class">species <span class="hljs-title">node_agent</span>  </span>{
         <span class="hljs-comment">//Color of the node agent</span>
         <span class="hljs-literal">rgb</span> color;
         <span class="hljs-comment">//List of the class</span>
@@ -120,7 +120,7 @@ global {
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">rgb</span>&gt; colorList &lt;- list_with (nbTypeOfClass, <span class="hljs-literal">rgb</span>(0,0,0));
                                 
         <span class="hljs-comment">//Shuffle the classes of the node_agent</span>
-        <span class="hljs-builtin">reflex</span> shuffleClass{
+        <span class="hljs-class">reflex <span class="hljs-title">shuffleClass</span></span>{
             loop i from:0 to: nbTypeOfClass-1{
                 classVector[i] &lt;- rnd(nbValuePerClass-1)+1;
             }   
@@ -141,7 +141,7 @@ global {
     }
     
     <span class="hljs-comment">//Species edge_agent to represent the edge of the graph</span>
-    <span class="hljs-literal">species</span> edge_agent { 
+    <span class="hljs-class">species <span class="hljs-title">edge_agent</span> </span>{ 
         <span class="hljs-literal">rgb</span> color;
         <span class="hljs-comment">//Source of the edge</span>
         node_agent src;
@@ -161,7 +161,7 @@ global {
         }
     }
     <span class="hljs-comment">//Species representing the macro node agents</span>
-    <span class="hljs-literal">species</span> macroNode{
+    <span class="hljs-class">species <span class="hljs-title">macroNode</span></span>{
         <span class="hljs-literal">rgb</span> color;
         <span class="hljs-literal">int</span> class;
         <span class="hljs-comment">//List of all the aggregated nodes</span>
@@ -170,7 +170,7 @@ global {
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; posVector &lt;-list_with(nbTypeOfClass,{0,0});
          
         <span class="hljs-comment">//Update the nodes of the agents</span>
-        <span class="hljs-builtin">reflex</span> update{
+        <span class="hljs-class">reflex <span class="hljs-title">update</span></span>{
             do updatemyNodes;
         }
         <span class="hljs-comment">//For each classes, find all the nodes with the same classes</span>
@@ -210,7 +210,7 @@ global {
     }
     
     <span class="hljs-comment">//Species macroEdge representing the macro edges agents</span>
-    <span class="hljs-literal">species</span> macroEdge  { 
+    <span class="hljs-class">species <span class="hljs-title">macroEdge</span>  </span>{ 
         <span class="hljs-literal">rgb</span> color &lt;- #black;
         <span class="hljs-comment">//Source of the macroedge</span>
         macroNode src;
@@ -240,11 +240,11 @@ global {
     }
     
     <span class="hljs-comment">//Species macroGraph representing the macro graph composed of macroNode and macroEdge</span>
-    <span class="hljs-literal">species</span> macroGraph {
+    <span class="hljs-class">species <span class="hljs-title">macroGraph</span> </span>{
         
 
     <span class="hljs-comment">//Reflex to update the graph by killing all the previous edges first </span>
-   <span class="hljs-builtin">reflex</span> updateAllMacroEdge {  
+   <span class="hljs-class">reflex <span class="hljs-title">updateAllMacroEdge</span> </span>{  
         ask macroEdge as <span class="hljs-literal">list</span>{
             do die;
         }
@@ -266,7 +266,7 @@ global {
         }
     }
     <span class="hljs-comment">//Reflex to initialize the matrix</span>
-    <span class="hljs-builtin">reflex</span> initMatrix{
+    <span class="hljs-class">reflex <span class="hljs-title">initMatrix</span></span>{
         loop i from:0 to:nbTypeOfClass-1{
           interactionMatrix[i] &lt;- 0 as_matrix({nbValuePerClass,nbValuePerClass});   
         }   
@@ -275,25 +275,25 @@ global {
 
 
 
-<span class="hljs-builtin">experiment</span> MODAVI type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">MODAVI</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {            
-        display MODAVI type:opengl draw_env:false {
+        <span class="hljs-class">display <span class="hljs-title">MODAVI</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>:<span class="hljs-title">false</span> </span>{
             graphics 'ReferenceModel'{
                 draw <span class="hljs-string">"Reference model"</span> at:{200,50,0} size:5 color: #black perspective:false;
             }
-            <span class="hljs-literal">species</span> node_agent aspect: real position:{100,0,0.01} ;
+            <span class="hljs-class">species <span class="hljs-title">node_agent</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">real</span> <span class="hljs-title">position</span>:</span>{100,0,0.01} ;
             
             graphics 'View1'{
                 draw <span class="hljs-string">"Advanced view"</span> at:{50,210,0} size:5 color: #black perspective:false;
             }
-            <span class="hljs-literal">species</span> node_agent aspect: coloredByClass position: {0,100,0.02};
-            <span class="hljs-literal">species</span> edge_agent aspect: edgeGenericSpatialized position: {0,100,0.02};
+            <span class="hljs-class">species <span class="hljs-title">node_agent</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">coloredByClass</span> <span class="hljs-title">position</span>: </span>{0,100,0.02};
+            <span class="hljs-class">species <span class="hljs-title">edge_agent</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">edgeGenericSpatialized</span> <span class="hljs-title">position</span>: </span>{0,100,0.02};
             
             graphics 'AbstractView'{
                 draw <span class="hljs-string">"Abstract view/controller"</span> at:{250,210,0} size:5 color: #black perspective:false;
             }
-            <span class="hljs-literal">species</span> macroNode aspect:Generic position: {200,100,0.01};
-            <span class="hljs-literal">species</span> macroEdge aspect:base position: {200,100,0.01}; 
+            <span class="hljs-class">species <span class="hljs-title">macroNode</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">Generic</span> <span class="hljs-title">position</span>: </span>{200,100,0.01};
+            <span class="hljs-class">species <span class="hljs-title">macroEdge</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span> <span class="hljs-title">position</span>: </span>{200,100,0.01}; 
         }
     }       
 }
@@ -315,8 +315,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

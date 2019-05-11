@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> voronoi
  
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">// Parameters </span>
     <span class="hljs-comment">//Number of points</span>
     <span class="hljs-literal">int</span> num_points &lt;- 4 min: 1 max: 1000;
@@ -22,22 +22,22 @@ global {
     <span class="hljs-literal">geometry</span> shape &lt;- rectangle(env_width, env_height);
     
     init { 
-        write 'This <span class="hljs-builtin">model</span> shows how Voronoi-like shapes can be drawn on a regular surface. A set of mobile agents is placed on a grid. Each <span class="hljs-literal">agent</span> possesses an attribute called *inside_color*. Each step, the agents move randomly and the grid cells paint themselves using the *inside_color* of the nearest <span class="hljs-literal">agent</span>. Dynamical boundaries then appear on the screen without any further calculations.';
+        write 'This <span class="hljs-builtin">model</span> shows how Voronoi-like shapes can be drawn on a regular surface. A set of mobile agents is placed on a <span class="hljs-class">grid. <span class="hljs-title">Each</span> <span class="hljs-title">agent</span> <span class="hljs-title">possesses</span> <span class="hljs-title">an</span> <span class="hljs-title">attribute</span> <span class="hljs-title">called</span> *<span class="hljs-title">inside_color</span>*. <span class="hljs-title">Each</span> <span class="hljs-title">step</span>, <span class="hljs-title">the</span> <span class="hljs-title">agents</span> <span class="hljs-title">move</span> <span class="hljs-title">randomly</span> <span class="hljs-title">and</span> <span class="hljs-title">the</span> <span class="hljs-title">grid</span> <span class="hljs-title">cells</span> <span class="hljs-title">paint</span> <span class="hljs-title">themselves</span> <span class="hljs-title">using</span> <span class="hljs-title">the</span> *<span class="hljs-title">inside_color</span>* <span class="hljs-title">of</span> <span class="hljs-title">the</span> <span class="hljs-title">nearest</span> <span class="hljs-title">agent</span>. <span class="hljs-title">Dynamical</span> <span class="hljs-title">boundaries</span> <span class="hljs-title">then</span> <span class="hljs-title">appear</span> <span class="hljs-title">on</span> <span class="hljs-title">the</span> <span class="hljs-title">screen</span> <span class="hljs-title">without</span> <span class="hljs-title">any</span> <span class="hljs-title">further</span> <span class="hljs-title">calculations</span>.';</span>
         <span class="hljs-comment">//Creation of all the points</span>
         create center number: num_points ;  
     }   
 } 
 <span class="hljs-comment">//Grid for the voronoi clustering</span>
-grid cell width: env_width height: env_height neighbors: 8 use_regular_agents: false {
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: <span class="hljs-title">env_width</span> <span class="hljs-title">height</span>: <span class="hljs-title">env_height</span> <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> </span>{
     <span class="hljs-comment">// Note: since GAMA 1.7, the topology needs to be specified for this computation to use continuous distances</span>
     center closest_center &lt;- nil update: (center closest_to self.location) using <span class="hljs-literal">topology</span>(world);
     <span class="hljs-literal">rgb</span> color &lt;- #white update: (closest_center).color;
 }
 <span class="hljs-comment">//Species representing the center of a Voronoi point</span>
-<span class="hljs-literal">species</span> center skills: [<span class="hljs-builtin">moving</span>] { 
+<span class="hljs-class">species <span class="hljs-title">center</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{ 
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>([rnd (255),rnd (255),rnd (255)]); 
     <span class="hljs-comment">//Make the center of the cluster wander in the environment       </span>
-    <span class="hljs-builtin">reflex</span> wander {
+    <span class="hljs-class">reflex <span class="hljs-title">wander</span> </span>{
         do wander amplitude: 90;
     }  
     aspect base {
@@ -46,15 +46,15 @@ grid cell width: env_width height: env_height neighbors: 8 use_regular_agents: f
 }
 
 
-<span class="hljs-builtin">experiment</span> voronoi type: gui{ 
+<span class="hljs-class">experiment <span class="hljs-title">voronoi</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{ 
     parameter 'Number of points:' var: num_points;
     parameter 'Width of the environment:' var: env_width;
     parameter 'Height of the environment:' var: env_height;
     
     output {
-        display Voronoi type: opengl {
-            grid cell  ;
-            <span class="hljs-literal">species</span> center aspect: base ;
+        <span class="hljs-class">display <span class="hljs-title">Voronoi</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span>  ;</span>
+            <span class="hljs-class">species <span class="hljs-title">center</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
         }
     }   
 }
@@ -73,8 +73,8 @@ grid cell width: env_width height: env_height neighbors: 8 use_regular_agents: f
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

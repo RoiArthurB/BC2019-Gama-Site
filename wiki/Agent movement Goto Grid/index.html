@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> Grid
 
-global {
+<span class="hljs-class">global </span>{
     init {    
         create goal{
             location &lt;- (one_of (cell where not each.is_obstacle)).location;
@@ -22,19 +22,19 @@ global {
     } 
 }
 
-grid cell width: 50 height: 50 neighbors: 4 {
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 50 <span class="hljs-title">height</span>: 50 <span class="hljs-title">neighbors</span>: 4 </span>{
     <span class="hljs-literal">bool</span> is_obstacle &lt;- flip(0.2);
     <span class="hljs-literal">rgb</span> color &lt;- is_obstacle ? #black : #white;
 } 
      
-<span class="hljs-literal">species</span> goal {
+<span class="hljs-class">species <span class="hljs-title">goal</span> </span>{
     aspect default { 
         draw circle(0.5) color: #red;
     }
 }  
     
       
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     goal target;
     <span class="hljs-literal">float</span> speed &lt;- <span class="hljs-literal">float</span>(3);
     
@@ -42,7 +42,7 @@ grid cell width: 50 height: 50 neighbors: 4 {
         draw circle(0.5) color: #green;
     }
     
-    <span class="hljs-builtin">reflex</span> move when: location != target{
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">location</span> != <span class="hljs-title">target</span></span>{
         <span class="hljs-comment">//Neighs contains all the neighbors cells that are reachable by the agent plus the cell where it's located</span>
         <span class="hljs-literal">list</span>&lt;cell&gt; neighs &lt;- (cell(location) neighbors_at speed) + cell(location); 
         
@@ -65,12 +65,12 @@ grid cell width: 50 height: 50 neighbors: 4 {
     }
 }
 
-<span class="hljs-builtin">experiment</span> goto_grid type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">goto_grid</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display objects_display {
-            grid cell lines: #black;
-            <span class="hljs-literal">species</span> goal aspect: default ;
-            <span class="hljs-literal">species</span> people aspect: default ;
+        <span class="hljs-class">display <span class="hljs-title">objects_display</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
         }
     }
 }
@@ -89,8 +89,8 @@ grid cell width: 50 height: 50 neighbors: 4 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

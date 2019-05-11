@@ -11,7 +11,7 @@
 <span class="hljs-builtin">model</span> bubblesort3D
 
 
-global {
+<span class="hljs-class">global </span>{
 
 <span class="hljs-comment">//Number of cubes by faces of the whole big cube</span>
 <span class="hljs-literal">int</span> nb_cells&lt;-15;
@@ -58,7 +58,7 @@ init {
 }
 
 <span class="hljs-comment">//Reflex to finish the execution of the model when nothing has changed during the cycle</span>
-<span class="hljs-builtin">reflex</span> end {
+<span class="hljs-class">reflex <span class="hljs-title">end</span> </span>{
     <span class="hljs-keyword">if</span> (not change) {
         do pause;   
     } 
@@ -67,7 +67,7 @@ init {
 }
 
 
-<span class="hljs-literal">species</span> cells{
+<span class="hljs-class">species <span class="hljs-title">cells</span></span>{
 
     <span class="hljs-literal">rgb</span> color;
     <span class="hljs-literal">float</span> red;
@@ -81,21 +81,21 @@ init {
     cells upper_cell_z update: neigbhours first_with (shape.location.z &gt; each.shape.location.z);
     
     <span class="hljs-comment">//We permute the cube agent with its neighbor if its intensity is greater according to the canal related to its axis (z for canal blue, y for green and x for red)</span>
-    <span class="hljs-builtin">reflex</span> swap_z when: upper_cell_z != nil and blue &lt; upper_cell_z.blue{ 
+    <span class="hljs-class">reflex <span class="hljs-title">swap_z</span> <span class="hljs-title">when</span>: <span class="hljs-title">upper_cell_z</span> != <span class="hljs-title">nil</span> <span class="hljs-title">and</span> <span class="hljs-title">blue</span> &lt; <span class="hljs-title">upper_cell_z</span>.<span class="hljs-title">blue</span></span>{ 
         <span class="hljs-literal">point</span> tmp1Loc &lt;-location;
         location &lt;- upper_cell_z.location;  
         upper_cell_z.location&lt;-tmp1Loc;     
         change &lt;- true; 
     }
     
-    <span class="hljs-builtin">reflex</span> swap_y when: upper_cell_y != nil and green &lt; upper_cell_y.green{ 
+    <span class="hljs-class">reflex <span class="hljs-title">swap_y</span> <span class="hljs-title">when</span>: <span class="hljs-title">upper_cell_y</span> != <span class="hljs-title">nil</span> <span class="hljs-title">and</span> <span class="hljs-title">green</span> &lt; <span class="hljs-title">upper_cell_y</span>.<span class="hljs-title">green</span></span>{ 
         <span class="hljs-literal">point</span> tmp1Loc &lt;-location;
         location &lt;- upper_cell_y.location;  
         upper_cell_y.location&lt;-tmp1Loc;     
         change &lt;- true; 
     }
     
-    <span class="hljs-builtin">reflex</span> swap_x when: upper_cell_x != nil and red &lt; upper_cell_x.red{ 
+    <span class="hljs-class">reflex <span class="hljs-title">swap_x</span> <span class="hljs-title">when</span>: <span class="hljs-title">upper_cell_x</span> != <span class="hljs-title">nil</span> <span class="hljs-title">and</span> <span class="hljs-title">red</span> &lt; <span class="hljs-title">upper_cell_x</span>.<span class="hljs-title">red</span></span>{ 
         <span class="hljs-literal">point</span> tmp1Loc &lt;-location;
         location &lt;- upper_cell_x.location;  
         upper_cell_x.location&lt;-tmp1Loc;     
@@ -108,10 +108,10 @@ init {
 }
 
 
-<span class="hljs-builtin">experiment</span> Display type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Display</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display View1 type:opengl draw_env:false{
-            <span class="hljs-literal">species</span> cells transparency:0.1;
+        <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>:<span class="hljs-title">false</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">cells</span> <span class="hljs-title">transparency</span>:0.1;</span>
             graphics <span class="hljs-string">"di"</span>{
              draw <span class="hljs-string">"black(0,0,0)"</span> at:{0,0,0} color:°black perspective:false;
              draw <span class="hljs-string">"red(1,0,0)"</span> at:{world.shape.width,0,0} color:°red perspective:false;
@@ -140,8 +140,8 @@ init {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

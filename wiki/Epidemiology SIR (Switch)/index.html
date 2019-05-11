@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> SIR_switch
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">// Parameters</span>
     <span class="hljs-literal">int</span> initial_S &lt;- 495 ; <span class="hljs-comment">// The number of susceptible</span>
     <span class="hljs-literal">int</span> initial_I &lt;- 5   ; <span class="hljs-comment">// The number of infected</span>
@@ -40,10 +40,10 @@ global {
     init {
         create new_scheduler;
         <span class="hljs-comment">/* determine the size of the neighborhood and the average count of hosts neighbors */</span>
-        gridSize &lt;- length(sir_grid);
+        gridSize &lt;- length(sir_<span class="hljs-class">grid);</span>
         <span class="hljs-literal">int</span> nbCells &lt;- 0;
         
-        loop cell over: sir_grid {
+        loop cell over: sir_<span class="hljs-class">grid </span>{
             nbCells &lt;- nbCells + length(cell.neighbors);
         }
 
@@ -91,7 +91,7 @@ global {
 
     }
 
-    <span class="hljs-builtin">reflex</span> infection_computation_method {
+    <span class="hljs-class">reflex <span class="hljs-title">infection_computation_method</span> </span>{
     <span class="hljs-comment">/* computing infection from S has a complexity of S*ngb, where ngb is the size of the neighborhood.
      * computing infection from I has a complexity of I*ngb.
      * this reflex determine which method has the lowest cost.
@@ -101,23 +101,23 @@ global {
 
 }
 <span class="hljs-comment">//Grid which represent the discretized space for the host agents</span>
-    grid sir_grid width: grid_size height: grid_size {
+    <span class="hljs-class">grid <span class="hljs-title">sir_grid</span> <span class="hljs-title">width</span>: <span class="hljs-title">grid_size</span> <span class="hljs-title">height</span>: <span class="hljs-title">grid_size</span> </span>{
         <span class="hljs-literal">rgb</span> color &lt;- #black;
-        <span class="hljs-literal">list</span>&lt;sir_grid&gt; neighbors &lt;- (self neighbors_at neighbors_range) of_species sir_grid;
+        <span class="hljs-literal">list</span>&lt;sir_<span class="hljs-class">grid&gt; <span class="hljs-title">neighbors</span> &lt;- (<span class="hljs-title">self</span> <span class="hljs-title">neighbors_at</span> <span class="hljs-title">neighbors_range</span>) <span class="hljs-title">of_species</span> <span class="hljs-title">sir_grid</span>;</span>
     }
 
 
 <span class="hljs-comment">//Species which allows the execution of only Host, IBM_model, Math_model and switch_model at each cycle</span>
-<span class="hljs-literal">species</span> new_scheduler schedules: (Host + IBM_model + Math_model + switch_model) ;
+<span class="hljs-class">species <span class="hljs-title">new_scheduler</span> <span class="hljs-title">schedules</span>: (<span class="hljs-title">Host</span> + <span class="hljs-title">IBM_model</span> + <span class="hljs-title">Math_model</span> + <span class="hljs-title">switch_model</span>) ;</span>
 
 <span class="hljs-comment">//Species which represent the manager between IBM and Math model</span>
-<span class="hljs-literal">species</span> switch_model schedules: [] {
+<span class="hljs-class">species <span class="hljs-title">switch_model</span> <span class="hljs-title">schedules</span>: [] </span>{
     <span class="hljs-literal">int</span> threshold_to_IBM &lt;- 45; <span class="hljs-comment">// threshold under which the model swith to IBM</span>
     <span class="hljs-literal">int</span> threshold_to_Maths &lt;- 50; <span class="hljs-comment">// threshold under which the model swith to Maths model </span>
     <span class="hljs-literal">bool</span> start_with_IBM function: { (initial_S &lt; threshold_to_IBM or initial_I &lt; threshold_to_IBM) };
 
     <span class="hljs-comment">//Switch the model used to IBM when the threshold is higher than the population</span>
-    <span class="hljs-builtin">reflex</span> switch_to_IBM when: (current_model.model_type = 'Maths') {
+    <span class="hljs-class">reflex <span class="hljs-title">switch_to_IBM</span> <span class="hljs-title">when</span>: (<span class="hljs-title">current_model</span>.<span class="hljs-title">model_type</span> = '<span class="hljs-title">Maths</span>') </span>{
         <span class="hljs-keyword">if</span> (current_model.S &lt; threshold_to_IBM or current_model.I &lt; threshold_to_IBM) {
             write 'Switch to IBM <span class="hljs-builtin">model</span> at cycle ' + <span class="hljs-literal">string</span>(cycle);
             create IBM_model {
@@ -137,7 +137,7 @@ global {
 
     }
     <span class="hljs-comment">//Switch the model used to Maths when the threshold is lower than the population</span>
-    <span class="hljs-builtin">reflex</span> switch_to_Maths when: (current_model.model_type = 'IBM') {
+    <span class="hljs-class">reflex <span class="hljs-title">switch_to_Maths</span> <span class="hljs-title">when</span>: (<span class="hljs-title">current_model</span>.<span class="hljs-title">model_type</span> = '<span class="hljs-title">IBM</span>') </span>{
         <span class="hljs-keyword">if</span> (current_model.S &gt; threshold_to_Maths and current_model.I &gt; threshold_to_Maths) {
             write 'Switch to Maths <span class="hljs-builtin">model</span> at cycle ' + cycle;
             create Math_model {
@@ -159,7 +159,7 @@ global {
 
 }
 <span class="hljs-comment">//Species which represent the SIR model used by the IBM and the Math models </span>
-<span class="hljs-literal">species</span> SIR_model schedules: [] {
+<span class="hljs-class">species <span class="hljs-title">SIR_model</span> <span class="hljs-title">schedules</span>: [] </span>{
     <span class="hljs-literal">float</span> S;
     <span class="hljs-literal">float</span> I;
     <span class="hljs-literal">float</span> R;
@@ -175,7 +175,7 @@ global {
 }
 
 <span class="hljs-comment">//Species IBM Model which represent the Individual based model, derivated from SIR_model</span>
-<span class="hljs-literal">species</span> IBM_model schedules: [] parent: SIR_model {
+<span class="hljs-class">species <span class="hljs-title">IBM_model</span> <span class="hljs-title">schedules</span>: [] <span class="hljs-title">parent</span>: <span class="hljs-title">SIR_model</span> </span>{
     <span class="hljs-literal">string</span> model_type &lt;- 'IBM';
     
     <span class="hljs-comment">//Action to initialize the Model with SIR compartiments</span>
@@ -206,7 +206,7 @@ global {
         do count;
     }
 
-    <span class="hljs-builtin">reflex</span> count {
+    <span class="hljs-class">reflex <span class="hljs-title">count</span> </span>{
         do count;
     }
     <span class="hljs-comment">//Action to update the different compartiments</span>
@@ -227,7 +227,7 @@ global {
 }
 
 <span class="hljs-comment">//Species Math Model which represent the mathematical Ordinary Differential Equations model, derivated from SIR_model</span>
-<span class="hljs-literal">species</span> Math_model schedules: [] parent: SIR_model {
+<span class="hljs-class">species <span class="hljs-title">Math_model</span> <span class="hljs-title">schedules</span>: [] <span class="hljs-title">parent</span>: <span class="hljs-title">SIR_model</span> </span>{
     <span class="hljs-literal">string</span> model_type &lt;- 'Maths';
     <span class="hljs-literal">float</span> t;
     
@@ -241,42 +241,42 @@ global {
         diff(R, t) = (delta * I);
     }
 
-    <span class="hljs-builtin">reflex</span> solving {solve SIR method: <span class="hljs-string">"rk4"</span> step: 0.01 ;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{solve SIR method: <span class="hljs-string">"rk4"</span> step: 0.01 ;}
 }
 <span class="hljs-comment">//Species host used by the Individual Based Model which move from one cell to another</span>
-<span class="hljs-literal">species</span> Host schedules: [] skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">Host</span> <span class="hljs-title">schedules</span>: [] <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">bool</span> is_susceptible &lt;- true;
     <span class="hljs-literal">bool</span> is_infected &lt;- false;
     <span class="hljs-literal">bool</span> is_immune &lt;- false;
     <span class="hljs-literal">rgb</span> color &lt;- #green;
-    sir_grid myPlace;
+    sir_<span class="hljs-class">grid <span class="hljs-title">myPlace</span>;</span>
     
     <span class="hljs-comment">/* next function computes the number of neighbors of the agent */</span>
     <span class="hljs-literal">int</span> ngb_number function: {
-        length(((self) neighbors_at (2)) of_species Host) - 1 <span class="hljs-comment">// -1 is because the agent counts itself</span>
+        length(((self) neighbors_at (2)) of_<span class="hljs-class">species <span class="hljs-title">Host</span>) - 1 // -1 <span class="hljs-title">is</span> <span class="hljs-title">because</span> <span class="hljs-title">the</span> <span class="hljs-title">agent</span> <span class="hljs-title">counts</span> <span class="hljs-title">itself</span></span>
     };
     
     init {
-        myPlace &lt;- one_of(sir_grid as <span class="hljs-literal">list</span>);
+        myPlace &lt;- one_of(sir_<span class="hljs-class">grid <span class="hljs-title">as</span> <span class="hljs-title">list</span>);</span>
         location &lt;- myPlace.location;
     }
 
     <span class="hljs-comment">//Reflex to move the agents among the cells</span>
-    <span class="hljs-builtin">reflex</span> basic_move {
+    <span class="hljs-class">reflex <span class="hljs-title">basic_move</span> </span>{
         <span class="hljs-keyword">if</span> (!local_random_walk) {
         <span class="hljs-comment">/* random walk among neighbors */</span>
             myPlace &lt;- one_of(myPlace.neighbors);
             location &lt;- myPlace.location;
         } else {
         <span class="hljs-comment">/* move agent to a random place anywhere in the grid */</span>
-            myPlace &lt;- any(sir_grid);
+            myPlace &lt;- any(sir_<span class="hljs-class">grid);</span>
             location &lt;- myPlace.location;
         }
 
     }
     <span class="hljs-comment">//Reflex to make the agent infected when the infection is computed from S for a better execution time</span>
-    <span class="hljs-builtin">reflex</span> become_infected when: (is_susceptible and computeInfectionFromS) {
-        <span class="hljs-keyword">if</span> (flip(1 - (1 - beta) ^ (((self) neighbors_at (2)) of_species Host) count (each.is_infected))) {
+    <span class="hljs-class">reflex <span class="hljs-title">become_infected</span> <span class="hljs-title">when</span>: (<span class="hljs-title">is_susceptible</span> <span class="hljs-title">and</span> <span class="hljs-title">computeInfectionFromS</span>) </span>{
+        <span class="hljs-keyword">if</span> (flip(1 - (1 - beta) ^ (((self) neighbors_at (2)) of_<span class="hljs-class">species <span class="hljs-title">Host</span>) <span class="hljs-title">count</span> (<span class="hljs-title">each</span>.<span class="hljs-title">is_infected</span>))) </span>{
             is_susceptible &lt;- false;
             is_infected &lt;- true;
             is_immune &lt;- false;
@@ -285,7 +285,7 @@ global {
 
     }
     <span class="hljs-comment">//Reflex to make the agent infect others when the infection is not computed from S for a better execution time</span>
-    <span class="hljs-builtin">reflex</span> infecte_others when: (is_infected and not (computeInfectionFromS)) {
+    <span class="hljs-class">reflex <span class="hljs-title">infecte_others</span> <span class="hljs-title">when</span>: (<span class="hljs-title">is_infected</span> <span class="hljs-title">and</span> <span class="hljs-title">not</span> (<span class="hljs-title">computeInfectionFromS</span>)) </span>{
         loop hst over: ((self) neighbors_at (2)) {
             <span class="hljs-keyword">if</span> (hst.is_susceptible) {
                 <span class="hljs-keyword">if</span> (flip(beta)) {
@@ -298,7 +298,7 @@ global {
         }
     }
     <span class="hljs-comment">//Reflex to make the agent resistant</span>
-    <span class="hljs-builtin">reflex</span> become_immune when: (is_infected and flip(delta)) {
+    <span class="hljs-class">reflex <span class="hljs-title">become_immune</span> <span class="hljs-title">when</span>: (<span class="hljs-title">is_infected</span> <span class="hljs-title">and</span> <span class="hljs-title">flip</span>(<span class="hljs-title">delta</span>)) </span>{
         is_susceptible &lt;- false;
         is_infected &lt;- false;
         is_immune &lt;- true;
@@ -311,7 +311,7 @@ global {
 
 }
 <span class="hljs-comment">//Species which represent the SIR mathematical model </span>
-<span class="hljs-literal">species</span> my_SIR_maths {
+<span class="hljs-class">species <span class="hljs-title">my_SIR_maths</span> </span>{
     <span class="hljs-literal">float</span> t;
     <span class="hljs-literal">float</span> I &lt;- <span class="hljs-literal">float</span>(iInit);
     <span class="hljs-literal">float</span> S &lt;- N - I;
@@ -328,13 +328,13 @@ global {
         diff(R, t) = (alpha * I);
     }
     
-    <span class="hljs-builtin">reflex</span> solving {solve SIR method:<span class="hljs-string">"rk4"</span> step:0.01;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{solve SIR method:<span class="hljs-string">"rk4"</span> step:0.01;}
 
 }
 
 
 
-<span class="hljs-builtin">experiment</span> mysimulation type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">mysimulation</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Number of Susceptible' type: <span class="hljs-literal">int</span> var: initial_S &lt;- 495 category: <span class="hljs-string">"Initial population"</span>; 
     parameter 'Number of Infected'    type: <span class="hljs-literal">int</span> var: initial_I &lt;- 5   category: <span class="hljs-string">"Initial population"</span>;
     parameter 'Number of Removed'     type: <span class="hljs-literal">int</span> var: initial_R &lt;- 0   category: <span class="hljs-string">"Initial population"</span>;
@@ -350,12 +350,12 @@ global {
     parameter 'Switch models at' type: <span class="hljs-literal">int</span> var: switch_threshold &lt;- 120 category: <span class="hljs-string">"Model"</span>;
     
     output {
-        display 'sir display' {
-            grid sir_grid lines: #black;
-            <span class="hljs-literal">species</span> Host aspect: basic;
+        <span class="hljs-class">display '<span class="hljs-title">sir</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">grid <span class="hljs-title">sir_grid</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">Host</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">basic</span>;</span>
         }
     
-        display 'Switch <span class="hljs-builtin">model</span>' {
+        <span class="hljs-class">display '<span class="hljs-title">Switch</span> <span class="hljs-title">model</span>' </span>{
             chart 'Susceptible' type: series background: #lightgray style: exploded {
                 data 'susceptible' value: current_model.S color: #green;
                 data 'infected' value: current_model.I color: #red;
@@ -364,7 +364,7 @@ global {
 
         }
 
-        display SI_maths  {
+        <span class="hljs-class">display <span class="hljs-title">SI_maths</span>  </span>{
             chart <span class="hljs-string">"SI"</span> type: series background: #white {
                 data 'S' value: first((my_SIR_maths)).S color: #green;
                 data 'I' value: first((my_SIR_maths)).I color: #red;
@@ -391,8 +391,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

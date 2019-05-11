@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> polygon
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Import of the shapefile containing the different polygons</span>
     <span class="hljs-literal">file</span> shape_file_in &lt;- <span class="hljs-literal">file</span>('../includes/gis/squareHole.shp') ;
     <span class="hljs-literal">graph</span> the_graph;
@@ -54,36 +54,36 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> object  {
+<span class="hljs-class">species <span class="hljs-title">object</span>  </span>{
     aspect default {
         draw shape color: #gray ;
     }
 }
 
-<span class="hljs-literal">species</span> triangle_obj  {
+<span class="hljs-class">species <span class="hljs-title">triangle_obj</span>  </span>{
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(150 +rnd(100),150 + rnd(100),150 + rnd(100));
     aspect default {
         draw shape color: color ; 
     }
 }
 
-<span class="hljs-literal">species</span> skeleton  {
+<span class="hljs-class">species <span class="hljs-title">skeleton</span>  </span>{
     aspect default {
         draw shape + 0.2 color: #red ;
     }
 }
     
-<span class="hljs-literal">species</span> goal {
+<span class="hljs-class">species <span class="hljs-title">goal</span> </span>{
     aspect default {
         draw circle(3) color:#red;
     }
 }
 
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     goal target;
     <span class="hljs-literal">path</span> my_path; 
     
-    <span class="hljs-builtin">reflex</span> goto {
+    <span class="hljs-class">reflex <span class="hljs-title">goto</span> </span>{
         do goto on:the_graph target:target speed:1;
     }
     aspect default {
@@ -91,14 +91,14 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> goto_polygon type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">goto_polygon</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display objects_display {
-            <span class="hljs-literal">species</span> object aspect: default ;
-            <span class="hljs-literal">species</span> triangle_obj aspect: default ;
-            <span class="hljs-literal">species</span> skeleton aspect: default ;
-            <span class="hljs-literal">species</span> people aspect: default ;
-            <span class="hljs-literal">species</span> goal aspect: default ;
+        <span class="hljs-class">display <span class="hljs-title">objects_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">triangle_obj</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">skeleton</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
         }
     }
 }
@@ -118,8 +118,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

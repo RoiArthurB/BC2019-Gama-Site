@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> Network
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> shape_file_in &lt;- <span class="hljs-literal">file</span>('../includes/gis/roads.shp') ;
     <span class="hljs-literal">graph</span> the_graph; 
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_in);
@@ -57,43 +57,43 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> road  {
+<span class="hljs-class">species <span class="hljs-title">road</span>  </span>{
     <span class="hljs-literal">float</span> speed_coef ;
     aspect default {
         draw shape color: #black ;
     }
 } 
     
-<span class="hljs-literal">species</span> goal {
+<span class="hljs-class">species <span class="hljs-title">goal</span> </span>{
     aspect default {
         draw circle(50) color: #red;
     }
 }
     
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     goal target;
     <span class="hljs-literal">path</span> my_path; 
     
     aspect default {
         draw circle(50) color: #green;
     }
-    <span class="hljs-builtin">reflex</span> movement {
+    <span class="hljs-class">reflex <span class="hljs-title">movement</span> </span>{
         do goto on:the_graph target:target speed:1;
     }
 }
 
 
-<span class="hljs-builtin">experiment</span> goto_network type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">goto_network</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Type of optimizer"</span> var: optimizer_type among: [<span class="hljs-string">"Djikstra"</span>, <span class="hljs-string">"AStar"</span>, <span class="hljs-string">"Bellmann"</span>, <span class="hljs-string">"Floyd Warshall"</span>];
     parameter <span class="hljs-string">"Number of people"</span> var: nb_people min: 1 max: 1000000;
     parameter <span class="hljs-string">"Computed all the shortest paths and save the results"</span> var: save_shortest_paths;
     parameter <span class="hljs-string">"Load the shortest paths from the file"</span> var: load_shortest_paths;
     
     output {
-        display objects_display {
-            <span class="hljs-literal">species</span> road aspect: default ;
-            <span class="hljs-literal">species</span> people aspect: default ;
-            <span class="hljs-literal">species</span> goal aspect: default ;
+        <span class="hljs-class">display <span class="hljs-title">objects_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> ;</span>
         }
     }
 }
@@ -112,8 +112,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

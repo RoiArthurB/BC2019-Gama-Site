@@ -93,12 +93,12 @@ The operator for the affectation in GAML is <code>&lt;-</code> (the operator <co
 <p>To follow the behavior of variable, we can write their value in the console. Let's go back to our basic skeleton of a model, and let's create a reflex in the global scope (to be short, a reflex is a function that is executed in each step. We will come back to this concept later). The <code>write</code> function works very easily, simply writing down the keyword <code>write</code> and the name of the variable we want to be displayed.</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> firstModel
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> integerVariable &lt;- 3;
     <span class="hljs-literal">float</span> floatVariable &lt;- 2.5;
     <span class="hljs-literal">string</span> stringVariable &lt;- <span class="hljs-string">"test"</span>; <span class="hljs-comment">// you can also write simple ' : &lt;- 'test'</span>
     <span class="hljs-literal">bool</span> booleanVariable &lt;- true; <span class="hljs-comment">// or false</span>
-    <span class="hljs-builtin">reflex</span> writeDebug {
+    <span class="hljs-class">reflex <span class="hljs-title">writeDebug</span> </span>{
         write integerVariable;
         write floatVariable;
         write stringVariable;
@@ -106,13 +106,13 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> myExperiment
+<span class="hljs-class">experiment <span class="hljs-title">myExperiment</span></span>
 {
 }
 </code></pre>
 <p>The function <code>write</code> is overloaded for each type of variable (even for the more complex type, such as containers).</p>
 <p>Note that before being initialized, a variable has the value <code>nil</code>.</p>
-<pre><code class="hljs"><span class="hljs-builtin">reflex</span> update {
+<pre><code class="hljs"><span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
     <span class="hljs-literal">string</span> my_string;
     write my_string; <span class="hljs-comment">// this will write "nil".</span>
     <span class="hljs-literal">int</span> my_int;
@@ -120,7 +120,7 @@ global {
 }
 </code></pre>
 <p><code>nil</code> is also a literal you can use to initialize your variable (you can learn more about the concept of literal in this <a href="Literals">page</a>).</p>
-<pre><code class="hljs"><span class="hljs-builtin">reflex</span> update {
+<pre><code class="hljs"><span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
     <span class="hljs-literal">string</span> my_string &lt;- <span class="hljs-string">"a string"</span>;
     my_string &lt;- nil;
     write my_string; <span class="hljs-comment">// this will write "nil".</span>
@@ -356,8 +356,8 @@ loop i over:exampleOfList {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

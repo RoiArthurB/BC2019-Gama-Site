@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> example_spatial_operators
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">// Parameters for the shapefiles</span>
     <span class="hljs-literal">file</span> shape_file_name_init  &lt;- <span class="hljs-literal">file</span>('../gis/init.shp') ;
     <span class="hljs-literal">file</span> shape_file_name_background  &lt;- <span class="hljs-literal">file</span>('../gis/background.shp');
@@ -31,27 +31,27 @@ global {
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_name_background);
     
 
-    <span class="hljs-builtin">reflex</span> stop when: empty ( object ) {
+    <span class="hljs-class">reflex <span class="hljs-title">stop</span> <span class="hljs-title">when</span>: <span class="hljs-title">empty</span> ( <span class="hljs-title">object</span> ) </span>{
         do halt;
     } 
 
 }
 
-<span class="hljs-literal">species</span> object <span class="hljs-literal">topology</span>: <span class="hljs-literal">topology</span>(shape_file_name_init) {
+<span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">topology</span>: <span class="hljs-title">topology</span>(<span class="hljs-title">shape_file_name_init</span>) </span>{
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span> ( [ rnd ( 255 ) , rnd ( 255 ) , rnd ( 255 ) ]);
     <span class="hljs-literal">point</span> location_new_Ag &lt;- nil;
     <span class="hljs-literal">rgb</span> color_new_Ag &lt;- nil;
     <span class="hljs-literal">int</span> nb_last_rep &lt;- 0;
         
     <span class="hljs-comment">//Reflex making the shape of the agent growing and rotate it randomly</span>
-    <span class="hljs-builtin">reflex</span> evolve {
+    <span class="hljs-class">reflex <span class="hljs-title">evolve</span> </span>{
         nb_last_rep &lt;- nb_last_rep + 1;
         shape &lt;- shape scaled_by scaling_factor;
         shape &lt;- shape rotated_by ((rnd ( 100 * angle_rotation_max))/ 100.0);       
     }
     
     <span class="hljs-comment">//Make the agent move, kill it if is area is greater than the dying size or intersecting contours of the world</span>
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         location &lt;- location + { speed * ( 1 - rnd ( 2 ) ) , speed * ( 1 - rnd ( 2 ) ) };
         <span class="hljs-keyword">if</span> ( (shape.area &gt; dying_size) or (shape intersects world.shape.contour)) {
             do die; 
@@ -61,7 +61,7 @@ global {
     
     
     <span class="hljs-comment">//Reflex to change the shape of the agent intersects an other agent and create a convex hull of the shape of the new agent resulting in the intersection of the shapes of the agent and an other one</span>
-    <span class="hljs-builtin">reflex</span> crossover when: ( shape.area &gt; crossover_size ) and ( nb_last_rep &gt; time_wthout_co ) { 
+    <span class="hljs-class">reflex <span class="hljs-title">crossover</span> <span class="hljs-title">when</span>: ( <span class="hljs-title">shape</span>.<span class="hljs-title">area</span> &gt; <span class="hljs-title">crossover_size</span> ) <span class="hljs-title">and</span> ( <span class="hljs-title">nb_last_rep</span> &gt; <span class="hljs-title">time_wthout_co</span> ) </span>{ 
         <span class="hljs-literal">int</span> nb_partners  &lt;- 0;
         <span class="hljs-literal">list</span>&lt;object&gt; list_people &lt;- shuffle ( object );
         loop p over: list_people {
@@ -89,7 +89,7 @@ global {
 
 
 
-<span class="hljs-builtin">experiment</span> example_spatial_operators type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">example_spatial_operators</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Path of shapefile to load <span class="hljs-keyword">for</span> the initial <span class="hljs-literal">agent</span>:' var: shape_file_name_init  category: 'GIS specific' ;
     parameter 'Path of shapefile to load <span class="hljs-keyword">for</span> the background:' var: shape_file_name_background category: 'GIS specific';
     parameter 'Size (area) from which an <span class="hljs-literal">agent</span> dies:' var: dying_size min: 100.0  category: 'Population'; 
@@ -105,11 +105,11 @@ global {
     parameter 'Size background side:' var: background_size_side category: 'Population' ;
 
     output {
-        display space_display {
+        <span class="hljs-class">display <span class="hljs-title">space_display</span> </span>{
             graphics <span class="hljs-string">"background"</span> {
                 draw world.shape color: <span class="hljs-literal">rgb</span> ([ 255 , 240 , 240 ]);
             }
-            <span class="hljs-literal">species</span> object aspect: <span class="hljs-literal">geometry</span>;
+            <span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">geometry</span>;</span>
         }
     }
 }
@@ -128,8 +128,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> ants
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Number of ants</span>
     <span class="hljs-literal">int</span> ants_number &lt;- 100 min: 1 max: 2000 ;
     <span class="hljs-comment">//Evaporation value per cycle</span>
@@ -32,18 +32,18 @@ global {
     <span class="hljs-literal">geometry</span> shape &lt;- square(gridsize);
     init{  
         <span class="hljs-comment">//Creation of the ants that will be placed randomly in the nest</span>
-        create ant number: ants_number with: [location::any_location_in (ant_grid(center))] ;
+        create ant number: ants_number with: [location::any_location_in (ant_<span class="hljs-class">grid(<span class="hljs-title">center</span>))] ;</span>
     }
     <span class="hljs-comment">//Reflex to diffuse the pheromon among the grid</span>
-    <span class="hljs-builtin">reflex</span> diffuse {
-      diffuse var:road on:ant_grid proportion: diffusion_rate radius:2 propagation: gradient;
+    <span class="hljs-class">reflex <span class="hljs-title">diffuse</span> </span>{
+      diffuse var:road on:ant_<span class="hljs-class">grid <span class="hljs-title">proportion</span>: <span class="hljs-title">diffusion_rate</span> <span class="hljs-title">radius</span>:2 <span class="hljs-title">propagation</span>: <span class="hljs-title">gradient</span>;</span>
    }
 
 }
 
 <span class="hljs-comment">//Grid that will be used to place the food in a discretized space</span>
-grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: false {
-    <span class="hljs-literal">list</span>&lt;ant_grid&gt; neighbors &lt;- self neighbors_at 1;
+<span class="hljs-class">grid <span class="hljs-title">ant_grid</span> <span class="hljs-title">width</span>: <span class="hljs-title">gridsize</span> <span class="hljs-title">height</span>: <span class="hljs-title">gridsize</span> <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> </span>{
+    <span class="hljs-literal">list</span>&lt;ant_<span class="hljs-class">grid&gt; <span class="hljs-title">neighbors</span> &lt;- <span class="hljs-title">self</span> <span class="hljs-title">neighbors_at</span> 1;</span>
     <span class="hljs-literal">float</span> road &lt;- 0.0 max:240.0 update: (road&lt;=evaporation_per_cycle) ? 0.0 : road-evaporation_per_cycle;
     <span class="hljs-literal">int</span> type &lt;- <span class="hljs-literal">int</span>(types at {grid_x,grid_y}) ;
     <span class="hljs-literal">bool</span> isNestLocation &lt;- (self distance_to center) &lt; 4 ;
@@ -54,14 +54,14 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: 
     
 }
 <span class="hljs-comment">//Species ant that will move and follow a final state machine</span>
-<span class="hljs-literal">species</span> ant skills: [<span class="hljs-builtin">moving</span>] control: <span class="hljs-builtin">fsm</span> {
+<span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{
     <span class="hljs-literal">float</span> speed &lt;- 2.0 ;
-    ant_grid place update: ant_grid (location ); 
+    ant_<span class="hljs-class">grid <span class="hljs-title">place</span> <span class="hljs-title">update</span>: <span class="hljs-title">ant_grid</span> (<span class="hljs-title">location</span> ); </span>
     <span class="hljs-literal">string</span> im &lt;- 'ant_shape_empty' ;
     <span class="hljs-literal">bool</span> hasFood &lt;- false ;
     <span class="hljs-comment">//Reflex to allow the diffusion of the road of pheromon by putting pheromon inside a cell</span>
-    <span class="hljs-builtin">reflex</span> diffuse_road when:hasFood=true{
-      ant_grid(location).road &lt;- ant_grid(location).road + 100.0;
+    <span class="hljs-class">reflex <span class="hljs-title">diffuse_road</span> <span class="hljs-title">when</span>:<span class="hljs-title">hasFood</span>=<span class="hljs-title">true</span></span>{
+      ant_<span class="hljs-class">grid(<span class="hljs-title">location</span>).<span class="hljs-title">road</span> &lt;- <span class="hljs-title">ant_grid</span>(<span class="hljs-title">location</span>).<span class="hljs-title">road</span> + 100.0;</span>
    }
    <span class="hljs-comment">//Action to pick the food</span>
     action pick {
@@ -76,8 +76,8 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: 
         heading &lt;- heading - 180 ;
     }
     <span class="hljs-comment">//Action to find the best cell in the neighborhood of the ant</span>
-    action choose_best_place type: ant_grid {  
-        <span class="hljs-literal">list</span>&lt;ant_grid&gt; list_places &lt;- place.neighbors ;
+    action choose_best_place type: ant_<span class="hljs-class">grid </span>{  
+        <span class="hljs-literal">list</span>&lt;ant_<span class="hljs-class">grid&gt; <span class="hljs-title">list_places</span> &lt;- <span class="hljs-title">place</span>.<span class="hljs-title">neighbors</span> ;</span>
         <span class="hljs-keyword">if</span> (list_places count (each.food &gt; 0)) &gt; 0  { 
             return (list_places first_with (each.food &gt; 0)) ;
         } else {
@@ -126,16 +126,16 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: 
     }           
 }
 
-<span class="hljs-builtin">experiment</span> Ant type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Ant</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Number of ants:' var: ants_number category: 'Model' ;
     parameter 'Evaporation of the signal (unit/cycle):' var: evaporation_per_cycle category: 'Model' ;
     parameter 'Rate of diffusion of the signal (%/cycle):' var: diffusion_rate category: 'Model' ;
     parameter 'Use icons <span class="hljs-keyword">for</span> the agents:' var: use_icons category: 'Display' ;
     parameter 'Display state of agents:' var: display_state category: 'Display' ;
     output {
-        display Ants type: opengl  {
-            grid ant_grid ;
-            <span class="hljs-literal">species</span> ant aspect: text ;
+        <span class="hljs-class">display <span class="hljs-title">Ants</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span>  </span>{
+            <span class="hljs-class">grid <span class="hljs-title">ant_grid</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">text</span> ;</span>
         }
     }
 }
@@ -156,8 +156,8 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 use_regular_agents: 
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

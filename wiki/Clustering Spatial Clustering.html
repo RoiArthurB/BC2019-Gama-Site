@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> clustering
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//define the maximal distance between people in the continuous environement (in meters): if the distance between 2 people is lower than this value, they will be in the same group</span>
     <span class="hljs-literal">float</span> max_dist_people &lt;- 20.0;
     
@@ -26,7 +26,7 @@ global {
     }
     
     <span class="hljs-comment">//reflex that builds the people clusters</span>
-    <span class="hljs-builtin">reflex</span> people_clustering {
+    <span class="hljs-class">reflex <span class="hljs-title">people_clustering</span> </span>{
         <span class="hljs-comment">//clustering by using the simple clustering operator: two people agents are in the same groups if their distance is lower than max_dist_people (in meters)</span>
         <span class="hljs-comment">//returns a list of lists (i.e. a list of groups, a group is a list of people agents)</span>
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;people&gt;&gt; clusters &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;people&gt;&gt;(simple_clustering_by_distance(people, max_dist_people));
@@ -72,7 +72,7 @@ global {
         }
     }
     <span class="hljs-comment">//reflex that builds the cell clusters</span>
-    <span class="hljs-builtin">reflex</span> forest_clustering {
+    <span class="hljs-class">reflex <span class="hljs-title">forest_clustering</span> </span>{
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;vegetation_cell&gt;&gt; clusters &lt;- <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">list</span>&lt;vegetation_cell&gt;&gt;(simple_clustering_by_distance(vegetation_cell where (each.color = #green), max_dist_cell));
         loop cluster over: clusters {
             create forest {
@@ -84,18 +84,18 @@ global {
     }
     
 }
-grid vegetation_cell width: 25 height: 25 neighbors: 4{
+<span class="hljs-class">grid <span class="hljs-title">vegetation_cell</span> <span class="hljs-title">width</span>: 25 <span class="hljs-title">height</span>: 25 <span class="hljs-title">neighbors</span>: 4</span>{
     <span class="hljs-literal">rgb</span> color &lt;- flip (proba_vegetation) ? #green : #white;
 }
 
-<span class="hljs-literal">species</span> forest {
+<span class="hljs-class">species <span class="hljs-title">forest</span> </span>{
     <span class="hljs-literal">list</span>&lt;vegetation_cell&gt; cells;
     aspect default {
         draw shape.contour + 0.5 color: #red;
     }
 }
 
-<span class="hljs-literal">species</span> people {
+<span class="hljs-class">species <span class="hljs-title">people</span> </span>{
     <span class="hljs-literal">rgb</span> color_cluster &lt;- #black;
     <span class="hljs-literal">rgb</span> color_tree &lt;- #black;
     aspect cluster {
@@ -106,7 +106,7 @@ grid vegetation_cell width: 25 height: 25 neighbors: 4{
     }
 }
 
-<span class="hljs-literal">species</span> group_people {
+<span class="hljs-class">species <span class="hljs-title">group_people</span> </span>{
     <span class="hljs-literal">list</span>&lt;group_people&gt; sub_groups;
     group_people parent;
     aspect default {
@@ -117,21 +117,21 @@ grid vegetation_cell width: 25 height: 25 neighbors: 4{
     }
 }
 
-<span class="hljs-builtin">experiment</span> clustering type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">clustering</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Maximal distance for people clustering"</span> var: max_dist_people min: 0.0 max: 100.0 category: <span class="hljs-string">"People"</span>;
     parameter <span class="hljs-string">"Maximal distance for vegetation cell clustering"</span> var: max_dist_cell min: 0 max: 5 category: <span class="hljs-string">"Forest"</span>;
     parameter <span class="hljs-string">"Probability for vegetation cells"</span> var: proba_vegetation min: 0.1 max: 1.0 category: <span class="hljs-string">"Forest"</span>;
     output {
-        display map_people_clusters {
-            <span class="hljs-literal">species</span> people aspect: cluster;
+        <span class="hljs-class">display <span class="hljs-title">map_people_clusters</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">cluster</span>;</span>
         }
-        display map_people_tree {
-            <span class="hljs-literal">species</span> people aspect: tree;
-            <span class="hljs-literal">species</span> group_people;
+        <span class="hljs-class">display <span class="hljs-title">map_people_tree</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">tree</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">group_people</span>;</span>
         }
-        display map_forest_clusters {
-            grid vegetation_cell lines: #black;
-            <span class="hljs-literal">species</span> forest;
+        <span class="hljs-class">display <span class="hljs-title">map_forest_clusters</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">vegetation_cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">forest</span>;</span>
         }
     }
 }
@@ -150,8 +150,8 @@ grid vegetation_cell width: 25 height: 25 neighbors: 4{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

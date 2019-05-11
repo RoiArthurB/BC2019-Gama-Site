@@ -10,18 +10,18 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> obj_loading   
 
-global {
+<span class="hljs-class">global </span>{
 
     init { 
         create object;
     }  
 } 
 
-<span class="hljs-literal">species</span> object skills:[<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{
     
     <span class="hljs-literal">geometry</span> shape &lt;- obj_file(<span class="hljs-string">"../includes/teapot.obj"</span>) as <span class="hljs-literal">geometry</span>;
     
-    <span class="hljs-builtin">reflex</span> move{
+    <span class="hljs-class">reflex <span class="hljs-title">move</span></span>{
         do wander;
     }
     aspect obj {
@@ -30,10 +30,10 @@ global {
             
 }   
 
-<span class="hljs-builtin">experiment</span> Display  type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Display</span>  <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display complex  background:#gray type: opengl{
-          <span class="hljs-literal">species</span> object aspect:obj;                
+        <span class="hljs-class">display <span class="hljs-title">complex</span>  <span class="hljs-title">background</span>:#<span class="hljs-title">gray</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+          <span class="hljs-class">species <span class="hljs-title">object</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">obj</span>;                </span>
         }
     }
 }
@@ -52,8 +52,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

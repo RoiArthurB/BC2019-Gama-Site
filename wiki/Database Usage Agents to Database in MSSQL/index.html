@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> agent2DB_MSSQL 
   
-global {  
+<span class="hljs-class">global </span>{  
     <span class="hljs-literal">file</span> buildingsShp &lt;- <span class="hljs-literal">file</span>('../../includes/building.shp');
     <span class="hljs-literal">file</span> boundsShp &lt;- <span class="hljs-literal">file</span>('../../includes/bounds.shp');
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(boundsShp);
@@ -30,14 +30,14 @@ global {
     }
 }   
   
-<span class="hljs-literal">species</span> DB_Accessor skills: [<span class="hljs-builtin">SQLSKILL</span>] ;   
+<span class="hljs-class">species <span class="hljs-title">DB_Accessor</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">SQLSKILL</span>] ;   </span>
 
-<span class="hljs-literal">species</span> bounds {
-    <span class="hljs-builtin">reflex</span> printdata{
+<span class="hljs-class">species <span class="hljs-title">bounds</span> </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">printdata</span></span>{
          write ' name : ' + (name) ;
     }
     
-    <span class="hljs-builtin">reflex</span> savetosql{  <span class="hljs-comment">// save data into MSSQL</span>
+    <span class="hljs-class">reflex <span class="hljs-title">savetosql</span></span>{  <span class="hljs-comment">// save data into MSSQL</span>
         write <span class="hljs-string">"begin"</span>+ name;
         ask DB_Accessor {
             do insert params: PARAMS into: <span class="hljs-string">"bounds"</span>
@@ -48,14 +48,14 @@ global {
     }       
 }
 
-<span class="hljs-literal">species</span> buildings {
+<span class="hljs-class">species <span class="hljs-title">buildings</span> </span>{
     <span class="hljs-literal">string</span> type;
     
-    <span class="hljs-builtin">reflex</span> printdata{
+    <span class="hljs-class">reflex <span class="hljs-title">printdata</span></span>{
          write ' name : ' + (name) + '; type: ' + (type) + <span class="hljs-string">"shape:"</span> + shape;
     }
     
-    <span class="hljs-builtin">reflex</span> savetosql{  <span class="hljs-comment">// save data into MSSQL</span>
+    <span class="hljs-class">reflex <span class="hljs-title">savetosql</span></span>{  <span class="hljs-comment">// save data into MSSQL</span>
         write <span class="hljs-string">"begin"</span>+ name;
         ask DB_Accessor {
             do insert params: PARAMS into: <span class="hljs-string">"buildings"</span>
@@ -70,11 +70,11 @@ global {
     }
 }     
 
-<span class="hljs-builtin">experiment</span> default_expr type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">default_expr</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
         
-        display GlobalView {
-            <span class="hljs-literal">species</span> buildings aspect: default;
+        <span class="hljs-class">display <span class="hljs-title">GlobalView</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">buildings</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
         }
     }
 }
@@ -94,8 +94,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

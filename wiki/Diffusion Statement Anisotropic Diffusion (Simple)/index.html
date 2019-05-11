@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> anisotropic_diffusion
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(size) * 10);
     cells selected_cells;
@@ -21,7 +21,7 @@ global {
                                     [2/9,1/9,0.0],
                                     [0/9,0.0,0.0]]);
     
-    <span class="hljs-builtin">reflex</span> diff { 
+    <span class="hljs-class">reflex <span class="hljs-title">diff</span> </span>{ 
         diffuse var: phero on: cells <span class="hljs-literal">matrix</span>:mat_diff;
     }
 
@@ -29,7 +29,7 @@ global {
     init {
         selected_cells &lt;- location as cells;
     }
-    <span class="hljs-builtin">reflex</span> new_Value {
+    <span class="hljs-class">reflex <span class="hljs-title">new_Value</span> </span>{
         ask selected_cells {
             phero &lt;- 1.0;
         }
@@ -37,7 +37,7 @@ global {
 }
 
 
-grid cells height: size width: size {
+<span class="hljs-class">grid <span class="hljs-title">cells</span> <span class="hljs-title">height</span>: <span class="hljs-title">size</span> <span class="hljs-title">width</span>: <span class="hljs-title">size</span> </span>{
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// the color of the cell is linked to the value of "phero".</span>
@@ -47,11 +47,11 @@ grid cells height: size width: size {
 } 
 
 
-<span class="hljs-builtin">experiment</span> diffusion type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">diffusion</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display a type: opengl {
+        <span class="hljs-class">display <span class="hljs-title">a</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
             <span class="hljs-comment">// Display the grid with elevation</span>
-            grid cells elevation: true triangulation: true;
+            <span class="hljs-class">grid <span class="hljs-title">cells</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
     }
 }
@@ -70,8 +70,8 @@ grid cells height: size width: size {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

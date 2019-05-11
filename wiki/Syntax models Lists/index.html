@@ -12,7 +12,7 @@
 
 <span class="hljs-comment">/* Insert your model definition here */</span>
 
-<span class="hljs-literal">species</span> declaring_list_attributes {
+<span class="hljs-class">species <span class="hljs-title">declaring_list_attributes</span> </span>{
     
     <span class="hljs-comment">/**
      * Declarations of list attributes
@@ -71,13 +71,13 @@
         <span class="hljs-comment">// lists are not always declared litterally and can be obtained from various elements</span>
         <span class="hljs-comment">// by using the casting 'list()' operator</span>
         <span class="hljs-comment">// for instance, list(species_name) will return a list of all the instances of species_name</span>
-        create test_species number:4;
-        <span class="hljs-literal">list</span>&lt;test_species&gt; my_agents &lt;- <span class="hljs-literal">list</span>(test_species);
+        create test_<span class="hljs-class">species <span class="hljs-title">number</span>:4;</span>
+        <span class="hljs-literal">list</span>&lt;test_<span class="hljs-class">species&gt; <span class="hljs-title">my_agents</span> &lt;- <span class="hljs-title">list</span>(<span class="hljs-title">test_species</span>);</span>
         write sample(my_agents);
         <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; my_names &lt;- my_agents collect each.name;
         write sample(my_names);
         <span class="hljs-comment">// 'create' can directly declare (and return) a list of the agents created. For instance:</span>
-        create test_species number: 5 returns: my_agents2;
+        create test_<span class="hljs-class">species <span class="hljs-title">number</span>: 5 <span class="hljs-title">returns</span>: <span class="hljs-title">my_agents2</span>;</span>
         write (sample(my_agents2));
         <span class="hljs-comment">// Some special casting operations are applied to specific types, like points...</span>
         write sample(<span class="hljs-literal">list</span>(any(my_agents).location));
@@ -89,9 +89,9 @@
     }
 }
 
-<span class="hljs-literal">species</span> test_species{}
+<span class="hljs-class">species <span class="hljs-title">test_species</span></span>{}
 
-<span class="hljs-literal">species</span> accessing_list_elements {
+<span class="hljs-class">species <span class="hljs-title">accessing_list_elements</span> </span>{
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt; l1 &lt;- [1,2,3,4,5,6,7,8,9,10];
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; l2 &lt;- ['this','is','a','<span class="hljs-literal">list</span>', 'of','strings'];
     init {
@@ -135,7 +135,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> combining_lists {
+<span class="hljs-class">species <span class="hljs-title">combining_lists</span> </span>{
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt; l1 &lt;- [1,2,3,4,5,6,7,8,9,10];
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">int</span>&gt; l2 &lt;- [1,3,5,7,9];
     init {
@@ -156,7 +156,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> modifying_lists {
+<span class="hljs-class">species <span class="hljs-title">modifying_lists</span> </span>{
     init {
         write <span class="hljs-string">""</span>;
         write <span class="hljs-string">"== MODIFYING LISTS =="</span>;
@@ -251,7 +251,7 @@
     
 }
 
-<span class="hljs-literal">species</span> looping_on_lists {
+<span class="hljs-class">species <span class="hljs-title">looping_on_lists</span> </span>{
     init {
         write <span class="hljs-string">""</span>;
         write <span class="hljs-string">"== LOOPING ON LISTS =="</span>;
@@ -276,7 +276,7 @@
         }
         write sample(l2);
         <span class="hljs-comment">// Finally, list containing agents can be the support of implicit loops in the 'ask' statement</span>
-        create test_species number: 5 returns: my_agents;
+        create test_<span class="hljs-class">species <span class="hljs-title">number</span>: 5 <span class="hljs-title">returns</span>: <span class="hljs-title">my_agents</span>;</span>
         l2 &lt;- [];
         ask my_agents{
             <span class="hljs-comment">// attributes of each agent can be directly accessed</span>
@@ -296,7 +296,7 @@
     }
 }
 
-<span class="hljs-builtin">experiment</span> Lists type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Lists</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     user_command <span class="hljs-string">"Declaring lists"</span> {create declaring_list_attributes;}
     user_command <span class="hljs-string">"Accessing lists"</span> {create accessing_list_elements;}
     user_command <span class="hljs-string">"Combining lists"</span> {create combining_lists;}
@@ -318,8 +318,8 @@
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

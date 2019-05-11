@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> CSVfileloading
 
-global {
+<span class="hljs-class">global </span>{
     
     init {
         <span class="hljs-comment">//create iris agents from the CSV file (use of the header of the CSV file), the attributes of the agents are initialized from the CSV files: </span>
@@ -25,7 +25,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> iris {
+<span class="hljs-class">species <span class="hljs-title">iris</span> </span>{
     <span class="hljs-literal">float</span> sepal_length;
     <span class="hljs-literal">float</span> sepal_width;
     <span class="hljs-literal">float</span> petal_length;
@@ -42,10 +42,10 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui{
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{
     output {
-        display <span class="hljs-literal">map</span> {
-            <span class="hljs-literal">species</span> iris;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">iris</span>;</span>
         }
     }
     
@@ -65,8 +65,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> balls_groups_clouds
 
-global { 
+<span class="hljs-class">global </span>{ 
     <span class="hljs-comment">// Parameters</span>
     <span class="hljs-literal">bool</span> create_group &lt;- true; 
     <span class="hljs-literal">bool</span> create_cloud &lt;- false; 
@@ -62,7 +62,7 @@ global {
     }
     
     <span class="hljs-comment">//The simulation will try to create group at each frequence cycle</span>
-    <span class="hljs-builtin">reflex</span> create_groups when: ( create_group and ((cycle mod creation_frequency) = 0) ) {
+    <span class="hljs-class">reflex <span class="hljs-title">create_groups</span> <span class="hljs-title">when</span>: ( <span class="hljs-title">create_group</span> <span class="hljs-title">and</span> ((<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> <span class="hljs-title">creation_frequency</span>) = 0) ) </span>{
         <span class="hljs-comment">//create a list from all balls following the nearest ball</span>
         <span class="hljs-literal">list</span>&lt;ball&gt; free_balls &lt;- ball where ((each.state) = 'follow_nearest_ball') ;
 
@@ -83,7 +83,7 @@ global {
     }
     
     <span class="hljs-comment">//The simulation will try to create clouds at each frequence cycle</span>
-    <span class="hljs-builtin">reflex</span> create_clouds when: (create_cloud and ((cycle mod creation_frequency) = 0) ) {
+    <span class="hljs-class">reflex <span class="hljs-title">create_clouds</span> <span class="hljs-title">when</span>: (<span class="hljs-title">create_cloud</span> <span class="hljs-title">and</span> ((<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> <span class="hljs-title">creation_frequency</span>) = 0) ) </span>{
         <span class="hljs-comment">//A cloud can be created only using group with a number of balls inside greater than 5% of the total ball number</span>
         <span class="hljs-literal">list</span>&lt;group&gt; candidate_groups &lt;- group where (length(each.members) &gt; (0.05 * ball_number) );
         
@@ -109,10 +109,10 @@ global {
     }
 }
     <span class="hljs-comment">//Base species with just the skills moving and all built-in variables and operators derivated from it</span>
-    <span class="hljs-literal">species</span> base skills: [<span class="hljs-builtin">moving</span>] ;
+    <span class="hljs-class">species <span class="hljs-title">base</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] ;</span>
     
     <span class="hljs-comment">//Species with a specified type of control architecture, here the final state machine FSM</span>
-    <span class="hljs-literal">species</span> ball parent: base control: <span class="hljs-builtin">fsm</span>  { 
+    <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">parent</span>: <span class="hljs-title">base</span> <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span>  </span>{ 
         
         <span class="hljs-literal">float</span> speed &lt;- ball_speed; 
         <span class="hljs-literal">rgb</span> color &lt;- ball_color;
@@ -199,7 +199,7 @@ global {
     }
     
     <span class="hljs-comment">//Species representing the group of balls</span>
-    <span class="hljs-literal">species</span> group parent: base { 
+    <span class="hljs-class">species <span class="hljs-title">group</span> <span class="hljs-title">parent</span>: <span class="hljs-title">base</span> </span>{ 
         
         <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span> ([ rnd(255), rnd(255), rnd(255) ]) ;
         <span class="hljs-literal">geometry</span> shape &lt;- polygon (ball_in_group) buffer  10 ;
@@ -245,7 +245,7 @@ global {
         }
         
         <span class="hljs-comment">//Species that will represent the balls captured by the group agent</span>
-        <span class="hljs-literal">species</span> ball_in_group parent: ball <span class="hljs-literal">topology</span>: <span class="hljs-literal">topology</span>((world).shape)  {
+        <span class="hljs-class">species <span class="hljs-title">ball_in_group</span> <span class="hljs-title">parent</span>: <span class="hljs-title">ball</span> <span class="hljs-title">topology</span>: <span class="hljs-title">topology</span>((<span class="hljs-title">world</span>).<span class="hljs-title">shape</span>)  </span>{
             
             <span class="hljs-literal">float</span> my_age &lt;- 1.0 update: my_age + 0.01;
              
@@ -259,7 +259,7 @@ global {
         }
         
         <span class="hljs-comment">//Reflex to capture all the balls close to the group agent</span>
-        <span class="hljs-builtin">reflex</span> capture_nearby_free_balls when: (cycle mod update_frequency) = 0 {
+        <span class="hljs-class">reflex <span class="hljs-title">capture_nearby_free_balls</span> <span class="hljs-title">when</span>: (<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> <span class="hljs-title">update_frequency</span>) = 0 </span>{
             <span class="hljs-literal">list</span>&lt;ball&gt; nearby_free_balls &lt;- (ball overlapping (shape + perception_range)) where (each.state = 'follow_nearest_ball');
             <span class="hljs-keyword">if</span> !(empty (nearby_free_balls)) {
                 capture nearby_free_balls as: ball_in_group;
@@ -276,7 +276,7 @@ global {
         }
         
         <span class="hljs-comment">//Reflex to merge the group close to the agent when the cycle is in the frequency of merging</span>
-        <span class="hljs-builtin">reflex</span> merge_nearby_groups when: (cycle mod merge_frequency) = 0 {
+        <span class="hljs-class">reflex <span class="hljs-title">merge_nearby_groups</span> <span class="hljs-title">when</span>: (<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> <span class="hljs-title">merge_frequency</span>) = 0 </span>{
             <span class="hljs-keyword">if</span> ( (target != nil) and ((species_of (target)) = group) ) {
                 <span class="hljs-literal">list</span>&lt;group&gt; nearby_groups &lt;- (group overlapping (shape + perception_range)) - self ;
                 
@@ -297,7 +297,7 @@ global {
         }
         
         <span class="hljs-comment">//Reflex to chase a target agent </span>
-        <span class="hljs-builtin">reflex</span> chase_target when: (target != nil) {
+        <span class="hljs-class">reflex <span class="hljs-title">chase_target</span> <span class="hljs-title">when</span>: (<span class="hljs-title">target</span> != <span class="hljs-title">nil</span>) </span>{
             <span class="hljs-literal">int</span> direction_to_nearest_ball &lt;- (self towards (target)) ;
             <span class="hljs-literal">float</span> step_distance &lt;- speed * step ;
             <span class="hljs-literal">float</span> dx &lt;- step_distance * (cos (direction_to_nearest_ball)) ;
@@ -343,7 +343,7 @@ global {
             shape &lt;- convex_hull((polygon ((<span class="hljs-literal">list</span> (ball_in_group)) collect (ball_in_group (each)).location)) + 2.0) ;
         }
         <span class="hljs-comment">//Reflex to disaggregate the group if it is too important ie the number of balls is greater than 80% of the total ball number</span>
-        <span class="hljs-builtin">reflex</span> self_disaggregate {
+        <span class="hljs-class">reflex <span class="hljs-title">self_disaggregate</span> </span>{
             <span class="hljs-keyword">if</span> ( ( length (members) ) &gt; ( 0.8 * (ball_number) ) ) {
                 do disaggregate ;
             }
@@ -355,25 +355,25 @@ global {
     }
     
     <span class="hljs-comment">//Species cloud that will be created by an agglomeration of groups.</span>
-    <span class="hljs-literal">species</span> cloud parent: base {
+    <span class="hljs-class">species <span class="hljs-title">cloud</span> <span class="hljs-title">parent</span>: <span class="hljs-title">base</span> </span>{
         <span class="hljs-literal">geometry</span> shape &lt;- convex_hull(polygon(members collect (((group_delegation(each)).shape).location))) update: convex_hull(polygon(members collect (((group_delegation(each)).shape).location)));
 
         <span class="hljs-literal">rgb</span> color;
         
         <span class="hljs-comment">//Species contained in the cloud to represent the groups captured by the cloud agent</span>
-        <span class="hljs-literal">species</span> group_delegation parent: group <span class="hljs-literal">topology</span>: (<span class="hljs-literal">topology</span>(world.shape)) {
+        <span class="hljs-class">species <span class="hljs-title">group_delegation</span> <span class="hljs-title">parent</span>: <span class="hljs-title">group</span> <span class="hljs-title">topology</span>: (<span class="hljs-title">topology</span>(<span class="hljs-title">world</span>.<span class="hljs-title">shape</span>)) </span>{
             <span class="hljs-literal">geometry</span> shape &lt;- convex_hull( (polygon ( (<span class="hljs-literal">list</span> (ball_in_cloud)) collect (each.location) )) ) buffer 10 update: convex_hull( (polygon ( (<span class="hljs-literal">list</span> (ball_in_cloud)) collect (each.location) )) ) buffer  10 ;
 
-            <span class="hljs-builtin">reflex</span> capture_nearby_free_balls when: false {
+            <span class="hljs-class">reflex <span class="hljs-title">capture_nearby_free_balls</span> <span class="hljs-title">when</span>: <span class="hljs-title">false</span> </span>{
             }
             
-            <span class="hljs-builtin">reflex</span> merge_nearby_groups when: false {
+            <span class="hljs-class">reflex <span class="hljs-title">merge_nearby_groups</span> <span class="hljs-title">when</span>: <span class="hljs-title">false</span> </span>{
             }
             
-            <span class="hljs-builtin">reflex</span> chase_target when: false {
+            <span class="hljs-class">reflex <span class="hljs-title">chase_target</span> <span class="hljs-title">when</span>: <span class="hljs-title">false</span> </span>{
             }
             
-            <span class="hljs-builtin">reflex</span> self_disaggregate {
+            <span class="hljs-class">reflex <span class="hljs-title">self_disaggregate</span> </span>{
             }
             
             action move2 (<span class="hljs-literal">float</span> with_heading, <span class="hljs-literal">float</span> with_speed) {
@@ -385,7 +385,7 @@ global {
                 }
             }
              
-            <span class="hljs-literal">species</span> ball_in_cloud parent: ball_in_group <span class="hljs-literal">topology</span>: (world.shape) as <span class="hljs-literal">topology</span> control: <span class="hljs-builtin">fsm</span> {
+            <span class="hljs-class">species <span class="hljs-title">ball_in_cloud</span> <span class="hljs-title">parent</span>: <span class="hljs-title">ball_in_group</span> <span class="hljs-title">topology</span>: (<span class="hljs-title">world</span>.<span class="hljs-title">shape</span>) <span class="hljs-title">as</span> <span class="hljs-title">topology</span> <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{
                 
                 action move2 (<span class="hljs-literal">float</span> with_heading, <span class="hljs-literal">float</span> with_speed) {
                     <span class="hljs-literal">float</span> dx &lt;- cos(with_heading) * with_speed;
@@ -400,7 +400,7 @@ global {
         group target_group;
     
         <span class="hljs-comment">//The cloud try to look for small groups to capture them</span>
-        <span class="hljs-builtin">reflex</span> chase_group {
+        <span class="hljs-class">reflex <span class="hljs-title">chase_group</span> </span>{
             <span class="hljs-keyword">if</span> ( (target_group = nil) or (dead(target_group)) ) {
                 target_group &lt;- one_of(group);
             }
@@ -429,7 +429,7 @@ global {
         }
         
         <span class="hljs-comment">//Reflex to capture group</span>
-        <span class="hljs-builtin">reflex</span> capture_group {
+        <span class="hljs-class">reflex <span class="hljs-title">capture_group</span> </span>{
             <span class="hljs-keyword">if</span> ( (target_group != nil) and !(dead(target_group)) ) {
                 <span class="hljs-keyword">if</span> (self can_capture [ a_group :: target_group]) {
 
@@ -443,7 +443,7 @@ global {
         }
         
         <span class="hljs-comment">//Reflex to disaggregate the clouds when they are no more group to capture</span>
-        <span class="hljs-builtin">reflex</span> disaggregate when: (empty(<span class="hljs-literal">list</span>(group))) {
+        <span class="hljs-class">reflex <span class="hljs-title">disaggregate</span> <span class="hljs-title">when</span>: (<span class="hljs-title">empty</span>(<span class="hljs-title">list</span>(<span class="hljs-title">group</span>))) </span>{
             loop m over: members {
                 ask group_delegation(m) as: group_delegation {
                     migrate ball_in_cloud target: ball_in_group;
@@ -465,75 +465,75 @@ global {
         }
     }
     
-    <span class="hljs-literal">species</span> group_agents_viewer  { 
+    <span class="hljs-class">species <span class="hljs-title">group_agents_viewer</span>  </span>{ 
         aspect default {
-            draw ('Number of groups: ' + (<span class="hljs-literal">string</span> (length (world.agents of_generic_species group)))) at: {(environment_bounds.x)/2 - 210, (environment_bounds.y)/2} color: #blue size: 40  ;
+            draw ('Number of groups: ' + (<span class="hljs-literal">string</span> (length (world.agents of_generic_<span class="hljs-class">species <span class="hljs-title">group</span>)))) <span class="hljs-title">at</span>: </span>{(environment_bounds.x)/2 - 210, (environment_bounds.y)/2} color: #blue size: 40  ;
         }
     }
 
-    <span class="hljs-literal">species</span> cloud_agents_viewer  { 
+    <span class="hljs-class">species <span class="hljs-title">cloud_agents_viewer</span>  </span>{ 
         aspect default {
             draw ('Number of clouds: ' + (<span class="hljs-literal">string</span> (length (<span class="hljs-literal">list</span>(cloud))))) at: {(environment_bounds.x)/2 - 210, (environment_bounds.y)/2} color: #green size: 40 ;
         }
     } 
 
 
-<span class="hljs-builtin">experiment</span> group_experiment type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">group_experiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Create groups?' var: create_group &lt;- true;
     parameter 'Create clouds?' var: create_cloud &lt;- false;
         
     output {
-        display 'Standard display' {
-            <span class="hljs-literal">species</span> ball aspect: default transparency: 0.5 ;
+        <span class="hljs-class">display '<span class="hljs-title">Standard</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> <span class="hljs-title">transparency</span>: 0.5 ;</span>
             
-            <span class="hljs-literal">species</span> group aspect: default transparency: 0.5 {
-                <span class="hljs-literal">species</span> ball_in_group;
+            <span class="hljs-class">species <span class="hljs-title">group</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> <span class="hljs-title">transparency</span>: 0.5 </span>{
+                <span class="hljs-class">species <span class="hljs-title">ball_in_group</span>;</span>
             }
         }
         
-        display 'Ball display' {
-            <span class="hljs-literal">species</span> ball;
+        <span class="hljs-class">display '<span class="hljs-title">Ball</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">ball</span>;</span>
         }
         
-        display 'Group display' {
-            <span class="hljs-literal">species</span> group;
-            <span class="hljs-literal">species</span> group_agents_viewer;
+        <span class="hljs-class">display '<span class="hljs-title">Group</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">group</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">group_agents_viewer</span>;</span>
         }
     }
 }
 
-<span class="hljs-builtin">experiment</span> cloud_experiment type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">cloud_experiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
 
     parameter 'Create groups?' var: create_group &lt;- true;
     parameter 'Create clouds?' var: create_cloud &lt;- true;
         
     output {
-        display 'Standard display' {
-            <span class="hljs-literal">species</span> ball aspect: default transparency: 0.5 ;
+        <span class="hljs-class">display '<span class="hljs-title">Standard</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> <span class="hljs-title">transparency</span>: 0.5 ;</span>
             
-            <span class="hljs-literal">species</span> group aspect: default transparency: 0.5 {
-                <span class="hljs-literal">species</span> ball_in_group;
+            <span class="hljs-class">species <span class="hljs-title">group</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> <span class="hljs-title">transparency</span>: 0.5 </span>{
+                <span class="hljs-class">species <span class="hljs-title">ball_in_group</span>;</span>
             }
             
-            <span class="hljs-literal">species</span> cloud aspect: default {
-                <span class="hljs-literal">species</span> group_delegation transparency: 0.9 {
-                    <span class="hljs-literal">species</span> ball_in_cloud;
-                    <span class="hljs-literal">species</span> ball_in_group;
+            <span class="hljs-class">species <span class="hljs-title">cloud</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span> </span>{
+                <span class="hljs-class">species <span class="hljs-title">group_delegation</span> <span class="hljs-title">transparency</span>: 0.9 </span>{
+                    <span class="hljs-class">species <span class="hljs-title">ball_in_cloud</span>;</span>
+                    <span class="hljs-class">species <span class="hljs-title">ball_in_group</span>;</span>
                 }
             }
         }
         
-        display 'Ball display' {
-            <span class="hljs-literal">species</span> ball;
+        <span class="hljs-class">display '<span class="hljs-title">Ball</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">ball</span>;</span>
         }
         
-        display 'Group display' {
-            <span class="hljs-literal">species</span> group;
-            <span class="hljs-literal">species</span> group_agents_viewer;
+        <span class="hljs-class">display '<span class="hljs-title">Group</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">group</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">group_agents_viewer</span>;</span>
         }
 
-        display 'Cloud display' {
-            <span class="hljs-literal">species</span> cloud;
+        <span class="hljs-class">display '<span class="hljs-title">Cloud</span> <span class="hljs-title">display</span>' </span>{
+            <span class="hljs-class">species <span class="hljs-title">cloud</span>;</span>
         }
         
         monitor <span class="hljs-string">"Balls"</span> value: length(ball);
@@ -557,8 +557,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

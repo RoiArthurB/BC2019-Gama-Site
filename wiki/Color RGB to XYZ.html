@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> rgbCube
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//import an image</span>
     <span class="hljs-literal">file</span> imageRaster &lt;- <span class="hljs-literal">file</span>('images/RGB.jpg');
     
@@ -27,9 +27,9 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> Display type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Display</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display RGB_to_XYZ type: opengl { 
+        <span class="hljs-class">display <span class="hljs-title">RGB_to_XYZ</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{ 
             image imageRaster.<span class="hljs-literal">path</span> refresh: false;
             graphics <span class="hljs-string">"pts"</span> refresh: false{
                 loop pt over: p {
@@ -55,8 +55,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

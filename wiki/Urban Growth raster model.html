@@ -11,16 +11,16 @@
 <span class="hljs-builtin">model</span> raster3
 
 
-global
+<span class="hljs-class">global</span>
 { 
     <span class="hljs-comment">//File for the ascii grid</span>
-    <span class="hljs-literal">file</span> asc_grid &lt;- grid_file(<span class="hljs-string">"../includes/cantho_1999_v6.asc"</span>);
+    <span class="hljs-literal">file</span> asc_<span class="hljs-class">grid &lt;- <span class="hljs-title">grid_file</span>("../<span class="hljs-title">includes</span>/<span class="hljs-title">cantho_1999_v6</span>.<span class="hljs-title">asc</span>");</span>
     <span class="hljs-comment">//Shapefile for the road</span>
     <span class="hljs-literal">file</span> road_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/roads15_3.shp"</span>);
     <span class="hljs-comment">//Shapefile for the city</span>
     <span class="hljs-literal">file</span> city_center_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/city center.shp"</span>);
     <span class="hljs-comment">//Shape of the environment</span>
-    <span class="hljs-literal">geometry</span> shape &lt;- envelope(asc_grid);
+    <span class="hljs-literal">geometry</span> shape &lt;- envelope(asc_<span class="hljs-class">grid);</span>
     <span class="hljs-comment">//Graph of the roads</span>
     <span class="hljs-literal">graph</span> roads_network;
     
@@ -78,7 +78,7 @@ global
     
     
     <span class="hljs-comment">//Reflex representing the global dynamic of the model</span>
-    <span class="hljs-builtin">reflex</span> dynamique_globale when: weight_density != 0 or weight_road_dist != 0 or weight_cc_dist != 0 {
+    <span class="hljs-class">reflex <span class="hljs-title">dynamique_globale</span> <span class="hljs-title">when</span>: <span class="hljs-title">weight_density</span> != 0 <span class="hljs-title">or</span> <span class="hljs-title">weight_road_dist</span> != 0 <span class="hljs-title">or</span> <span class="hljs-title">weight_cc_dist</span> != 0 </span>{
         <span class="hljs-comment">//Ask to each empty plot to compute its constructability</span>
         ask empty_plots {
             constructability &lt;- compute_constructability();
@@ -93,13 +93,13 @@ global
     }   
 }
 <span class="hljs-comment">//Species representing the city center</span>
-<span class="hljs-literal">species</span> city_center {
+<span class="hljs-class">species <span class="hljs-title">city_center</span> </span>{
     aspect default {
         draw circle(300) color: #cyan;
     }   
 }
 <span class="hljs-comment">//Species representing the roads</span>
-<span class="hljs-literal">species</span> roads
+<span class="hljs-class">species <span class="hljs-title">roads</span></span>
 {
     <span class="hljs-literal">float</span> dist_cv;
     <span class="hljs-comment">//Action to compute the city center distance for the road</span>
@@ -114,7 +114,7 @@ global
     }
 }
 <span class="hljs-comment">//Grid species to represent the different building plots</span>
-grid plot <span class="hljs-literal">file</span>: asc_grid use_individual_shapes: false use_regular_agents: false neighbors: 4
+<span class="hljs-class">grid <span class="hljs-title">plot</span> <span class="hljs-title">file</span>: <span class="hljs-title">asc_grid</span> <span class="hljs-title">use_individual_shapes</span>: <span class="hljs-title">false</span> <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> <span class="hljs-title">neighbors</span>: 4</span>
 {
     <span class="hljs-literal">rgb</span> color &lt;- grid_value = -1 ? #white : plot_colors[<span class="hljs-literal">int</span>(grid_value)];
     <span class="hljs-comment">//Distance from the road</span>
@@ -148,15 +148,15 @@ grid plot <span class="hljs-literal">file</span>: asc_grid use_individual_shapes
     }           
 }
 
-<span class="hljs-builtin">experiment</span> raster type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">raster</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Weight of the density criteria"</span> var: weight_density;
     parameter <span class="hljs-string">"Weight of the distance to roads criteria"</span> var: weight_road_dist;
     parameter <span class="hljs-string">"Weight of the distance to city center criteria"</span> var: weight_cc_dist;
     output {
-        display <span class="hljs-literal">map</span> type: opengl {
-            grid plot;
-            <span class="hljs-literal">species</span> roads;
-            <span class="hljs-literal">species</span> city_center;
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">plot</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">roads</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">city_center</span>;</span>
         }
     }
 }
@@ -176,8 +176,8 @@ grid plot <span class="hljs-literal">file</span>: asc_grid use_individual_shapes
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

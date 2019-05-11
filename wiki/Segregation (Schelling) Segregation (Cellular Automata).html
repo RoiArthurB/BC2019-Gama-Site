@@ -8,7 +8,7 @@
 <p>Imported model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> segregation_base
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Different colors for the group</span>
     <span class="hljs-literal">rgb</span> color_1 &lt;- <span class="hljs-literal">rgb</span> (<span class="hljs-string">"yellow"</span>) parameter: <span class="hljs-string">"Color of group 1:"</span> category: <span class="hljs-string">"User interface"</span>;
     <span class="hljs-literal">rgb</span> color_2 &lt;- <span class="hljs-literal">rgb</span> (<span class="hljs-string">"red"</span>) parameter: <span class="hljs-string">"Color of group 2:"</span> category: <span class="hljs-string">"User interface"</span>;
@@ -67,7 +67,7 @@ global {
 }
 
 <span class="hljs-comment">//Species base representing the people agents</span>
-<span class="hljs-literal">species</span> base {
+<span class="hljs-class">species <span class="hljs-title">base</span> </span>{
     <span class="hljs-literal">rgb</span> color;
     <span class="hljs-comment">//List of all the neighbors agents</span>
     <span class="hljs-literal">list</span>&lt;base&gt; my_neighbors;
@@ -91,7 +91,7 @@ global {
 import <span class="hljs-string">"../include/Common Schelling Segregation.gaml"</span>
 
 <span class="hljs-comment">//Define the environment as torus</span>
-global torus: true{
+<span class="hljs-class">global <span class="hljs-title">torus</span>: <span class="hljs-title">true</span></span>{
     <span class="hljs-comment">//List of all the free places</span>
     <span class="hljs-literal">list</span>&lt;space&gt; free_places ;
     <span class="hljs-comment">//List of all the places</span>
@@ -118,7 +118,7 @@ global torus: true{
 
     }
     <span class="hljs-comment">//Reflex to migrate all the people agents</span>
-    <span class="hljs-builtin">reflex</span> migrate {
+    <span class="hljs-class">reflex <span class="hljs-title">migrate</span> </span>{
         ask copy(all_people) {
             do migrate;
         }
@@ -128,7 +128,7 @@ global torus: true{
 }
 
 <span class="hljs-comment">//Grid species representing the places and the people in each cell</span>
-grid space parent: base width: dimensions height: dimensions neighbors: 8  {
+<span class="hljs-class">grid <span class="hljs-title">space</span> <span class="hljs-title">parent</span>: <span class="hljs-title">base</span> <span class="hljs-title">width</span>: <span class="hljs-title">dimensions</span> <span class="hljs-title">height</span>: <span class="hljs-title">dimensions</span> <span class="hljs-title">neighbors</span>: 8  </span>{
     <span class="hljs-literal">rgb</span> color &lt;- #black;
     <span class="hljs-comment">//List of the neighbors of the places</span>
     <span class="hljs-literal">list</span>&lt;space&gt; my_neighbors &lt;- self neighbors_at neighbors_distance;
@@ -150,13 +150,13 @@ grid space parent: base width: dimensions height: dimensions neighbors: 8  {
 }
 
 
-<span class="hljs-builtin">experiment</span> schelling type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">schelling</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display Segregation {
-            grid space;
+        <span class="hljs-class">display <span class="hljs-title">Segregation</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">space</span>;</span>
         }
 
-        display Charts {
+        <span class="hljs-class">display <span class="hljs-title">Charts</span> </span>{
             chart <span class="hljs-string">"Proportion of happiness"</span> type: pie background: #lightgray style: exploded position: { 0, 0 } size: { 1.0, 0.5 } {
                 data <span class="hljs-string">"Unhappy"</span> value: number_of_people - sum_happy_people color: #green;
                 data <span class="hljs-string">"Happy"</span> value: sum_happy_people color: #yellow;
@@ -187,8 +187,8 @@ grid space parent: base width: dimensions height: dimensions neighbors: 8  {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -15,7 +15,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> mapcomparison
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">string</span>&gt; categories &lt;- [<span class="hljs-string">"type 1"</span>, <span class="hljs-string">"type 2"</span>, <span class="hljs-string">"type 3"</span>, <span class="hljs-string">"type 4"</span>];
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>,<span class="hljs-literal">rgb</span>&gt; color_cat &lt;- [<span class="hljs-string">"type 1"</span>::#blue, <span class="hljs-string">"type 2"</span>::#green, <span class="hljs-string">"type 3"</span>::#yellow, <span class="hljs-string">"type 4"</span>::#red];
     <span class="hljs-literal">matrix</span>&lt;<span class="hljs-literal">float</span>&gt; fuzzy_categories;
@@ -70,7 +70,7 @@ global {
     
 }
 
-grid cell width: 50 height: 50 {
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 50 <span class="hljs-title">height</span>: 50 </span>{
     <span class="hljs-literal">string</span> cat_init;
     <span class="hljs-literal">string</span> cat_observed;
     <span class="hljs-literal">string</span> cat ;
@@ -91,19 +91,19 @@ grid cell width: 50 height: 50 {
     }
 }
 
-<span class="hljs-builtin">experiment</span> mapcomparison type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">mapcomparison</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display map_sim type: opengl{
-            grid cell;
+        <span class="hljs-class">display <span class="hljs-title">map_sim</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span>;</span>
         }
-        display map_observed type: opengl{
-            <span class="hljs-literal">species</span> cell aspect: observed refresh: false;
+        <span class="hljs-class">display <span class="hljs-title">map_observed</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">cell</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">observed</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
         }
-        display map_init type: opengl{
-            <span class="hljs-literal">species</span> cell aspect: init refresh: false;
+        <span class="hljs-class">display <span class="hljs-title">map_init</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">cell</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">init</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
         }
-        display map_fuzzy type: opengl{
-            <span class="hljs-literal">species</span> cell aspect: fuzzy_sim ;
+        <span class="hljs-class">display <span class="hljs-title">map_fuzzy</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">cell</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">fuzzy_sim</span> ;</span>
         }
     }
 }
@@ -123,8 +123,8 @@ grid cell width: 50 height: 50 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

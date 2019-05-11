@@ -15,7 +15,7 @@
  * The global section can now sport skills and control, just like other agents. 
  * The example below shows a potentially moving world that can be controlled by a finite state machine.
  */</span>
-global skills: [<span class="hljs-builtin">moving</span>] control: <span class="hljs-builtin">fsm</span> {
+<span class="hljs-class">global <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{
 
 <span class="hljs-comment">/**
  * EQUATIONS
@@ -28,7 +28,7 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
         diff(y, t) = x + y * 2;
     }
 
-    <span class="hljs-builtin">reflex</span> solving {solve eq step: 1 method: rk4;}
+    <span class="hljs-class">reflex <span class="hljs-title">solving</span> </span>{solve eq step: 1 method: rk4;}
 
     <span class="hljs-comment">/** 
  * ATTRIBUTES
@@ -101,7 +101,7 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
     <span class="hljs-comment">/**
      * DEALING WITH VARIABLES
      */</span>
-    <span class="hljs-builtin">reflex</span> variables {
+    <span class="hljs-class">reflex <span class="hljs-title">variables</span> </span>{
 
     <span class="hljs-comment">// Temporary variables can use the same syntax as attributes. The classic form:</span>
         <span class="hljs-comment">//let name: t1 type: int value: length(a1);</span>
@@ -134,7 +134,7 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
         <span class="hljs-comment">// Points can be used (with or without curly parentheses) to access agents in species</span>
         species0 agent1 &lt;- species0[10, 10]; <span class="hljs-comment">// returns the agent closest to point {10,10} for a "regular" species</span>
         <span class="hljs-comment">// The behavior is a bit tweaked for grids, to allow for a "natural" access</span>
-        my_grid cell0 &lt;- my_grid[10, 10]; <span class="hljs-comment">// Here, it is the cell at {10, 10} in the matrix of cells</span>
+        my_<span class="hljs-class">grid <span class="hljs-title">cell0</span> &lt;- <span class="hljs-title">my_grid</span>[10, 10]; // <span class="hljs-title">Here</span>, <span class="hljs-title">it</span> <span class="hljs-title">is</span> <span class="hljs-title">the</span> <span class="hljs-title">cell</span> <span class="hljs-title">at</span> </span>{10, 10} in the <span class="hljs-literal">matrix</span> of cells
 
         <span class="hljs-comment">// Shapes also act as containers of CVS/Shapefile attributes (in case they are loaded without being attributed to an agent), as well as 3D properties (for the display).</span>
         agent0.name &lt;- <span class="hljs-literal">string</span>(agent0.shape[<span class="hljs-string">"ID"</span>]);
@@ -190,13 +190,13 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
     }
 
     <span class="hljs-comment">// TODO Species can now be written within the "global" section (to enforce the idea that the top-level species are indeed contained in the world)</span>
-    <span class="hljs-literal">species</span> inside_global {
+    <span class="hljs-class">species <span class="hljs-title">inside_global</span> </span>{
     }
 
     <span class="hljs-comment">/**
       * INVOCATION OF ACTIONS
       */</span>
-    <span class="hljs-builtin">reflex</span> calling_actions {
+    <span class="hljs-class">reflex <span class="hljs-title">calling_actions</span> </span>{
     <span class="hljs-comment">// IN IMPERATIVE MODE (i.e. in a statement)</span>
     <span class="hljs-comment">// The classic way</span>
         do dummy1 with: [a::10, b::100.0];
@@ -272,7 +272,7 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
     <span class="hljs-comment">/**
       * USE OF OPERATORS 
       */</span>
-    <span class="hljs-builtin">reflex</span> operators {
+    <span class="hljs-class">reflex <span class="hljs-title">operators</span> </span>{
 
     <span class="hljs-comment">// All the operators can now be written using a function-like form</span>
     <span class="hljs-comment">// It is true for unary operators (as before)</span>
@@ -311,11 +311,11 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
 <span class="hljs-comment">/** Species can "mirror" a list of agents (or another species). That is, their population is dynamically computed after the list or species mirrored.
 * Their instances, which are actually "proxy" agents, possess an attribute called "target" that points towards the agent they mirror. Very useful for building graphs, for instance.
 * The update of the population tries to preserve, as much as possible, the existing mapping (that is, proxy agents do not change targets if they do not die or disappear from the list) */</span>
-<span class="hljs-literal">species</span> species0 {
+<span class="hljs-class">species <span class="hljs-title">species0</span> </span>{
     <span class="hljs-literal">float</span> speed &lt;- <span class="hljs-literal">float</span>(rnd(1000));
 }
 
-<span class="hljs-literal">species</span> species1 mirrors: species0 skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">species1</span> <span class="hljs-title">mirrors</span>: <span class="hljs-title">species0</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">point</span> location update: target.location + { 10, 10 };
     <span class="hljs-literal">float</span> speed1 update: self compute_speed_using_an_action (); <span class="hljs-comment">// No parameter as "max" is defaulted</span>
     <span class="hljs-literal">float</span> speed2 update: compute_speed_using_a_functional_attribute;
@@ -332,12 +332,12 @@ global skills: [<span class="hljs-builtin">moving</span>] control: <span class="
 
 }
 
-grid my_grid width: 100 height: 100 {
+<span class="hljs-class">grid <span class="hljs-title">my_grid</span> <span class="hljs-title">width</span>: 100 <span class="hljs-title">height</span>: 100 </span>{
 }
 
-<span class="hljs-builtin">experiment</span> exp1 type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">exp1</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display Display type: opengl {
+        <span class="hljs-class">display <span class="hljs-title">Display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
         <span class="hljs-comment">// Layers include a new keyword, "graphics", that allows to draw arbitrary shapes using the syntax found in the aspects of species</span>
         <span class="hljs-comment">// The same capability will be soon added to species/agents layers (in order to define on-the-fly aspects without changing the species itself)</span>
             graphics 'G' {
@@ -370,8 +370,8 @@ grid my_grid width: 100 height: 100 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

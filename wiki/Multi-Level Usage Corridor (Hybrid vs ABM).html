@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> pedestrian_corridor_Hybrid_vs_ABM
 
-global 
+<span class="hljs-class">global </span>
 {
     
     <span class="hljs-comment">//Parameters of the environment</span>
@@ -60,7 +60,7 @@ global
     }
 
     <span class="hljs-comment">//Generation of pedestrians according to the frequency of generation : one for each corridor</span>
-    <span class="hljs-builtin">reflex</span> generate_pedestrians when: ( (cycle mod new_pedestian_generate_frequency) = 0 ) 
+    <span class="hljs-class">reflex <span class="hljs-title">generate_pedestrians</span> <span class="hljs-title">when</span>: ( (<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> <span class="hljs-title">new_pedestian_generate_frequency</span>) = 0 ) </span>
     { 
         create pedestrian number: 2 returns: new_pedestrians;
         
@@ -78,7 +78,7 @@ global
 
 
 <span class="hljs-comment">//Species for the pedestrians which can move</span>
-<span class="hljs-literal">species</span> pedestrian skills: [<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">pedestrian</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- circle(pedestrian_size);
     <span class="hljs-literal">rgb</span> color;
     corridor last_corridor;
@@ -93,7 +93,7 @@ global
     }
 
     <span class="hljs-comment">//Reflex to move the agent to its target location and make it die once it reached its target</span>
-    <span class="hljs-builtin">reflex</span> move_left 
+    <span class="hljs-class">reflex <span class="hljs-title">move_left</span> </span>
     {
         do move heading: (self) towards (target_location); 
         
@@ -110,7 +110,7 @@ global
 }
 
 <span class="hljs-comment">//Species for the corridor which can capture pedestrians</span>
-<span class="hljs-literal">species</span> corridor  {
+<span class="hljs-class">species <span class="hljs-title">corridor</span>  </span>{
     <span class="hljs-literal">bool</span> capture_pedestrians;
     
     
@@ -124,7 +124,7 @@ global
     <span class="hljs-literal">float</span> macro_length min: 0.0 &lt;- <span class="hljs-literal">float</span>(corridor_width); <span class="hljs-comment">// the length of macro_patch</span>
     
     <span class="hljs-comment">//Species to model the pedestrian captured by the corridor</span>
-    <span class="hljs-literal">species</span> captured_pedestrian parent: pedestrian schedules: [] 
+    <span class="hljs-class">species <span class="hljs-title">captured_pedestrian</span> <span class="hljs-title">parent</span>: <span class="hljs-title">pedestrian</span> <span class="hljs-title">schedules</span>: [] </span>
     {
         <span class="hljs-literal">float</span> released_time;  
         
@@ -136,7 +136,7 @@ global
         create corridor_info_drawer number: 1 with: [target :: self];
     }
     <span class="hljs-comment">//Reflex to capture the pedestrians overlapping the corridor ie entering the corridor </span>
-    <span class="hljs-builtin">reflex</span> aggregate when: capture_pedestrians 
+    <span class="hljs-class">reflex <span class="hljs-title">aggregate</span> <span class="hljs-title">when</span>: <span class="hljs-title">capture_pedestrians</span> </span>
     {
         <span class="hljs-literal">list</span>&lt;pedestrian&gt; tobe_captured_pedestrians &lt;- (pedestrian overlapping shape) where ( (each.last_corridor != self) and ((each.location).x &lt; (self.location).x) ) ; 
         
@@ -160,7 +160,7 @@ global
     }
     
     <span class="hljs-comment">//Reflex to release the pedestrians when we consider they were enough time inside the corridor </span>
-    <span class="hljs-builtin">reflex</span> disaggregate  
+    <span class="hljs-class">reflex <span class="hljs-title">disaggregate</span>  </span>
     {
         <span class="hljs-literal">list</span> tobe_released_pedestrians &lt;- members where (time &gt;= (captured_pedestrian (each)).released_time);
         
@@ -183,7 +183,7 @@ global
     }
 }
  
-<span class="hljs-literal">species</span> corridor_info_drawer 
+<span class="hljs-class">species <span class="hljs-title">corridor_info_drawer</span> </span>
 {
     corridor target;
     
@@ -201,15 +201,15 @@ global
     }
 }
 
-<span class="hljs-builtin">experiment</span> default_experiment type: gui 
+<span class="hljs-class">experiment <span class="hljs-title">default_experiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>
 {
     output 
     {
-        display default_display 
+        <span class="hljs-class">display <span class="hljs-title">default_display</span> </span>
         {
-            <span class="hljs-literal">species</span> pedestrian;
-            <span class="hljs-literal">species</span> corridor transparency: 0.8;
-            <span class="hljs-literal">species</span> corridor_info_drawer aspect: base;
+            <span class="hljs-class">species <span class="hljs-title">pedestrian</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">corridor</span> <span class="hljs-title">transparency</span>: 0.8;</span>
+            <span class="hljs-class">species <span class="hljs-title">corridor_info_drawer</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
     }
 }
@@ -228,8 +228,8 @@ global
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

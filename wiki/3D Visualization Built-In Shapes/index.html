@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> shape   
 
-global {
+<span class="hljs-class">global </span>{
     
     <span class="hljs-literal">file</span> gamaRaster &lt;- <span class="hljs-literal">file</span>('../images/Gama.png');
     
@@ -58,7 +58,7 @@ global {
     }  
 } 
  
-<span class="hljs-literal">species</span> Geometry2D{  
+<span class="hljs-class">species <span class="hljs-title">Geometry2D</span></span>{  
 
     <span class="hljs-literal">geometry</span> myGeometry;
     
@@ -67,7 +67,7 @@ global {
     }
 } 
 
-<span class="hljs-literal">species</span> TexturedGeometry2D{  
+<span class="hljs-class">species <span class="hljs-title">TexturedGeometry2D</span></span>{  
 
     <span class="hljs-literal">geometry</span> myGeometry;
     <span class="hljs-literal">file</span> myTexture;
@@ -77,7 +77,7 @@ global {
     }
 } 
     
-<span class="hljs-literal">species</span> Geometry3D{  
+<span class="hljs-class">species <span class="hljs-title">Geometry3D</span></span>{  
 
     <span class="hljs-literal">geometry</span> myGeometry;
 
@@ -86,7 +86,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> TexturedGeometry3D{  
+<span class="hljs-class">species <span class="hljs-title">TexturedGeometry3D</span></span>{  
 
     <span class="hljs-literal">geometry</span> myGeometry;
     <span class="hljs-literal">file</span> myTexture;
@@ -96,13 +96,13 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> Display  type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Display</span>  <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display View1 type:opengl  background:<span class="hljs-literal">rgb</span>(10,40,55) {
-            <span class="hljs-literal">species</span> Geometry2D aspect:default;
-            <span class="hljs-literal">species</span> TexturedGeometry2D aspect:default;
-            <span class="hljs-literal">species</span> Geometry3D aspect:default;
-            <span class="hljs-literal">species</span> TexturedGeometry3D aspect:default;
+        <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span>  <span class="hljs-title">background</span>:<span class="hljs-title">rgb</span>(10,40,55) </span>{
+            <span class="hljs-class">species <span class="hljs-title">Geometry2D</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">default</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">TexturedGeometry2D</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">default</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">Geometry3D</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">default</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">TexturedGeometry3D</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">default</span>;</span>
         }
 
     }
@@ -126,8 +126,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

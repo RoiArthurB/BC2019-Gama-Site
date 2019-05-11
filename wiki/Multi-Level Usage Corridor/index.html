@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> corridor
 
-global {    
+<span class="hljs-class">global </span>{    
     <span class="hljs-comment">//Capture pedestrians parameter to define if wall will capture pedestrians</span>
     <span class="hljs-literal">bool</span> capture_pedestrians &lt;- false parameter: 'Capture pedestrians?';
     
@@ -59,7 +59,7 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to generate new pedestrians according to the frequency generation parameter</span>
-    <span class="hljs-builtin">reflex</span> generate_pedestrians when: ((cycle mod new_pedestian_generate_frequency) = 0) {
+    <span class="hljs-class">reflex <span class="hljs-title">generate_pedestrians</span> <span class="hljs-title">when</span>: ((<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> <span class="hljs-title">new_pedestian_generate_frequency</span>) = 0) </span>{
         create pedestrian number: new_pedestrian_rate returns: new_pedestrians; 
         
         <span class="hljs-literal">int</span> loop_times &lt;- 0;
@@ -75,7 +75,7 @@ global {
 } 
 
 <span class="hljs-comment">//Species pedestrian which will move from one side of the experiments to another and destroy itself once the other side is reached</span>
-<span class="hljs-literal">species</span> pedestrian skills: [<span class="hljs-builtin">moving</span>] <span class="hljs-literal">topology</span>: ( <span class="hljs-literal">topology</span> (shape - (corridor_wall_0_shape + corridor_wall_1_shape)) ){
+<span class="hljs-class">species <span class="hljs-title">pedestrian</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">topology</span>: ( <span class="hljs-title">topology</span> (<span class="hljs-title">shape</span> - (<span class="hljs-title">corridor_wall_0_shape</span> + <span class="hljs-title">corridor_wall_1_shape</span>)) )</span>{
     <span class="hljs-literal">geometry</span> shape &lt;-  circle (pedestrian_size);
     <span class="hljs-literal">point</span> initial_location;
     <span class="hljs-literal">point</span> target_location;
@@ -90,7 +90,7 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to make the agent move to its target_location</span>
-    <span class="hljs-builtin">reflex</span> move_left {
+    <span class="hljs-class">reflex <span class="hljs-title">move_left</span> </span>{
         <span class="hljs-literal">int</span> update_heading &lt;- (self) towards (target_location);
         
         <span class="hljs-literal">point</span> current_location &lt;- location;
@@ -117,11 +117,11 @@ global {
 }
 
 <span class="hljs-comment">//Species which represents the corridor</span>
-<span class="hljs-literal">species</span> corridor  {
+<span class="hljs-class">species <span class="hljs-title">corridor</span>  </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- corridor_shape;
     
     <span class="hljs-comment">//Subspecies for the multi-level architectures : captured pedestrians in this case</span>
-    <span class="hljs-literal">species</span> captured_pedestrian parent: pedestrian schedules: [] {
+    <span class="hljs-class">species <span class="hljs-title">captured_pedestrian</span> <span class="hljs-title">parent</span>: <span class="hljs-title">pedestrian</span> <span class="hljs-title">schedules</span>: [] </span>{
         <span class="hljs-literal">float</span> released_time;
         
         aspect my_aspect { }
@@ -132,7 +132,7 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to capture pedestrians if the parameter is checked</span>
-    <span class="hljs-builtin">reflex</span> aggregate when: capture_pedestrians {
+    <span class="hljs-class">reflex <span class="hljs-title">aggregate</span> <span class="hljs-title">when</span>: <span class="hljs-title">capture_pedestrians</span> </span>{
         <span class="hljs-comment">//List to get all the pedestrians inside the corridor</span>
         <span class="hljs-literal">list</span>&lt;pedestrian&gt; tobe_captured_pedestrians &lt;- (pedestrian overlapping shape);
         
@@ -150,7 +150,7 @@ global {
     
     <span class="hljs-comment">//Reflex to release pedestrians which have already passed enough time in the corridor</span>
     <span class="hljs-comment">// which means if they weren't captured by the corridor, they would have finish passing through it</span>
-    <span class="hljs-builtin">reflex</span> disaggregate  {
+    <span class="hljs-class">reflex <span class="hljs-title">disaggregate</span>  </span>{
         <span class="hljs-literal">list</span> tobe_released_pedestrians &lt;- members where (time &gt;= (captured_pedestrian (each)).released_time);
         <span class="hljs-keyword">if</span> !(empty (tobe_released_pedestrians)) {
             release tobe_released_pedestrians as: pedestrian in: world {
@@ -164,7 +164,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> corridor_wall {
+<span class="hljs-class">species <span class="hljs-title">corridor_wall</span> </span>{
     init {
         create corridor_wall_info_drawer number: 1 with: [target :: self];
     }
@@ -174,7 +174,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> corridor_info_drawer {
+<span class="hljs-class">species <span class="hljs-title">corridor_info_drawer</span> </span>{
     corridor target;
     
     aspect my_aspect {
@@ -183,7 +183,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> corridor_wall_info_drawer {
+<span class="hljs-class">species <span class="hljs-title">corridor_wall_info_drawer</span> </span>{
     corridor_wall target;
     
     init {
@@ -196,27 +196,27 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> corridor_expr type: gui{
+<span class="hljs-class">experiment <span class="hljs-title">corridor_expr</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{
     output {
-        display defaut_display {
-            <span class="hljs-literal">species</span> pedestrian;
+        <span class="hljs-class">display <span class="hljs-title">defaut_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">pedestrian</span>;</span>
             
-            <span class="hljs-literal">species</span> corridor aspect: my_aspect transparency: 0.8 {
-                <span class="hljs-literal">species</span> captured_pedestrian;
+            <span class="hljs-class">species <span class="hljs-title">corridor</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">my_aspect</span> <span class="hljs-title">transparency</span>: 0.8 </span>{
+                <span class="hljs-class">species <span class="hljs-title">captured_pedestrian</span>;</span>
             }
             
-            <span class="hljs-literal">species</span> corridor_wall aspect: my_aspect transparency: 0.7;
-            <span class="hljs-literal">species</span> corridor_info_drawer aspect: my_aspect;
-            <span class="hljs-literal">species</span> corridor_wall_info_drawer aspect: my_aspect;
+            <span class="hljs-class">species <span class="hljs-title">corridor_wall</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">my_aspect</span> <span class="hljs-title">transparency</span>: 0.7;</span>
+            <span class="hljs-class">species <span class="hljs-title">corridor_info_drawer</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">my_aspect</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">corridor_wall_info_drawer</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">my_aspect</span>;</span>
         }
 
-        display Execution_Time refresh: every(25) {
+        <span class="hljs-class">display <span class="hljs-title">Execution_Time</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">every</span>(25) </span>{
             chart 'Simulation step length' type: series background: #white {
                 data 'simulation_step_length_in_mili_second' value: machine_time - start_time color: (<span class="hljs-literal">rgb</span> ('green'));
             }
         }
         
-        display Captured_Pedestrians refresh: every(25){
+        <span class="hljs-class">display <span class="hljs-title">Captured_Pedestrians</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">every</span>(25)</span>{
             chart 'Captured Pedestrian' type: series background: #white {
                 data 'captured_pedestrians' value: length ( ((<span class="hljs-literal">list</span> (corridor)) at 0).members ) color: <span class="hljs-literal">rgb</span> ('blue');
                 data 'pedestrians' value: length (<span class="hljs-literal">list</span> (pedestrian)) color: <span class="hljs-literal">rgb</span> ('white');  
@@ -239,8 +239,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

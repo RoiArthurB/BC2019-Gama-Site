@@ -74,10 +74,10 @@
 <p>New highlight of the day : an <strong>Experiment</strong> is also an agent ! It's a special agent which will instantiate automatically an agent from the model species. You can then perfectly create agents (<em>model</em> agents) from your experiment, using the statement <code>create</code> :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations <span class="hljs-comment">// the "world" is an instance of the "multi_simulations_model"</span>
 
-global {
+<span class="hljs-class">global </span>{
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     init {
         create multi_simulations_model;
     }
@@ -91,17 +91,17 @@ create simulation;
 <p>As it was the case for creating regular species, you can specify the parameters of your agent during the creation through the facet <code>with:</code> :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">rgb</span> bgd_color;
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     parameter name:<span class="hljs-string">"background color:"</span> var:bgd_color init:#blue;
     init {
         create simulation with:[bgd_color::#red];
     }
     output {
-        display <span class="hljs-string">"my_display"</span> background:bgd_color{}
+        <span class="hljs-class">display "<span class="hljs-title">my_display</span>" <span class="hljs-title">background</span>:<span class="hljs-title">bgd_color</span></span>{}
     }
 }
 </code></pre>
@@ -110,16 +110,16 @@ global {
 <p>The following short model for example will create a new simulation at each 10 cycles :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
-global {
+<span class="hljs-class">global </span>{
     init {
         write <span class="hljs-string">"new simulation created ! Its name is "</span>+name;
     }
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     init {
     }
-    <span class="hljs-builtin">reflex</span> when:(mod(cycle,10)=0 and cycle!=0) {
+    <span class="hljs-class">reflex <span class="hljs-title">when</span>:(<span class="hljs-title">mod</span>(<span class="hljs-title">cycle</span>,10)=0 <span class="hljs-title">and</span> <span class="hljs-title">cycle</span>!=0) </span>{
         create simulation;
     }
     output {
@@ -130,7 +130,7 @@ global {
 <p><img src="../resources/images/exploringModel/change_world.png" alt="resources/images/exploringModel/change_world.png"></p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> smallWorld
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> grid_size &lt;- 10;
     <span class="hljs-literal">bool</span> modelleft &lt;- true;
     <span class="hljs-literal">int</span> id&lt;- 0;
@@ -159,11 +159,11 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> people {
+<span class="hljs-class">species <span class="hljs-title">people</span> </span>{
     <span class="hljs-literal">rgb</span> color &lt;- rnd_color(255);
     cell my_cell;
 
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         <span class="hljs-keyword">if</span> (modelleft and my_cell.color = #red) {
             ask smallWorld_model[1] {
                 do changeWorld(myself.color, {100 - myself.location.x,myself.location.y});
@@ -183,17 +183,17 @@ global {
     }   
 }
 
-grid cell width: grid_size height: grid_size;
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: <span class="hljs-title">grid_size</span> <span class="hljs-title">height</span>: <span class="hljs-title">grid_size</span>;</span>
 
-<span class="hljs-builtin">experiment</span> fromWorldToWorld type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">fromWorldToWorld</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     init {
          create simulation with:[grid_size::20, modelleft::false, id::1, nb_agents::0];
     }
     
     output {
-        display <span class="hljs-literal">map</span> {
-            grid cell lines: #black;
-            <span class="hljs-literal">species</span> people;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
         }
     }
 }
@@ -207,7 +207,7 @@ grid cell width: grid_size height: grid_size;
 <pre><code class="hljs">create simulation with:[seed::10.0];
 </code></pre>
 <p>You can also specify the seed if you are inside the <code>init</code> scope of your <code>global</code> agent.</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
     init {
         seed&lt;-10.0;
     }
@@ -226,14 +226,14 @@ grid cell width: grid_size height: grid_size;
 <p>The following code shows how to run several simulations with a specific seed, determined from the experiment agent :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
-global {
+<span class="hljs-class">global </span>{
     init {
-        create my_species;
+        create my_<span class="hljs-class">species;</span>
     }
 }
 
-<span class="hljs-literal">species</span> my_species skills:[<span class="hljs-builtin">moving</span>] {
-    <span class="hljs-builtin">reflex</span> update {
+<span class="hljs-class">species <span class="hljs-title">my_species</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         do wander;
     }
     aspect base {
@@ -241,7 +241,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     <span class="hljs-literal">float</span> seedValue &lt;- 10.0;
     <span class="hljs-literal">float</span> seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
@@ -249,8 +249,8 @@ global {
         create simulation with:[seed::seedValue];
     }
     output {
-        display my_display {
-            <span class="hljs-literal">species</span> my_species aspect:base;
+        <span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">my_species</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
         }
     }
 }
@@ -260,7 +260,7 @@ global {
 <p>Let's try now to add a new species in this model, and to add a parameter to the simulation for the number of agents created for this species.</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> number_of_speciesB &lt;- 1;
     init {
         create my_speciesA;
@@ -268,8 +268,8 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> my_speciesA skills:[<span class="hljs-builtin">moving</span>] {
-    <span class="hljs-builtin">reflex</span> update {
+<span class="hljs-class">species <span class="hljs-title">my_speciesA</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         do wander;
     }
     aspect base {
@@ -277,8 +277,8 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> my_speciesB skills:[<span class="hljs-builtin">moving</span>] {
-    <span class="hljs-builtin">reflex</span> update {
+<span class="hljs-class">species <span class="hljs-title">my_speciesB</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         do wander;
     }
     aspect base {
@@ -286,16 +286,16 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     <span class="hljs-literal">float</span> seedValue &lt;- 10.0;
     <span class="hljs-literal">float</span> seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
         create simulation with:[seed::seedValue,number_of_speciesB::2];
     }
     output {
-        display my_display {
-            <span class="hljs-literal">species</span> my_speciesA aspect:base;
-            <span class="hljs-literal">species</span> my_speciesB aspect:base;
+        <span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">my_speciesA</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">my_speciesB</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
         }
     }
 }
@@ -306,9 +306,9 @@ global {
 <p>If you don't understand, here is a short example that may help you to understand better :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> iteration_number &lt;- 1;
-    <span class="hljs-builtin">reflex</span> update {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         <span class="hljs-literal">float</span> value;
         loop times:iteration_number {
             value&lt;-rnd(10.0);
@@ -318,7 +318,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     <span class="hljs-literal">float</span> seedValue &lt;- 10.0;
     <span class="hljs-literal">float</span> seed &lt;- seedValue; <span class="hljs-comment">// force the value of the seed.</span>
     init {
@@ -330,25 +330,25 @@ global {
 </code></pre>
 <p>The output will be something like that :</p>
 <pre><code class="hljs">7.67003069780383
-cycle 0 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 7.67003069780383
+cycle 0 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model0</span> : 7.67003069780383</span>
 7.67003069780383
 0.22889843360303863
-cycle 0 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 0.22889843360303863
+cycle 0 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model1</span> : 0.22889843360303863</span>
 0.22889843360303863
-cycle 1 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 0.22889843360303863
+cycle 1 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model0</span> : 0.22889843360303863</span>
 4.5220913306263855
 0.8363180333035425
-cycle 1 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 0.8363180333035425
+cycle 1 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model1</span> : 0.8363180333035425</span>
 4.5220913306263855
-cycle 2 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 4.5220913306263855
+cycle 2 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model0</span> : 4.5220913306263855</span>
 5.460148568140819
 4.158355846617511
-cycle 2 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 4.158355846617511
+cycle 2 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model1</span> : 4.158355846617511</span>
 0.8363180333035425
-cycle 3 in <span class="hljs-builtin">experiment</span> multi_simulations_model0 : 0.8363180333035425
+cycle 3 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model0</span> : 0.8363180333035425</span>
 1.886091659169562
 4.371253083874633
-cycle 3 in <span class="hljs-builtin">experiment</span> multi_simulations_model1 : 4.371253083874633
+cycle 3 in <span class="hljs-class">experiment <span class="hljs-title">multi_simulations_model1</span> : 4.371253083874633</span>
 </code></pre>
 <p>Which means :</p>
 <table>
@@ -375,14 +375,14 @@ cycle 3 in <span class="hljs-builtin">experiment</span> multi_simulations_model1
 <p>The following model shows how to run 4 simulations with the same seed but with some different RNG :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> multi_simulations
 
-global {
+<span class="hljs-class">global </span>{
     init {
-        create my_species number:50;
+        create my_<span class="hljs-class">species <span class="hljs-title">number</span>:50;</span>
     }
 }
 
-<span class="hljs-literal">species</span> my_species skills:[<span class="hljs-builtin">moving</span>] {
-    <span class="hljs-builtin">reflex</span> update {
+<span class="hljs-class">species <span class="hljs-title">my_species</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         do wander;
     }
     aspect base {
@@ -390,15 +390,15 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> my_experiment type:gui  {
+<span class="hljs-class">experiment <span class="hljs-title">my_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span>  </span>{
     <span class="hljs-literal">float</span> seed &lt;- 10.0;
     init {
         create simulation with:[rng::<span class="hljs-string">"cellular"</span>,seed::10.0];
         create simulation with:[rng::<span class="hljs-string">"java"</span>,seed::10.0];
     }
     output {
-        display my_display {
-            <span class="hljs-literal">species</span> my_species aspect:base;
+        <span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">my_species</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
             graphics <span class="hljs-string">"my_graphic"</span> {
                 draw rectangle(35,10) at:{0,0} color:#lightgrey;
                 draw rng at:{3,3} font:font(<span class="hljs-string">"Helvetica"</span>, 20 , #plain) color:#black;
@@ -421,8 +421,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

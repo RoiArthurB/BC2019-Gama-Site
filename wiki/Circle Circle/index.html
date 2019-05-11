@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> circle_model
 
-global { 
+<span class="hljs-class">global </span>{ 
     <span class="hljs-comment">//Number of agents to create</span>
     <span class="hljs-literal">int</span> number_of_agents min: 1 &lt;- 50 ;
     <span class="hljs-comment">//Radius of the circle that the cells will make</span>
@@ -34,7 +34,7 @@ global {
 }  
   
 <span class="hljs-comment">//Species cell which represents the cell agents, using the skill moving</span>
-<span class="hljs-literal">species</span> cell skills: [<span class="hljs-builtin">moving</span>] {  
+<span class="hljs-class">species <span class="hljs-title">cell</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] </span>{  
     <span class="hljs-comment">//Color of the cell, randomly chosen</span>
     <span class="hljs-literal">rgb</span> color const: true &lt;- [100 + rnd (155),100 + rnd (155), 100 + rnd (155)] as <span class="hljs-literal">rgb</span>;
     <span class="hljs-comment">//Size of the cell</span>
@@ -47,13 +47,13 @@ global {
     <span class="hljs-literal">int</span> heading &lt;- rnd(359);
     
     <span class="hljs-comment">//Reflex to make the cell agent fo to the center, calling the derivated action move</span>
-    <span class="hljs-builtin">reflex</span> go_to_center {
+    <span class="hljs-class">reflex <span class="hljs-title">go_to_center</span> </span>{
         heading &lt;- (((self distance_to center) &gt; radius_of_circle) ? self towards center : (self towards center) - 180);
         do move speed: speed; 
     }
     <span class="hljs-comment">//Reflex to flee of the other cells agents, which will help to design the circle shape</span>
-    <span class="hljs-builtin">reflex</span> flee_others {
-        cell close &lt;- one_of ( ( (self neighbors_at range) of_species cell) sort_by (self distance_to each) );
+    <span class="hljs-class">reflex <span class="hljs-title">flee_others</span> </span>{
+        cell close &lt;- one_of ( ( (self neighbors_at range) of_<span class="hljs-class">species <span class="hljs-title">cell</span>) <span class="hljs-title">sort_by</span> (<span class="hljs-title">self</span> <span class="hljs-title">distance_to</span> <span class="hljs-title">each</span>) );</span>
         <span class="hljs-keyword">if</span> close != nil {
             heading &lt;- (self towards close) - 180;
             <span class="hljs-literal">float</span> dist &lt;- self distance_to close;
@@ -67,7 +67,7 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Number of Agents' var: number_of_agents;
     parameter 'Radius of Circle' var: radius_of_circle; 
     parameter 'Strength of Repulsion' var: repulsion_strength; 
@@ -76,12 +76,12 @@ global {
     parameter 'Speed of Agents' var: speed_of_agents ; 
     
     output {
-        display Circle {
-            <span class="hljs-literal">species</span> cell;
+        <span class="hljs-class">display <span class="hljs-title">Circle</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">cell</span>;</span>
         }
     }
 }
-<span class="hljs-builtin">experiment</span> main2 type: gui  {
+<span class="hljs-class">experiment <span class="hljs-title">main2</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span>  </span>{
     parameter <span class="hljs-string">"Size of Agents"</span> var: size_of_agents &lt;- 100;
     parameter 'Number of Agents' var: number_of_agents &lt;- 300;
     parameter 'Radius of Circle' var: radius_of_circle min: 10 &lt;- 15000;
@@ -91,8 +91,8 @@ global {
     parameter 'Speed of Agents' var: speed_of_agents min: 0.1 &lt;- 100.0 ;
 
     output {
-        display Circle  {
-            <span class="hljs-literal">species</span> cell;
+        <span class="hljs-class">display <span class="hljs-title">Circle</span>  </span>{
+            <span class="hljs-class">species <span class="hljs-title">cell</span>;</span>
         }
     }
 }
@@ -112,8 +112,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

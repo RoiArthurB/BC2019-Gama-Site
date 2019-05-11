@@ -148,16 +148,16 @@ speed_driver = Min(max_speed_driver, Min(real_speed_driver + max_acceleration_dr
 <p>We propose a simple model to illustrate the driving skill. We define a driver species. When a driver agent reaches its destination, it just chooses a new random final target. In the same way, we did not define any specific behavior to avoid traffic jam for the driver agents: once they compute their path (all the driver agents use for that the same road graph with the same weights), they never re-compute it even if they are stucked in a traffic jam. Concerning the traffic signals, we just consider the traffic lights (without any pre-processing: we consider the raw OSM data). One step of the simulation represents 1 second. At last, in order to clarify the explanation of the model, we chose to do not present the parts of the GAML code that concern the simulation visualization.</p>
 <p><a href="resources/images/recipes/sim_snapshot.png">images//sim_snapshot.png</a></p>
 <p>The following code shows the definition of species to represent the road infrastructure:</p>
-<pre><code class="hljs"><span class="hljs-literal">species</span> road skills: [<span class="hljs-builtin">skill_road</span>] { 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">skill_road</span>] </span>{ 
   <span class="hljs-literal">string</span> oneway;
 }
 
-<span class="hljs-literal">species</span> node skills: [<span class="hljs-builtin">skill_road_node</span>] {
+<span class="hljs-class">species <span class="hljs-title">node</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">skill_road_node</span>] </span>{
   <span class="hljs-literal">bool</span> is_traffic_signal;
   <span class="hljs-literal">int</span> time_to_change &lt;- 100;
   <span class="hljs-literal">int</span> counter &lt;- rnd (time_to_change) ;
     
-  <span class="hljs-builtin">reflex</span> dynamic when: is_traffic_signal {
+  <span class="hljs-class">reflex <span class="hljs-title">dynamic</span> <span class="hljs-title">when</span>: <span class="hljs-title">is_traffic_signal</span> </span>{
     counter &lt;- counter + 1;
     <span class="hljs-keyword">if</span> (counter &gt;= time_to_change) { 
       counter &lt;- 0;
@@ -175,12 +175,12 @@ speed_driver = Min(max_speed_driver, Min(real_speed_driver + max_acceleration_dr
 <p>In addition, we defined for the <strong>node</strong> species a reflex (behavior) called <strong>dynamic</strong> that will be activated only for traffic light nodes and that will increment the <strong>counter</strong> value. If this counter is higher than <strong>time_to_change</strong>, this variable is set to 0, and the node change the value of the <strong>stop</strong> variable: if the traffic light was green (i.e. there is no road concerns by this stop sign), the list of block roads is set by all the roads that enter the node; if the traffic light was red (i.e. there is at least one road concerns by this stop sign), the list of block roads is set to an empty list.</p>
 <p>The following code shows the definition of driver species:</p>
 <pre><code class="hljs">
-<span class="hljs-literal">species</span> driver skills: [advanced_driving] { 
-  <span class="hljs-builtin">reflex</span> time_to_go when: final_target = nil {
+<span class="hljs-class">species <span class="hljs-title">driver</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">advanced_driving</span>] </span>{ 
+  <span class="hljs-class">reflex <span class="hljs-title">time_to_go</span> <span class="hljs-title">when</span>: <span class="hljs-title">final_target</span> = <span class="hljs-title">nil</span> </span>{
     current_path &lt;- compute_path(
         <span class="hljs-literal">graph</span>: road_network, target: one_of(node));
   }
-  <span class="hljs-builtin">reflex</span> move when: final_target != nil {
+  <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">final_target</span> != <span class="hljs-title">nil</span> </span>{
     do drive;
   }
 } 
@@ -256,8 +256,8 @@ speed_driver = Min(max_speed_driver, Min(real_speed_driver + max_acceleration_dr
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -12,7 +12,7 @@
 <span class="hljs-builtin">model</span> ColorBrewer
 
 
-global {
+<span class="hljs-class">global </span>{
 
 <span class="hljs-comment">//number of colors</span>
 <span class="hljs-literal">int</span> nb_classes&lt;-14 min:5 max: 15;
@@ -54,16 +54,16 @@ global {
     }
 }
 
-grid cell width:nb_classes height: max([1,length(palettes)]) ;
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>:<span class="hljs-title">nb_classes</span> <span class="hljs-title">height</span>: <span class="hljs-title">max</span>([1,<span class="hljs-title">length</span>(<span class="hljs-title">palettes</span>)]) ;</span>
 
 
 <span class="hljs-comment">//in this experiment, we do not use the cell agents, but we directlty draw the different palettes of colors</span>
-<span class="hljs-builtin">experiment</span> BrewerPalette type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">BrewerPalette</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Sequential Palettes"</span> var:sequentialPalette category:<span class="hljs-string">"Brewer"</span>;
     parameter <span class="hljs-string">"Diverging Palettes"</span> var:divergingPalette category:<span class="hljs-string">"Brewer"</span>;
     parameter <span class="hljs-string">"Qualitatives Palettes"</span> var:qualitativePalette category:<span class="hljs-string">"Brewer"</span>;
     output {
-        display View1 type:opengl draw_env:false{
+        <span class="hljs-class">display <span class="hljs-title">View1</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> <span class="hljs-title">draw_env</span>:<span class="hljs-title">false</span></span>{
             graphics <span class="hljs-string">"brewer"</span>{
                 <span class="hljs-comment">//Sequential</span>
                 draw <span class="hljs-string">"Sequential"</span> at:{-world.shape.width*0.2,0} color:°black perspective:true;
@@ -86,11 +86,11 @@ grid cell width:nb_classes height: max([1,length(palettes)]) ;
 }
 
 <span class="hljs-comment">//in this experiment, we display the cell agents with the  different aspects</span>
-<span class="hljs-builtin">experiment</span> BrewerColoredAgent type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">BrewerColoredAgent</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Number of data classes"</span> var:nb_classes category:<span class="hljs-string">"Brewer"</span>;
     output {
-        display View1 {
-            grid cell lines: #black ;
+        <span class="hljs-class">display <span class="hljs-title">View1</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span> ;</span>
         }   
     }
 }
@@ -109,8 +109,8 @@ grid cell width:nb_classes height: max([1,length(palettes)]) ;
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

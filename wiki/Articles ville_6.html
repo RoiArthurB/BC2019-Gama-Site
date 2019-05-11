@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> ville
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> shape_file_batiments &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/batiments.shp"</span>);
     <span class="hljs-literal">file</span> shape_file_routes &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/routes.shp"</span>);
     <span class="hljs-literal">file</span> mnt &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/mnt.asc"</span>);
@@ -30,9 +30,9 @@ global {
     }
 }
 
-grid mnt_cell <span class="hljs-literal">file</span>: mnt;
+<span class="hljs-class">grid <span class="hljs-title">mnt_cell</span> <span class="hljs-title">file</span>: <span class="hljs-title">mnt</span>;</span>
 
-<span class="hljs-literal">species</span> foyer {
+<span class="hljs-class">species <span class="hljs-title">foyer</span> </span>{
     <span class="hljs-literal">float</span> revenu &lt;- gauss(1500, 500);
     <span class="hljs-literal">bool</span> est_satisfait update: calculer_satisfaction();
     batiment habitation;
@@ -60,7 +60,7 @@ grid mnt_cell <span class="hljs-literal">file</span>: mnt;
         batiment b  &lt;- one_of(batiment where ((each.capacite &gt;0) and ( each.distances[lieu_travail]&lt; 1000.0)));
         return b;
     }
-    <span class="hljs-builtin">reflex</span> demenagement when: !est_satisfait {
+    <span class="hljs-class">reflex <span class="hljs-title">demenagement</span> <span class="hljs-title">when</span>: !<span class="hljs-title">est_satisfait</span> </span>{
         do demenager;
         habitation &lt;- choisir_batiment();
         do emmenager;
@@ -70,7 +70,7 @@ grid mnt_cell <span class="hljs-literal">file</span>: mnt;
         draw sphere(5) color: <span class="hljs-literal">rgb</span>(255 - val, val, 0);
     }
 }
-<span class="hljs-literal">species</span> batiment {
+<span class="hljs-class">species <span class="hljs-title">batiment</span> </span>{
     <span class="hljs-literal">string</span> type;
     <span class="hljs-literal">int</span> capacite &lt;- type = <span class="hljs-string">"Industrial"</span> ? 0 : <span class="hljs-literal">int</span>(shape.area / 70.0);
     <span class="hljs-literal">map</span>&lt;batiment,<span class="hljs-literal">float</span>&gt; distances;
@@ -89,21 +89,21 @@ grid mnt_cell <span class="hljs-literal">file</span>: mnt;
         draw shape color: type = <span class="hljs-string">"Industrial"</span> ? #pink : (empty(foyers) ? #gray : <span class="hljs-literal">rgb</span>(<span class="hljs-literal">int</span>(255 * (1 - (revenu_moyen / 3000))), <span class="hljs-literal">int</span>(255 * (revenu_moyen / 3000)), 0)) depth: length(foyers);
     }
 }
-<span class="hljs-literal">species</span> route {
+<span class="hljs-class">species <span class="hljs-title">route</span> </span>{
     aspect geometrie {
         draw shape color: #black at:{location.x,location.y,(mnt_cell(location)).grid_value};
     }
 }
-<span class="hljs-builtin">experiment</span> ville type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">ville</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display carte_principale type: opengl {
-            grid mnt_cell triangulation: true texture:texture elevation:true transparency: 0.3;
-            <span class="hljs-literal">species</span> batiment aspect: geometrie;
-            <span class="hljs-literal">species</span> route aspect: geometrie;
-            <span class="hljs-literal">species</span> foyer aspect: revenu;
+        <span class="hljs-class">display <span class="hljs-title">carte_principale</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">grid <span class="hljs-title">mnt_cell</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span> <span class="hljs-title">texture</span>:<span class="hljs-title">texture</span> <span class="hljs-title">elevation</span>:<span class="hljs-title">true</span> <span class="hljs-title">transparency</span>: 0.3;</span>
+            <span class="hljs-class">species <span class="hljs-title">batiment</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">geometrie</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">route</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">geometrie</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">foyer</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">revenu</span>;</span>
         }
-        display carte_batiment type: opengl {
-            <span class="hljs-literal">species</span> batiment aspect: information_foyer;
+        <span class="hljs-class">display <span class="hljs-title">carte_batiment</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">batiment</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">information_foyer</span>;</span>
         }
     }
 }
@@ -122,8 +122,8 @@ grid mnt_cell <span class="hljs-literal">file</span>: mnt;
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

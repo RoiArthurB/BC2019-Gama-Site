@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> classicgraphgeneration
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">graph</span> the_graph ;
     <span class="hljs-literal">string</span> graph_type &lt;- <span class="hljs-string">"small-world"</span>;
     <span class="hljs-literal">int</span> nb_nodes &lt;- 500;
@@ -41,19 +41,19 @@ global {
     
 }
 
-<span class="hljs-literal">species</span> edge_agent {
+<span class="hljs-class">species <span class="hljs-title">edge_agent</span> </span>{
     aspect default {    
         draw shape color: #black;
     }
 }
 
-<span class="hljs-literal">species</span> node_agent {
+<span class="hljs-class">species <span class="hljs-title">node_agent</span> </span>{
     aspect default {    
         draw circle(1) color: #red;
     }
 }
 
-<span class="hljs-builtin">experiment</span> loadgraph type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">loadgraph</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Graph type"</span> var: graph_type among: [ <span class="hljs-string">"scale-free"</span>, <span class="hljs-string">"small-world"</span>, <span class="hljs-string">"complete"</span>];
     parameter <span class="hljs-string">"Number of nodes"</span> var: nb_nodes min: 5 ;
     parameter <span class="hljs-string">"Probability to rewire an edge (beta)"</span> var: p min: 0.0 max: 1.0 category: <span class="hljs-string">"small-world"</span>;
@@ -61,9 +61,9 @@ global {
     parameter <span class="hljs-string">"Number of edges added per novel node"</span> var: m min: 1 max: 10 category: <span class="hljs-string">"scale-free"</span>;
     
     output {
-        display <span class="hljs-literal">map</span> type: opengl{
-            <span class="hljs-literal">species</span> edge_agent ;
-            <span class="hljs-literal">species</span> node_agent ;
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">edge_agent</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">node_agent</span> ;</span>
         }
     }
 }
@@ -82,8 +82,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

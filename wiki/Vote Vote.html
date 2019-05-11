@@ -10,7 +10,7 @@
 <pre><code class="hljs"> 
 <span class="hljs-builtin">model</span> vote
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Shape of the environment</span>
     <span class="hljs-literal">geometry</span> shape &lt;- rectangle({200, 200});
     
@@ -87,7 +87,7 @@ global {
         active_candidates &lt;- <span class="hljs-literal">list</span>(copy(candidate)); 
     }
     <span class="hljs-comment">//Reflex representing the dynamics of the models</span>
-    <span class="hljs-builtin">reflex</span> dynamique {
+    <span class="hljs-class">reflex <span class="hljs-title">dynamique</span> </span>{
         <span class="hljs-comment">//For each elector, ask to move</span>
         ask elector {
             do <span class="hljs-builtin">moving</span>;
@@ -122,7 +122,7 @@ global {
         }
     }
     <span class="hljs-comment">//Reflex to show the final results</span>
-    <span class="hljs-builtin">reflex</span> resultats_finaux when: time = 72 {
+    <span class="hljs-class">reflex <span class="hljs-title">resultats_finaux</span> <span class="hljs-title">when</span>: <span class="hljs-title">time</span> = 72 </span>{
         candidate elected &lt;- active_candidates with_max_of (each.percentage_vote);
         <span class="hljs-comment">//Display a window telling who is the winner and halt the model</span>
         do tell message: <span class="hljs-string">"The winner is "</span> + elected.name; 
@@ -130,7 +130,7 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to compute the creation of group when one candidate chooses this strategy</span>
-    <span class="hljs-builtin">reflex</span> creation_Group when: (strategy_candidates in [<span class="hljs-string">"Group"</span>, <span class="hljs-string">"Random"</span>]) {
+    <span class="hljs-class">reflex <span class="hljs-title">creation_Group</span> <span class="hljs-title">when</span>: (<span class="hljs-title">strategy_candidates</span> <span class="hljs-title">in</span> ["<span class="hljs-title">Group</span>", "<span class="hljs-title">Random</span>"]) </span>{
          <span class="hljs-keyword">if</span> (cpt_Group = cpt_Group_max) {
             <span class="hljs-comment">//Kill all the group of electors</span>
             ask Group_electors as <span class="hljs-literal">list</span> {
@@ -158,7 +158,7 @@ global {
         <span class="hljs-keyword">if</span> (cpt_Group = 0) { cpt_Group &lt;- cpt_Group_max;}   
     }
     <span class="hljs-comment">//Reflex to compute the entropy</span>
-    <span class="hljs-builtin">reflex</span> calcule_entropy {
+    <span class="hljs-class">reflex <span class="hljs-title">calcule_entropy</span> </span>{
         entropy &lt;- 0.0;
         <span class="hljs-comment">//Compute the abstinence rate</span>
         <span class="hljs-literal">float</span> abst &lt;- (nb_electors - sum (active_candidates  collect (length(each.my_electors)))) / nb_electors;
@@ -179,7 +179,7 @@ global {
 
 
 <span class="hljs-comment">//Species representing a group of electors</span>
-<span class="hljs-literal">species</span> Group_electors {
+<span class="hljs-class">species <span class="hljs-title">Group_electors</span> </span>{
     <span class="hljs-literal">int</span> effectif &lt;- 0;
     <span class="hljs-comment">//List of all the elector agents in the group</span>
     <span class="hljs-literal">list</span>&lt;elector&gt; electors_dans_Group ;
@@ -189,7 +189,7 @@ global {
     
 }
 <span class="hljs-comment">//Species representing the elector moving </span>
-<span class="hljs-literal">species</span> elector skills: [<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">elector</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>{
     
     init {
         <span class="hljs-comment">//At initialization, place the elector in a certain place according to the distribution of electors</span>
@@ -241,7 +241,7 @@ global {
     
 }
 <span class="hljs-comment">//Species candidate using the skill moving</span>
-<span class="hljs-literal">species</span> candidate skills:[<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">candidate</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>([100 + rnd(155),100 + rnd(155),100 + rnd(155)]);
     <span class="hljs-comment">//Boolean to know if the candidate is active</span>
     <span class="hljs-literal">bool</span> active &lt;- true;
@@ -323,7 +323,7 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> vote type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">vote</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     <span class="hljs-comment">/** Insert here the definition of the input and output of the model */</span>
     parameter <span class="hljs-string">"Number of electors : "</span> var: nb_electors category: <span class="hljs-string">"elector"</span>;
     parameter <span class="hljs-string">"Moving speed of electors toward another electors : "</span> var: distance_traveled category: <span class="hljs-string">"elector"</span>;
@@ -339,13 +339,13 @@ global {
     parameter <span class="hljs-string">"Strategy of candidates : "</span> var: strategy_candidates category: <span class="hljs-string">"Candidate"</span>;
     
     output {
-        display main background: #black { 
-            <span class="hljs-literal">species</span> elector aspect: base;
-            <span class="hljs-literal">species</span> candidate aspect: dynamic;
-            <span class="hljs-literal">species</span> Group_electors;
+        <span class="hljs-class">display <span class="hljs-title">main</span> <span class="hljs-title">background</span>: #<span class="hljs-title">black</span> </span>{ 
+            <span class="hljs-class">species <span class="hljs-title">elector</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">candidate</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">dynamic</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">Group_electors</span>;</span>
             
         }
-        display votants {
+        <span class="hljs-class">display <span class="hljs-title">votants</span> </span>{
             chart <span class="hljs-string">"Distribution of electors"</span> type: pie background: #white  {
                 loop cand over: candidate {
                     data  cand.name value:cand.percentage_vote color: cand.color ;
@@ -353,7 +353,7 @@ global {
             }
             
             }
-        display indicateurs {
+        <span class="hljs-class">display <span class="hljs-title">indicateurs</span> </span>{
             chart <span class="hljs-string">"Shannon Entropy"</span> type: series background: #white size: {1,0.5} position: {0, 0} {
                 data <span class="hljs-string">"entropy"</span> value: entropy color: #blue ;
             }
@@ -378,8 +378,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

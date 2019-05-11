@@ -11,7 +11,7 @@
 
  
  
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Bounds of the environment</span>
     <span class="hljs-literal">int</span> width_of_environment parameter: 'Dimensions' init:200 ; 
     <span class="hljs-literal">int</span> height_of_environment parameter: 'Dimensions' init:200  ; 
@@ -98,23 +98,23 @@ global {
     }
     
     <span class="hljs-comment">//Reflex to compute the forces at each step</span>
-    <span class="hljs-builtin">reflex</span> computeForces  {
+    <span class="hljs-class">reflex <span class="hljs-title">computeForces</span>  </span>{
         ask world2 {do compute_forces step: 1;}
     } 
             
 } 
 <span class="hljs-comment">//Species to represent the physic engine, derivated from the Physical3DWorld built-in species</span>
-<span class="hljs-literal">species</span> physic_world parent: physical_world ;
+<span class="hljs-class">species <span class="hljs-title">physic_world</span> <span class="hljs-title">parent</span>: <span class="hljs-title">physical_world</span> ;</span>
  
 <span class="hljs-comment">//Species to represent the ground using the physical3D skill</span>
-<span class="hljs-literal">species</span> ground skills: [<span class="hljs-builtin">physics</span>]{
+<span class="hljs-class">species <span class="hljs-title">ground</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>]</span>{
     aspect default {
         draw shape color: #black empty:true;
     }
 }
 
 <span class="hljs-comment">//Species to represent the wall using the physical3D skill</span>
-<span class="hljs-literal">species</span> wall skills: [<span class="hljs-builtin">physics</span>]{
+<span class="hljs-class">species <span class="hljs-title">wall</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>]</span>{
     <span class="hljs-literal">rgb</span> color;
     <span class="hljs-literal">float</span> height;
     aspect default {
@@ -123,7 +123,7 @@ global {
 }
     
 <span class="hljs-comment">//Species to represent the ball using the physical3D skill</span>
-<span class="hljs-literal">species</span> ball skills: [<span class="hljs-builtin">physics</span>] {  
+<span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">physics</span>] </span>{  
     <span class="hljs-literal">rgb</span> color;
     <span class="hljs-literal">int</span> radius;
     <span class="hljs-literal">int</span> size  &lt;- size_of_agents;
@@ -136,15 +136,15 @@ global {
     }   
 }
 
-<span class="hljs-builtin">experiment</span> perfect_gas type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">perfect_gas</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     init{
         minimum_cycle_duration &lt;-0.001;
     }
     output {
-        display Cube type:opengl background:<span class="hljs-literal">rgb</span>(20,79,127) draw_env:false{
-            <span class="hljs-literal">species</span> ground transparency:0.5;
-            <span class="hljs-literal">species</span> wall transparency:0.5;
-            <span class="hljs-literal">species</span> ball aspect:sphere;         
+        <span class="hljs-class">display <span class="hljs-title">Cube</span> <span class="hljs-title">type</span>:<span class="hljs-title">opengl</span> <span class="hljs-title">background</span>:<span class="hljs-title">rgb</span>(20,79,127) <span class="hljs-title">draw_env</span>:<span class="hljs-title">false</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">ground</span> <span class="hljs-title">transparency</span>:0.5;</span>
+            <span class="hljs-class">species <span class="hljs-title">wall</span> <span class="hljs-title">transparency</span>:0.5;</span>
+            <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">sphere</span>;         </span>
         }
     }
 }
@@ -164,8 +164,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

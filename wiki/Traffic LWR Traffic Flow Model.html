@@ -12,7 +12,7 @@ In this model, a road is divided into sections and we arbitrarily give to the mi
 
 <span class="hljs-builtin">model</span> TraficGroup
 
-global {
+<span class="hljs-class">global </span>{
         
     <span class="hljs-literal">float</span> road_size &lt;- 10 #km ;                         <span class="hljs-comment">// Size of the road</span>
     
@@ -74,7 +74,7 @@ global {
    <span class="hljs-comment">// To update flow and concentration at each time step in each section, we use an offer and a demand function. </span>
    <span class="hljs-comment">// These functions define the welcome capacity (offer) and the emission capacity (demand) of a section.</span>
    
-    <span class="hljs-builtin">reflex</span> offer_function {
+    <span class="hljs-class">reflex <span class="hljs-title">offer_function</span> </span>{
          ask section {
               <span class="hljs-keyword">if</span> current_concentration &lt;= critical_concentration {
                 offer &lt;- max_flow ;
@@ -86,7 +86,7 @@ global {
       }
     }
     
-    <span class="hljs-builtin">reflex</span> demand_function {
+    <span class="hljs-class">reflex <span class="hljs-title">demand_function</span> </span>{
         ask section{
               <span class="hljs-keyword">if</span> current_concentration &lt;= critical_concentration {
                     demand &lt;- max([0 , ( max_flow / critical_concentration) * current_concentration]) ;
@@ -102,7 +102,7 @@ global {
     <span class="hljs-comment">// During a time step, the flow of a section take the minimum value between its demand and the offer of the next section.</span>
     <span class="hljs-comment">// The flow of the last section is equal to its demand. </span>
     
-    <span class="hljs-builtin">reflex</span> update_flow{
+    <span class="hljs-class">reflex <span class="hljs-title">update_flow</span></span>{
         ask section  {
             <span class="hljs-literal">float</span> next_offer &lt;-  (self.next != nil) ? (self.next).offer : self.demand;
             current_flow &lt;- min([self.demand, next_offer]);
@@ -113,7 +113,7 @@ global {
     <span class="hljs-comment">// After a time step, the concentration is updated from the current concentration, according to the incoming and outgoing concentrations.</span>
     <span class="hljs-comment">// The first section concentration on ly takes into account the outgoing concentration of vehicles.</span>
     
-    <span class="hljs-builtin">reflex</span> update_concentration{
+    <span class="hljs-class">reflex <span class="hljs-title">update_concentration</span></span>{
         ask section   {
             <span class="hljs-literal">float</span> previous_flow &lt;- (self.previous != nil) ? (self.previous).current_flow : 0.0;
             current_concentration &lt;- current_concentration + time_step/section_size *(previous_flow - self.current_flow) ;
@@ -122,7 +122,7 @@ global {
     
     <span class="hljs-comment">// When there is less than one car left on the road, the simulation stops.</span>
     
-    <span class="hljs-builtin">reflex</span> stop_simulation when: sum(section collect each.current_concentration) &lt; 1.0 {
+    <span class="hljs-class">reflex <span class="hljs-title">stop_simulation</span> <span class="hljs-title">when</span>: <span class="hljs-title">sum</span>(<span class="hljs-title">section</span> <span class="hljs-title">collect</span> <span class="hljs-title">each</span>.<span class="hljs-title">current_concentration</span>) &lt; 1.0 </span>{
         do pause;
     }
 }
@@ -131,7 +131,7 @@ global {
 <span class="hljs-comment">// Each section has a concentration, a flow, an offer and a demand, a critical concentration, a maximum speed and a maximum flow, </span>
 <span class="hljs-comment">// and a previous and a next section.</span>
 
-<span class="hljs-literal">species</span> section {
+<span class="hljs-class">species <span class="hljs-title">section</span> </span>{
     <span class="hljs-literal">float</span> current_concentration  ;
     <span class="hljs-literal">float</span> current_flow  ;
     
@@ -156,7 +156,7 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> TraficGroup type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">TraficGroup</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
 
     <span class="hljs-comment">// Users can chose the number of sections and the time step.</span>
 
@@ -171,14 +171,14 @@ global {
         
         <span class="hljs-comment">// A display shows the road. Section width depend on their concentration.</span>
         
-        display TheRoad{
-            <span class="hljs-literal">species</span> section aspect: shape_section ;
+        <span class="hljs-class">display <span class="hljs-title">TheRoad</span></span>{
+            <span class="hljs-class">species <span class="hljs-title">section</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">shape_section</span> ;</span>
         }
         
         <span class="hljs-comment">// The greeen time series correspond to the middle section (on which concentration and maximum speed are lower).</span>
         <span class="hljs-comment">// The red time series correspond to the section just before the middle one.</span>
                 
-        display Concentrations {
+        <span class="hljs-class">display <span class="hljs-title">Concentrations</span> </span>{
             chart <span class="hljs-string">"Concentrations"</span> type: series  {
                 data 'Section 0' value: section[0].current_concentration color: #gray marker: false ;               
                 data 'Section 1' value: section[1].current_concentration color: #gray marker: false;
@@ -193,7 +193,7 @@ global {
                 }
             }
             
-            display Flows {
+            <span class="hljs-class">display <span class="hljs-title">Flows</span> </span>{
                 chart <span class="hljs-string">"Flows"</span> type: series  {
                 data 'Section 0' value: section[0].current_flow color: #gray marker: false;             
                 data 'Section 1' value: section[1].current_flow color: #gray marker: false;
@@ -224,8 +224,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

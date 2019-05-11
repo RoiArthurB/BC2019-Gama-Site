@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> cycle_length
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> size &lt;- 64; <span class="hljs-comment">// better to have a pow of 2 for the size of the grid</span>
     <span class="hljs-literal">int</span> cycle_length &lt;- 5;
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(square(size));
@@ -37,7 +37,7 @@ global {
             and each.grid_y &gt; location.y-impulse_area_size
         ));
     }
-    <span class="hljs-builtin">reflex</span> init_value when:cycle=0 {
+    <span class="hljs-class">reflex <span class="hljs-title">init_value</span> <span class="hljs-title">when</span>:<span class="hljs-title">cycle</span>=0 </span>{
         ask(selected_cells){
             phero &lt;- 1.0;
         }
@@ -46,7 +46,7 @@ global {
         }       
     }
 
-    <span class="hljs-builtin">reflex</span> diff {
+    <span class="hljs-class">reflex <span class="hljs-title">diff</span> </span>{
         <span class="hljs-comment">// Declare a diffusion on the grid "cells" and on "quick_cells". The diffusion declared on "quick_cells" will make 5 computations at each step to accelerate the process. </span>
         <span class="hljs-comment">// The value of the diffusion will be store in the new variable "phero" of the cell.</span>
         <span class="hljs-comment">// In order to not loosing phero value, we apply a hand made mask (with the operator "where") and we turn the "avoid_mask" facet to true.</span>
@@ -58,14 +58,14 @@ global {
 }
 
 
-grid cells height: size width: size {
+<span class="hljs-class">grid <span class="hljs-title">cells</span> <span class="hljs-title">height</span>: <span class="hljs-title">size</span> <span class="hljs-title">width</span>: <span class="hljs-title">size</span> </span>{
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is linked to the value of "phero".</span>
     <span class="hljs-literal">rgb</span> color &lt;- (phero = 0) ? #black : hsb(phero,1.0,1.0) update: (phero = 0) ? #black : hsb(phero,1.0,1.0);
 } 
 
-grid quick_cells height: size width: size {
+<span class="hljs-class">grid <span class="hljs-title">quick_cells</span> <span class="hljs-title">height</span>: <span class="hljs-title">size</span> <span class="hljs-title">width</span>: <span class="hljs-title">size</span> </span>{
     <span class="hljs-comment">// "phero" is the variable storing the value of the diffusion</span>
     <span class="hljs-literal">float</span> phero  &lt;- 0.0;
     <span class="hljs-comment">// The color of the cell is linked to the value of "phero".</span>
@@ -73,15 +73,15 @@ grid quick_cells height: size width: size {
 } 
 
 
-<span class="hljs-builtin">experiment</span> diffusion type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">diffusion</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display a type: opengl {
+        <span class="hljs-class">display <span class="hljs-title">a</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
             <span class="hljs-comment">// Display the grid with elevation</span>
-            grid cells elevation: phero*10 triangulation: true;
+            <span class="hljs-class">grid <span class="hljs-title">cells</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">phero</span>*10 <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
-        display quick type: opengl {
+        <span class="hljs-class">display <span class="hljs-title">quick</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
             <span class="hljs-comment">// Display the grid with elevation</span>
-            grid quick_cells elevation: phero*10 triangulation: true;
+            <span class="hljs-class">grid <span class="hljs-title">quick_cells</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">phero</span>*10 <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;</span>
         }
     }
 }
@@ -100,8 +100,8 @@ grid quick_cells height: size width: size {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

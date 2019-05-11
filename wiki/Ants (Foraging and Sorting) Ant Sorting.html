@@ -10,13 +10,13 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> ant_sort
 
-global  {
+<span class="hljs-class">global  </span>{
     <span class="hljs-comment">// Parameters </span>
     <span class="hljs-literal">int</span> number_of_different_colors &lt;- 5 max: 9 ;
     <span class="hljs-literal">int</span> density_percent &lt;- 30 min: 0 max: 99 ;
     <span class="hljs-literal">int</span> number_of_objects_in_history &lt;- 3 min: 0 ;
     <span class="hljs-literal">int</span> number_of_objects_around  &lt;- 5 min: 0 max: 8;
-    <span class="hljs-literal">int</span> width_and_height_of_grid &lt;- 128 max: 400 min: 10 ;  
+    <span class="hljs-literal">int</span> width_and_height_of_<span class="hljs-class">grid &lt;- 128 <span class="hljs-title">max</span>: 400 <span class="hljs-title">min</span>: 10 ;  </span>
     <span class="hljs-literal">int</span> ants &lt;- 20 min: 1 ;
     
     <span class="hljs-comment">//Action to kill all the ants</span>
@@ -41,12 +41,12 @@ global  {
     } 
 }
 <span class="hljs-comment">//Species ant that will move and follow a final state machine</span>
-<span class="hljs-literal">species</span> ant skills: [ <span class="hljs-builtin">moving</span> ] control: <span class="hljs-builtin">fsm</span> { 
+<span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">skills</span>: [ <span class="hljs-title">moving</span> ] <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{ 
     <span class="hljs-literal">rgb</span> color &lt;- #white ; 
-    ant_grid place -&gt; {ant_grid (location)} ;
+    ant_<span class="hljs-class">grid <span class="hljs-title">place</span> -&gt; </span>{ant_<span class="hljs-class">grid (<span class="hljs-title">location</span>)} ;</span>
     
     <span class="hljs-comment">//Reflex to make the ant wander</span>
-    <span class="hljs-builtin">reflex</span> wandering { 
+    <span class="hljs-class">reflex <span class="hljs-title">wandering</span> </span>{ 
         do wander amplitude: 120;
     }
     <span class="hljs-comment">//Initial state that will change to full</span>
@@ -75,24 +75,24 @@ global  {
     }
 }
 <span class="hljs-comment">//Grid that will use the density to determine the color</span>
-grid ant_grid width: width_and_height_of_grid height: width_and_height_of_grid neighbors: 8 use_regular_agents: false frequency: 0{
+<span class="hljs-class">grid <span class="hljs-title">ant_grid</span> <span class="hljs-title">width</span>: <span class="hljs-title">width_and_height_of_grid</span> <span class="hljs-title">height</span>: <span class="hljs-title">width_and_height_of_grid</span> <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> <span class="hljs-title">frequency</span>: 0</span>{
     <span class="hljs-literal">rgb</span> color &lt;- (rnd(100)) &lt; density_percent ? (colors at rnd(number_of_different_colors - 1)) : #black ;
 }
 
 
     
-<span class="hljs-builtin">experiment</span> sort type: gui{
+<span class="hljs-class">experiment <span class="hljs-title">sort</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{
     parameter <span class="hljs-string">"Number of colors:"</span> var: number_of_different_colors category: <span class="hljs-string">"Environment"</span> ;
     parameter <span class="hljs-string">"Density of colors:"</span> var: density_percent category: <span class="hljs-string">"Environment"</span> ;
     parameter <span class="hljs-string">"Number of similar colors in memory necessary to put down:"</span> var: number_of_objects_in_history category: <span class="hljs-string">"Agents"</span> ;
     parameter <span class="hljs-string">"Number of similar colors in perception necessary to pick up:"</span> var: number_of_objects_around category: <span class="hljs-string">"Agents"</span> ;
-    parameter <span class="hljs-string">"Width and height of the grid:"</span> var: width_and_height_of_grid category: <span class="hljs-string">"Environment"</span> ;
+    parameter <span class="hljs-string">"Width and height of the grid:"</span> var: width_and_height_of_<span class="hljs-class">grid <span class="hljs-title">category</span>: "<span class="hljs-title">Environment</span>" ;</span>
     parameter <span class="hljs-string">"Number of agents:"</span> var: ants category: <span class="hljs-string">"Agents"</span> ;
     
     output {
-        display OpenGL type: opengl  {
-            grid ant_grid ;
-            <span class="hljs-literal">species</span> ant transparency: 0.2 ;
+        <span class="hljs-class">display <span class="hljs-title">OpenGL</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span>  </span>{
+            <span class="hljs-class">grid <span class="hljs-title">ant_grid</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">transparency</span>: 0.2 ;</span>
         }
     }
 }
@@ -113,8 +113,8 @@ grid ant_grid width: width_and_height_of_grid height: width_and_height_of_grid n
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

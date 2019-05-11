@@ -66,7 +66,7 @@
 </ul>
 <p>The value of the cycle and time variables are shown in the top left (green rectangle) of the simulation interface. Clicking on the green rectangle allows to display either the number cycles or the time variable. Concerning this variable, it is presented following a years - month - days - hours - minutes - seconds format. In this presentation, every months are considered as being composed of 30 days (the different number of days of months are not taken into account).</p>
 <p>Concerning the step facet, the variable can be modified by the modeler. A classic way of doing it consists in reediting the variable in the global section:</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
        <span class="hljs-literal">float</span> step &lt;- 1 #hour;
 }
 </code></pre>
@@ -130,7 +130,7 @@ write <span class="hljs-string">"my_date subtract_seconds 1: "</span> + (my_date
 <li><code>current_date</code>: current date of the simulation</li>
 </ul>
 <p>By default, these variables are nil. Defining a value of the starting_date allows to change the normal time management of the simulation by a more realistic one (using calendar):</p>
-<pre><code class="hljs">global {
+<pre><code class="hljs"><span class="hljs-class">global </span>{
      date starting_date &lt;- date([1979,12,17,19,45,10]);
 }
 </code></pre>
@@ -150,8 +150,8 @@ write <span class="hljs-string">"my_date subtract_seconds 1: "</span> + (my_date
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

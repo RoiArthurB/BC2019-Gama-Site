@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> InitAction
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> agent_number &lt;- 100;
     <span class="hljs-literal">rgb</span> agent_color &lt;- #red;
     
@@ -19,13 +19,13 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> my_agents {
+<span class="hljs-class">species <span class="hljs-title">my_agents</span> </span>{
     aspect default {
         draw square(5) color: agent_color;
     }
 }
 
-<span class="hljs-builtin">experiment</span> InitAction type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">InitAction</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     
     action _init_ {
         <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>, <span class="hljs-literal">int</span>&gt; params &lt;- user_input([<span class="hljs-string">"Number of agents"</span>::100, <span class="hljs-string">"Color"</span>::#red, <span class="hljs-string">"2D"</span>::true]);
@@ -33,8 +33,8 @@ global {
     }
     
     output {
-        display Simple {
-            <span class="hljs-literal">species</span> my_agents;
+        <span class="hljs-class">display <span class="hljs-title">Simple</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">my_agents</span>;</span>
         }
     }
     
@@ -55,8 +55,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> model4 
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Shapefile for the roads</span>
     <span class="hljs-literal">file</span> roads_shapefile &lt;- shape_file(<span class="hljs-string">"../includes/road.shp"</span>);
     <span class="hljs-comment">//Shapefile for the buildings</span>
@@ -34,13 +34,13 @@ global {
     }
 }
 <span class="hljs-comment">//Species people that will move from a location to a target and can be infected</span>
-<span class="hljs-literal">species</span> people skills:[<span class="hljs-builtin">moving</span>]{     
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{     
     <span class="hljs-literal">float</span> speed &lt;- 5.0 + rnd(5);
     <span class="hljs-literal">bool</span> is_infected &lt;- flip(0.01);
     <span class="hljs-literal">point</span> target;
     
     <span class="hljs-comment">//Reflex to move to the target on the graph of roads</span>
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         do goto target:target on: road_network;
         <span class="hljs-comment">//Once the target is reached, find an other target</span>
         <span class="hljs-keyword">if</span> (location = target) {
@@ -48,7 +48,7 @@ global {
         }
     }
     <span class="hljs-comment">//Reflex to check if we are infected if we aren't already and infected people are nearby</span>
-    <span class="hljs-builtin">reflex</span> infect when: is_infected{
+    <span class="hljs-class">reflex <span class="hljs-title">infect</span> <span class="hljs-title">when</span>: <span class="hljs-title">is_infected</span></span>{
         ask people at_distance 10 {
             <span class="hljs-keyword">if</span> flip(0.01) {
                 is_infected &lt;- true;
@@ -60,26 +60,26 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> roads {
+<span class="hljs-class">species <span class="hljs-title">roads</span> </span>{
     aspect geom {
         draw shape color: #black;
     }
 }
 
-<span class="hljs-literal">species</span> buildings {
+<span class="hljs-class">species <span class="hljs-title">buildings</span> </span>{
     <span class="hljs-literal">float</span> height &lt;- 10.0+ rnd(10);
     aspect geom {
         draw shape color: #gray depth: height;
     }
 }
 
-<span class="hljs-builtin">experiment</span> main_experiment type:gui{
+<span class="hljs-class">experiment <span class="hljs-title">main_experiment</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span></span>{
     output {
         <span class="hljs-comment">//Type opengl to display in 3D</span>
-        display <span class="hljs-literal">map</span> type: opengl {
-            <span class="hljs-literal">species</span> roads aspect:geom;
-            <span class="hljs-literal">species</span> buildings aspect:geom;
-            <span class="hljs-literal">species</span> people aspect:circle;           
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">roads</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">geom</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">buildings</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">geom</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">circle</span>;           </span>
         }
     }
 }
@@ -98,8 +98,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

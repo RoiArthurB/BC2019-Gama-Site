@@ -334,7 +334,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>If virtual: is true, then the action is abstract, which means that the action is defined without body. A species containing at least one abstract action is abstract. Agents of this species cannot be created. The common use of an abstract action is to define an action that can be used by all its sub-species, which should redefine all abstract actions and implements its body.</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> parent_species {    <span class="hljs-literal">int</span> virtual_action(<span class="hljs-literal">int</span> i, <span class="hljs-literal">string</span> s); }  <span class="hljs-literal">species</span> children parent: parent_species {    <span class="hljs-literal">int</span> virtual_action(<span class="hljs-literal">int</span> i, <span class="hljs-literal">string</span> s) {       return i + i;    } } 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">parent_species</span> </span>{    <span class="hljs-literal">int</span> virtual_action(<span class="hljs-literal">int</span> i, <span class="hljs-literal">string</span> s); }  <span class="hljs-class">species <span class="hljs-title">children</span> <span class="hljs-title">parent</span>: <span class="hljs-title">parent_species</span> </span>{    <span class="hljs-literal">int</span> virtual_action(<span class="hljs-literal">int</span> i, <span class="hljs-literal">string</span> s) {       return i + i;    } } 
 </code></pre>
 <ul>
 <li>See also: <a href="#do">do</a>,</li>
@@ -432,12 +432,12 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display my_display {    agents layer_name value: expression [additional options]; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    agents layer_name value: expression [additional options]; } 
 </code></pre>
 <ul>
 <li>For instance, in a segregation model, <code>agents</code> will only display unhappy agents:</li>
 </ul>
-<pre><code class="hljs">display Segregation {    agents agentDisappear value: people as <span class="hljs-literal">list</span> where (each.is_happy = false) aspect: with_group_color; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">Segregation</span> </span>{    agents agentDisappear value: people as <span class="hljs-literal">list</span> where (each.is_happy = false) aspect: with_group_color; } 
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#chart">chart</a>, <a href="#event">event</a>, <a href="#graphics">graphics</a>, <a href="#display_grid">display_grid</a>, <a href="#image">image</a>, <a href="#overlay">overlay</a>, <a href="#display_population">display_population</a>,</li>
@@ -509,12 +509,12 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>To ask a set of agents to do something only if they belong to a given species, the <code>of_species</code> operator can be used. If none of the agents belong to the species, nothing happens</li>
 </ul>
-<pre><code class="hljs">ask ${receiver_agents} of_species ${species_name} {      ${cursor} } 
+<pre><code class="hljs">ask ${receiver_agents} of_<span class="hljs-class">species $</span>{species_name} {      ${cursor} } 
 </code></pre>
 <ul>
 <li>Any statement can be declared in the block statements. All the statements will be evaluated in the context of the receiver agent(s), as if they were defined in their species, which means that an expression like <code>self</code> will represent the receiver agent and not the sender. If the sender needs to refer to itself, some of its own attributes (or temporary variables) within the block statements, it has to use the keyword <code>myself</code>.</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> animal {     <span class="hljs-literal">float</span> energy &lt;- rnd (1000) min: 0.0 {     <span class="hljs-builtin">reflex</span> when: energy &gt; 500 { <span class="hljs-comment">// executed when the energy is above the given threshold          list&lt;animal&gt; others &lt;- (animal at_distance 5); // find all the neighboring animals in a radius of 5 meters          float shared_energy  &lt;- (energy - 500) / length (others); // compute the amount of energy to share with each of them          ask others { // no need to cast, since others has already been filtered to only include animals               if (energy &lt; 500) { // refers to the energy of each animal in others                    energy &lt;- energy + myself.shared_energy; // increases the energy of each animal                    myself.energy &lt;- myself.energy - myself.shared_energy; // decreases the energy of the sender               }          }     } } </span>
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">animal</span> </span>{     <span class="hljs-literal">float</span> energy &lt;- rnd (1000) min: 0.0 {     <span class="hljs-class">reflex <span class="hljs-title">when</span>: <span class="hljs-title">energy</span> &gt; 500 </span>{ <span class="hljs-comment">// executed when the energy is above the given threshold          list&lt;animal&gt; others &lt;- (animal at_distance 5); // find all the neighboring animals in a radius of 5 meters          float shared_energy  &lt;- (energy - 500) / length (others); // compute the amount of energy to share with each of them          ask others { // no need to cast, since others has already been filtered to only include animals               if (energy &lt; 500) { // refers to the energy of each animal in others                    energy &lt;- energy + myself.shared_energy; // increases the energy of each animal                    myself.energy &lt;- myself.energy - myself.shared_energy; // decreases the energy of the sender               }          }     } } </span>
 </code></pre>
 <ul>
 <li>If the species of the receiver agent cannot be determined, it is possible to force it by casting the agent. Nothing happens if the agent cannot be casted to this species</li>
@@ -537,7 +537,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>An example of use of the aspect statement:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> one_species {   <span class="hljs-literal">int</span> a &lt;- rnd(10);   aspect aspect1 {        <span class="hljs-keyword">if</span>(a mod 2 = 0) { draw circle(a);}      else {draw square(a);}      draw text: <span class="hljs-string">"a= "</span> + a color: #black size: 5;     } } 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">one_species</span> </span>{   <span class="hljs-literal">int</span> a &lt;- rnd(10);   aspect aspect1 {        <span class="hljs-keyword">if</span>(a mod 2 = 0) { draw circle(a);}      else {draw square(a);}      draw text: <span class="hljs-string">"a= "</span> + a color: #black size: 5;     } } 
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-6"></a><a href="#embedments-6" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -637,7 +637,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The preliminary for an agent A to capture an agent B as its micro-agent is that the A's species must defined a micro-species which is a sub-species of B's species (cf. [Species161#Nesting_species Nesting species]).</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> A { ... } <span class="hljs-literal">species</span> B { ...    <span class="hljs-literal">species</span> C parent: A {    ...    } ... } 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">A</span> </span>{ ... } <span class="hljs-class">species <span class="hljs-title">B</span> </span>{ ...    <span class="hljs-class">species <span class="hljs-title">C</span> <span class="hljs-title">parent</span>: <span class="hljs-title">A</span> </span>{    ...    } ... } 
 </code></pre>
 <ul>
 <li>To capture all &quot;A&quot; agents as &quot;C&quot; agents, we can ask an &quot;B&quot; agent to execute the following statement:</li>
@@ -729,7 +729,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display chart_display {    chart <span class="hljs-string">"chart name"</span> type: series [additional options] {       [Set of data, datalists statements]    } } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">chart_display</span> </span>{    chart <span class="hljs-string">"chart name"</span> type: series [additional options] {       [Set of data, datalists statements]    } } 
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#agents">agents</a>, <a href="#event">event</a>, <a href="#graphics">graphics</a>, <a href="#display_grid">display_grid</a>, <a href="#image">image</a>, <a href="#overlay">overlay</a>, <a href="#quadtree">quadtree</a>, <a href="#display_population">display_population</a>, <a href="#text">text</a>,</li>
@@ -786,12 +786,12 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>Its simple syntax to create <code>an_int</code> agents of species <code>a_species</code> is:</li>
 </ul>
-<pre><code class="hljs">create a_species number: an_int; create species_of(self) number: 5 returns: list5Agents; 5 
+<pre><code class="hljs">create a_<span class="hljs-class">species <span class="hljs-title">number</span>: <span class="hljs-title">an_int</span>; <span class="hljs-title">create</span> <span class="hljs-title">species_of</span>(<span class="hljs-title">self</span>) <span class="hljs-title">number</span>: 5 <span class="hljs-title">returns</span>: <span class="hljs-title">list5Agents</span>; 5 </span>
 </code></pre>
 <ul>
 <li>In GAML modelers can create agents of species <code>a_species (with two attributes</code>type<code>and</code>nature<code>with types corresponding to the types of the shapefile attributes) from a shapefile</code>the_shapefile` while reading attributes 'TYPE_OCC' and 'NATURE' of the shapefile. One agent will be created by object contained in the shapefile:</li>
 </ul>
-<pre><code class="hljs">create a_species from: the_shapefile with: [type:: read('TYPE_OCC'), nature::read('NATURE')]; 
+<pre><code class="hljs">create a_<span class="hljs-class">species <span class="hljs-title">from</span>: <span class="hljs-title">the_shapefile</span> <span class="hljs-title">with</span>: [<span class="hljs-title">type</span>:: <span class="hljs-title">read</span>('<span class="hljs-title">TYPE_OCC</span>'), <span class="hljs-title">nature</span>::<span class="hljs-title">read</span>('<span class="hljs-title">NATURE</span>')]; </span>
 </code></pre>
 <ul>
 <li>In order to create agents from a .csv file, facet <code>header</code> can be used to specified whether we can use columns header:</li>
@@ -806,17 +806,17 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>Created agents are initialized following the rules of their species. If one wants to refer to them after the statement is executed, the returns keyword has to be defined: the agents created will then be referred to by the temporary variable it declares. For instance, the following statement creates 0 to 4 agents of the same species as the sender, and puts them in the temporary variable children for later use.</li>
 </ul>
-<pre><code class="hljs">create <span class="hljs-literal">species</span> (self) number: rnd (4) returns: children; ask children {         <span class="hljs-comment">// ... } </span>
+<pre><code class="hljs">create <span class="hljs-class">species (<span class="hljs-title">self</span>) <span class="hljs-title">number</span>: <span class="hljs-title">rnd</span> (4) <span class="hljs-title">returns</span>: <span class="hljs-title">children</span>; <span class="hljs-title">ask</span> <span class="hljs-title">children</span> </span>{         <span class="hljs-comment">// ... } </span>
 </code></pre>
 <ul>
 <li>If one wants to specify a special initialization sequence for the agents created, create provides the same possibilities as ask. This extended syntax is:</li>
 </ul>
-<pre><code class="hljs">create a_species number: an_int {      [statements] } 
+<pre><code class="hljs">create a_<span class="hljs-class">species <span class="hljs-title">number</span>: <span class="hljs-title">an_int</span> </span>{      [statements] } 
 </code></pre>
 <ul>
 <li>The same rules as in ask apply. The only difference is that, for the agents created, the assignments of variables will bypass the initialization defined in species. For instance:</li>
 </ul>
-<pre><code class="hljs">create <span class="hljs-literal">species</span>(self) number: rnd (4) returns: children {      set location &lt;- myself.location + {rnd (2), rnd (2)}; <span class="hljs-comment">// tells the children to be initially located close to me      set parent &lt;- myself; // tells the children that their parent is me (provided the variable parent is declared in this species)  } </span>
+<pre><code class="hljs">create <span class="hljs-class">species(<span class="hljs-title">self</span>) <span class="hljs-title">number</span>: <span class="hljs-title">rnd</span> (4) <span class="hljs-title">returns</span>: <span class="hljs-title">children</span> </span>{      set location &lt;- myself.location + {rnd (2), rnd (2)}; <span class="hljs-comment">// tells the children to be initially located close to me      set parent &lt;- myself; // tells the children that their parent is me (provided the variable parent is declared in this species)  } </span>
 </code></pre>
 <ul>
 <li>Desprecated uses:</li>
@@ -991,12 +991,12 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display my_display [additional options] { ... } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> [<span class="hljs-title">additional</span> <span class="hljs-title">options</span>] </span>{ ... } 
 </code></pre>
 <ul>
 <li>Each display can include different layers (like in a GIS).</li>
 </ul>
-<pre><code class="hljs">display gridWithElevationTriangulated type: opengl ambient_light: 100 {     grid cell elevation: true triangulation: true;  <span class="hljs-literal">species</span> people aspect: base; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">gridWithElevationTriangulated</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">ambient_light</span>: 100 </span>{     <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span>;  <span class="hljs-title">species</span> <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>; } </span>
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-20"></a><a href="#embedments-20" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -1030,12 +1030,12 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display my_display {    grid ant_grid lines: #black position: { 0.5, 0 } size: {0.5,0.5}; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    <span class="hljs-class">grid <span class="hljs-title">ant_grid</span> <span class="hljs-title">lines</span>: #<span class="hljs-title">black</span> <span class="hljs-title">position</span>: </span>{ 0.5, 0 } size: {0.5,0.5}; } 
 </code></pre>
 <ul>
 <li>To display a grid as a DEM:</li>
 </ul>
-<pre><code class="hljs">display my_display {     grid cell texture: texture_file text: false triangulation: true elevation: true; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{     <span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">texture</span>: <span class="hljs-title">texture_file</span> <span class="hljs-title">text</span>: <span class="hljs-title">false</span> <span class="hljs-title">triangulation</span>: <span class="hljs-title">true</span> <span class="hljs-title">elevation</span>: <span class="hljs-title">true</span>; } </span>
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#agents">agents</a>, <a href="#chart">chart</a>, <a href="#event">event</a>, <a href="#graphics">graphics</a>, <a href="#image">image</a>, <a href="#overlay">overlay</a>, <a href="#display_population">display_population</a>,</li>
@@ -1066,17 +1066,17 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display my_display {    <span class="hljs-literal">species</span> species_name [additional options]; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    <span class="hljs-class">species <span class="hljs-title">species_name</span> [<span class="hljs-title">additional</span> <span class="hljs-title">options</span>]; } </span>
 </code></pre>
 <ul>
 <li>Species can be superposed on the same plan (be careful with the order, the last one will be above all the others):</li>
 </ul>
-<pre><code class="hljs">display my_display {    <span class="hljs-literal">species</span> agent1 aspect: base;    <span class="hljs-literal">species</span> agent2 aspect: base;    <span class="hljs-literal">species</span> agent3 aspect: base; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    <span class="hljs-class">species <span class="hljs-title">agent1</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;    <span class="hljs-title">species</span> <span class="hljs-title">agent2</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;    <span class="hljs-title">species</span> <span class="hljs-title">agent3</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>; } </span>
 </code></pre>
 <ul>
 <li>Each species layer can be placed at a different z value using the opengl display. position:{0,0,0} means the layer will be placed on the ground and position:{0,0,1} means it will be placed at an height equal to the maximum size of the environment.</li>
 </ul>
-<pre><code class="hljs">display my_display type: opengl{    <span class="hljs-literal">species</span> agent1 aspect: base ;    <span class="hljs-literal">species</span> agent2 aspect: base position:{0,0,0.5};    <span class="hljs-literal">species</span> agent3 aspect: base position:{0,0,1}; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{    <span class="hljs-class">species <span class="hljs-title">agent1</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;    <span class="hljs-title">species</span> <span class="hljs-title">agent2</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> <span class="hljs-title">position</span>:</span>{0,0,0.5};    <span class="hljs-class">species <span class="hljs-title">agent3</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> <span class="hljs-title">position</span>:</span>{0,0,1}; } 
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#agents">agents</a>, <a href="#chart">chart</a>, <a href="#event">event</a>, <a href="#graphics">graphics</a>, <a href="#display_grid">display_grid</a>, <a href="#image">image</a>, <a href="#overlay">overlay</a>,</li>
@@ -1340,7 +1340,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>For instance:</li>
 </ul>
-<pre><code class="hljs">global {    <span class="hljs-comment">// ...     action myAction () {       point loc &lt;- #user_location; // contains the location of the mouse in the world       list&lt;agent&gt; selected_agents &lt;- agents inside (10#m around loc); // contains agents clicked by the event              // code written by modelers    } }  experiment Simple type:gui {    display my_display {       event mouse_up action: myAction;    } } </span>
+<pre><code class="hljs"><span class="hljs-class">global </span>{    <span class="hljs-comment">// ...     action myAction () {       point loc &lt;- #user_location; // contains the location of the mouse in the world       list&lt;agent&gt; selected_agents &lt;- agents inside (10#m around loc); // contains agents clicked by the event              // code written by modelers    } }  experiment Simple type:gui {    display my_display {       event mouse_up action: myAction;    } } </span>
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#agents">agents</a>, <a href="#chart">chart</a>, <a href="#graphics">graphics</a>, <a href="#display_grid">display_grid</a>, <a href="#image">image</a>, <a href="#overlay">overlay</a>, <a href="#display_population">display_population</a>,</li>
@@ -1474,7 +1474,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>Focuses on an agent, a geometry, a set of agents, etc...)</li>
 </ul>
-<pre><code class="hljs">focus_on my_species(0); 
+<pre><code class="hljs">focus_on my_<span class="hljs-class">species(0); </span>
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-36"></a><a href="#embedments-36" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -1535,7 +1535,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display my_display {    graphics <span class="hljs-string">"my new layer"</span> {       draw circle(5) at: {10,10} color: #red;       draw <span class="hljs-string">"test"</span> at: {10,10} size: 20 color: #black;    } } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    graphics <span class="hljs-string">"my new layer"</span> {       draw circle(5) at: {10,10} color: #red;       draw <span class="hljs-string">"test"</span> at: {10,10} size: 20 color: #black;    } } 
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#agents">agents</a>, <a href="#chart">chart</a>, <a href="#event">event</a>, <a href="#graphics">graphics</a>, <a href="#display_grid">display_grid</a>, <a href="#image">image</a>, <a href="#overlay">overlay</a>, <a href="#display_population">display_population</a>,</li>
@@ -1559,7 +1559,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>Highlighting an agent</li>
 </ul>
-<pre><code class="hljs">highlight my_species(0) color: #blue; 
+<pre><code class="hljs">highlight my_<span class="hljs-class">species(0) <span class="hljs-title">color</span>: #<span class="hljs-title">blue</span>; </span>
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-39"></a><a href="#embedments-39" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -1645,22 +1645,22 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>The general syntax is:</li>
 </ul>
-<pre><code class="hljs">display my_display {    image layer_name <span class="hljs-literal">file</span>: image_file [additional options]; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    image layer_name <span class="hljs-literal">file</span>: image_file [additional options]; } 
 </code></pre>
 <ul>
 <li>For instance, in the case of a bitmap image</li>
 </ul>
-<pre><code class="hljs">display my_display {    image background <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/my_backgound.jpg"</span>; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    image background <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/my_backgound.jpg"</span>; } 
 </code></pre>
 <ul>
 <li>Or in the case of a shapefile:</li>
 </ul>
-<pre><code class="hljs">display my_display {    image testGIS gis: <span class="hljs-string">"../includes/building.shp"</span> color: <span class="hljs-literal">rgb</span>('blue'); } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{    image testGIS gis: <span class="hljs-string">"../includes/building.shp"</span> color: <span class="hljs-literal">rgb</span>('blue'); } 
 </code></pre>
 <ul>
 <li>It is also possible to superpose images on different layers in the same way as for species using opengl display:</li>
 </ul>
-<pre><code class="hljs">display my_display {   image image1 <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/image1.jpg"</span>;   image image2 <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/image2.jpg"</span>;   image image3 <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/image3.jpg"</span> position: {0,0,0.5}; } 
+<pre><code class="hljs"><span class="hljs-class">display <span class="hljs-title">my_display</span> </span>{   image image1 <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/image1.jpg"</span>;   image image2 <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/image2.jpg"</span>;   image image3 <span class="hljs-literal">file</span>:<span class="hljs-string">"../images/image3.jpg"</span> position: {0,0,0.5}; } 
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#agents">agents</a>, <a href="#chart">chart</a>, <a href="#event">event</a>, <a href="#graphics">graphics</a>, <a href="#display_grid">display_grid</a>, <a href="#overlay">overlay</a>, <a href="#display_population">display_population</a>,</li>
@@ -1968,7 +1968,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>Its basic syntax is:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-builtin">experiment</span> exp_name type: gui {    <span class="hljs-comment">// [inputs]    output {       // [display, file, inspect, layout or monitor statements]    } } </span>
+<pre><code class="hljs"><span class="hljs-class">experiment <span class="hljs-title">exp_name</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{    <span class="hljs-comment">// [inputs]    output {       // [display, file, inspect, layout or monitor statements]    } } </span>
 </code></pre>
 <ul>
 <li>See also: <a href="#display">display</a>, <a href="#monitor">monitor</a>, <a href="#inspect">inspect</a>, <a href="#output_file">output_file</a>, <a href="#layout">layout</a>,</li>
@@ -2112,7 +2112,7 @@ statement_keyword facet1: expression1 facet2: expression2 ...;
 <ul>
 <li>For instance, this permanent section will allow to display for each simulation the end value of the food_gathered variable:</li>
 </ul>
-<pre><code class="hljs">permanent {     display Ants background: <span class="hljs-literal">rgb</span>('white') refresh_every: 1 {        chart <span class="hljs-string">"Food Gathered"</span> type: series {            data <span class="hljs-string">"Food"</span> value: food_gathered;       }   } } 
+<pre><code class="hljs">permanent {     <span class="hljs-class">display <span class="hljs-title">Ants</span> <span class="hljs-title">background</span>: <span class="hljs-title">rgb</span>('<span class="hljs-title">white</span>') <span class="hljs-title">refresh_every</span>: 1 </span>{        chart <span class="hljs-string">"Food Gathered"</span> type: series {            data <span class="hljs-string">"Food"</span> value: food_gathered;       }   } } 
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-58"></a><a href="#embedments-58" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -2231,7 +2231,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>Example:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-builtin">reflex</span> my_reflex when: flip (0.5){      <span class="hljs-comment">//Only executed when flip returns true     write "Executing the unconditional reflex"; } </span>
+<pre><code class="hljs"><span class="hljs-class">reflex <span class="hljs-title">my_reflex</span> <span class="hljs-title">when</span>: <span class="hljs-title">flip</span> (0.5)</span>{      <span class="hljs-comment">//Only executed when flip returns true     write "Executing the unconditional reflex"; } </span>
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-62"></a><a href="#embedments-62" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -2254,7 +2254,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>We consider the following species. Agents of &quot;C&quot; species can be released from a &quot;B&quot; agent to become agents of &quot;A&quot; species. Agents of &quot;D&quot; species cannot be released from the &quot;A&quot; agent because species &quot;D&quot; has no parent species.</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> A { ... } <span class="hljs-literal">species</span> B { ...    <span class="hljs-literal">species</span> C parent: A {    ...    }    <span class="hljs-literal">species</span> D {    ...    } ... } 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">A</span> </span>{ ... } <span class="hljs-class">species <span class="hljs-title">B</span> </span>{ ...    <span class="hljs-class">species <span class="hljs-title">C</span> <span class="hljs-title">parent</span>: <span class="hljs-title">A</span> </span>{    ...    }    <span class="hljs-class">species <span class="hljs-title">D</span> </span>{    ...    } ... } 
 </code></pre>
 <ul>
 <li>To release all &quot;C&quot; agents from a &quot;B&quot; agent, agent &quot;C&quot; has to execute the following statement. The &quot;C&quot; agent will change to &quot;A&quot; agent. The won't consider &quot;B&quot; agent as their macro-agent (host) anymore. Their host (macro-agent) will the be the host (macro-agent) of the &quot;B&quot; agent.</li>
@@ -2264,7 +2264,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>The modeler can specify the new host and the new species of the released agents:</li>
 </ul>
-<pre><code class="hljs">release <span class="hljs-literal">list</span> (C) as: new_species in: new host; 
+<pre><code class="hljs">release <span class="hljs-literal">list</span> (C) as: new_<span class="hljs-class">species <span class="hljs-title">in</span>: <span class="hljs-title">new</span> <span class="hljs-title">host</span>; </span>
 </code></pre>
 <ul>
 <li>See also: <a href="#capture">capture</a>,</li>
@@ -2323,7 +2323,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>In the case of an agent or a shape, <code>remove</code> allows to remove an attribute from the attributes map of the receiver. However, for agents, it will only remove attributes that have been added dynamically, not the ones defined in the species or in its built-in parent.</li>
 </ul>
-<pre><code class="hljs">global {    init {       create speciesRemove;       speciesRemove sR &lt;- speciesRemove(0);  <span class="hljs-comment">// sR.a now equals 100       remove key:"a" from: sR;   // sR.a now equals nil    } }  species speciesRemove {    int a &lt;- 100;  } </span>
+<pre><code class="hljs"><span class="hljs-class">global </span>{    init {       create speciesRemove;       speciesRemove sR &lt;- speciesRemove(0);  <span class="hljs-comment">// sR.a now equals 100       remove key:"a" from: sR;   // sR.a now equals nil    } }  species speciesRemove {    int a &lt;- 100;  } </span>
 </code></pre>
 <ul>
 <li>This statement can not be used on <em>matrix</em>.</li>
@@ -2347,7 +2347,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>Example:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">string</span> foo {      return <span class="hljs-string">"foo"</span>; }  <span class="hljs-builtin">reflex</span> {     <span class="hljs-literal">string</span> foo_result &lt;- foo();     <span class="hljs-comment">// foos_result is now equals to "foo" } </span>
+<pre><code class="hljs"><span class="hljs-literal">string</span> foo {      return <span class="hljs-string">"foo"</span>; }  <span class="hljs-class">reflex </span>{     <span class="hljs-literal">string</span> foo_result &lt;- foo();     <span class="hljs-comment">// foos_result is now equals to "foo" } </span>
 </code></pre>
 <ul>
 <li>In the specific case one wants an agent to ask another agent to execute a statement with a return, it can be done similarly to:</li>
@@ -2495,17 +2495,17 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>To save the grid_value attributes of all the cells of a grid into an ESRI ASCII Raster file:</li>
 </ul>
-<pre><code class="hljs">save grid to: <span class="hljs-string">"save_grid.asc"</span> type: <span class="hljs-string">"asc"</span>; 
+<pre><code class="hljs">save <span class="hljs-class">grid <span class="hljs-title">to</span>: "<span class="hljs-title">save_grid</span>.<span class="hljs-title">asc</span>" <span class="hljs-title">type</span>: "<span class="hljs-title">asc</span>"; </span>
 </code></pre>
 <ul>
 <li>To save the grid_value attributes of all the cells of a grid into geotiff:</li>
 </ul>
-<pre><code class="hljs">save grid to: <span class="hljs-string">"save_grid.tif"</span> type: <span class="hljs-string">"geotiff"</span>; 
+<pre><code class="hljs">save <span class="hljs-class">grid <span class="hljs-title">to</span>: "<span class="hljs-title">save_grid</span>.<span class="hljs-title">tif</span>" <span class="hljs-title">type</span>: "<span class="hljs-title">geotiff</span>"; </span>
 </code></pre>
 <ul>
 <li>To save the grid_value attributes of all the cells of a grid into png (with a worldfile):</li>
 </ul>
-<pre><code class="hljs">save grid to: <span class="hljs-string">"save_grid.png"</span> type: <span class="hljs-string">"image"</span>; 
+<pre><code class="hljs">save <span class="hljs-class">grid <span class="hljs-title">to</span>: "<span class="hljs-title">save_grid</span>.<span class="hljs-title">png</span>" <span class="hljs-title">type</span>: "<span class="hljs-title">image</span>"; </span>
 </code></pre>
 <ul>
 <li>The save statement can be use in an init block, a reflex, an action or in a user command. Do not use it in experiments.</li>
@@ -2541,7 +2541,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>As every test should be independent from the others, the setup will mainly contain initialization of variables that will be used in each test.</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> Tester {     <span class="hljs-literal">int</span> val_to_test;      setup {         val_to_test &lt;- 0;     }      test t1 {        <span class="hljs-comment">// [set of instructions, including asserts]     } } </span>
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">Tester</span> </span>{     <span class="hljs-literal">int</span> val_to_test;      setup {         val_to_test &lt;- 0;     }      test t1 {        <span class="hljs-comment">// [set of instructions, including asserts]     } } </span>
 </code></pre>
 <ul>
 <li>See also: <a href="#test">test</a>, <a href="#assert">assert</a>,</li>
@@ -2675,22 +2675,22 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>Here is an example of a species definition with a FSM architecture and the additional skill moving:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> ant skills: [<span class="hljs-builtin">moving</span>] control: <span class="hljs-builtin">fsm</span> { 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{ 
 </code></pre>
 <ul>
 <li>In the case of a species aiming at mirroring another one:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> node_agent mirrors: <span class="hljs-literal">list</span>(bug) parent: graph_node edge_species: edge_agent { 
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">node_agent</span> <span class="hljs-title">mirrors</span>: <span class="hljs-title">list</span>(<span class="hljs-title">bug</span>) <span class="hljs-title">parent</span>: <span class="hljs-title">graph_node</span> <span class="hljs-title">edge_species</span>: <span class="hljs-title">edge_agent</span> </span>{ 
 </code></pre>
 <ul>
 <li>The definition of the single grid of a model will automatically create gridwidth x gridheight agents:</li>
 </ul>
-<pre><code class="hljs">grid ant_grid width: gridwidth height: gridheight <span class="hljs-literal">file</span>: grid_file neighbors: 8 use_regular_agents: false {  
+<pre><code class="hljs"><span class="hljs-class">grid <span class="hljs-title">ant_grid</span> <span class="hljs-title">width</span>: <span class="hljs-title">gridwidth</span> <span class="hljs-title">height</span>: <span class="hljs-title">gridheight</span> <span class="hljs-title">file</span>: <span class="hljs-title">grid_file</span> <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> </span>{  
 </code></pre>
 <ul>
 <li>Using a file to initialize the grid can replace width/height facets:</li>
 </ul>
-<pre><code class="hljs">grid ant_grid <span class="hljs-literal">file</span>: grid_file neighbors: 8 use_regular_agents: false {  
+<pre><code class="hljs"><span class="hljs-class">grid <span class="hljs-title">ant_grid</span> <span class="hljs-title">file</span>: <span class="hljs-title">grid_file</span> <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> </span>{  
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="embedments-75"></a><a href="#embedments-75" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Embedments</h4>
 <ul>
@@ -2845,7 +2845,7 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
 <ul>
 <li>An example of use:</li>
 </ul>
-<pre><code class="hljs"><span class="hljs-literal">species</span> Tester {     <span class="hljs-comment">// set of attributes that will be used in test      setup {         // [set of instructions... in particular initializations]     }      test t1 {        // [set of instructions, including asserts]     } } </span>
+<pre><code class="hljs"><span class="hljs-class">species <span class="hljs-title">Tester</span> </span>{     <span class="hljs-comment">// set of attributes that will be used in test      setup {         // [set of instructions... in particular initializations]     }      test t1 {        // [set of instructions, including asserts]     } } </span>
 </code></pre>
 <ul>
 <li>See also: <a href="#setup">setup</a>, <a href="#assert">assert</a>,</li>
@@ -3200,8 +3200,8 @@ putMap &lt;- [<span class="hljs-string">"x"</span>::4,<span class="hljs-string">
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

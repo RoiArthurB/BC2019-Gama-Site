@@ -12,7 +12,7 @@ Each player of the offensive team can either run to its offensive place (when he
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> soccer
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">geometry</span> shape &lt;- rectangle(120#m,90#m);
     <span class="hljs-literal">float</span> red_players_speed &lt;- 1.0;
     <span class="hljs-literal">float</span> blue_players_speed &lt;- 1.0;
@@ -74,7 +74,7 @@ global {
         create goal with:[location::{120,location.y}, team::<span class="hljs-string">"red"</span>];
     }
     
-    <span class="hljs-builtin">reflex</span> update {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         <span class="hljs-literal">float</span> shortest_distance &lt;- 100.0;
         <span class="hljs-literal">float</span> offside_pos &lt;- 0.0;
         ask player where (each.team = <span class="hljs-string">"red"</span>) {
@@ -138,7 +138,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> player skills:[<span class="hljs-builtin">moving</span>] {
+<span class="hljs-class">species <span class="hljs-title">player</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>] </span>{
     <span class="hljs-literal">string</span> team &lt;- <span class="hljs-string">""</span>; <span class="hljs-comment">// value : "blue" (left side) or "red" (right side)</span>
     <span class="hljs-literal">bool</span> possess_ball &lt;- false;
     <span class="hljs-literal">int</span> inactivity_time &lt;- 0 update:(inactivity_time&lt;=0) ? 0 : inactivity_time-1;
@@ -175,7 +175,7 @@ global {
         offensive_pos &lt;- off_pos at 0;
     }
     
-    <span class="hljs-builtin">reflex</span> update_status {
+    <span class="hljs-class">reflex <span class="hljs-title">update_status</span> </span>{
         distance_to_closest_ennemy &lt;- 100.0;
         loop pl over:player where (each.team != team) {
             <span class="hljs-literal">float</span> distance_to_ennemy &lt;- self distance_to pl;
@@ -185,7 +185,7 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> defensive_behavior when:team_possession != team {
+    <span class="hljs-class">reflex <span class="hljs-title">defensive_behavior</span> <span class="hljs-title">when</span>:<span class="hljs-title">team_possession</span> != <span class="hljs-title">team</span> </span>{
         <span class="hljs-comment">// the ball is not possessed by the team.</span>
         do apply_inertia;
         <span class="hljs-keyword">if</span> (self = closest_red_player_from_the_ball or self = closest_blue_player_from_the_ball) {
@@ -196,7 +196,7 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> offensive_behavior when:team_possession = team {
+    <span class="hljs-class">reflex <span class="hljs-title">offensive_behavior</span> <span class="hljs-title">when</span>:<span class="hljs-title">team_possession</span> = <span class="hljs-title">team</span> </span>{
         do apply_inertia;
         <span class="hljs-keyword">if</span> (possess_ball) {
             do run_with_ball;
@@ -227,7 +227,7 @@ global {
         }
     }
     
-    <span class="hljs-builtin">reflex</span> choose_player_to_mark when:(cycle mod 20=seed or cycle=0) {
+    <span class="hljs-class">reflex <span class="hljs-title">choose_player_to_mark</span> <span class="hljs-title">when</span>:(<span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> 20=<span class="hljs-title">seed</span> <span class="hljs-title">or</span> <span class="hljs-title">cycle</span>=0) </span>{
         <span class="hljs-keyword">if</span> ( not empty(player where(each.offensive_pos intersects defensive_pos)) ) {
             marked_player &lt;- 1 among (player where((each.offensive_pos intersects defensive_pos) and (each.team != team))) at 0;
         }
@@ -412,7 +412,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> area {
+<span class="hljs-class">species <span class="hljs-title">area</span> </span>{
     <span class="hljs-literal">string</span> team &lt;- <span class="hljs-string">""</span>;
     <span class="hljs-literal">point</span> position;
     
@@ -432,13 +432,13 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> ball skills:[<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-literal">string</span> belong_to_team &lt;- <span class="hljs-string">""</span>;
     player belong_to_player;
     <span class="hljs-literal">float</span> speed &lt;- 0.0 update:speed*0.9;
     <span class="hljs-literal">list</span>&lt;<span class="hljs-literal">point</span>&gt; nextPlace;
     <span class="hljs-literal">geometry</span> ball_direction;
-    <span class="hljs-builtin">reflex</span> update {
+    <span class="hljs-class">reflex <span class="hljs-title">update</span> </span>{
         <span class="hljs-literal">float</span> future_speed &lt;- speed;
         <span class="hljs-literal">point</span> tmpPos&lt;-location;
         loop i from:0 to:10 {
@@ -478,7 +478,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> goal {
+<span class="hljs-class">species <span class="hljs-title">goal</span> </span>{
     <span class="hljs-literal">string</span> team &lt;- <span class="hljs-string">""</span>;
     aspect base {
         draw rectangle(0.1,7.32) color:#black;
@@ -486,7 +486,7 @@ global {
 }
 
 
-<span class="hljs-builtin">experiment</span> match type:gui {
+<span class="hljs-class">experiment <span class="hljs-title">match</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"blue running speed"</span> var:blue_players_speed category:<span class="hljs-string">"Blue Team"</span>;
     parameter <span class="hljs-string">"red running speed"</span> var:red_players_speed category:<span class="hljs-string">"Red Team"</span>;
     <span class="hljs-comment">// speed of players when they run. Note that a player which have the ball will run at 50% of his max capacity, and he will run at 80% of his max capacity if he does not have the ball.</span>
@@ -519,13 +519,13 @@ global {
     <span class="hljs-comment">// play with or without the "offside" rule.</span>
     
     output {
-        display <span class="hljs-string">"soccer_field"</span> {
+        <span class="hljs-class">display "<span class="hljs-title">soccer_field</span>" </span>{
             <span class="hljs-comment">// display the field.</span>
             image <span class="hljs-string">"../images/soccer_field.png"</span>;
-            <span class="hljs-literal">species</span> player aspect:base;
-            <span class="hljs-literal">species</span> ball aspect:base;
-            <span class="hljs-literal">species</span> goal aspect:base;
-            <span class="hljs-literal">species</span> area aspect:base;
+            <span class="hljs-class">species <span class="hljs-title">player</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">ball</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">goal</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">area</span> <span class="hljs-title">aspect</span>:<span class="hljs-title">base</span>;</span>
             graphics <span class="hljs-string">"score_display"</span> {
                 draw <span class="hljs-string">"Blue side - "</span>+<span class="hljs-literal">string</span>(blue_score) color:#blue at: {10,5} font: font(<span class="hljs-string">"Helvetica"</span>, 18 * #zoom, #bold) perspective:true;
                 draw <span class="hljs-literal">string</span>(red_score)+<span class="hljs-string">" - Red side"</span> color:#red at: {100,5} font: font(<span class="hljs-string">"Helvetica"</span>, 18 * #zoom, #bold) perspective:true;
@@ -535,7 +535,7 @@ global {
                 }
             }
         }
-        display <span class="hljs-string">"match_stats"</span> {
+        <span class="hljs-class">display "<span class="hljs-title">match_stats</span>" </span>{
             <span class="hljs-comment">// display some statistics about the game</span>
             chart <span class="hljs-string">"ball_possession"</span> type:pie position:{0,0} size:{0.5,0.5} {
                 data <span class="hljs-string">"Red possession"</span> value:red_possession color:#red;
@@ -573,8 +573,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

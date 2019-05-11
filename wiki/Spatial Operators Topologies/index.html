@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> gridfilter
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>,<span class="hljs-literal">map</span>&lt;dummy,<span class="hljs-literal">rgb</span>&gt;&gt; theDummies;
     <span class="hljs-literal">map</span>&lt;<span class="hljs-literal">string</span>,<span class="hljs-literal">map</span>&lt;cell,<span class="hljs-literal">rgb</span>&gt;&gt; theCells;
     <span class="hljs-literal">string</span> parameter_operator &lt;-<span class="hljs-string">"closest_to"</span> among:[<span class="hljs-string">"closest_to"</span>,<span class="hljs-string">"at_distance"</span>,<span class="hljs-string">"neighbors_at"</span>,<span class="hljs-string">"distance_to"</span>,<span class="hljs-string">"path_to"</span>,<span class="hljs-string">"cluster_distance"</span>,<span class="hljs-string">"cluster_hierarchical"</span>];
@@ -45,7 +45,7 @@ global {
         ask dummy(8)
         {
             add [self::#yellow] at:<span class="hljs-string">"at_distance"</span> to:theDummies;
-            loop a_dummy over: agents_at_distance(30) of_species dummy
+            loop a_dummy over: agents_at_distance(30) of_<span class="hljs-class">species <span class="hljs-title">dummy</span></span>
             {   
                 add #red at:a_dummy to:theDummies[<span class="hljs-string">"at_distance"</span>];
             }
@@ -53,7 +53,7 @@ global {
         ask cell(40)
         {
             add [self::#yellow] at:<span class="hljs-string">"at_distance"</span> to:theCells;
-            loop a_cell over: agents_at_distance(10) of_species cell
+            loop a_cell over: agents_at_distance(10) of_<span class="hljs-class">species <span class="hljs-title">cell</span></span>
             {   
                 add #red at:a_cell to:theCells[<span class="hljs-string">"at_distance"</span>];
             }
@@ -157,23 +157,23 @@ global {
     
 }
 
-grid cell width: 10 height: 10 neighbors: 4{
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 10 <span class="hljs-title">height</span>: 10 <span class="hljs-title">neighbors</span>: 4</span>{
     <span class="hljs-literal">rgb</span> color &lt;- #green;
 }
 
-<span class="hljs-literal">species</span> dummy {
+<span class="hljs-class">species <span class="hljs-title">dummy</span> </span>{
     <span class="hljs-literal">string</span> id;
     aspect default {
         draw circle(2) color: #yellow;
         draw id size: 6 color: #black;
     }
 }
-<span class="hljs-builtin">experiment</span> topology_test type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">topology_test</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     <span class="hljs-comment">/** Insert here the definition of the input and output of the model */</span>
     parameter <span class="hljs-string">"Operator"</span> var: parameter_operator;
     output {
         
-        display Continuous_Environment  
+        <span class="hljs-class">display <span class="hljs-title">Continuous_Environment</span>  </span>
         {
             graphics cell
             {
@@ -254,8 +254,8 @@ grid cell width: 10 height: 10 neighbors: 4{
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

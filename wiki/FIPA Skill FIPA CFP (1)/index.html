@@ -9,7 +9,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> cfp_cfp_1
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">int</span> nbOfParticipants &lt;- 5;
     
     init {
@@ -20,16 +20,16 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> initiator skills: [<span class="hljs-builtin">fipa</span>] { 
+<span class="hljs-class">species <span class="hljs-title">initiator</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">fipa</span>] </span>{ 
     
-    <span class="hljs-builtin">reflex</span> send_cfp_to_participants when: (time = 1) {
+    <span class="hljs-class">reflex <span class="hljs-title">send_cfp_to_participants</span> <span class="hljs-title">when</span>: (<span class="hljs-title">time</span> = 1) </span>{
         <span class="hljs-comment">//list&lt;participant&gt; participants &lt;- list(participant);</span>
         
         write '(Time ' + time + '): ' + name + ' sends a cfp message to all participants';
         do start_conversation (to: <span class="hljs-literal">list</span>(participant), protocol: '<span class="hljs-builtin">fipa</span>-contract-net', performative: 'cfp', contents: ['Go swimming']);
     }
     
-    <span class="hljs-builtin">reflex</span> receive_refuse_messages when: !empty(refuses) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_refuse_messages</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">refuses</span>) </span>{
         write '(Time ' + time + '): ' + name + ' receives refuse messages';
         
         loop r over: refuses {
@@ -38,9 +38,9 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> participant skills: [<span class="hljs-builtin">fipa</span>] {
+<span class="hljs-class">species <span class="hljs-title">participant</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">fipa</span>] </span>{
     
-    <span class="hljs-builtin">reflex</span> receive_cfp_from_initiator when: !empty(cfps) {
+    <span class="hljs-class">reflex <span class="hljs-title">receive_cfp_from_initiator</span> <span class="hljs-title">when</span>: !<span class="hljs-title">empty</span>(<span class="hljs-title">cfps</span>) </span>{
         
         message proposalFromInitiator &lt;- cfps[0];
         write '(Time ' + time + '): ' + name + ' receives a cfp message from ' + <span class="hljs-literal">agent</span>(proposalFromInitiator.sender).name + ' and replies with a refuse message';
@@ -49,7 +49,7 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> test type: gui { 
+<span class="hljs-class">experiment <span class="hljs-title">test</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{ 
     output {
         
     }
@@ -69,8 +69,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

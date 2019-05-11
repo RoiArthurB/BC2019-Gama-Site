@@ -11,7 +11,7 @@
  
 <span class="hljs-builtin">model</span> RoadTrafficSimple 
   
-global {  
+<span class="hljs-class">global </span>{  
     <span class="hljs-literal">file</span> shape_file_roads  &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/RoadCircleLanes.shp"</span>) ;
     <span class="hljs-literal">file</span> shape_file_bounds &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/BoundsLaneRoad.shp"</span>) ;
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_bounds);
@@ -27,7 +27,7 @@ global {
         the_graph &lt;- as_edge_graph(road);
     }   
     
-    <span class="hljs-builtin">reflex</span> createPeople when: cycle mod 20 = 0 and cycle &lt; 400{
+    <span class="hljs-class">reflex <span class="hljs-title">createPeople</span> <span class="hljs-title">when</span>: <span class="hljs-title">cycle</span> <span class="hljs-title">mod</span> 20 = 0 <span class="hljs-title">and</span> <span class="hljs-title">cycle</span> &lt; 400</span>{
         roadsList &lt;- (road as <span class="hljs-literal">list</span>);  
         create people number: 1 { 
             speed &lt;-  (2.0 + 2 * length(people as <span class="hljs-literal">list</span>)) ;
@@ -38,12 +38,12 @@ global {
             living_space &lt;- 10.0;
             tolerance &lt;- 0.1;
             lanes_attribute &lt;- <span class="hljs-string">"nbLanes"</span>;
-            obstacle_species &lt;- [<span class="hljs-literal">species</span>(self)]; 
+            obstacle_<span class="hljs-class">species &lt;- [<span class="hljs-title">species</span>(<span class="hljs-title">self</span>)]; </span>
         }  
     }   
 } 
     
-<span class="hljs-literal">species</span> road  { 
+<span class="hljs-class">species <span class="hljs-title">road</span>  </span>{ 
     <span class="hljs-literal">int</span> nbLanes; 
     <span class="hljs-literal">geometry</span> geom_visu;
     aspect base {    
@@ -51,13 +51,13 @@ global {
     } 
 }
 
-<span class="hljs-literal">species</span> people skills: [<span class="hljs-builtin">driving</span>]{ 
+<span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">driving</span>]</span>{ 
     <span class="hljs-literal">float</span> speed; 
     <span class="hljs-literal">rgb</span> color &lt;- <span class="hljs-literal">rgb</span>(rnd(255),rnd(255),rnd(255)) ; 
     <span class="hljs-literal">point</span> target &lt;- nil ; 
     <span class="hljs-literal">point</span> source &lt;- nil;
     road currentRoad &lt;- nil;
-    <span class="hljs-builtin">reflex</span> move when: target != nil {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> <span class="hljs-title">when</span>: <span class="hljs-title">target</span> != <span class="hljs-title">nil</span> </span>{
         do goto_driving target: target on: the_graph speed: speed ; 
         switch target { 
             match location {
@@ -74,14 +74,14 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> Simple type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">Simple</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"Shapefile for the roads:"</span> var: shape_file_roads category: <span class="hljs-string">"GIS"</span> ;
     parameter <span class="hljs-string">"Shapefile for the bounds:"</span> var: shape_file_bounds category: <span class="hljs-string">"GIS"</span> ;
     
     output {
-        display city_display {
-            <span class="hljs-literal">species</span> road aspect: base ;
-            <span class="hljs-literal">species</span> people aspect: base;
+        <span class="hljs-class">display <span class="hljs-title">city_display</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">road</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span> ;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">base</span>;</span>
         }
     }
 }
@@ -104,8 +104,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

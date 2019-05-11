@@ -9,13 +9,13 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> ants
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Evaporation value per cycle of the pheromons</span>
     <span class="hljs-literal">float</span> evaporation_per_cycle &lt;- 5.0 min: 0.0 max: 240.0 parameter: 'Evaporation of the signal (unit/cycle):' category: 'Signals';
     <span class="hljs-comment">//Diffusion rate of the pheromons</span>
     <span class="hljs-literal">float</span> diffusion_rate &lt;- 1.0 min: 0.0 max: 1.0 parameter: 'Rate of diffusion of the signal (%/cycle):' category: 'Signals';
     <span class="hljs-comment">//Size of the grid</span>
-    <span class="hljs-literal">int</span> gridsize &lt;- 100 min: 30 parameter: 'Width and Height of the grid:' category: 'Environment and Population';
+    <span class="hljs-literal">int</span> gridsize &lt;- 100 min: 30 parameter: 'Width and Height of the <span class="hljs-class">grid:' <span class="hljs-title">category</span>: '<span class="hljs-title">Environment</span> <span class="hljs-title">and</span> <span class="hljs-title">Population</span>';</span>
     <span class="hljs-comment">//Number of ants that will be created</span>
     <span class="hljs-literal">int</span> ants_number &lt;- 50 min: 1 parameter: 'Number of ants:' category: 'Environment and Population';
     <span class="hljs-comment">//Number of food places to create</span>
@@ -35,7 +35,7 @@ global {
         <span class="hljs-comment">//Creation of the food places placed randomly with a certain distance between each</span>
         loop times: number_of_food_places {
             <span class="hljs-literal">point</span> loc &lt;- { rnd(gridsize - 10) + 5, rnd(gridsize - 10) + 5 };
-            <span class="hljs-literal">list</span>&lt;ant_grid&gt; food_places &lt;- (ant_grid where ((each distance_to loc) &lt; 5));
+            <span class="hljs-literal">list</span>&lt;ant_<span class="hljs-class">grid&gt; <span class="hljs-title">food_places</span> &lt;- (<span class="hljs-title">ant_grid</span> <span class="hljs-title">where</span> ((<span class="hljs-title">each</span> <span class="hljs-title">distance_to</span> <span class="hljs-title">loc</span>) &lt; 5));</span>
             ask food_places {
                 <span class="hljs-keyword">if</span> food = 0 {
                     food &lt;- 5;
@@ -50,8 +50,8 @@ global {
         write <span class="hljs-string">"Simulation "</span> + <span class="hljs-literal">int</span>(self) + <span class="hljs-string">" created"</span>;
     }
     <span class="hljs-comment">//Reflex to diffuse the pheromon among the grid</span>
-    <span class="hljs-builtin">reflex</span> diffuse {
-      diffuse var:road on:ant_grid proportion: diffusion_rate radius:2 propagation: gradient;
+    <span class="hljs-class">reflex <span class="hljs-title">diffuse</span> </span>{
+      diffuse var:road on:ant_<span class="hljs-class">grid <span class="hljs-title">proportion</span>: <span class="hljs-title">diffusion_rate</span> <span class="hljs-title">radius</span>:2 <span class="hljs-title">propagation</span>: <span class="hljs-title">gradient</span>;</span>
    }
   
 
@@ -59,26 +59,26 @@ global {
 } 
 
 <span class="hljs-comment">//Grid used to discretize the space to place food</span>
-grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-comment">/*frequency: grid_frequency*/</span> use_regular_agents: false use_individual_shapes: false{
-    <span class="hljs-literal">bool</span> is_nest const: true &lt;- (<span class="hljs-literal">topology</span>(ant_grid) distance_between [self, center]) &lt; 4;
+<span class="hljs-class">grid <span class="hljs-title">ant_grid</span> <span class="hljs-title">width</span>: <span class="hljs-title">gridsize</span> <span class="hljs-title">height</span>: <span class="hljs-title">gridsize</span> <span class="hljs-title">neighbors</span>: 8 /*<span class="hljs-title">frequency</span>: <span class="hljs-title">grid_frequency</span>*/ <span class="hljs-title">use_regular_agents</span>: <span class="hljs-title">false</span> <span class="hljs-title">use_individual_shapes</span>: <span class="hljs-title">false</span></span>{
+    <span class="hljs-literal">bool</span> is_nest const: true &lt;- (<span class="hljs-literal">topology</span>(ant_<span class="hljs-class">grid) <span class="hljs-title">distance_between</span> [<span class="hljs-title">self</span>, <span class="hljs-title">center</span>]) &lt; 4;</span>
     <span class="hljs-literal">float</span> road &lt;- 0.0 max:240.0 update: (road&lt;=evaporation_per_cycle) ? 0.0 : road-evaporation_per_cycle;
     <span class="hljs-literal">rgb</span> color &lt;- is_nest ? nest_color : ((food &gt; 0) ? food_color : ((road &lt; 0.001) ? background : <span class="hljs-literal">rgb</span>(#009900) + <span class="hljs-literal">int</span>(road * 5))) update: is_nest ? nest_color : ((food &gt; 0) ?
     food_color : ((road &lt; 0.001) ? background : <span class="hljs-literal">rgb</span>(#009900) + <span class="hljs-literal">int</span>(road * 5)));
     <span class="hljs-literal">int</span> food &lt;- 0;
 }
 <span class="hljs-comment">//Species ant that will move and follow a final state machine</span>
-<span class="hljs-literal">species</span> ant skills: [<span class="hljs-builtin">moving</span>] control: <span class="hljs-builtin">fsm</span> {
+<span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>] <span class="hljs-title">control</span>: <span class="hljs-title">fsm</span> </span>{
     <span class="hljs-literal">float</span> speed &lt;- 1.0;
     <span class="hljs-literal">bool</span> has_food &lt;- false;
     
     <span class="hljs-comment">//Reflex to place a pheromon stock in the cell</span>
-    <span class="hljs-builtin">reflex</span> diffuse_road when:has_food=true{
-      ant_grid(location).road &lt;- ant_grid(location).road + 100.0;
+    <span class="hljs-class">reflex <span class="hljs-title">diffuse_road</span> <span class="hljs-title">when</span>:<span class="hljs-title">has_food</span>=<span class="hljs-title">true</span></span>{
+      ant_<span class="hljs-class">grid(<span class="hljs-title">location</span>).<span class="hljs-title">road</span> &lt;- <span class="hljs-title">ant_grid</span>(<span class="hljs-title">location</span>).<span class="hljs-title">road</span> + 100.0;</span>
    }
     <span class="hljs-comment">//Action to pick food</span>
     action pick (<span class="hljs-literal">int</span> amount) {
         has_food &lt;- true;
-        ant_grid place &lt;- ant_grid(location);
+        ant_<span class="hljs-class">grid <span class="hljs-title">place</span> &lt;- <span class="hljs-title">ant_grid</span>(<span class="hljs-title">location</span>);</span>
         place.food &lt;- place.food - amount;
     }
     <span class="hljs-comment">//Action to drop food</span>
@@ -89,7 +89,7 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
     }
     <span class="hljs-comment">//Action to find the best place in the neighborhood cells   </span>
     <span class="hljs-literal">point</span> choose_best_place {
-        <span class="hljs-literal">list</span>&lt;ant_grid&gt; list_places &lt;- ant_grid(location).neighbors;
+        <span class="hljs-literal">list</span>&lt;ant_<span class="hljs-class">grid&gt; <span class="hljs-title">list_places</span> &lt;- <span class="hljs-title">ant_grid</span>(<span class="hljs-title">location</span>).<span class="hljs-title">neighbors</span>;</span>
         <span class="hljs-keyword">if</span> (list_places count (each.food &gt; 0)) &gt; 0 {
             return <span class="hljs-literal">point</span>(list_places first_with (each.food &gt; 0));
         } else {
@@ -98,17 +98,17 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
         }
     }
     <span class="hljs-comment">//Reflex to drop food once the ant is in the nest   </span>
-    <span class="hljs-builtin">reflex</span> drop when: has_food and (ant_grid(location)).is_nest {
+    <span class="hljs-class">reflex <span class="hljs-title">drop</span> <span class="hljs-title">when</span>: <span class="hljs-title">has_food</span> <span class="hljs-title">and</span> (<span class="hljs-title">ant_grid</span>(<span class="hljs-title">location</span>)).<span class="hljs-title">is_nest</span> </span>{
         do drop();
     }
     <span class="hljs-comment">//Reflex to pick food when there is one at the same location</span>
-    <span class="hljs-builtin">reflex</span> pick when: !has_food and (ant_grid(location)).food &gt; 0 {
+    <span class="hljs-class">reflex <span class="hljs-title">pick</span> <span class="hljs-title">when</span>: !<span class="hljs-title">has_food</span> <span class="hljs-title">and</span> (<span class="hljs-title">ant_grid</span>(<span class="hljs-title">location</span>)).<span class="hljs-title">food</span> &gt; 0 </span>{
         do pick(1);
     }
     <span class="hljs-comment">//Initial state to make the ant wander </span>
     state wandering initial: true {
         do wander(amplitude: 90);
-        <span class="hljs-literal">float</span> pr &lt;- (ant_grid(location)).road;
+        <span class="hljs-literal">float</span> pr &lt;- (ant_<span class="hljs-class">grid(<span class="hljs-title">location</span>)).<span class="hljs-title">road</span>;</span>
         transition to: carryingFood when: has_food;
         transition to: followingRoad when: (pr &gt; 0.05) and (pr &lt; 4);
     }
@@ -120,7 +120,7 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
     <span class="hljs-comment">//State to follow a pheromon road if once has been found</span>
     state followingRoad {
         <span class="hljs-literal">point</span> next_place &lt;- choose_best_place();
-        <span class="hljs-literal">float</span> pr &lt;- (ant_grid(location)).road;
+        <span class="hljs-literal">float</span> pr &lt;- (ant_<span class="hljs-class">grid(<span class="hljs-title">location</span>)).<span class="hljs-title">road</span>;</span>
         location &lt;- next_place;
         transition to: carryingFood when: has_food;
         transition to: wandering when: (pr &lt; 0.05) or (next_place = nil);
@@ -136,7 +136,7 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
 
 
 <span class="hljs-comment">//Experiment to show how to make multi simulations</span>
-<span class="hljs-builtin">experiment</span> <span class="hljs-string">"4 Simulations"</span> type: gui {
+<span class="hljs-class">experiment "4 <span class="hljs-title">Simulations</span>" <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter 'Number:' var: ants_number init: 100 unit: 'ants' category: 'Environment and Population';
     parameter 'Grid dimension:' var: gridsize init: 100 unit: '(number of rows and columns)' category: 'Environment and Population';
     parameter 'Number of food depots:' var: number_of_food_places init: 5 min: 1 category: 'Environment and Population';
@@ -150,7 +150,7 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
     }
     
     permanent {
-        display Comparison background: #white {
+        <span class="hljs-class">display <span class="hljs-title">Comparison</span> <span class="hljs-title">background</span>: #<span class="hljs-title">white</span> </span>{
             chart <span class="hljs-string">"Food Gathered"</span> type: series {
                 loop s over: simulations {
                     data <span class="hljs-string">"Food "</span> + <span class="hljs-literal">int</span>(s) value: s.food_gathered color: s.color marker: false style: line ;
@@ -161,10 +161,10 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
 
 
     output {
-        display Ants background: #white type: opengl{
+        <span class="hljs-class">display <span class="hljs-title">Ants</span> <span class="hljs-title">background</span>: #<span class="hljs-title">white</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span></span>{
             image '../images/soil.jpg' position: { 0.05, 0.05 } size: { 0.9, 0.9 };
-            agents <span class="hljs-string">"agents"</span> transparency: 0.5 position: { 0.05, 0.05 } size: { 0.9, 0.9 } value: (ant_grid as <span class="hljs-literal">list</span>) where ((each.food &gt; 0) or (each.road &gt; 0) or (each.is_nest));
-            <span class="hljs-literal">species</span> ant position: { 0.05, 0.05 } size: { 0.9, 0.9 } aspect: icon;
+            agents <span class="hljs-string">"agents"</span> transparency: 0.5 position: { 0.05, 0.05 } size: { 0.9, 0.9 } value: (ant_<span class="hljs-class">grid <span class="hljs-title">as</span> <span class="hljs-title">list</span>) <span class="hljs-title">where</span> ((<span class="hljs-title">each</span>.<span class="hljs-title">food</span> &gt; 0) <span class="hljs-title">or</span> (<span class="hljs-title">each</span>.<span class="hljs-title">road</span> &gt; 0) <span class="hljs-title">or</span> (<span class="hljs-title">each</span>.<span class="hljs-title">is_nest</span>));</span>
+            <span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">position</span>: </span>{ 0.05, 0.05 } size: { 0.9, 0.9 } aspect: icon;
         }
     
     }
@@ -186,8 +186,8 @@ grid ant_grid width: gridsize height: gridsize neighbors: 8 <span class="hljs-co
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

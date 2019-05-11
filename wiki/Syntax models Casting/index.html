@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> Casting
 
-<span class="hljs-literal">species</span> to_int {
+<span class="hljs-class">species <span class="hljs-title">to_int</span> </span>{
     init {
         write sample(<span class="hljs-literal">int</span>(1));
         write sample(<span class="hljs-literal">int</span>(1.0));
@@ -30,7 +30,7 @@
 }
 
 
-<span class="hljs-literal">species</span> to_float{
+<span class="hljs-class">species <span class="hljs-title">to_float</span></span>{
     init {
         write sample(<span class="hljs-literal">float</span>(1));
         write sample(<span class="hljs-literal">float</span>(1.0));
@@ -50,7 +50,7 @@
 }
 
 
-<span class="hljs-literal">species</span> to_string{
+<span class="hljs-class">species <span class="hljs-title">to_string</span></span>{
     init {
         write sample(<span class="hljs-literal">string</span>(1));
         write sample(<span class="hljs-literal">string</span>(1.0));
@@ -67,7 +67,7 @@
     }
 }
 
-<span class="hljs-literal">species</span> to_point{
+<span class="hljs-class">species <span class="hljs-title">to_point</span></span>{
     init {
         write sample(<span class="hljs-literal">point</span>(1));
         write sample(<span class="hljs-literal">point</span>(1.0));
@@ -85,7 +85,7 @@
         write sample(<span class="hljs-literal">point</span>(°meter));                
     }
 }
-<span class="hljs-literal">species</span> to_list{
+<span class="hljs-class">species <span class="hljs-title">to_list</span></span>{
     init {
         write sample(<span class="hljs-literal">list</span>(1));
         write sample(<span class="hljs-literal">list</span>(1.0));
@@ -103,7 +103,7 @@
         write sample(<span class="hljs-literal">list</span>(°meter));             
     }
 }
-<span class="hljs-literal">species</span> to_pair{
+<span class="hljs-class">species <span class="hljs-title">to_pair</span></span>{
     init {
         write sample(<span class="hljs-literal">pair</span>(1));
         write sample(<span class="hljs-literal">pair</span>(1.0));
@@ -121,7 +121,7 @@
         write sample(<span class="hljs-literal">pair</span>(°meter));             
     }
 }
-<span class="hljs-literal">species</span> to_map{
+<span class="hljs-class">species <span class="hljs-title">to_map</span></span>{
     init {
         write sample(<span class="hljs-literal">map</span>&lt;<span class="hljs-literal">float</span>, <span class="hljs-literal">int</span>&gt;(°meter));
         write sample(<span class="hljs-literal">map</span>(1));
@@ -140,7 +140,7 @@
         write sample(<span class="hljs-literal">map</span>&lt;<span class="hljs-literal">int</span>,<span class="hljs-literal">string</span>&gt;(1));               
     }
 }
-<span class="hljs-builtin">experiment</span> Casting type: gui{
+<span class="hljs-class">experiment <span class="hljs-title">Casting</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{
     user_command <span class="hljs-string">"to int"</span> {create to_int;}
     user_command <span class="hljs-string">"to float"</span> {create to_float;}
     user_command <span class="hljs-string">"to string"</span> {create to_string;}
@@ -164,8 +164,8 @@
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

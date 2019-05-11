@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> ville
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-literal">file</span> shape_file_batiments &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/batiments.shp"</span>);
     <span class="hljs-literal">file</span> shape_file_routes &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/routes.shp"</span>);
     <span class="hljs-literal">geometry</span> shape &lt;- envelope(shape_file_routes);
@@ -21,7 +21,7 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> batiment {
+<span class="hljs-class">species <span class="hljs-title">batiment</span> </span>{
     <span class="hljs-literal">string</span> type;
     <span class="hljs-literal">int</span> capacite &lt;- type = <span class="hljs-string">"Industrial"</span> ? 0 : <span class="hljs-literal">int</span>(shape.area / 60.0);
     aspect geometrie {
@@ -29,13 +29,13 @@ global {
     }
 }
 
-<span class="hljs-literal">species</span> route {
+<span class="hljs-class">species <span class="hljs-title">route</span> </span>{
     aspect geometrie {
         draw shape color: #black;
     }
 }
 
-<span class="hljs-literal">species</span> foyer {
+<span class="hljs-class">species <span class="hljs-title">foyer</span> </span>{
     <span class="hljs-literal">float</span> revenu &lt;- gauss(1500, 500);
     batiment habitation;
     batiment lieu_travail;
@@ -46,12 +46,12 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> ville type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">ville</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display carte_principale {
-            <span class="hljs-literal">species</span> batiment aspect: geometrie;
-            <span class="hljs-literal">species</span> route aspect: geometrie;
-            <span class="hljs-literal">species</span> foyer aspect: revenu;
+        <span class="hljs-class">display <span class="hljs-title">carte_principale</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">batiment</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">geometrie</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">route</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">geometrie</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">foyer</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">revenu</span>;</span>
         }
     }
 }
@@ -70,8 +70,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

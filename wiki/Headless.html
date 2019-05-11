@@ -126,7 +126,7 @@
 <p>The XML input file contains for example:</p>
 <pre><code class="hljs">&lt;?xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span>?&gt;
 &lt;Experiment_plan&gt;
- &lt;Simulation id=<span class="hljs-string">"2"</span> sourcePath=<span class="hljs-string">"./predatorPrey/predatorPrey.gaml"</span> finalStep=<span class="hljs-string">"1000"</span> <span class="hljs-builtin">experiment</span>=<span class="hljs-string">"predPrey"</span>&gt;
+ &lt;Simulation id=<span class="hljs-string">"2"</span> sourcePath=<span class="hljs-string">"./predatorPrey/predatorPrey.gaml"</span> finalStep=<span class="hljs-string">"1000"</span> <span class="hljs-class">experiment="<span class="hljs-title">predPrey</span>"&gt;</span>
   &lt;Parameters&gt;
     &lt;Parameter name=<span class="hljs-string">"nb_predator_init"</span> type=<span class="hljs-string">"INT"</span> value=<span class="hljs-string">"53"</span> /&gt;
     &lt;Parameter name=<span class="hljs-string">"nb_preys_init"</span> type=<span class="hljs-string">"INT"</span> value=<span class="hljs-string">"621"</span> /&gt;
@@ -142,7 +142,7 @@
 </code></pre>
 <p>Note that several simulations could be determined in one experiment plan. These simulations are run in parallel according to the number of allocated cores.</p>
 <h3><a class="anchor" aria-hidden="true" id="heading"></a><a href="#heading" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Heading</h3>
-<pre><code class="hljs">&lt;Simulation id=<span class="hljs-string">"2"</span> sourcePath=<span class="hljs-string">"./predatorPrey/predatorPrey.gaml"</span> finalStep=<span class="hljs-string">"1000"</span> <span class="hljs-builtin">experiment</span>=<span class="hljs-string">"predPrey"</span>&gt;
+<pre><code class="hljs">&lt;Simulation id=<span class="hljs-string">"2"</span> sourcePath=<span class="hljs-string">"./predatorPrey/predatorPrey.gaml"</span> finalStep=<span class="hljs-string">"1000"</span> <span class="hljs-class">experiment="<span class="hljs-title">predPrey</span>"&gt;</span>
 </code></pre>
 <ul>
 <li>with:
@@ -167,9 +167,9 @@
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="outputs"></a><a href="#outputs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Outputs</h3>
 <p>One line per output value you want to retrieve. Outputs can be names of monitors or displays defined in the 'output' section of experiments, or the names of attributes defined in the experiment or the model itself (in the 'global' section).</p>
-<pre><code class="hljs">    ... with the name of a monitor defined in the 'output' section of the <span class="hljs-builtin">experiment</span>...
+<pre><code class="hljs">    ... with the name of a monitor defined in the 'output' section of the <span class="hljs-class">experiment...</span>
     &lt;Output id=<span class="hljs-string">"2"</span> name=<span class="hljs-string">"number_of_preys"</span> framerate=<span class="hljs-string">"1"</span> /&gt;
-    ... with the name of a (built-in) variable defined in the <span class="hljs-builtin">experiment</span> itself...
+    ... with the name of a (built-in) variable defined in the <span class="hljs-class">experiment <span class="hljs-title">itself</span>...</span>
     &lt;Output id=<span class="hljs-string">"4"</span> name=<span class="hljs-string">"duration"</span> framerate=<span class="hljs-string">"1"</span> /&gt;
 </code></pre>
 <ul>
@@ -208,13 +208,13 @@
 <pre><code class="hljs">&lt;?xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span>?&gt;
 &lt;Simulation id=<span class="hljs-string">"2"</span> &gt;
     &lt;Step id='0' &gt;
-        &lt;Variable name='main_display' value='main_display2-0.png'/&gt;
+        &lt;Variable name='main_<span class="hljs-class">display' <span class="hljs-title">value</span>='<span class="hljs-title">main_display2</span>-0.<span class="hljs-title">png</span>'/&gt;</span>
         &lt;Variable name='number_of_preys' value='613'/&gt;
         &lt;Variable name='number_of_predators' value='51'/&gt;
                 &lt;Variable name='duration' value='6' /&gt;
     &lt;/Step&gt;
     &lt;Step id='1' &gt;
-        &lt;Variable name='main_display' value='main_display2-0.png'/&gt;
+        &lt;Variable name='main_<span class="hljs-class">display' <span class="hljs-title">value</span>='<span class="hljs-title">main_display2</span>-0.<span class="hljs-title">png</span>'/&gt;</span>
         &lt;Variable name='number_of_preys' value='624'/&gt;
         &lt;Variable name='number_of_predators' value='51'/&gt;
                 &lt;Variable name='duration' value='5' /&gt;
@@ -232,7 +232,7 @@
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="step"></a><a href="#step" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step</h3>
 <pre><code class="hljs">    &lt;Step id='1' &gt;
-        &lt;Variable name='main_display' value='main_display2-0.png'/&gt;
+        &lt;Variable name='main_<span class="hljs-class">display' <span class="hljs-title">value</span>='<span class="hljs-title">main_display2</span>-0.<span class="hljs-title">png</span>'/&gt;</span>
         &lt;Variable name='number_of_preys' value='624'/&gt;
         &lt;Variable name='number_of_predators' value='51'/&gt;
                 &lt;Variable name='duration' value='6' /&gt;
@@ -241,7 +241,7 @@
 </code></pre>
 <p>There is one Variable block per Output identified in the output experiment file.</p>
 <h3><a class="anchor" aria-hidden="true" id="variable"></a><a href="#variable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Variable</h3>
-<pre><code class="hljs"> &lt;Variable name='main_display' value='main_display2-0.png'/&gt;
+<pre><code class="hljs"> &lt;Variable name='main_<span class="hljs-class">display' <span class="hljs-title">value</span>='<span class="hljs-title">main_display2</span>-0.<span class="hljs-title">png</span>'/&gt;</span>
 </code></pre>
 <ul>
 <li>with:
@@ -270,8 +270,8 @@
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

@@ -9,7 +9,7 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> grid_move
 
-global {
+<span class="hljs-class">global </span>{
     <span class="hljs-comment">//Shapefile of the buildings</span>
     <span class="hljs-literal">file</span> building_shapefile &lt;- <span class="hljs-literal">file</span>(<span class="hljs-string">"../includes/building.shp"</span>);
     <span class="hljs-comment">//Shape of the world</span>
@@ -50,14 +50,14 @@ global {
     }
 }
 <span class="hljs-comment">//Species which represent the buildings</span>
-<span class="hljs-literal">species</span> building {
+<span class="hljs-class">species <span class="hljs-title">building</span> </span>{
     <span class="hljs-literal">float</span> height &lt;- 3.0 + rnd(5);
     aspect default {
         draw shape color: #gray depth: height;
     }
 }
 <span class="hljs-comment">//Species which represent the people agent moving from one cell to its neighbors</span>
-<span class="hljs-literal">species</span> people {
+<span class="hljs-class">species <span class="hljs-title">people</span> </span>{
     <span class="hljs-comment">//Current cell of the agent</span>
     cell current_cell;
     <span class="hljs-comment">//Evacuation cell of the agent</span>
@@ -70,12 +70,12 @@ global {
     
     
     <span class="hljs-comment">//Reflex to kill the agent once it is close enough to an evacuation point</span>
-    <span class="hljs-builtin">reflex</span> end when: location distance_to target_cell.location &lt;= 2 * people_size {
+    <span class="hljs-class">reflex <span class="hljs-title">end</span> <span class="hljs-title">when</span>: <span class="hljs-title">location</span> <span class="hljs-title">distance_to</span> <span class="hljs-title">target_cell</span>.<span class="hljs-title">location</span> &lt;= 2 * <span class="hljs-title">people_size</span> </span>{
         current_cell.is_free &lt;- true;
         do die;
     }
     <span class="hljs-comment">//Reflex to move the agent</span>
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         <span class="hljs-comment">//List of all the cells possible (which aren't obstacles, without people on it and on which the agent hasn't already passed</span>
         <span class="hljs-literal">list</span>&lt;cell&gt; possible_cells &lt;- current_cell neighbors_at 1 where (not (each.is_obstacle) and each.is_free and not (each in memory));
         <span class="hljs-comment">//If there is possible cell, the agent move on the closest one to the evacuation point</span>
@@ -98,20 +98,20 @@ global {
     }
 }
 <span class="hljs-comment">//Grid species to discretize space</span>
-grid cell width: 150 height: 150  neighbors: 8 frequency: 0 {
+<span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 150 <span class="hljs-title">height</span>: 150  <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">frequency</span>: 0 </span>{
     <span class="hljs-literal">bool</span> is_obstacle &lt;- false;
     <span class="hljs-literal">bool</span> is_free &lt;- true;
     <span class="hljs-literal">rgb</span> color &lt;- #white;
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     parameter <span class="hljs-string">"nb people"</span> var: nb_people min: 1 max: 1000;
     output {
-        display <span class="hljs-literal">map</span> type: opengl camera_pos: {world.location.x,-world.shape.height*1.5,70}
+        <span class="hljs-class">display <span class="hljs-title">map</span> <span class="hljs-title">type</span>: <span class="hljs-title">opengl</span> <span class="hljs-title">camera_pos</span>: </span>{world.location.x,-world.shape.height*1.5,70}
                         camera_look_pos:{world.location.x,0,0}    {
             image '../images/soil.jpg';
-            <span class="hljs-literal">species</span> building refresh: false;
-            <span class="hljs-literal">species</span> people;
+            <span class="hljs-class">species <span class="hljs-title">building</span> <span class="hljs-title">refresh</span>: <span class="hljs-title">false</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">people</span>;</span>
             graphics <span class="hljs-string">"exit"</span> refresh: false {
                 draw sphere(2 * people_size) at: target_point color: #green;    
             }
@@ -133,8 +133,8 @@ grid cell width: 150 height: 150  neighbors: 8 frequency: 0 {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

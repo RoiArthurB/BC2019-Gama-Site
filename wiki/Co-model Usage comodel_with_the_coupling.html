@@ -10,7 +10,7 @@
 <pre><code class="hljs"><span class="hljs-builtin">model</span> M2
 
 
-global
+<span class="hljs-class">global</span>
 {
     <span class="hljs-literal">int</span> n &lt;- 4;
     init
@@ -20,10 +20,10 @@ global
 
 }
 
-<span class="hljs-literal">species</span> B skills: [<span class="hljs-builtin">moving</span>]
+<span class="hljs-class">species <span class="hljs-title">B</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>
 {
     <span class="hljs-literal">int</span> IQ &lt;- rnd(100);
-    <span class="hljs-builtin">reflex</span> dolive
+    <span class="hljs-class">reflex <span class="hljs-title">dolive</span></span>
     {
         write <span class="hljs-string">""</span> + <span class="hljs-string">"i'm alive !!"</span>;
         do wander;
@@ -36,13 +36,13 @@ global
 
 }
 
-<span class="hljs-builtin">experiment</span> M2_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">M2_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     output
     {
-        display <span class="hljs-string">"m2_disp"</span>
+        <span class="hljs-class">display "<span class="hljs-title">m2_disp</span>"</span>
         {
-            <span class="hljs-literal">species</span> B aspect: default;
+            <span class="hljs-class">species <span class="hljs-title">B</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
         }
 
     }
@@ -54,11 +54,11 @@ global
 <pre><code class="hljs"><span class="hljs-builtin">model</span> M2_coupling
 import <span class="hljs-string">"m2.gaml"</span>
 
-global
+<span class="hljs-class">global</span>
 {
 }
 
-<span class="hljs-builtin">experiment</span> M2_coupling_exp parent:M2_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">M2_coupling_exp</span> <span class="hljs-title">parent</span>:<span class="hljs-title">M2_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     <span class="hljs-literal">list</span>&lt;B&gt; getB{
         return <span class="hljs-literal">list</span>(B);
@@ -76,7 +76,7 @@ global
 <pre><code class="hljs"><span class="hljs-builtin">model</span> M1
 
 
-global
+<span class="hljs-class">global</span>
 {
     <span class="hljs-literal">int</span> n &lt;- 8;
     init
@@ -86,10 +86,10 @@ global
 
 }
 
-<span class="hljs-literal">species</span> A skills: [<span class="hljs-builtin">moving</span>]
+<span class="hljs-class">species <span class="hljs-title">A</span> <span class="hljs-title">skills</span>: [<span class="hljs-title">moving</span>]</span>
 {
     <span class="hljs-literal">int</span> IQ &lt;- rnd(100);
-    <span class="hljs-builtin">reflex</span> dolive
+    <span class="hljs-class">reflex <span class="hljs-title">dolive</span></span>
     {
         write <span class="hljs-string">""</span> + <span class="hljs-string">"i'm alive !!"</span>;
         do wander;
@@ -102,13 +102,13 @@ global
 
 }
 
-<span class="hljs-builtin">experiment</span> M1_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">M1_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     output
     {
-        display <span class="hljs-string">"m1_disp"</span>
+        <span class="hljs-class">display "<span class="hljs-title">m1_disp</span>"</span>
         {
-            <span class="hljs-literal">species</span> A aspect: default;
+            <span class="hljs-class">species <span class="hljs-title">A</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
         }
 
     }
@@ -120,11 +120,11 @@ global
 <pre><code class="hljs"><span class="hljs-builtin">model</span> M1_coupling
 import <span class="hljs-string">"m1.gaml"</span>
 
-global
+<span class="hljs-class">global</span>
 {
 }
 
-<span class="hljs-builtin">experiment</span> M1_coupling_exp parent:M1_exp type: gui
+<span class="hljs-class">experiment <span class="hljs-title">M1_coupling_exp</span> <span class="hljs-title">parent</span>:<span class="hljs-title">M1_exp</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>
 {
     <span class="hljs-literal">list</span>&lt;A&gt; getA{
         return <span class="hljs-literal">list</span>(A);
@@ -145,7 +145,7 @@ global
 import <span class="hljs-string">"m1_coupling.gaml"</span> as micro_model_1
 import <span class="hljs-string">"m2_coupling.gaml"</span> as micro_model_2
 
-global
+<span class="hljs-class">global</span>
 {
     <span class="hljs-literal">geometry</span> shape&lt;-envelope(square(100));
     init{
@@ -153,7 +153,7 @@ global
         create micro_model_1.M1_coupling_exp;
         create micro_model_2.M2_coupling_exp number:5;
     }
-    <span class="hljs-builtin">reflex</span> simulate_micro_models{
+    <span class="hljs-class">reflex <span class="hljs-title">simulate_micro_models</span></span>{
         
         <span class="hljs-comment">//tell all experiments of micro_model_1 do 1 step;</span>
         ask (micro_model_1.M1_coupling_exp collect each.simulation){
@@ -167,9 +167,9 @@ global
     }
 }
 
-<span class="hljs-builtin">experiment</span> comodel_with_the_coupling type: gui{
+<span class="hljs-class">experiment <span class="hljs-title">comodel_with_the_coupling</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span></span>{
     output{
-        display <span class="hljs-string">"comodel"</span> {
+        <span class="hljs-class">display "<span class="hljs-title">comodel</span>" </span>{
             <span class="hljs-comment">//to display the agents of micro-models, we use the agent layer with the values come from the coupling.</span>
             agents <span class="hljs-string">"agentA"</span> value:first(micro_model_1.M1_coupling_exp).getA();
             agents <span class="hljs-string">"agentB"</span> value:first(micro_model_2.M2_coupling_exp).getB();
@@ -191,8 +191,8 @@ global
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

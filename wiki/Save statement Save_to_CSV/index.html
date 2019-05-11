@@ -9,13 +9,13 @@
 <p>Code of the model :</p>
 <pre><code class="hljs"><span class="hljs-builtin">model</span> SavetoCSV
 
-global {
+<span class="hljs-class">global </span>{
     init {
         <span class="hljs-comment">//Create all the agents</span>
         create bug number: 50;
     }
     <span class="hljs-comment">//Save the agents bug when the cycle is equals to 100</span>
-    <span class="hljs-builtin">reflex</span> save_bug_attribute when: cycle = 100{
+    <span class="hljs-class">reflex <span class="hljs-title">save_bug_attribute</span> <span class="hljs-title">when</span>: <span class="hljs-title">cycle</span> = 100</span>{
         ask bug {
             <span class="hljs-comment">// save the values of the variables name, speed and size to the csv file</span>
             save [name,speed, size] to: <span class="hljs-string">"../results/bug.csv"</span> type:<span class="hljs-string">"csv"</span>;
@@ -26,11 +26,11 @@ global {
 }
 
 <span class="hljs-comment">//Species that will be saved</span>
-<span class="hljs-literal">species</span> bug skills:[<span class="hljs-builtin">moving</span>]{
+<span class="hljs-class">species <span class="hljs-title">bug</span> <span class="hljs-title">skills</span>:[<span class="hljs-title">moving</span>]</span>{
     <span class="hljs-literal">float</span> size &lt;- 1.0 + rnd(4) min: 1.0 max: 5.0;
     <span class="hljs-literal">float</span> speed &lt;- 1.0 + rnd(4.0);
     
-    <span class="hljs-builtin">reflex</span> update_size {
+    <span class="hljs-class">reflex <span class="hljs-title">update_size</span> </span>{
         <span class="hljs-literal">int</span> nb_neigh &lt;- length(bug at_distance 20.0);
         <span class="hljs-keyword">if</span> (nb_neigh &gt; 5) {
             size &lt;- size + 1;
@@ -38,7 +38,7 @@ global {
             size &lt;- size - 1;
         }
     }   
-    <span class="hljs-builtin">reflex</span> move {
+    <span class="hljs-class">reflex <span class="hljs-title">move</span> </span>{
         do wander;
     }
     
@@ -47,10 +47,10 @@ global {
     }
 }
 
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> {
-            <span class="hljs-literal">species</span> bug;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">bug</span>;</span>
         }
     }
 }
@@ -69,8 +69,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

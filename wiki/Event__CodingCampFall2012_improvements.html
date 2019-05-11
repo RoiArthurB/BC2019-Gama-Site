@@ -40,7 +40,7 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <p><a href="Headless">go to headless documentation</a></p>
 <p>It is now possible to use toroidal environment for grid and continuous environments (even with complex GIS geometries).  The only thing to do is to use the <strong>torus</strong> facet.</p>
 <p>For a grid:</p>
-<pre><code class="hljs">grid cell width: 5 height: 5 neighbors: 8 torus: true 
+<pre><code class="hljs"><span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 5 <span class="hljs-title">height</span>: 5 <span class="hljs-title">neighbors</span>: 8 <span class="hljs-title">torus</span>: <span class="hljs-title">true</span> </span>
 </code></pre>
 <p>For the continuous environment:</p>
 <pre><code class="hljs">environment bounds: {50,50} torus: true;
@@ -54,10 +54,10 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <pre><code class="hljs">hexagon({3,4})
 </code></pre>
 <p>In the same way, an operator has been defined in order to decomposed a geometry into a set of hexagons of a given a number of columns and rows. This operator returns a set of hexagons: geometry as_hexagonal_grid({nb_cols, nb_rows})</p>
-<pre><code class="hljs">shape as_hexagonal_grid({50, 40})
+<pre><code class="hljs">shape as_hexagonal_<span class="hljs-class">grid(</span>{50, 40})
 </code></pre>
 <p>At last, it is now possible to define a hexagonal grid. To do so, the neighbors should is set to <strong>6</strong>. It is possible to use torus environment with hexagonal grid.</p>
-<pre><code class="hljs">grid cell width: 20 height: 20 neighbors: 6 torus: true;
+<pre><code class="hljs"><span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 20 <span class="hljs-title">height</span>: 20 <span class="hljs-title">neighbors</span>: 6 <span class="hljs-title">torus</span>: <span class="hljs-title">true</span>;</span>
 </code></pre>
 <p><img src="../http://gama-platform.googlecode.com/files/imageHexGrid.png" alt="http://gama-platform.googlecode.com/files/imageHexGrid.png"></p>
 <p>Add <a href="http://en.wikipedia.org/wiki/HSL_and_HSV">HSB</a> color to be able to iterate through colors and use it to represent qualitative data.</p>
@@ -83,7 +83,7 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <li>myAction is an action written in the global block. This action have to follow the specification below.</li>
 </ul>
 <pre><code class="hljs">
- global
+ <span class="hljs-class">global</span>
  {
    ...
    action myAction 
@@ -95,13 +95,13 @@ An agent is created by line of the CSV file. It is also possible to read the dif
    } 
  }
 
- <span class="hljs-builtin">experiment</span> Simple type:gui {
+ <span class="hljs-class">experiment <span class="hljs-title">Simple</span> <span class="hljs-title">type</span>:<span class="hljs-title">gui</span> </span>{
     parameter 'Evaporation Rate:' var: evaporation_rate;
     parameter 'Diffusion Rate:' var: diffusion_rate;
     output { 
-        display Ants refresh_every: 2 { 
-            grid ant_grid;
-            <span class="hljs-literal">species</span> ant aspect: default;
+        <span class="hljs-class">display <span class="hljs-title">Ants</span> <span class="hljs-title">refresh_every</span>: 2 </span>{ 
+            <span class="hljs-class">grid <span class="hljs-title">ant_grid</span>;</span>
+            <span class="hljs-class">species <span class="hljs-title">ant</span> <span class="hljs-title">aspect</span>: <span class="hljs-title">default</span>;</span>
             text tt value: <span class="hljs-literal">string</span> ( food_remaining ) size: 24.0 position: { 20 , 20 } color: <span class="hljs-literal">rgb</span> ( 'white' );
             event mouse_up action: myAction;
         }  
@@ -128,7 +128,7 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <li><strong>returns</strong> the action returns an integer with the meaning: -1: failed to move; 0: success to move closer and closer to the target; 1: arrive the false target; 2: arrive the target</li>
 </ul>
 <pre><code class="hljs">
- <span class="hljs-builtin">reflex</span> move_with_vehicle_goto when: target != nil{
+ <span class="hljs-class">reflex <span class="hljs-title">move_with_vehicle_goto</span> <span class="hljs-title">when</span>: <span class="hljs-title">target</span> != <span class="hljs-title">nil</span></span>{
             let moving_status type: <span class="hljs-literal">int</span> &lt;- -1;
             do vehicle_goto target: target on: the_graph speed: speed target_type: true returns: moving_status;
             <span class="hljs-keyword">if</span> (<span class="hljs-literal">int</span>(moving_status) &gt; 0){
@@ -152,8 +152,8 @@ An agent is created by line of the CSV file. It is also possible to read the dif
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>

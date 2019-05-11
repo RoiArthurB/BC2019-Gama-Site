@@ -10,7 +10,7 @@
 <pre><code class="hljs">
 <span class="hljs-builtin">model</span> Savetoshapefile
 
-global {
+<span class="hljs-class">global </span>{
     init {
         <span class="hljs-literal">geometry</span> free_space &lt;- copy(shape);
         
@@ -26,16 +26,16 @@ global {
 }
 
 <span class="hljs-comment">//species that represent the building agents that will be saved</span>
-<span class="hljs-literal">species</span> building {
+<span class="hljs-class">species <span class="hljs-title">building</span> </span>{
     <span class="hljs-literal">string</span> type &lt;- flip(0.8) ? <span class="hljs-string">"residential"</span> : <span class="hljs-string">"industrial"</span>;
     aspect default {
         draw shape color: type = <span class="hljs-string">"residential"</span> ? #gray : #pink;
     }
 }
-<span class="hljs-builtin">experiment</span> main type: gui {
+<span class="hljs-class">experiment <span class="hljs-title">main</span> <span class="hljs-title">type</span>: <span class="hljs-title">gui</span> </span>{
     output {
-        display <span class="hljs-literal">map</span> {
-            <span class="hljs-literal">species</span> building;
+        <span class="hljs-class">display <span class="hljs-title">map</span> </span>{
+            <span class="hljs-class">species <span class="hljs-title">building</span>;</span>
         }
     }
 }
@@ -54,8 +54,8 @@ global {
               </script><script>
               var search = docsearch({
                 
-                apiKey: '0f9f28b9ab9efae89810921a351753b5',
-                indexName: 'github',
+                apiKey: 'undefined',
+                indexName: 'undefined',
                 inputSelector: '#search_input_react'
               });
             </script></body></html>
