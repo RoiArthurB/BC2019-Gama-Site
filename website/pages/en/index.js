@@ -91,7 +91,7 @@ class HomeSplash extends React.Component {
               </PromoSection>
             </FlexItem>
           </FlexContainer>
-          <ImgSoftware img_src={`${baseUrl}img/gama-platform.png`} />
+          <ImgSoftware img_src={`${baseUrl}img/GAMA_1.8_IS_OUT.mov.gif`} />
         </div>
       </SplashContainer>
     );
@@ -120,7 +120,8 @@ class Index extends React.Component {
 
         .homeSplashFade {
             height: 100vh;
-            background: linear-gradient(#121020,#21233e);
+            /*background: linear-gradient(#121020,#21233e);*/
+            background-color: black;
             position: relative;
             overflow: hidden;
         }
