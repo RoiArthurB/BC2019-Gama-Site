@@ -121,10 +121,10 @@ class Index extends React.Component {
         .homeSplashFade {
             height: 100vh;
             /*background: linear-gradient(#121020,#21233e);*/
-            background-color: black;
             position: relative;
-            overflow: hidden;
+            /*overflow: hidden;*/
         }
+        body { background-color: black; }
         .projectTitle {
           text-align: left;
           color: white;
@@ -161,6 +161,10 @@ class Index extends React.Component {
           text-align: right;
         }
 
+        #back-to-top {
+          display: none;
+        }
+
         @media only screen and (max-width: 1200px) {
           .homeContainer .homeWrapper .projectLogo {
             display: block;
@@ -168,6 +172,22 @@ class Index extends React.Component {
           .homeContainer .homeWrapper .projectLogo img {
             height: 100%;
             max-height: 250px;
+          }
+        }
+
+        @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+          .logoItem {
+            display: none;
+          }
+          .item {
+            width: 100%
+          }
+          h2, h2 small {
+            text-align: center !important;
+            text-justify: inherit;
+          }
+          .container{
+            flex-wrap: wrap;
           }
         }
       `}} />
