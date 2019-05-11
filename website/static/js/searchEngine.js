@@ -112,6 +112,14 @@ function createSearchResult(result) {
     resultList.appendChild( li );
   }
 
+  // If no-result
+  if(resultList.childElementCount ==  0){
+      var tagTitle = document.createElement("H4");
+      tagTitle.appendChild( document.createTextNode( "No result ..." ) );
+
+      resultList.appendChild( tagTitle );
+  }
+
   // Append result list
   resultDiv.appendChild(resultList);
 
@@ -189,7 +197,8 @@ function queryBuilder(item, wiki=true, doc=false){
 
     // BaseURL
     for (var i = 2; i < realUrl.length; i++) {
-      if ( !(realUrl[i] == ("wiki" || "download") || realUrl[i].charAt(6) == "?") ) {
+      if ( !(realUrl[i] == ("wiki" || "download") // Basic pages (docs & static)
+        || realUrl[i].charAt(6) == "?") ) { // Search Endpoint
         url += realUrl[i] + '/';
       }else{
         break;
