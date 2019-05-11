@@ -54,9 +54,11 @@ const siteConfig = {
   //                                     ^^^^
   docsUrl: 'wiki',
 
+  // Enable search bar
+  // GTK : this website doesn't use Algolia services ! The search engine works with a generated json + Fuse.js algolia is 
+  // the integrated search engine and this bloc is the only way to keep the search bar (even if it doesn't request anything)
   algolia: {
-    apiKey: '0f9f28b9ab9efae89810921a351753b5',
-    indexName: 'github',
+    placeholder: 'Search'
   },
 
   highlight: {
@@ -82,6 +84,14 @@ const siteConfig = {
               className: 'keyword',
               begin: '/[a-zA-Z]/', end: ':'//,
               //contains: [hljs.QUOTE_STRING_MODE, 'self']
+            },
+            {
+              className: 'class',
+              begin: '(display|global|reflex|species|grid|experiment)\\b', end: '({|$)', excludeEnd: true,
+              keywords: 'display reflex global species grid experiment', lexemes: '/[a-zA-Z]\\w*/',
+              contains: [
+                hljs.UNDERSCORE_TITLE_MODE
+              ]
             }
           ]
     		}
