@@ -18,6 +18,7 @@ before_script:
   - sh ./script/unstructurize.sh
   - sh ./script/link_fixer.sh
   - sh script/autoHeader.sh
+  - php script/sidebarCopy.php
 script:
 #  Compile website
   - cd website && yarn install && GIT_USER="${GH_NAME}" yarn run publish-gh-pages

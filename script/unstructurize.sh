@@ -35,6 +35,10 @@ if [ -f ./website/database/index.json ];then
 fi
 mv ./gama.wiki/WikiOnly/database.json ./website/static/database/index.json 
 
+# Update sidebar
+if [ -f ./website/sidebars.json ];then
+	rm ./website/sidebars.json
+fi
 
 # Move every <file>.md from a [sub]folder of _gama.wiki/_
 # to the folder _docs/_
