@@ -96,6 +96,11 @@ function Download(props) {
       @media only screen and (max-width: 1023px) { 
         .button { width: 100%; }
       }
+      .buttonGray:hover{ background: #bbb; }
+      .buttonGray {
+        border-color: #bbb;
+        color: #bbb;
+      }
     `}} />
   );
 
@@ -110,6 +115,12 @@ function Download(props) {
           <p>Choose the version that fits you the best !</p>
           <p>You can download the GAMA software with or without an embedded JDK or the Git version from GitHub.</p>
           <OsGrid version={siteConfig.downloadVersion} zipName={siteConfig.zipName} />
+          <div className="blockElement imageAlignTop threeByGridBlock">
+            <div class="blockContent">
+              <h2>Previous version</h2>
+                  <Button href="https://github.com/gama-platform/gama/releases" className="button buttonGray">Previous version</Button>
+            </div>
+          </div>
         </div>
         <div className="post">
           <header className="postHeader">
