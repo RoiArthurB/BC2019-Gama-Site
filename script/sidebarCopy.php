@@ -24,9 +24,9 @@ while ($line = stream_get_line($fp, 1024 * 1024, "\n"))
 
 			$sidebarArray[$catArray][ $subMenu ] = array( explode(')', $title[1])[0] );
 		}
-		/*else {
-			$title = explode(" ", $line)[1];	
-		}*/
+		else {
+			var_dump( $line );
+		}
 
 	}
 	// Links
@@ -76,7 +76,7 @@ while ($line = stream_get_line($fp, 1024 * 1024, "\n"))
 				);
 			}
 			else{
-				$sidebarArray[$catArray][$subMenu][ $indexArray ][$catArray][] = explode(')', explode("](", explode('[', $line)[1] )[1] )[0];
+				$sidebarArray[$catArray][$subMenu][ $indexArray ]["ids"][] = explode(')', explode("](", explode('[', $line)[1] )[1] )[0];
 			}
 			//var_dump($line);
 		}
