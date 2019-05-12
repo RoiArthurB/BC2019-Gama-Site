@@ -85,6 +85,8 @@ while ($line = stream_get_line($fp, 1024 * 1024, "\n"))
 //		var_dump($sidebarArray);
 fclose($fp);
 
+
+
 $fp = fopen('./website/sidebars.json', 'w');
 fwrite($fp, json_encode($sidebarArray));
 fclose($fp);
