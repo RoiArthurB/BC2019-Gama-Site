@@ -47,7 +47,7 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 </code></pre>
 <p>Be careful concerning toroidal continuous environment: the computation required by these environment is high, thus they should be used only when they are really necessary.</p>
 <p>A demonstration of a continuous toroidal environment is given in the experimental model: testTorus-&gt; continuous_torus.</p>
-<p><img src="../http://gama-platform.googlecode.com/files/toroidalEnv.png" alt="http://gama-platform.googlecode.com/files/toroidalEnv.png"></p>
+<p><img src="http://gama-platform.googlecode.com/files/toroidalEnv.png" alt="http://gama-platform.googlecode.com/files/toroidalEnv.png"></p>
 <p>Plugin-needed: msi.gaml.extensions.fipa</p>
 <p>The communicating skill now re-works on GAMA 1.5. Sample toy models are found in &quot;models/fipa&quot;.</p>
 <p>It is now possible to create a hexagon of with the given width and height (point) thanks to the operator <strong>hexagon({width, height})</strong></p>
@@ -59,13 +59,13 @@ An agent is created by line of the CSV file. It is also possible to read the dif
 <p>At last, it is now possible to define a hexagonal grid. To do so, the neighbors should is set to <strong>6</strong>. It is possible to use torus environment with hexagonal grid.</p>
 <pre><code class="hljs"><span class="hljs-class">grid <span class="hljs-title">cell</span> <span class="hljs-title">width</span>: 20 <span class="hljs-title">height</span>: 20 <span class="hljs-title">neighbors</span>: 6 <span class="hljs-title">torus</span>: <span class="hljs-title">true</span>;</span>
 </code></pre>
-<p><img src="../http://gama-platform.googlecode.com/files/imageHexGrid.png" alt="http://gama-platform.googlecode.com/files/imageHexGrid.png"></p>
+<p><img src="http://gama-platform.googlecode.com/files/imageHexGrid.png" alt="http://gama-platform.googlecode.com/files/imageHexGrid.png"></p>
 <p>Add <a href="http://en.wikipedia.org/wiki/HSL_and_HSV">HSB</a> color to be able to iterate through colors and use it to represent qualitative data.</p>
 <p>Example:</p>
 <p>The association of the orientation of agents is enhanced by mapping the orientation of the agent to a hue.</p>
 <pre><code class="hljs">color hsb_to_rgb ([heading/360,1.0,1.0]);
 </code></pre>
-<p>In the following example boids are represented by a triangle with the colors depending on their heading. <a href="../http://gama-platform.googlecode.com/files/Dynamic_Color_HSB.mov"><img src="http://gama-platform.googlecode.com/files/HSB_Color.png" alt=""></a></p>
+<p>In the following example boids are represented by a triangle with the colors depending on their heading. <a href="http://gama-platform.googlecode.com/files/Dynamic_Color_HSB.mov"><img src="http://gama-platform.googlecode.com/files/HSB_Color.png" alt=""></a></p>
 <p>Results: distribution of command-line version on multicore machine, integration with GAMA interface, visualisation of outputs.</p>
 <p>One statement have been added to facilitate the proposal of serious game on which user could interact through a map. It is now possible to catch event done on 2D display in order to do an action and to modify clicked agent attributes.</p>
 <h2><a class="anchor" aria-hidden="true" id="attributes"></a><a href="#attributes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Attributes</h2>
