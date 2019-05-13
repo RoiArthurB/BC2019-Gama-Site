@@ -147,10 +147,7 @@ class Index extends React.Component {
         /*  BUTTONS */
         .button { border-width: 2px;font-weight: bold; }
 
-        .fLeft > div {
-          float: left;
-        }
-        .fRight > div {
+        .fLeft,   .fRight  > div {
           float: right;
         }
         .fRight {
@@ -173,9 +170,12 @@ class Index extends React.Component {
             height: 100%;
             max-height: 250px;
           }
+          .fLeft,   .fRight {
+            padding: 0;
+          }
         }
 
-        @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+        @media only screen and (max-device-width: 736px) {
           .logoItem {
             display: none;
           }
@@ -188,6 +188,10 @@ class Index extends React.Component {
           }
           .container{
             flex-wrap: wrap;
+          }
+          .fLeft,   .fRight {
+            width: auto;
+            margin: 0 auto;
           }
         }
       `}} />
