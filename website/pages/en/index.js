@@ -64,7 +64,11 @@ class HomeSplash extends React.Component {
 
     const ImgSoftware = props => (
       <div className="pluginWrapper">
-        <img id="imgSoft" src={`${baseUrl}${siteConfig.frontPageImg}`} alt="GAMA-Platform Software" />
+
+        <a href={`${baseUrl}${siteConfig.frontPageImgLink}`} >
+          <img id="imgSoft" src={`${baseUrl}${siteConfig.frontPageImg}`} alt="GAMA-Platform Software" />
+        </a>
+
       </div>
     );
 
@@ -120,9 +124,7 @@ class Index extends React.Component {
 
         .homeSplashFade {
             height: 100vh;
-            /*background: linear-gradient(#121020,#21233e);*/
             position: relative;
-            /*overflow: hidden;*/
         }
         body { background-color: black; }
         .projectTitle {
