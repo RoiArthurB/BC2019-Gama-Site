@@ -64,7 +64,7 @@ class HomeSplash extends React.Component {
 
     const ImgSoftware = props => (
       <div className="pluginWrapper">
-        <img id="imgSoft" src={props.img_src} alt="GAMA-Platform Software" />
+        <img id="imgSoft" src={`${baseUrl}${siteConfig.frontPageImg}`} alt="GAMA-Platform Software" />
       </div>
     );
 
@@ -91,7 +91,7 @@ class HomeSplash extends React.Component {
               </PromoSection>
             </FlexItem>
           </FlexContainer>
-          <ImgSoftware img_src={`${baseUrl}img/GAMA_1.8_IS_OUT.mov.gif`} />
+          <ImgSoftware />
         </div>
       </SplashContainer>
     );

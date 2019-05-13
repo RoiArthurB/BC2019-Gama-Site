@@ -158,6 +158,7 @@ const siteConfig = {
   title: 'GAMA-Platform', // Title for your website.
   tagline: 'GAMA',
   frontPagePresentation: 'GAMA is a modeling and simulation development environment for building spatially explicit agent-based simulations.',
+  frontPageImg: 'img/GAMA_1.8_IS_OUT.mov.gif',
 
 
 	/*
