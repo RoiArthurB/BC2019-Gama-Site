@@ -1,2 +1,3 @@
 # Gama-Site
-[BOOTCAMP May 2019] Working repository for the new gama-platform website
+
+Go here => https://github.com/gama-platform/gama-platform.github.io/
